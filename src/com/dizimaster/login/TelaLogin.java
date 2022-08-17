@@ -77,7 +77,6 @@ public class TelaLogin {
 	 */
 	private void initialize() {
 		frmLogin = new JFrame();
-		frmLogin.setResizable(false);
 		frmLogin.getContentPane().setMaximumSize(new Dimension(0, 0));
 		frmLogin.getContentPane().setBackground(new Color(48, 133, 199));
 		frmLogin.getContentPane().setLayout(null);
@@ -94,7 +93,7 @@ public class TelaLogin {
 		txtUsuario.setBackground(new Color(224, 255, 255));
 		txtUsuario.setFont(new Font("Lucida Console", Font.PLAIN, 12));
 		txtUsuario.setToolTipText("Usuário");
-		txtUsuario.setBounds(10, 203, 150, 30);
+		txtUsuario.setBounds(10, 197, 150, 30);
 		panelLogin.add(txtUsuario);
 		txtUsuario.setColumns(10);
 		
@@ -104,14 +103,14 @@ public class TelaLogin {
 		lblUsuario.setAlignmentX(Component.CENTER_ALIGNMENT);
 		lblUsuario.setBorder(null);
 		lblUsuario.setFont(new Font("Lucida Console", Font.BOLD, 12));
-		lblUsuario.setBounds(10, 178, 150, 24);
+		lblUsuario.setBounds(10, 179, 150, 24);
 		panelLogin.add(lblUsuario);
 		
 		JLabel lblSenha = new JLabel("Senha:");
 		lblSenha.setForeground(new Color(0, 0, 128));
 		lblSenha.setAlignmentX(Component.CENTER_ALIGNMENT);
 		lblSenha.setFont(new Font("Lucida Console", Font.BOLD, 12));
-		lblSenha.setBounds(10, 244, 150, 24);
+		lblSenha.setBounds(10, 238, 150, 24);
 		panelLogin.add(lblSenha);
 		
 		txtSenha = new JPasswordField();
@@ -120,7 +119,7 @@ public class TelaLogin {
 		txtSenha.setFont(new Font("Lucida Console", Font.PLAIN, 12));
 		txtSenha.setToolTipText("Senha");
 		txtSenha.setColumns(10);
-		txtSenha.setBounds(10, 269, 150, 30);
+		txtSenha.setBounds(10, 258, 150, 30);
 		panelLogin.add(txtSenha);
 		
 		JButton btnEntrar = new JButton("ENTRAR");
@@ -187,7 +186,7 @@ public class TelaLogin {
 		});
 		lblEsqueciSenha.setFont(new Font("Lucida Console", Font.PLAIN, 10));
 		lblEsqueciSenha.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		lblEsqueciSenha.setBounds(10, 305, 150, 14);
+		lblEsqueciSenha.setBounds(10, 299, 150, 14);
 		panelLogin.add(lblEsqueciSenha);
 		
 		JLabel lblLogo = new JLabel("");
@@ -244,7 +243,7 @@ public class TelaLogin {
 		JLabel lblFundo = new JLabel("");
 		lblFundo.setBounds(0, 0, 634, 491);
 		frmLogin.getContentPane().add(lblFundo);
-		lblFundo.setIcon(new ImageIcon("C:\\Users\\pdroe\\Área de Trabalho\\P STUFF\\JavaProjects\\Dizimaster\\assets\\background.jpg"));
+		lblFundo.setIcon(new ImageIcon("C:\\Users\\pdroe\\Área de Trabalho\\P STUFF\\JavaProjects\\Dizimaster\\assets\\background-login.jpg"));
 		frmLogin.setBackground(Color.WHITE);
 		frmLogin.setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\pdroe\\Área de Trabalho\\P STUFF\\JavaProjects\\Dizimaster\\assets\\logo-2.png"));
 		frmLogin.setTitle("LOGIN - Dizimaster");
