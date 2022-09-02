@@ -5,18 +5,25 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
 import java.net.URL;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EtchedBorder;
+
+import com.dizimaster.sistema.Sistema;
+
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Desktop;
 import java.awt.Font;
+import java.awt.Image;
+
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
 import javax.swing.JButton;
@@ -24,7 +31,7 @@ import java.awt.Toolkit;
 
 public class TelaCadastro {
 
-	private JFrame frmCadastroDizimaster;
+	private JFrame frmCadastro;
 	private JTextField txtUsuario;
 	private JPasswordField txtSenha;
 	private JPasswordField passwordField_1;
@@ -38,7 +45,7 @@ public class TelaCadastro {
 			public void run() {
 				try {
 					TelaCadastro window = new TelaCadastro();
-					window.frmCadastroDizimaster.setVisible(true);
+					window.getFrmCadastro().setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -60,31 +67,36 @@ public class TelaCadastro {
 	        e.printStackTrace();
 	    }
 	}
+	/*
+	private Image getImage(String filename) {
+	    try {
+	        return ImageIO.read(getClass().getResourceAsStream(
+	                "/" + "background-login.jpg"));
+	    } catch (IOException e) {
+	        e.printStackTrace();
+	        return null;
+	    }
+	}
+	*/
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frmCadastroDizimaster = new JFrame();
-		frmCadastroDizimaster.setTitle("CADASTRO - Dizimaster");
-		frmCadastroDizimaster.setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\pdroe\\Área de Trabalho\\P STUFF\\JavaProjects\\Dizimaster\\assets\\logo-2.png"));
-		frmCadastroDizimaster.setResizable(false);
-		frmCadastroDizimaster.setBounds(100, 100, 650, 530);
-		frmCadastroDizimaster.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frmCadastroDizimaster.getContentPane().setLayout(null);
-		
-		JLabel lblDeopragLabs = new JLabel("® Deoprag Labs");
-		lblDeopragLabs.setForeground(Color.WHITE);
-		lblDeopragLabs.setFont(new Font("Arial", Font.BOLD, 8));
-		lblDeopragLabs.setBounds(10, 466, 66, 25);
-		frmCadastroDizimaster.getContentPane().add(lblDeopragLabs);
+		setFrmCadastro(new JFrame());
+		getFrmCadastro().setTitle("CADASTRO - Dizimaster");
+		getFrmCadastro().setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\pdroe\\OneDrive\\Área de Trabalho\\P Stuff\\Projects\\Dizimaster\\assets\\logo-2.png"));
+		getFrmCadastro().setResizable(false);
+		getFrmCadastro().setBounds(100, 100, 650, 530);
+		getFrmCadastro().setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		getFrmCadastro().getContentPane().setLayout(null);
 		
 		JPanel panelCadastro = new JPanel();
 		panelCadastro.setLayout(null);
 		panelCadastro.setBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(0, 120, 215), new Color(0, 191, 255)));
 		panelCadastro.setBackground(new Color(135, 206, 235));
 		panelCadastro.setBounds(414, 11, 210, 469);
-		frmCadastroDizimaster.getContentPane().add(panelCadastro);
+		getFrmCadastro().getContentPane().add(panelCadastro);
 		
 		JLabel lblUsuario = new JLabel("Usuário:");
 		lblUsuario.setForeground(new Color(0, 0, 128));
@@ -155,7 +167,7 @@ public class TelaCadastro {
 		JLabel lblLogo = new JLabel("");
 		lblLogo.setBounds(35, 11, 150, 150);
 		panelCadastro.add(lblLogo);
-		lblLogo.setIcon(new ImageIcon("C:\\Users\\pdroe\\Área de Trabalho\\P STUFF\\JavaProjects\\Dizimaster\\assets\\logo-3.png"));
+		lblLogo.setIcon(new ImageIcon("C:\\Users\\pdroe\\OneDrive\\Área de Trabalho\\P Stuff\\Projects\\Dizimaster\\assets\\logo-3.png"));
 		
 		lblLogo.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		
@@ -165,7 +177,7 @@ public class TelaCadastro {
 		btnEnviar.setFont(new Font("Lucida Console", Font.BOLD, 11));
 		btnEnviar.setBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(0, 120, 215), new Color(0, 191, 255)));
 		btnEnviar.setBackground(new Color(60, 122, 194));
-		btnEnviar.setBounds(10, 418, 90, 40);
+		btnEnviar.setBounds(110, 419, 90, 40);
 		btnEnviar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
@@ -183,7 +195,7 @@ public class TelaCadastro {
 		btnVoltar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (JOptionPane.showConfirmDialog(null, "Tem certeza que deseja voltar?", "Voltar?", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-					System.exit(0);
+					frmCadastro.dispose();
 				}
 			}
 		});
@@ -199,9 +211,9 @@ public class TelaCadastro {
 		});
 		btnVoltar.setForeground(Color.WHITE);
 		btnVoltar.setFont(new Font("Lucida Console", Font.BOLD, 11));
-		btnVoltar.setBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(161, 39, 49), new Color(219, 53, 67)));
+		btnVoltar.setBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(245, 54, 54), new Color(255, 84, 84)));
 		btnVoltar.setBackground(new Color(184, 44, 54));
-		btnVoltar.setBounds(110, 418, 90, 40);
+		btnVoltar.setBounds(10, 419, 90, 40);
 		panelCadastro.add(btnVoltar);
 		lblLogo.addMouseListener(new MouseAdapter() {
 			@Override
@@ -210,18 +222,38 @@ public class TelaCadastro {
 			}
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				lblLogo.setIcon(new ImageIcon("C:\\Users\\pdroe\\Área de Trabalho\\P STUFF\\JavaProjects\\Dizimaster\\assets\\logo-3-pressed.png"));
+				lblLogo.setIcon(new ImageIcon("C:\\Users\\pdroe\\OneDrive\\Área de Trabalho\\P STUFF\\Projects\\Dizimaster\\assets\\logo-3-pressed.png"));
 
 			}
 			public void mouseExited(MouseEvent e) {
-				lblLogo.setIcon(new ImageIcon("C:\\Users\\pdroe\\Área de Trabalho\\P STUFF\\JavaProjects\\Dizimaster\\assets\\logo-3.png"));
+				lblLogo.setIcon(new ImageIcon("C:\\Users\\pdroe\\OneDrive\\Área de Trabalho\\P STUFF\\Projects\\Dizimaster\\assets\\logo-3.png"));
 			}
 		});
 		
+		JLabel lblDeopragLabs = new JLabel("® Deoprag Labs");
+		lblDeopragLabs.setForeground(Color.WHITE);
+		lblDeopragLabs.setFont(new Font("Arial", Font.BOLD, 8));
+		lblDeopragLabs.setBounds(10, 466, 66, 25);
+		getFrmCadastro().getContentPane().add(lblDeopragLabs);
+		
 		JLabel lblFundo = new JLabel("");
 		lblFundo.setBackground(Color.CYAN);
-		lblFundo.setIcon(new ImageIcon("C:\\Users\\pdroe\\Área de Trabalho\\P STUFF\\JavaProjects\\Dizimaster\\assets\\background-cadastro.jpg"));
+		lblFundo.setIcon(new ImageIcon("C:\\Users\\pdroe\\OneDrive\\Área de Trabalho\\P Stuff\\Projects\\Dizimaster\\assets\\background-cadastro.jpg"));
 		lblFundo.setBounds(0, 0, 634, 491);
-		frmCadastroDizimaster.getContentPane().add(lblFundo);
+		getFrmCadastro().getContentPane().add(lblFundo);
+	}
+
+	/**
+	 * @return the frmCadastro
+	 */
+	public JFrame getFrmCadastro() {
+		return frmCadastro;
+	}
+
+	/**
+	 * @param frmCadastro the frmCadastro to set
+	 */
+	public void setFrmCadastro(JFrame frmCadastro) {
+		this.frmCadastro = frmCadastro;
 	}
 }

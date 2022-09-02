@@ -4,9 +4,9 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class Conexao {
+public class ConexaoDB {
 	
-	private static String path = "jdbc:mysql://localhost/db_dizimaster";
+	private static String path = "jdbc:mysql://localhost/dizimaster_db";
 	private static String user = "root";
 	private static String password = "";
 	

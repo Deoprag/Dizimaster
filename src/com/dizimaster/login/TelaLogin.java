@@ -12,7 +12,8 @@ import javax.swing.JOptionPane;
 import javax.swing.ImageIcon;
 import javax.swing.border.EtchedBorder;
 
-import com.dizimaster.conexao.Conexao;
+import com.dizimaster.conexao.ConexaoDB;
+import com.dizimaster.sistema.Sistema;
 
 import javax.swing.JTextField;
 import java.awt.Font;
@@ -77,6 +78,7 @@ public class TelaLogin {
 	 */
 	private void initialize() {
 		frmLogin = new JFrame();
+		frmLogin.setResizable(false);
 		frmLogin.getContentPane().setMaximumSize(new Dimension(0, 0));
 		frmLogin.getContentPane().setBackground(new Color(48, 133, 199));
 		frmLogin.getContentPane().setLayout(null);
@@ -127,8 +129,8 @@ public class TelaLogin {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					
-					Connection con = Conexao.conecta();
-					String sql = "select *from dados_Usuarios where usuario = ? and senha = ?";
+					Connection con = ConexaoDB.conecta();
+					String sql = "select *from cadastros where usuario = ? and senha = ?";
 					PreparedStatement stmt = con.prepareStatement(sql);
 					
 					stmt.setString(1, txtUsuario.getText());
@@ -137,9 +139,9 @@ public class TelaLogin {
 					ResultSet rs = stmt.executeQuery();
 					
 					if(rs.next()) {
-						// TelaCadastro exibir = new TelaCadastro();		Cria novo objeto TelaCadastro
-						// exibir.setVisible(true);							Exibe a TelaCadastro
-						JOptionPane.showMessageDialog(null, "Usuário logado!");
+						Sistema window = new Sistema();
+						window.getFrmDizimasterSistema().setVisible(true);
+						frmLogin.dispose();
 					} else {
 						txtUsuario.setText(null);
 						txtSenha.setText(null);
@@ -173,7 +175,7 @@ public class TelaLogin {
 		panelLogin.add(btnEntrar);
 		
 		JLabel lblEsqueciSenha = new JLabel("Esqueci minha senha.");
-		lblEsqueciSenha.setForeground(new Color(0, 0, 128));
+		lblEsqueciSenha.setForeground(new Color(69, 69, 69));
 		lblEsqueciSenha.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
@@ -181,7 +183,7 @@ public class TelaLogin {
 			}
 			@Override
 			public void mouseExited(MouseEvent e) {
-				lblEsqueciSenha.setForeground(new Color(0,0,128));
+				lblEsqueciSenha.setForeground(new Color(69, 69, 69));
 			}
 		});
 		lblEsqueciSenha.setFont(new Font("Lucida Console", Font.PLAIN, 10));
@@ -198,16 +200,16 @@ public class TelaLogin {
 			}
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				lblLogo.setIcon(new ImageIcon("C:\\Users\\pdroe\\Área de Trabalho\\P STUFF\\JavaProjects\\Dizimaster\\assets\\logo-3-pressed.png"));
+				lblLogo.setIcon(new ImageIcon("C:\\Users\\pdroe\\OneDrive\\Área de Trabalho\\P STUFF\\Projects\\Dizimaster\\assets\\logo-3-pressed.png"));
 
 			}
-			public void mouseExited(MouseEvent e) {
-				lblLogo.setIcon(new ImageIcon("C:\\Users\\pdroe\\Área de Trabalho\\P STUFF\\JavaProjects\\Dizimaster\\assets\\logo-3.png"));
+				public void mouseExited(MouseEvent e) {
+				lblLogo.setIcon(new ImageIcon("C:\\Users\\pdroe\\OneDrive\\Área de Trabalho\\P Stuff\\Projects\\Dizimaster\\assets\\logo-3.png"));
 			}
 		});
 		lblLogo.setBounds(10, 11, 150, 150);
 		panelLogin.add(lblLogo);
-		lblLogo.setIcon(new ImageIcon("C:\\Users\\pdroe\\Área de Trabalho\\P STUFF\\JavaProjects\\Dizimaster\\assets\\logo-3.png"));
+		lblLogo.setIcon(new ImageIcon("C:\\Users\\pdroe\\OneDrive\\Área de Trabalho\\P Stuff\\Projects\\Dizimaster\\assets\\logo-3.png"));
 		
 		JButton btnSair = new JButton("SAIR");
 		btnSair.addActionListener(new ActionListener() {
@@ -230,7 +232,7 @@ public class TelaLogin {
 			}
 		});
 		btnSair.setFont(new Font("Lucida Console", Font.BOLD, 11));
-		btnSair.setBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(161, 39, 49), new Color(219, 53, 67)));
+		btnSair.setBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(245, 54, 54), new Color(255, 84, 84)));
 		btnSair.setBackground(new Color(184, 44, 54));
 		btnSair.setBounds(40, 405, 90, 40);
 		panelLogin.add(btnSair);
@@ -243,9 +245,9 @@ public class TelaLogin {
 		JLabel lblFundo = new JLabel("");
 		lblFundo.setBounds(0, 0, 634, 491);
 		frmLogin.getContentPane().add(lblFundo);
-		lblFundo.setIcon(new ImageIcon("C:\\Users\\pdroe\\Área de Trabalho\\P STUFF\\JavaProjects\\Dizimaster\\assets\\background-login.jpg"));
+		lblFundo.setIcon(new ImageIcon("C:\\Users\\pdroe\\OneDrive\\Área de Trabalho\\P Stuff\\Projects\\Dizimaster\\assets\\background-login.jpg"));
 		frmLogin.setBackground(Color.WHITE);
-		frmLogin.setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\pdroe\\Área de Trabalho\\P STUFF\\JavaProjects\\Dizimaster\\assets\\logo-2.png"));
+		frmLogin.setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\pdroe\\OneDrive\\Área de Trabalho\\P Stuff\\Projects\\Dizimaster\\assets\\logo-2.png"));
 		frmLogin.setTitle("LOGIN - Dizimaster");
 		frmLogin.setBounds(100, 100, 650, 530);
 		frmLogin.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
