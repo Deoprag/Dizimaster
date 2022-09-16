@@ -28,14 +28,16 @@ import javax.swing.JTextField;
 import javax.swing.JPasswordField;
 import javax.swing.JButton;
 import java.awt.Toolkit;
+import java.awt.Window.Type;
 
 public class TelaCadastro {
 
 	private JFrame frmCadastro;
-	private JTextField txtUsuario;
-	private JPasswordField txtSenha;
-	private JPasswordField passwordField_1;
 	private JTextField txtEmail;
+	private JTextField txtConfEmail;
+	private JTextField txtFuncionario;
+	private JTextField txtCpf;
+	private JTextField txtCelular;
 
 	/**
 	 * Launch the application.
@@ -84,10 +86,10 @@ public class TelaCadastro {
 	 */
 	private void initialize() {
 		setFrmCadastro(new JFrame());
-		getFrmCadastro().setTitle("CADASTRO - Dizimaster");
+		getFrmCadastro().setTitle("CADASTRO DE FUNCIONARIO - Dizimaster");
 		getFrmCadastro().setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\pdroe\\OneDrive\\Área de Trabalho\\P Stuff\\Projects\\Dizimaster\\assets\\logo-2.png"));
 		getFrmCadastro().setResizable(false);
-		getFrmCadastro().setBounds(100, 100, 650, 530);
+		getFrmCadastro().setBounds(100, 100, 650, 650);
 		getFrmCadastro().setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		getFrmCadastro().getContentPane().setLayout(null);
 		
@@ -95,89 +97,43 @@ public class TelaCadastro {
 		panelCadastro.setLayout(null);
 		panelCadastro.setBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(0, 120, 215), new Color(0, 191, 255)));
 		panelCadastro.setBackground(new Color(135, 206, 235));
-		panelCadastro.setBounds(414, 11, 210, 469);
+		panelCadastro.setBounds(193, 21, 250, 570);
 		getFrmCadastro().getContentPane().add(panelCadastro);
 		
-		JLabel lblUsuario = new JLabel("Usuário:");
-		lblUsuario.setForeground(new Color(0, 0, 128));
-		lblUsuario.setFont(new Font("Lucida Console", Font.BOLD, 12));
-		lblUsuario.setBorder(null);
-		lblUsuario.setBackground(Color.WHITE);
-		lblUsuario.setAlignmentX(0.5f);
-		lblUsuario.setBounds(30, 172, 150, 24);
-		panelCadastro.add(lblUsuario);
-		
-		txtUsuario = new JTextField();
-		txtUsuario.setToolTipText("Usuário");
-		txtUsuario.setFont(new Font("Lucida Console", Font.PLAIN, 12));
-		txtUsuario.setColumns(10);
-		txtUsuario.setBorder(new EtchedBorder(EtchedBorder.RAISED, new Color(0, 120, 215), new Color(0, 191, 255)));
-		txtUsuario.setBackground(new Color(224, 255, 255));
-		txtUsuario.setBounds(30, 190, 150, 30);
-		panelCadastro.add(txtUsuario);
-		
-		JLabel lblSenha = new JLabel("Senha:");
-		lblSenha.setForeground(new Color(0, 0, 128));
-		lblSenha.setFont(new Font("Lucida Console", Font.BOLD, 12));
-		lblSenha.setAlignmentX(0.5f);
-		lblSenha.setBounds(30, 231, 150, 24);
-		panelCadastro.add(lblSenha);
-		
-		txtSenha = new JPasswordField();
-		txtSenha.setToolTipText("Senha");
-		txtSenha.setFont(new Font("Lucida Console", Font.PLAIN, 12));
-		txtSenha.setColumns(10);
-		txtSenha.setBorder(new EtchedBorder(EtchedBorder.RAISED, new Color(0, 120, 215), new Color(0, 191, 255)));
-		txtSenha.setBackground(new Color(224, 255, 255));
-		txtSenha.setBounds(30, 251, 150, 30);
-		panelCadastro.add(txtSenha);
-		
-		JLabel txtConfSenha = new JLabel("Confirme a Senha:");
-		txtConfSenha.setForeground(new Color(0, 0, 128));
-		txtConfSenha.setFont(new Font("Lucida Console", Font.BOLD, 12));
-		txtConfSenha.setAlignmentX(0.5f);
-		txtConfSenha.setBounds(30, 292, 150, 24);
-		panelCadastro.add(txtConfSenha);
-		
-		passwordField_1 = new JPasswordField();
-		passwordField_1.setToolTipText("Senha");
-		passwordField_1.setFont(new Font("Lucida Console", Font.PLAIN, 12));
-		passwordField_1.setColumns(10);
-		passwordField_1.setBorder(new EtchedBorder(EtchedBorder.RAISED, new Color(0, 120, 215), new Color(0, 191, 255)));
-		passwordField_1.setBackground(new Color(224, 255, 255));
-		passwordField_1.setBounds(30, 312, 150, 30);
-		panelCadastro.add(passwordField_1);
-		
-		JLabel lblEmail = new JLabel("Endereço de Email:");
+		JLabel lblEmail = new JLabel("Endereço de Email");
 		lblEmail.setForeground(new Color(0, 0, 128));
 		lblEmail.setFont(new Font("Lucida Console", Font.BOLD, 12));
 		lblEmail.setAlignmentX(0.5f);
-		lblEmail.setBounds(30, 353, 150, 24);
+		lblEmail.setBounds(50, 340, 150, 24);
 		panelCadastro.add(lblEmail);
 		
 		txtEmail = new JTextField();
-		txtEmail.setToolTipText("Usuário");
+		txtEmail.setToolTipText("Email");
 		txtEmail.setFont(new Font("Lucida Console", Font.PLAIN, 12));
 		txtEmail.setColumns(10);
 		txtEmail.setBorder(new EtchedBorder(EtchedBorder.RAISED, new Color(0, 120, 215), new Color(0, 191, 255)));
 		txtEmail.setBackground(new Color(224, 255, 255));
-		txtEmail.setBounds(30, 373, 150, 30);
+		txtEmail.setBounds(50, 360, 150, 30);
 		panelCadastro.add(txtEmail);
 		
 		JLabel lblLogo = new JLabel("");
-		lblLogo.setBounds(35, 11, 150, 150);
+		lblLogo.setBounds(50, 20, 150, 150);
 		panelCadastro.add(lblLogo);
 		lblLogo.setIcon(new ImageIcon("C:\\Users\\pdroe\\OneDrive\\Área de Trabalho\\P Stuff\\Projects\\Dizimaster\\assets\\logo-3.png"));
 		
 		lblLogo.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		
 		JButton btnEnviar = new JButton("ENVIAR");
+		btnEnviar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		btnEnviar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnEnviar.setForeground(Color.WHITE);
 		btnEnviar.setFont(new Font("Lucida Console", Font.BOLD, 11));
 		btnEnviar.setBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(0, 120, 215), new Color(0, 191, 255)));
 		btnEnviar.setBackground(new Color(60, 122, 194));
-		btnEnviar.setBounds(110, 419, 90, 40);
+		btnEnviar.setBounds(136, 500, 90, 40);
 		btnEnviar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
@@ -213,8 +169,78 @@ public class TelaCadastro {
 		btnVoltar.setFont(new Font("Lucida Console", Font.BOLD, 11));
 		btnVoltar.setBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(245, 54, 54), new Color(255, 84, 84)));
 		btnVoltar.setBackground(new Color(184, 44, 54));
-		btnVoltar.setBounds(10, 419, 90, 40);
+		btnVoltar.setBounds(23, 500, 90, 40);
 		panelCadastro.add(btnVoltar);
+		
+		JLabel lblConfEmail = new JLabel("Confirmação de Email");
+		lblConfEmail.setForeground(new Color(0, 0, 128));
+		lblConfEmail.setFont(new Font("Lucida Console", Font.BOLD, 12));
+		lblConfEmail.setAlignmentX(0.5f);
+		lblConfEmail.setBounds(50, 390, 170, 24);
+		panelCadastro.add(lblConfEmail);
+		
+		txtConfEmail = new JTextField();
+		txtConfEmail.setToolTipText("Email");
+		txtConfEmail.setFont(new Font("Lucida Console", Font.PLAIN, 12));
+		txtConfEmail.setColumns(10);
+		txtConfEmail.setBorder(new EtchedBorder(EtchedBorder.RAISED, new Color(0, 120, 215), new Color(0, 191, 255)));
+		txtConfEmail.setBackground(new Color(224, 255, 255));
+		txtConfEmail.setBounds(50, 410, 150, 30);
+		panelCadastro.add(txtConfEmail);
+		
+		JLabel lblFuncionario = new JLabel("Nome do Funcionário");
+		lblFuncionario.setForeground(new Color(0, 0, 128));
+		lblFuncionario.setFont(new Font("Lucida Console", Font.BOLD, 12));
+		lblFuncionario.setBorder(null);
+		lblFuncionario.setBackground(Color.WHITE);
+		lblFuncionario.setAlignmentX(0.5f);
+		lblFuncionario.setBounds(50, 190, 150, 24);
+		panelCadastro.add(lblFuncionario);
+		
+		txtFuncionario = new JTextField();
+		txtFuncionario.setToolTipText("Usuário");
+		txtFuncionario.setFont(new Font("Lucida Console", Font.PLAIN, 12));
+		txtFuncionario.setColumns(10);
+		txtFuncionario.setBorder(new EtchedBorder(EtchedBorder.RAISED, new Color(0, 120, 215), new Color(0, 191, 255)));
+		txtFuncionario.setBackground(new Color(224, 255, 255));
+		txtFuncionario.setBounds(50, 210, 150, 30);
+		panelCadastro.add(txtFuncionario);
+		
+		JLabel lblCpf = new JLabel("CPF do Funcionário");
+		lblCpf.setForeground(new Color(0, 0, 128));
+		lblCpf.setFont(new Font("Lucida Console", Font.BOLD, 12));
+		lblCpf.setBorder(null);
+		lblCpf.setBackground(Color.WHITE);
+		lblCpf.setAlignmentX(0.5f);
+		lblCpf.setBounds(50, 240, 150, 24);
+		panelCadastro.add(lblCpf);
+		
+		txtCpf = new JTextField();
+		txtCpf.setToolTipText("Usuário");
+		txtCpf.setFont(new Font("Lucida Console", Font.PLAIN, 12));
+		txtCpf.setColumns(10);
+		txtCpf.setBorder(new EtchedBorder(EtchedBorder.RAISED, new Color(0, 120, 215), new Color(0, 191, 255)));
+		txtCpf.setBackground(new Color(224, 255, 255));
+		txtCpf.setBounds(50, 260, 150, 30);
+		panelCadastro.add(txtCpf);
+		
+		JLabel lblCelular = new JLabel("Número de Celular");
+		lblCelular.setForeground(new Color(0, 0, 128));
+		lblCelular.setFont(new Font("Lucida Console", Font.BOLD, 12));
+		lblCelular.setBorder(null);
+		lblCelular.setBackground(Color.WHITE);
+		lblCelular.setAlignmentX(0.5f);
+		lblCelular.setBounds(50, 290, 150, 24);
+		panelCadastro.add(lblCelular);
+		
+		txtCelular = new JTextField();
+		txtCelular.setToolTipText("Usuário");
+		txtCelular.setFont(new Font("Lucida Console", Font.PLAIN, 12));
+		txtCelular.setColumns(10);
+		txtCelular.setBorder(new EtchedBorder(EtchedBorder.RAISED, new Color(0, 120, 215), new Color(0, 191, 255)));
+		txtCelular.setBackground(new Color(224, 255, 255));
+		txtCelular.setBounds(50, 310, 150, 30);
+		panelCadastro.add(txtCelular);
 		lblLogo.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -233,14 +259,13 @@ public class TelaCadastro {
 		JLabel lblDeopragLabs = new JLabel("® Deoprag Labs");
 		lblDeopragLabs.setForeground(Color.WHITE);
 		lblDeopragLabs.setFont(new Font("Arial", Font.BOLD, 8));
-		lblDeopragLabs.setBounds(10, 466, 66, 25);
+		lblDeopragLabs.setBounds(10, 585, 66, 25);
 		getFrmCadastro().getContentPane().add(lblDeopragLabs);
 		
-		JLabel lblFundo = new JLabel("");
-		lblFundo.setBackground(Color.CYAN);
-		lblFundo.setIcon(new ImageIcon("C:\\Users\\pdroe\\OneDrive\\Área de Trabalho\\P Stuff\\Projects\\Dizimaster\\assets\\background-cadastro.jpg"));
-		lblFundo.setBounds(0, 0, 634, 491);
-		getFrmCadastro().getContentPane().add(lblFundo);
+		JLabel lblBackground = new JLabel("");
+		lblBackground.setIcon(new ImageIcon("C:\\Users\\pdroe\\OneDrive\\Área de Trabalho\\P Stuff\\Projects\\Dizimaster\\assets\\background-cadastro.jpg"));
+		lblBackground.setBounds(0, -15, 636, 606);
+		frmCadastro.getContentPane().add(lblBackground);
 	}
 
 	/**

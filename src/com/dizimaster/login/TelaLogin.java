@@ -143,7 +143,6 @@ public class TelaLogin {
 						window.getFrmDizimasterSistema().setVisible(true);
 						frmLogin.dispose();
 					} else {
-						txtUsuario.setText(null);
 						txtSenha.setText(null);
 						JOptionPane.showMessageDialog(null, "Usuário e/ou senha incorretos!");
 					}
@@ -153,6 +152,7 @@ public class TelaLogin {
 					
 				} catch (SQLException e1) {
 					e1.printStackTrace();
+					JOptionPane.showMessageDialog(null, "Não foi possível se conectar com o banco de dados!");
 				}
 			}
 		});
