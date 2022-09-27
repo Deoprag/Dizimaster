@@ -1,5 +1,7 @@
 package com.dizimaster.model;
 
+import java.time.LocalDate;
+
 public class Funcionario {
 	private int id;
 	private float salario;
@@ -8,14 +10,11 @@ public class Funcionario {
 	private String celular;
 	private String email;
 	private String senha;
-	private String dataNasc;
-	private String cidade;
-	private String bairro;
-	private String rua;
-	private int numero;
+	private LocalDate nascimento;
+	// ENDEREÇO - ADICIONAR A CLASSE PESSOAENDERECO AO PROGRAMA
 	private boolean dizimista;
 	
-	public Funcionario(int id, float salario, String cpf, String nome, String celular, String email, boolean dizimista) {
+	public Funcionario(int id, float salario, String cpf, String nome, String celular, String email, LocalDate nascimento, boolean dizimista) {
 		this.id = id;
 		this.salario = salario;
 		this.cpf = cpf;
@@ -23,6 +22,7 @@ public class Funcionario {
 		this.celular = celular;
 		this.email = email;
 		this.senha = "diz@2022";
+		this.nascimento = nascimento;
 		this.dizimista = dizimista;
 	}
 	
@@ -82,6 +82,14 @@ public class Funcionario {
 		this.salario = salario;
 	}
 	
+	public LocalDate getNascimento() {
+		return nascimento;
+	}
+
+	public void setNascimento(LocalDate nascimento) {
+		this.nascimento = nascimento;
+	}
+
 	// DIZIMISTA
 	public boolean isDizimista() {
 		return dizimista;

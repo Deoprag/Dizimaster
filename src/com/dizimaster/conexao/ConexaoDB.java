@@ -14,7 +14,7 @@ public class ConexaoDB {
 		
 		try {
 			
-			Class.forName("com.mysql.jdbc.Driver");
+			Class.forName("com.mysql.cj.jdbc.Driver");
 			return DriverManager.getConnection(path, user, password);
 			
 		} catch (ClassNotFoundException e) {

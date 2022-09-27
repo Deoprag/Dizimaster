@@ -35,8 +35,8 @@ public class TelaCadastro {
 	private JFrame frmCadastro;
 	private JTextField txtEmail;
 	private JTextField txtConfEmail;
-	private JTextField txtFuncionario;
-	private JTextField txtCpf;
+	private JTextField txtCpf1;
+	private JTextField txtNomeFunc;
 	private JTextField txtCelular;
 
 	/**
@@ -97,14 +97,14 @@ public class TelaCadastro {
 		panelCadastro.setLayout(null);
 		panelCadastro.setBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(0, 120, 215), new Color(0, 191, 255)));
 		panelCadastro.setBackground(new Color(135, 206, 235));
-		panelCadastro.setBounds(193, 21, 250, 570);
+		panelCadastro.setBounds(143, 21, 350, 570);
 		getFrmCadastro().getContentPane().add(panelCadastro);
 		
 		JLabel lblEmail = new JLabel("Endereço de Email");
 		lblEmail.setForeground(new Color(0, 0, 128));
-		lblEmail.setFont(new Font("Lucida Console", Font.BOLD, 12));
+		lblEmail.setFont(new Font("Lucida Console", Font.BOLD, 11));
 		lblEmail.setAlignmentX(0.5f);
-		lblEmail.setBounds(50, 340, 150, 24);
+		lblEmail.setBounds(16, 340, 150, 24);
 		panelCadastro.add(lblEmail);
 		
 		txtEmail = new JTextField();
@@ -113,11 +113,11 @@ public class TelaCadastro {
 		txtEmail.setColumns(10);
 		txtEmail.setBorder(new EtchedBorder(EtchedBorder.RAISED, new Color(0, 120, 215), new Color(0, 191, 255)));
 		txtEmail.setBackground(new Color(224, 255, 255));
-		txtEmail.setBounds(50, 360, 150, 30);
+		txtEmail.setBounds(16, 360, 150, 30);
 		panelCadastro.add(txtEmail);
 		
 		JLabel lblLogo = new JLabel("");
-		lblLogo.setBounds(50, 20, 150, 150);
+		lblLogo.setBounds(100, 20, 150, 150);
 		panelCadastro.add(lblLogo);
 		lblLogo.setIcon(new ImageIcon("C:\\Users\\pdroe\\OneDrive\\Área de Trabalho\\P Stuff\\Projects\\Dizimaster\\assets\\logo-3.png"));
 		
@@ -133,7 +133,7 @@ public class TelaCadastro {
 		btnEnviar.setFont(new Font("Lucida Console", Font.BOLD, 11));
 		btnEnviar.setBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(0, 120, 215), new Color(0, 191, 255)));
 		btnEnviar.setBackground(new Color(60, 122, 194));
-		btnEnviar.setBounds(136, 500, 90, 40);
+		btnEnviar.setBounds(202, 500, 90, 40);
 		btnEnviar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
@@ -169,14 +169,14 @@ public class TelaCadastro {
 		btnVoltar.setFont(new Font("Lucida Console", Font.BOLD, 11));
 		btnVoltar.setBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(245, 54, 54), new Color(255, 84, 84)));
 		btnVoltar.setBackground(new Color(184, 44, 54));
-		btnVoltar.setBounds(23, 500, 90, 40);
+		btnVoltar.setBounds(56, 500, 90, 40);
 		panelCadastro.add(btnVoltar);
 		
 		JLabel lblConfEmail = new JLabel("Confirmação de Email");
 		lblConfEmail.setForeground(new Color(0, 0, 128));
-		lblConfEmail.setFont(new Font("Lucida Console", Font.BOLD, 12));
+		lblConfEmail.setFont(new Font("Lucida Console", Font.BOLD, 11));
 		lblConfEmail.setAlignmentX(0.5f);
-		lblConfEmail.setBounds(50, 390, 170, 24);
+		lblConfEmail.setBounds(182, 340, 150, 24);
 		panelCadastro.add(lblConfEmail);
 		
 		txtConfEmail = new JTextField();
@@ -185,52 +185,52 @@ public class TelaCadastro {
 		txtConfEmail.setColumns(10);
 		txtConfEmail.setBorder(new EtchedBorder(EtchedBorder.RAISED, new Color(0, 120, 215), new Color(0, 191, 255)));
 		txtConfEmail.setBackground(new Color(224, 255, 255));
-		txtConfEmail.setBounds(50, 410, 150, 30);
+		txtConfEmail.setBounds(182, 360, 150, 30);
 		panelCadastro.add(txtConfEmail);
 		
-		JLabel lblFuncionario = new JLabel("Nome do Funcionário");
-		lblFuncionario.setForeground(new Color(0, 0, 128));
-		lblFuncionario.setFont(new Font("Lucida Console", Font.BOLD, 12));
-		lblFuncionario.setBorder(null);
-		lblFuncionario.setBackground(Color.WHITE);
-		lblFuncionario.setAlignmentX(0.5f);
-		lblFuncionario.setBounds(50, 190, 150, 24);
-		panelCadastro.add(lblFuncionario);
-		
-		txtFuncionario = new JTextField();
-		txtFuncionario.setToolTipText("Usuário");
-		txtFuncionario.setFont(new Font("Lucida Console", Font.PLAIN, 12));
-		txtFuncionario.setColumns(10);
-		txtFuncionario.setBorder(new EtchedBorder(EtchedBorder.RAISED, new Color(0, 120, 215), new Color(0, 191, 255)));
-		txtFuncionario.setBackground(new Color(224, 255, 255));
-		txtFuncionario.setBounds(50, 210, 150, 30);
-		panelCadastro.add(txtFuncionario);
-		
-		JLabel lblCpf = new JLabel("CPF do Funcionário");
+		JLabel lblCpf = new JLabel("CPF");
 		lblCpf.setForeground(new Color(0, 0, 128));
-		lblCpf.setFont(new Font("Lucida Console", Font.BOLD, 12));
+		lblCpf.setFont(new Font("Lucida Console", Font.BOLD, 11));
 		lblCpf.setBorder(null);
 		lblCpf.setBackground(Color.WHITE);
 		lblCpf.setAlignmentX(0.5f);
-		lblCpf.setBounds(50, 240, 150, 24);
+		lblCpf.setBounds(16, 190, 150, 24);
 		panelCadastro.add(lblCpf);
 		
-		txtCpf = new JTextField();
-		txtCpf.setToolTipText("Usuário");
-		txtCpf.setFont(new Font("Lucida Console", Font.PLAIN, 12));
-		txtCpf.setColumns(10);
-		txtCpf.setBorder(new EtchedBorder(EtchedBorder.RAISED, new Color(0, 120, 215), new Color(0, 191, 255)));
-		txtCpf.setBackground(new Color(224, 255, 255));
-		txtCpf.setBounds(50, 260, 150, 30);
-		panelCadastro.add(txtCpf);
+		txtCpf1 = new JTextField();
+		txtCpf1.setToolTipText("Usuário");
+		txtCpf1.setFont(new Font("Lucida Console", Font.PLAIN, 12));
+		txtCpf1.setColumns(10);
+		txtCpf1.setBorder(new EtchedBorder(EtchedBorder.RAISED, new Color(0, 120, 215), new Color(0, 191, 255)));
+		txtCpf1.setBackground(new Color(224, 255, 255));
+		txtCpf1.setBounds(16, 210, 150, 30);
+		panelCadastro.add(txtCpf1);
+		
+		JLabel lblNomeFunc = new JLabel("Nome");
+		lblNomeFunc.setForeground(new Color(0, 0, 128));
+		lblNomeFunc.setFont(new Font("Lucida Console", Font.BOLD, 11));
+		lblNomeFunc.setBorder(null);
+		lblNomeFunc.setBackground(Color.WHITE);
+		lblNomeFunc.setAlignmentX(0.5f);
+		lblNomeFunc.setBounds(182, 190, 150, 24);
+		panelCadastro.add(lblNomeFunc);
+		
+		txtNomeFunc = new JTextField();
+		txtNomeFunc.setToolTipText("Usuário");
+		txtNomeFunc.setFont(new Font("Lucida Console", Font.PLAIN, 12));
+		txtNomeFunc.setColumns(10);
+		txtNomeFunc.setBorder(new EtchedBorder(EtchedBorder.RAISED, new Color(0, 120, 215), new Color(0, 191, 255)));
+		txtNomeFunc.setBackground(new Color(224, 255, 255));
+		txtNomeFunc.setBounds(182, 210, 150, 30);
+		panelCadastro.add(txtNomeFunc);
 		
 		JLabel lblCelular = new JLabel("Número de Celular");
 		lblCelular.setForeground(new Color(0, 0, 128));
-		lblCelular.setFont(new Font("Lucida Console", Font.BOLD, 12));
+		lblCelular.setFont(new Font("Lucida Console", Font.BOLD, 11));
 		lblCelular.setBorder(null);
 		lblCelular.setBackground(Color.WHITE);
 		lblCelular.setAlignmentX(0.5f);
-		lblCelular.setBounds(50, 290, 150, 24);
+		lblCelular.setBounds(16, 240, 150, 24);
 		panelCadastro.add(lblCelular);
 		
 		txtCelular = new JTextField();
@@ -239,7 +239,7 @@ public class TelaCadastro {
 		txtCelular.setColumns(10);
 		txtCelular.setBorder(new EtchedBorder(EtchedBorder.RAISED, new Color(0, 120, 215), new Color(0, 191, 255)));
 		txtCelular.setBackground(new Color(224, 255, 255));
-		txtCelular.setBounds(50, 310, 150, 30);
+		txtCelular.setBounds(16, 260, 150, 30);
 		panelCadastro.add(txtCelular);
 		lblLogo.addMouseListener(new MouseAdapter() {
 			@Override

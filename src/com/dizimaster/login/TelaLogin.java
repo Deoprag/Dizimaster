@@ -85,43 +85,43 @@ public class TelaLogin {
 		
 		JPanel panelLogin = new JPanel();
 		panelLogin.setBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(0, 120, 215), new Color(0, 191, 255)));
-		panelLogin.setBackground(new Color(135, 206, 235));
-		panelLogin.setBounds(454, 11, 170, 469);
+		panelLogin.setBackground(new Color(30, 144, 255));
+		panelLogin.setBounds(0, -9, 230, 424);
 		frmLogin.getContentPane().add(panelLogin);
 		panelLogin.setLayout(null);
 		
 		txtUsuario = new JTextField();
-		txtUsuario.setBorder(new EtchedBorder(EtchedBorder.RAISED, new Color(0, 120, 215), new Color(0, 191, 255)));
-		txtUsuario.setBackground(new Color(224, 255, 255));
+		txtUsuario.setBorder(new EtchedBorder(EtchedBorder.RAISED, new Color(102, 51, 0), new Color(204, 153, 51)));
+		txtUsuario.setBackground(new Color(254, 213, 150));
 		txtUsuario.setFont(new Font("Lucida Console", Font.PLAIN, 12));
 		txtUsuario.setToolTipText("Usuário");
-		txtUsuario.setBounds(10, 197, 150, 30);
+		txtUsuario.setBounds(40, 220, 150, 30);
 		panelLogin.add(txtUsuario);
 		txtUsuario.setColumns(10);
 		
 		JLabel lblUsuario = new JLabel("Usuário:");
-		lblUsuario.setForeground(new Color(0, 0, 128));
+		lblUsuario.setForeground(Color.WHITE);
 		lblUsuario.setBackground(Color.WHITE);
 		lblUsuario.setAlignmentX(Component.CENTER_ALIGNMENT);
 		lblUsuario.setBorder(null);
 		lblUsuario.setFont(new Font("Lucida Console", Font.BOLD, 12));
-		lblUsuario.setBounds(10, 179, 150, 24);
+		lblUsuario.setBounds(40, 200, 150, 24);
 		panelLogin.add(lblUsuario);
 		
 		JLabel lblSenha = new JLabel("Senha:");
-		lblSenha.setForeground(new Color(0, 0, 128));
+		lblSenha.setForeground(Color.WHITE);
 		lblSenha.setAlignmentX(Component.CENTER_ALIGNMENT);
 		lblSenha.setFont(new Font("Lucida Console", Font.BOLD, 12));
-		lblSenha.setBounds(10, 238, 150, 24);
+		lblSenha.setBounds(40, 250, 150, 24);
 		panelLogin.add(lblSenha);
 		
 		txtSenha = new JPasswordField();
-		txtSenha.setBorder(new EtchedBorder(EtchedBorder.RAISED, new Color(0, 120, 215), new Color(0, 191, 255)));
-		txtSenha.setBackground(new Color(224, 255, 255));
+		txtSenha.setBorder(new EtchedBorder(EtchedBorder.RAISED, new Color(102, 51, 0), new Color(204, 153, 51)));
+		txtSenha.setBackground(new Color(254, 213, 150));
 		txtSenha.setFont(new Font("Lucida Console", Font.PLAIN, 12));
 		txtSenha.setToolTipText("Senha");
 		txtSenha.setColumns(10);
-		txtSenha.setBounds(10, 258, 150, 30);
+		txtSenha.setBounds(40, 270, 150, 30);
 		panelLogin.add(txtSenha);
 		
 		JButton btnEntrar = new JButton("ENTRAR");
@@ -171,45 +171,29 @@ public class TelaLogin {
 		btnEntrar.setForeground(SystemColor.text);
 		btnEntrar.setBackground(new Color(60, 122, 194));
 		btnEntrar.setFont(new Font("Lucida Console", Font.BOLD, 11));
-		btnEntrar.setBounds(40, 345, 90, 40);
+		btnEntrar.setBounds(122, 345, 90, 40);
 		panelLogin.add(btnEntrar);
 		
 		JLabel lblEsqueciSenha = new JLabel("Esqueci minha senha.");
-		lblEsqueciSenha.setForeground(new Color(69, 69, 69));
+		lblEsqueciSenha.setForeground(Color.LIGHT_GRAY);
 		lblEsqueciSenha.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				lblEsqueciSenha.setForeground(new Color(0, 120, 215));
+				lblEsqueciSenha.setForeground(Color.WHITE);
 			}
 			@Override
 			public void mouseExited(MouseEvent e) {
-				lblEsqueciSenha.setForeground(new Color(69, 69, 69));
+				lblEsqueciSenha.setForeground(Color.LIGHT_GRAY);
+			}
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				lblEsqueciSenha.setForeground(Color.RED);
 			}
 		});
 		lblEsqueciSenha.setFont(new Font("Lucida Console", Font.PLAIN, 10));
 		lblEsqueciSenha.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		lblEsqueciSenha.setBounds(10, 299, 150, 14);
+		lblEsqueciSenha.setBounds(40, 305, 150, 14);
 		panelLogin.add(lblEsqueciSenha);
-		
-		JLabel lblLogo = new JLabel("");
-		lblLogo.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		lblLogo.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				openWebpage("https://www.instagram.com/deopraglabs");
-			}
-			@Override
-			public void mouseEntered(MouseEvent e) {
-				lblLogo.setIcon(new ImageIcon("C:\\Users\\pdroe\\OneDrive\\Área de Trabalho\\P STUFF\\Projects\\Dizimaster\\assets\\logo-3-pressed.png"));
-
-			}
-				public void mouseExited(MouseEvent e) {
-				lblLogo.setIcon(new ImageIcon("C:\\Users\\pdroe\\OneDrive\\Área de Trabalho\\P Stuff\\Projects\\Dizimaster\\assets\\logo-3.png"));
-			}
-		});
-		lblLogo.setBounds(10, 11, 150, 150);
-		panelLogin.add(lblLogo);
-		lblLogo.setIcon(new ImageIcon("C:\\Users\\pdroe\\OneDrive\\Área de Trabalho\\P Stuff\\Projects\\Dizimaster\\assets\\logo-3.png"));
 		
 		JButton btnSair = new JButton("SAIR");
 		btnSair.addActionListener(new ActionListener() {
@@ -234,22 +218,47 @@ public class TelaLogin {
 		btnSair.setFont(new Font("Lucida Console", Font.BOLD, 11));
 		btnSair.setBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(245, 54, 54), new Color(255, 84, 84)));
 		btnSair.setBackground(new Color(184, 44, 54));
-		btnSair.setBounds(40, 405, 90, 40);
+		btnSair.setBounds(16, 345, 90, 40);
 		panelLogin.add(btnSair);
+		
+		JLabel lblLogo = new JLabel("");
+		lblLogo.setBounds(40, 25, 150, 150);
+		panelLogin.add(lblLogo);
+		lblLogo.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		lblLogo.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				openWebpage("https://www.instagram.com/deopraglabs");
+			}
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				lblLogo.setIcon(new ImageIcon("C:\\Users\\pdroe\\OneDrive\\Área de Trabalho\\P STUFF\\Projects\\Dizimaster\\assets\\logo-3-pressed.png"));
+
+			}
+				public void mouseExited(MouseEvent e) {
+				lblLogo.setIcon(new ImageIcon("C:\\Users\\pdroe\\OneDrive\\Área de Trabalho\\P Stuff\\Projects\\Dizimaster\\assets\\logo-3.png"));
+			}
+		});
+		lblLogo.setIcon(new ImageIcon("C:\\Users\\pdroe\\OneDrive\\Área de Trabalho\\P Stuff\\Projects\\Dizimaster\\assets\\logo-3.png"));
+		
+		JLabel lblNewLabel = new JLabel("");
+		lblNewLabel.setIcon(new ImageIcon("C:\\Users\\pdroe\\OneDrive\\Área de Trabalho\\P Stuff\\Projects\\Dizimaster\\assets\\Login\\Login Sidebar.png"));
+		lblNewLabel.setBounds(0, 0, 230, 424);
+		panelLogin.add(lblNewLabel);
 		JLabel lblDeopragLabs = new JLabel("® Deoprag Labs");
-		lblDeopragLabs.setBounds(10, 466, 66, 25);
+		lblDeopragLabs.setBounds(699, 381, 66, 25);
 		frmLogin.getContentPane().add(lblDeopragLabs);
 		lblDeopragLabs.setForeground(Color.WHITE);
 		lblDeopragLabs.setFont(new Font("Arial", Font.BOLD, 8));
 		
 		JLabel lblFundo = new JLabel("");
-		lblFundo.setBounds(0, 0, 634, 491);
+		lblFundo.setBounds(0, -11, 766, 426);
 		frmLogin.getContentPane().add(lblFundo);
-		lblFundo.setIcon(new ImageIcon("C:\\Users\\pdroe\\OneDrive\\Área de Trabalho\\P Stuff\\Projects\\Dizimaster\\assets\\background-login.jpg"));
+		lblFundo.setIcon(new ImageIcon("C:\\Users\\pdroe\\OneDrive\\Área de Trabalho\\P Stuff\\Projects\\Dizimaster\\assets\\Login\\Login background.png"));
 		frmLogin.setBackground(Color.WHITE);
 		frmLogin.setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\pdroe\\OneDrive\\Área de Trabalho\\P Stuff\\Projects\\Dizimaster\\assets\\logo-2.png"));
 		frmLogin.setTitle("LOGIN - Dizimaster");
-		frmLogin.setBounds(100, 100, 650, 530);
+		frmLogin.setBounds(100, 100, 780, 445);
 		frmLogin.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		txtSenha.addKeyListener(new KeyAdapter() {
 			public void keyPressed(KeyEvent e) {
