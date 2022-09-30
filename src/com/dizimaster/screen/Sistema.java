@@ -1,4 +1,4 @@
-package com.dizimaster.sistema;
+package com.dizimaster.screen;
 
 import java.awt.EventQueue;
 
@@ -11,8 +11,6 @@ import javax.swing.JButton;
 import java.awt.Font;
 import javax.swing.border.EtchedBorder;
 
-import com.dizimaster.cadastro.TelaCadastro;
-
 import java.awt.Cursor;
 import java.awt.Desktop;
 import java.awt.SystemColor;
@@ -21,6 +19,7 @@ import java.awt.event.MouseEvent;
 import java.net.URL;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -73,14 +72,8 @@ public class Sistema {
 		getFrmDizimasterSistema().setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		getFrmDizimasterSistema().getContentPane().setLayout(null);
 		
-		JPanel panelMid = new JPanel();
-		panelMid.setBackground(new Color(0, 129, 214));
-		panelMid.setBounds(203, 0, 1061, 720);
-		getFrmDizimasterSistema().getContentPane().add(panelMid);
-		panelMid.setLayout(null);
-		
 		JPanel panelSide = new JPanel();
-		panelSide.setBounds(-2, -2, 205, 705);
+		panelSide.setBounds(-2, -2, 230, 705);
 		frmDizimasterSistema.getContentPane().add(panelSide);
 		panelSide.setForeground(Color.BLACK);
 		panelSide.setBackground(new Color(153, 204, 204));
@@ -88,7 +81,7 @@ public class Sistema {
 		panelSide.setLayout(null);
 		
 		JButton btnNovoFuncionario = new JButton("Novo Funcionário");
-		btnNovoFuncionario.setBounds(27, 210, 150, 35);
+		btnNovoFuncionario.setBounds(40, 210, 150, 35);
 		panelSide.add(btnNovoFuncionario);
 		btnNovoFuncionario.setToolTipText("Novo Funcionário");
 		btnNovoFuncionario.addActionListener(new ActionListener() {
@@ -104,21 +97,23 @@ public class Sistema {
 		btnNovoFuncionario.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				btnNovoFuncionario.setBackground(new Color(98, 191, 252));
+				btnNovoFuncionario.setBackground(new Color(240, 173, 72));
+				btnNovoFuncionario.setForeground(Color.BLACK);
 			}
 			@Override
 			public void mouseExited(MouseEvent e) {
-				btnNovoFuncionario.setBackground(new Color(122, 202, 255));
+				btnNovoFuncionario.setBackground(new Color(254, 213, 150));
+				btnNovoFuncionario.setForeground(Color.DARK_GRAY);
 			}
 		});
 		btnNovoFuncionario.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnNovoFuncionario.setForeground(new Color(0, 0, 128));
-		btnNovoFuncionario.setBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(0, 0, 205), new Color(0, 0, 128)));
-		btnNovoFuncionario.setBackground(new Color(122, 202, 255));
+		btnNovoFuncionario.setForeground(Color.DARK_GRAY);
+		btnNovoFuncionario.setBorder(new EtchedBorder(EtchedBorder.RAISED, new Color(102, 51, 0), new Color(204, 153, 51)));
+		btnNovoFuncionario.setBackground(new Color(254, 213, 150));
 		btnNovoFuncionario.setFont(new Font("Lucida Console", Font.BOLD, 12));
 		
 		JLabel lblLogo = new JLabel("");
-		lblLogo.setBounds(27, 25, 150, 150);
+		lblLogo.setBounds(40, 25, 150, 150);
 		panelSide.add(lblLogo);
 		lblLogo.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		lblLogo.addMouseListener(new MouseAdapter() {
@@ -128,14 +123,51 @@ public class Sistema {
 			}
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				lblLogo.setIcon(new ImageIcon("C:\\Users\\pdroe\\OneDrive\\Área de Trabalho\\P STUFF\\Projects\\Dizimaster\\assets\\logo-3-pressed.png"));
+				lblLogo.setIcon(new ImageIcon("C:\\Users\\pdroe\\OneDrive\\Área de Trabalho\\P Stuff\\Projects\\Dizimaster\\assets\\logo-hold-small.png"));
 
 			}
-				public void mouseExited(MouseEvent e) {
-				lblLogo.setIcon(new ImageIcon("C:\\Users\\pdroe\\OneDrive\\Área de Trabalho\\P Stuff\\Projects\\Dizimaster\\assets\\logo-3.png"));
+			public void mouseExited(MouseEvent e) {
+				lblLogo.setIcon(new ImageIcon("C:\\Users\\pdroe\\OneDrive\\Área de Trabalho\\P Stuff\\Projects\\Dizimaster\\assets\\logo-small.png"));
 			}
 		});
-		lblLogo.setIcon(new ImageIcon("C:\\Users\\pdroe\\OneDrive\\Área de Trabalho\\P Stuff\\Projects\\Dizimaster\\assets\\logo-3.png"));
+		lblLogo.setIcon(new ImageIcon("C:\\Users\\pdroe\\OneDrive\\Área de Trabalho\\P Stuff\\Projects\\Dizimaster\\assets\\logo-small.png"));
+ 		
+		JButton btnSair = new JButton("SAIR");
+		btnSair.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (JOptionPane.showConfirmDialog(null, "Tem certeza que deseja sair?", "Sair?", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+					System.exit(0);
+				}
+			}
+		});
+		btnSair.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnSair.setForeground(Color.WHITE);
+		btnSair.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				btnSair.setBackground(new Color(143, 20, 29));
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				btnSair.setBackground(new Color(184, 44, 54));
+			}
+		});
+		btnSair.setFont(new Font("Lucida Console", Font.BOLD, 11));
+		btnSair.setBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(245, 54, 54), new Color(255, 84, 84)));
+		btnSair.setBackground(new Color(184, 44, 54));
+		btnSair.setBounds(70, 629, 90, 40);
+		panelSide.add(btnSair);
+		
+		JLabel lblNewLabel = new JLabel("");
+		lblNewLabel.setBounds(0, 0, 230, 703);
+		panelSide.add(lblNewLabel);
+		lblNewLabel.setIcon(new ImageIcon("C:\\Users\\pdroe\\OneDrive\\Área de Trabalho\\P Stuff\\Projects\\Dizimaster\\assets\\Sistema\\Long_Sidebar.png"));
+		
+		JPanel panelMid = new JPanel();
+		panelMid.setBackground(new Color(0, 129, 214));
+		panelMid.setBounds(228, 0, 1053, 683);
+		getFrmDizimasterSistema().getContentPane().add(panelMid);
+		panelMid.setLayout(null);
 	}
 
 	/**

@@ -6,10 +6,8 @@ public class Dizimista {
 	private String cpf;
 	private String nome;
 	private String celular;
-	private String cidade;
-	private String bairro;
-	private String rua;
-	private int numero;
+	private PessoaEndereco endereco;
+	
 	
 	public Dizimista(int id, float salario, String cpf, String nome, String celular) {
 		this.id = id;
@@ -57,6 +55,14 @@ public class Dizimista {
 	}
 	public void setCelular(String celular) {
 		this.celular = celular;
+	}
+
+	public PessoaEndereco getEndereco() {
+		return endereco;
+	}
+
+	public void setEndereco(PessoaEndereco endereco) {
+		this.endereco = endereco;
 	}
 	
 }
