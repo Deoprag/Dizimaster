@@ -86,7 +86,7 @@ public class TelaCadastro {
 		getFrmCadastro().setTitle("CADASTRO DE FUNCIONARIO - Dizimaster");
 		getFrmCadastro().setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\pdroe\\OneDrive\\Área de Trabalho\\P Stuff\\Projects\\Dizimaster\\assets\\logo.png"));
 		getFrmCadastro().setResizable(false);
-		getFrmCadastro().setBounds(100, 100, 650, 650);
+		getFrmCadastro().setBounds(100, 100, 620, 650);
 		getFrmCadastro().setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		getFrmCadastro().getContentPane().setLayout(null);
 		
@@ -94,7 +94,7 @@ public class TelaCadastro {
 		panelCadastro.setLayout(null);
 		panelCadastro.setBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(0, 120, 215), new Color(0, 191, 255)));
 		panelCadastro.setBackground(new Color(135, 206, 235));
-		panelCadastro.setBounds(143, 21, 350, 570);
+		panelCadastro.setBounds(128, 21, 350, 570);
 		getFrmCadastro().getContentPane().add(panelCadastro);
 		
 		JLabel lblEmail = new JLabel("Endereço de Email");
@@ -239,16 +239,10 @@ public class TelaCadastro {
 		txtCelular.setBounds(16, 260, 150, 30);
 		panelCadastro.add(txtCelular);
 		
-		JLabel lblNewLabel = new JLabel("");
-		lblNewLabel.setIcon(new ImageIcon("C:\\Users\\pdroe\\OneDrive\\Área de Trabalho\\P Stuff\\Projects\\Dizimaster\\assets\\Cadastro\\Cad_Panel.jpg"));
-		lblNewLabel.setBounds(0, 0, 350, 570);
-		panelCadastro.add(lblNewLabel);
-		
-		JLabel lblBackground = new JLabel("");
-		lblBackground.setBounds(-36, 0, 636, 610);
-		panelCadastro.add(lblBackground);
-		lblBackground.setBackground(new Color(102, 204, 204));
-		lblBackground.setIcon(null);
+		JLabel lblBackgroundPanel = new JLabel("");
+		lblBackgroundPanel.setIcon(new ImageIcon("C:\\Users\\pdroe\\OneDrive\\Área de Trabalho\\P Stuff\\Projects\\Dizimaster\\assets\\Cadastro\\Cad_Panel.jpg"));
+		lblBackgroundPanel.setBounds(0, 0, 350, 570);
+		panelCadastro.add(lblBackgroundPanel);
 		lblLogo.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -269,6 +263,11 @@ public class TelaCadastro {
 		lblDeopragLabs.setFont(new Font("Arial", Font.BOLD, 8));
 		lblDeopragLabs.setBounds(10, 585, 66, 25);
 		getFrmCadastro().getContentPane().add(lblDeopragLabs);
+		
+		JLabel lblBackground = new JLabel("");
+		lblBackground.setIcon(new ImageIcon("C:\\Users\\pdroe\\OneDrive\\Área de Trabalho\\P Stuff\\Projects\\Dizimaster\\assets\\Cadastro\\Background.jpg"));
+		lblBackground.setBounds(-2, 0, 610, 610);
+		frmCadastro.getContentPane().add(lblBackground);
 	}
 
 	/**

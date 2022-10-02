@@ -49,7 +49,7 @@ public class TelaLogin {
 			public void run() {
 				try {
 					TelaLogin window = new TelaLogin();
-					window.frmLogin.setVisible(true);
+					window.getFrmLogin().setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -76,17 +76,17 @@ public class TelaLogin {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frmLogin = new JFrame();
-		frmLogin.setResizable(false);
-		frmLogin.getContentPane().setMaximumSize(new Dimension(0, 0));
-		frmLogin.getContentPane().setBackground(new Color(48, 133, 199));
-		frmLogin.getContentPane().setLayout(null);
+		setFrmLogin(new JFrame());
+		getFrmLogin().setResizable(false);
+		getFrmLogin().getContentPane().setMaximumSize(new Dimension(0, 0));
+		getFrmLogin().getContentPane().setBackground(new Color(48, 133, 199));
+		getFrmLogin().getContentPane().setLayout(null);
 		
 		JPanel panelLogin = new JPanel();
 		panelLogin.setBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(0, 120, 215), new Color(0, 191, 255)));
 		panelLogin.setBackground(new Color(30, 144, 255));
 		panelLogin.setBounds(0, -9, 230, 424);
-		frmLogin.getContentPane().add(panelLogin);
+		getFrmLogin().getContentPane().add(panelLogin);
 		panelLogin.setLayout(null);
 		
 		txtUsuario = new JTextField();
@@ -140,7 +140,7 @@ public class TelaLogin {
 					if(rs.next()) {
 						Sistema window = new Sistema();
 						window.getFrmDizimasterSistema().setVisible(true);
-						frmLogin.dispose();
+						getFrmLogin().dispose();
 					} else {
 						txtSenha.setText(null);
 						JOptionPane.showMessageDialog(null, "Usuário e/ou senha incorretos!");
@@ -183,10 +183,6 @@ public class TelaLogin {
 			@Override
 			public void mouseExited(MouseEvent e) {
 				lblEsqueciSenha.setForeground(Color.LIGHT_GRAY);
-			}
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				lblEsqueciSenha.setForeground(Color.RED);
 			}
 		});
 		lblEsqueciSenha.setFont(new Font("Lucida Console", Font.PLAIN, 10));
@@ -246,19 +242,19 @@ public class TelaLogin {
 		panelLogin.add(lblNewLabel);
 		JLabel lblDeopragLabs = new JLabel("® Deoprag Labs");
 		lblDeopragLabs.setBounds(699, 381, 66, 25);
-		frmLogin.getContentPane().add(lblDeopragLabs);
+		getFrmLogin().getContentPane().add(lblDeopragLabs);
 		lblDeopragLabs.setForeground(Color.WHITE);
 		lblDeopragLabs.setFont(new Font("Arial", Font.BOLD, 8));
 		
 		JLabel lblFundo = new JLabel("");
 		lblFundo.setBounds(0, -11, 766, 426);
-		frmLogin.getContentPane().add(lblFundo);
+		getFrmLogin().getContentPane().add(lblFundo);
 		lblFundo.setIcon(new ImageIcon("C:\\Users\\pdroe\\OneDrive\\Área de Trabalho\\P Stuff\\Projects\\Dizimaster\\assets\\Login\\Login background.png"));
-		frmLogin.setBackground(Color.WHITE);
-		frmLogin.setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\pdroe\\OneDrive\\Área de Trabalho\\P Stuff\\Projects\\Dizimaster\\assets\\logo-2.png"));
-		frmLogin.setTitle("LOGIN - Dizimaster");
-		frmLogin.setBounds(100, 100, 780, 445);
-		frmLogin.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		getFrmLogin().setBackground(Color.WHITE);
+		getFrmLogin().setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\pdroe\\OneDrive\\Área de Trabalho\\P Stuff\\Projects\\Dizimaster\\assets\\icon.png"));
+		getFrmLogin().setTitle("LOGIN - Dizimaster");
+		getFrmLogin().setBounds(100, 100, 780, 445);
+		getFrmLogin().setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		txtSenha.addKeyListener(new KeyAdapter() {
 			public void keyPressed(KeyEvent e) {
 	               if (e.getKeyCode() == KeyEvent.VK_ENTER){
@@ -266,5 +262,13 @@ public class TelaLogin {
 	               }
 			}
 		});
+	}
+
+	public JFrame getFrmLogin() {
+		return frmLogin;
+	}
+
+	public void setFrmLogin(JFrame frmLogin) {
+		this.frmLogin = frmLogin;
 	}
 }
