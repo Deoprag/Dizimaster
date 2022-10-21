@@ -1,4 +1,4 @@
-package com.dizimaster.screen;
+package com.dizimaster.app;
 
 import java.awt.EventQueue;
 
@@ -30,14 +30,20 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import java.awt.Insets;
 import javax.swing.JMenuItem;
+import javax.swing.KeyStroke;
+import java.awt.event.KeyEvent;
+import javax.swing.JInternalFrame;
+import java.awt.Dimension;
+import java.awt.Component;
+import javax.swing.BoxLayout;
+import javax.swing.border.SoftBevelBorder;
+import javax.swing.border.BevelBorder;
+import javax.swing.border.MatteBorder;
 
 public class Sistema {
 
 	private JFrame frmDizimasterSistema;
 
-	/**
-	 * Launch the application.
-	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -71,9 +77,9 @@ public class Sistema {
 	 */
 	private void initialize() {
 		setFrmDizimasterSistema(new JFrame());
-		getFrmDizimasterSistema().setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\pdroe\\OneDrive\\Área de Trabalho\\P Stuff\\Projects\\Dizimaster\\assets\\icon.png"));
+		getFrmDizimasterSistema().setIconImage(Toolkit.getDefaultToolkit().getImage(Sistema.class.getResource("/com/dizimaster/img/icon.png")));
 		getFrmDizimasterSistema().setTitle("DIZIMASTER - Sistema");
-		getFrmDizimasterSistema().setBounds(100, 100, 1280, 720);
+		getFrmDizimasterSistema().setBounds(100, 100, 1280, 740);
 		getFrmDizimasterSistema().setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		getFrmDizimasterSistema().getContentPane().setLayout(null);
 		
@@ -105,39 +111,23 @@ public class Sistema {
 			}
 		});
 		
-		JDesktopPane sideDesktopPane = new JDesktopPane();
-		sideDesktopPane.setBackground(new Color(65, 105, 225));
-		sideDesktopPane.setBounds(15, 200, 200, 420);
-		panelSide.add(sideDesktopPane);
-		
-		JMenu mnNewMenu = new JMenu("Cadastro");
-		sideDesktopPane.setLayer(mnNewMenu, 1);
-		mnNewMenu.setBackground(new Color(255, 255, 255));
-		mnNewMenu.setFont(new Font("Lucida Console", Font.PLAIN, 15));
-		mnNewMenu.setBounds(25, 10, 150, 30);
-		sideDesktopPane.add(mnNewMenu);
-		
-		JMenuItem Teste = new JMenuItem("Teste");
-		
-		mnNewMenu.add(Teste);
+		JPanel internalPanelSide = new JPanel();
+		internalPanelSide.setBounds(16, 200, 204, 419);
+		internalPanelSide.setBackground(new Color(65, 105, 225));
+		panelSide.add(internalPanelSide);
+		internalPanelSide.setLayout(null);
 		
 		JButton btnNovoFuncionario = new JButton("Novo Funcionário");
-		btnNovoFuncionario.setForeground(Color.BLACK);
-		btnNovoFuncionario.setBounds(10, 43, 180, 35);
-		sideDesktopPane.add(btnNovoFuncionario);
-		btnNovoFuncionario.setSelectedIcon(new ImageIcon("C:\\Users\\pdroe\\OneDrive\\Área de Trabalho\\P Stuff\\Projects\\Dizimaster\\assets\\Buttons\\PressedButton.png"));
-		btnNovoFuncionario.setIcon(null);
-		btnNovoFuncionario.setToolTipText("Novo Funcionário");
 		btnNovoFuncionario.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				try {
-					TelaCadastro window = new TelaCadastro();
-					window.getFrmCadastro().setVisible(true);
-				} catch (Exception e1) {
-					e1.printStackTrace();
-				}
 			}
 		});
+		btnNovoFuncionario.setBounds(10, 10, 180, 35);
+		internalPanelSide.add(btnNovoFuncionario);
+		btnNovoFuncionario.setFocusPainted(false);
+		btnNovoFuncionario.setRequestFocusEnabled(false);
+		btnNovoFuncionario.setForeground(Color.WHITE);
+		btnNovoFuncionario.setToolTipText("Novo Funcionário");
 		btnNovoFuncionario.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
@@ -151,10 +141,10 @@ public class Sistema {
 		btnNovoFuncionario.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnNovoFuncionario.setBorder(null);
 		btnNovoFuncionario.setBackground(new Color(42, 89, 229));
-		btnNovoFuncionario.setFont(new Font("Lucida Console", Font.BOLD, 12));
+		btnNovoFuncionario.setFont(new Font("Rubik", Font.PLAIN, 14));
 		
 		btnSair.setForeground(Color.WHITE);
-		btnSair.setFont(new Font("Lucida Console", Font.BOLD, 11));
+		btnSair.setFont(new Font("Rubik", Font.BOLD, 11));
 		btnSair.setBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(245, 54, 54), new Color(255, 84, 84)));
 		btnSair.setBackground(new Color(184, 44, 54));
 		btnSair.setBounds(122, 629, 90, 40);
@@ -171,14 +161,14 @@ public class Sistema {
 			}
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				lblLogo.setIcon(new ImageIcon("C:\\Users\\pdroe\\OneDrive\\Área de Trabalho\\P Stuff\\Projects\\Dizimaster\\assets\\logo-hold-small.png"));
+				lblLogo.setIcon(new ImageIcon(Sistema.class.getResource("/com/dizimaster/img/logo-hold-small.png")));
 
 			}
 			public void mouseExited(MouseEvent e) {
-				lblLogo.setIcon(new ImageIcon("C:\\Users\\pdroe\\OneDrive\\Área de Trabalho\\P Stuff\\Projects\\Dizimaster\\assets\\logo-small.png"));
+				lblLogo.setIcon(new ImageIcon(Sistema.class.getResource("/com/dizimaster/img/logo-small.png")));
 			}
 		});
-		lblLogo.setIcon(new ImageIcon("C:\\Users\\pdroe\\OneDrive\\Área de Trabalho\\P Stuff\\Projects\\Dizimaster\\assets\\logo-small.png"));
+		lblLogo.setIcon(new ImageIcon(Sistema.class.getResource("/com/dizimaster/img/logo-small.png")));
  		
 		JButton btnDeslogar = new JButton("DESLOGAR");
 		btnDeslogar.addActionListener(new ActionListener() {
@@ -206,7 +196,7 @@ public class Sistema {
 				btnDeslogar.setBackground(new Color(237, 90, 0));
 			}
 		});
-		btnDeslogar.setFont(new Font("Lucida Console", Font.BOLD, 11));
+		btnDeslogar.setFont(new Font("Rubik", Font.BOLD, 11));
 		btnDeslogar.setBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(245, 54, 54), new Color(255, 84, 84)));
 		btnDeslogar.setBackground(new Color(237, 90, 0));
 		btnDeslogar.setBounds(16, 629, 90, 40);
@@ -215,25 +205,54 @@ public class Sistema {
 		JLabel lblBackground = new JLabel("");
 		lblBackground.setBounds(0, 0, 230, 703);
 		panelSide.add(lblBackground);
-		lblBackground.setIcon(new ImageIcon("C:\\Users\\pdroe\\OneDrive\\Área de Trabalho\\P Stuff\\Projects\\Dizimaster\\assets\\Sistema\\Long_Sidebar.png"));
+		lblBackground.setIcon(new ImageIcon(Sistema.class.getResource("/com/dizimaster/img/Long_Sidebar.png")));
 		
 		JPanel panelMid = new JPanel();
-		panelMid.setBackground(new Color(0, 51, 163));
+		panelMid.setBackground(Color.WHITE);
 		panelMid.setBounds(228, 0, 1038, 683);
 		getFrmDizimasterSistema().getContentPane().add(panelMid);
 		panelMid.setLayout(null);
 		
-		JDesktopPane desktopPane = new JDesktopPane();
-		desktopPane.setBounds(10, 10, 1018, 663);
-		panelMid.add(desktopPane);
-
-		Teste.addActionListener(new ActionListener() {
+		JDesktopPane largeDesktopPane = new JDesktopPane();
+		largeDesktopPane.setBackground(Color.BLUE);
+		largeDesktopPane.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
+		largeDesktopPane.setDragMode(2);
+		largeDesktopPane.setBounds(10, 10, 1018, 663);
+		panelMid.add(largeDesktopPane);
+		largeDesktopPane.setLayout(null);
+		JIntCadastro intCad = new JIntCadastro();
+		intCad.setFrameIcon(null);
+		intCad.setClosable(false);
+		intCad.setBounds(1, 1, 1016, 661);
+		intCad.setBorder(null);
+		largeDesktopPane.add(intCad);
+		intCad.show();
+		
+		JMenuBar menuTop = new JMenuBar();
+		menuTop.setAlignmentX(Component.LEFT_ALIGNMENT);
+		menuTop.setBackground(Color.WHITE);
+		frmDizimasterSistema.setJMenuBar(menuTop);
+		
+		JMenu mnDizimista = new JMenu("Dizimista");
+		mnDizimista.setIcon(null);
+		mnDizimista.setBorder(new LineBorder(Color.BLUE, 2));
+		mnDizimista.setBorderPainted(true);
+		mnDizimista.setBackground(Color.WHITE);
+		mnDizimista.setIconTextGap(6);
+		menuTop.add(mnDizimista);
+		
+		JMenuItem mntmNovoDizimista = new JMenuItem("Novo Dizimista");
+		mntmNovoDizimista.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				JanelaAbrir fabrir = new JanelaAbrir();
-				desktopPane.add(fabrir);
-				fabrir.setVisible(true);
+				JIntCadastro intCad = new JIntCadastro();
+				largeDesktopPane.add(intCad);
+				intCad.show();
 			}
 		});
+		mnDizimista.add(mntmNovoDizimista);
+		
+		JMenuItem mntmGerenciarDizimistas = new JMenuItem("Gerenciar Dizimistas");
+		mnDizimista.add(mntmGerenciarDizimistas);
 	}
 
 	/**

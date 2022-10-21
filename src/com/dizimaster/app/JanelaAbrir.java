@@ -1,4 +1,4 @@
-package com.dizimaster.screen;
+package com.dizimaster.app;
 
 import java.awt.EventQueue;
 

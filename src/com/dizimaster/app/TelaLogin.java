@@ -1,4 +1,4 @@
-package com.dizimaster.screen;
+package com.dizimaster.app;
 
 import java.awt.EventQueue;
 
@@ -227,17 +227,16 @@ public class TelaLogin {
 			}
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				lblLogo.setIcon(new ImageIcon("C:\\Users\\pdroe\\OneDrive\\Área de Trabalho\\P Stuff\\Projects\\Dizimaster\\assets\\logo-hold-small.png"));
-
+				lblLogo.setIcon(new ImageIcon(TelaLogin.class.getResource("/com/dizimaster/img/logo-hold-small.png")));
 			}
 			public void mouseExited(MouseEvent e) {
-				lblLogo.setIcon(new ImageIcon("C:\\Users\\pdroe\\OneDrive\\Área de Trabalho\\P Stuff\\Projects\\Dizimaster\\assets\\logo-small.png"));
+				lblLogo.setIcon(new ImageIcon(TelaLogin.class.getResource("/com/dizimaster/img/logo-small.png")));
 			}
 		});
-		lblLogo.setIcon(new ImageIcon("C:\\Users\\pdroe\\OneDrive\\Área de Trabalho\\P Stuff\\Projects\\Dizimaster\\assets\\logo-small.png"));
+		lblLogo.setIcon(new ImageIcon(TelaLogin.class.getResource("/com/dizimaster/img/logo-small.png")));
 		
 		JLabel lblNewLabel = new JLabel("");
-		lblNewLabel.setIcon(new ImageIcon("C:\\Users\\pdroe\\OneDrive\\Área de Trabalho\\P Stuff\\Projects\\Dizimaster\\assets\\Login\\Login Sidebar.png"));
+		lblNewLabel.setIcon(new ImageIcon(TelaLogin.class.getResource("/com/dizimaster/img/Login Sidebar.png")));
 		lblNewLabel.setBounds(0, 0, 230, 424);
 		panelLogin.add(lblNewLabel);
 		JLabel lblDeopragLabs = new JLabel("® Deoprag Labs");
@@ -249,9 +248,9 @@ public class TelaLogin {
 		JLabel lblFundo = new JLabel("");
 		lblFundo.setBounds(0, -11, 766, 426);
 		getFrmLogin().getContentPane().add(lblFundo);
-		lblFundo.setIcon(new ImageIcon("C:\\Users\\pdroe\\OneDrive\\Área de Trabalho\\P Stuff\\Projects\\Dizimaster\\assets\\Login\\Login background.png"));
+		lblFundo.setIcon(new ImageIcon(TelaLogin.class.getResource("/com/dizimaster/img/Login background.png")));
 		getFrmLogin().setBackground(Color.WHITE);
-		getFrmLogin().setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\pdroe\\OneDrive\\Área de Trabalho\\P Stuff\\Projects\\Dizimaster\\assets\\icon.png"));
+		getFrmLogin().setIconImage(Toolkit.getDefaultToolkit().getImage(TelaLogin.class.getResource("/com/dizimaster/img/icon.png")));
 		getFrmLogin().setTitle("LOGIN - Dizimaster");
 		getFrmLogin().setBounds(100, 100, 780, 445);
 		getFrmLogin().setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

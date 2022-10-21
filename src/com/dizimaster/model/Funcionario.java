@@ -10,7 +10,6 @@ public class Funcionario {
 	private String celular;
 	private String email;
 	private String senha;
-	private PessoaEndereco endereco;
 	private LocalDate nascimento;
 	private boolean dizimista;
 	
@@ -79,11 +78,5 @@ public class Funcionario {
 	}
 	public void setDizimista(boolean dizimista) {
 		this.dizimista = dizimista;
-	}
-	public PessoaEndereco getEndereco() {
-		return endereco;
-	}
-	public void setEndereco(PessoaEndereco endereco) {
-		this.endereco = endereco;
 	}
 }
