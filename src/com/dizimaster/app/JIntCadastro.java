@@ -9,12 +9,17 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.ImageIcon;
 import java.awt.Font;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.net.URL;
 import java.awt.Component;
 import javax.swing.JTextField;
 import java.awt.Color;
 import javax.swing.border.EtchedBorder;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.JButton;
+import java.awt.Cursor;
+import java.awt.Desktop;
 
 public class JIntCadastro extends JInternalFrame {
 	private JTextField txtUsuario;
@@ -39,10 +44,19 @@ public class JIntCadastro extends JInternalFrame {
 			}
 		});
 	}
+	
+	private static void openWebpage(String urlString) {
+	    try {
+	        Desktop.getDesktop().browse(new URL(urlString).toURI());
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+	}
+	
 	public JIntCadastro() {
 		setBorder(null);
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-		setBounds(100, 100, 1020, 665);
+		setBounds(0, 0, 1020, 665);
 		getContentPane().setLayout(null);
 		BasicInternalFrameUI bui = (BasicInternalFrameUI) this.getUI();
 		bui.setNorthPane(null);
@@ -94,11 +108,22 @@ public class JIntCadastro extends JInternalFrame {
 		panelCadastro.add(lblLogo);
 		
 		JButton btnEnviar = new JButton("ENVIAR");
+		btnEnviar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnEnviar.setForeground(Color.WHITE);
 		btnEnviar.setFont(new Font("Rubik", Font.BOLD, 15));
 		btnEnviar.setBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(0, 120, 215), new Color(0, 191, 255)));
 		btnEnviar.setBackground(new Color(60, 122, 194));
-		btnEnviar.setBounds(120, 505, 110, 55);
+		btnEnviar.setBounds(100, 505, 150, 55);
+		btnEnviar.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				btnEnviar.setBackground(new Color(33, 91, 158));
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				btnEnviar.setBackground(new Color(60, 122, 194));
+			}
+		});
 		panelCadastro.add(btnEnviar);
 		
 		JLabel lblConfEmail = new JLabel("Confirmação de Email");
@@ -184,7 +209,7 @@ public class JIntCadastro extends JInternalFrame {
 		
 		JLabel lblBackground = new JLabel("");
 		lblBackground.setIcon(new ImageIcon(JIntCadastro.class.getResource("/com/dizimaster/img/Background.jpg")));
-		lblBackground.setBounds(0, 0, 1020, 638);
+		lblBackground.setBounds(0, 0, 1020, 665);
 		getContentPane().add(lblBackground);
 
 	}

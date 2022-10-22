@@ -64,21 +64,7 @@ public class TelaCadastro {
 	        e.printStackTrace();
 	    }
 	}
-	/*
-	private Image getImage(String filename) {
-	    try {
-	        return ImageIO.read(getClass().getResourceAsStream(
-	                "/" + "background-login.jpg"));
-	    } catch (IOException e) {
-	        e.printStackTrace();
-	        return null;
-	    }
-	}
-	*/
 
-	/**
-	 * Initialize the contents of the frame.
-	 */
 	private void initialize() {
 		setFrmCadastro(new JFrame());
 		getFrmCadastro().setTitle("CADASTRO DE FUNCIONARIO - Dizimaster");
