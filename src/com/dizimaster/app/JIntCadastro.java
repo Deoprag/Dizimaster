@@ -70,7 +70,7 @@ public class JIntCadastro extends JInternalFrame {
 		getContentPane().add(panelCadastro);
 		
 		JLabel lblTitulo = new JLabel("Cadastro de Funcionários");
-		lblTitulo.setBorder(new LineBorder(new Color(0, 128, 255), 3));
+		lblTitulo.setBorder(new LineBorder(new Color(255, 255, 255), 2, true));
 		lblTitulo.setBackground(new Color(128, 128, 128));
 		lblTitulo.setForeground(new Color(255, 255, 255));
 		lblTitulo.setHorizontalAlignment(SwingConstants.CENTER);
@@ -137,16 +137,16 @@ public class JIntCadastro extends JInternalFrame {
 		btnEnviar.setForeground(Color.WHITE);
 		btnEnviar.setFont(new Font("Rubik", Font.BOLD, 15));
 		btnEnviar.setBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(0, 120, 215), new Color(0, 191, 255)));
-		btnEnviar.setBackground(new Color(60, 122, 194));
+		btnEnviar.setBackground(new Color(0, 122, 152));
 		btnEnviar.setBounds(100, 485, 150, 55);
 		btnEnviar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				btnEnviar.setBackground(new Color(33, 91, 158));
+				btnEnviar.setBackground(new Color(0, 105, 128));
 			}
 			@Override
 			public void mouseExited(MouseEvent e) {
-				btnEnviar.setBackground(new Color(60, 122, 194));
+				btnEnviar.setBackground(new Color(0, 122, 152));
 			}
 		});
 		panelCadastro.add(btnEnviar);
@@ -222,7 +222,7 @@ public class JIntCadastro extends JInternalFrame {
 		panelCadastro.add(txtCelular);
 		
 		JLabel lblBackgroundPanel = new JLabel("");
-		lblBackgroundPanel.setBorder(new LineBorder(new Color(0, 128, 255), 2));
+		lblBackgroundPanel.setBorder(new LineBorder(new Color(255, 255, 255), 1, true));
 		lblBackgroundPanel.setIcon(new ImageIcon(JIntCadastro.class.getResource("/com/dizimaster/img/Cad_Panel.jpg")));
 		lblBackgroundPanel.setBounds(0, 0, 350, 570);
 		panelCadastro.add(lblBackgroundPanel);
