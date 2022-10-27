@@ -13,6 +13,7 @@ import javax.swing.ImageIcon;
 import javax.swing.border.EtchedBorder;
 
 import com.dizimaster.conexao.ConexaoDB;
+import com.dizimaster.util.Utilidades;
 
 import javax.swing.JTextField;
 import java.awt.Font;
@@ -63,18 +64,7 @@ public class TelaLogin {
 	public TelaLogin() {
 		initialize();
 	}
-	
-	private static void openWebpage(String urlString) {
-	    try {
-	        Desktop.getDesktop().browse(new URL(urlString).toURI());
-	    } catch (Exception e) {
-	        e.printStackTrace();
-	    }
-	}
 
-	/**
-	 * Initialize the contents of the frame.
-	 */
 	private void initialize() {
 		setFrmLogin(new JFrame());
 		getFrmLogin().setResizable(false);
@@ -223,7 +213,7 @@ public class TelaLogin {
 		lblLogo.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				openWebpage("https://www.instagram.com/deopraglabs");
+				Utilidades.openWebpage("https://www.instagram.com/deopraglabs");
 			}
 			@Override
 			public void mouseEntered(MouseEvent e) {
