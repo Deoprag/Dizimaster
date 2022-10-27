@@ -114,7 +114,7 @@ public class Sistema {
 		mnFuncionario.add(mntmNovoFuncionario);
 		mntmNovoFuncionario.setIcon(new ImageIcon(Sistema.class.getResource("/com/dizimaster/img/signup-icon.png")));
 		
-		JMenuItem mntmGerenciarFuncionario = new JMenuItem("Gerenciar Dizimistas");
+		JMenuItem mntmGerenciarFuncionario = new JMenuItem("Gerenciar Funcionário");
 		mntmGerenciarFuncionario.setIcon(new ImageIcon(Sistema.class.getResource("/com/dizimaster/img/mange-icon.png")));
 		mntmGerenciarFuncionario.setPreferredSize(new Dimension(150, 30));
 		mntmGerenciarFuncionario.setBorder(new MatteBorder(0, 0, 1, 0, (Color) new Color(192, 192, 192)));
@@ -147,7 +147,7 @@ public class Sistema {
 		mntmNovoDizimista.setIcon(new ImageIcon(Sistema.class.getResource("/com/dizimaster/img/signup-icon.png")));
 		mnDizimista.add(mntmNovoDizimista);
 		
-		JMenuItem mntmGerenciarDizimista = new JMenuItem("Gerenciar Dizimistas");
+		JMenuItem mntmGerenciarDizimista = new JMenuItem("Gerenciar Dizimista");
 		mntmGerenciarDizimista.setBorder(new MatteBorder(0, 0, 1, 0, (Color) new Color(192, 192, 192)));
 		mntmGerenciarDizimista.setPreferredSize(new Dimension(150, 30));
 		mntmGerenciarDizimista.setIcon(new ImageIcon(Sistema.class.getResource("/com/dizimaster/img/mange-icon.png")));
