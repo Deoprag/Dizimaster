@@ -23,6 +23,7 @@ import javax.swing.border.MatteBorder;
 import javax.swing.SwingConstants;
 import java.awt.Insets;
 import javax.swing.border.LineBorder;
+import javax.swing.JButton;
 
 public class Sistema {
 
@@ -43,6 +44,13 @@ public class Sistema {
 
 	public Sistema() {
 		initialize();
+	}
+	
+	public void deslogar() {
+		this.frmDizimasterSistema.dispose();
+		TelaLogin window = new TelaLogin();
+		window.getFrmLogin().setVisible(true);
+		getFrmDizimasterSistema().dispose();
 	}
 
 	private void initialize() {
@@ -89,6 +97,7 @@ public class Sistema {
 		largeDesktopPane.add(lblDeopragLabs);
 		
 		JLabel lblNewLabel = new JLabel("");
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel.setIcon(new ImageIcon(Sistema.class.getResource("/com/dizimaster/img/Background.jpg")));
 		lblNewLabel.setBounds(0, 0, 1020, 665);
 		largeDesktopPane.add(lblNewLabel);
@@ -100,7 +109,7 @@ public class Sistema {
 		panel.setLayout(null);
 		
 		JMenuBar menuTop = new JMenuBar();
-		menuTop.setBounds(10, 0, 1018, 30);
+		menuTop.setBounds(20, 0, 930, 30);
 		panel.add(menuTop);
 		menuTop.setAlignmentY(Component.CENTER_ALIGNMENT);
 		menuTop.setPreferredSize(new Dimension(0, 30));
@@ -209,6 +218,22 @@ public class Sistema {
 		mntmNewMenuItem.setPreferredSize(new Dimension(150, 30));
 		mntmNewMenuItem.setIcon(new ImageIcon(Sistema.class.getResource("/com/dizimaster/img/graphic-icon.png")));
 		mnFinanceiro.add(mntmNewMenuItem);
+		
+		JButton btnNewButton = new JButton("Sair\r\n");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				deslogar();
+			}
+		});
+		btnNewButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnNewButton.setForeground(new Color(255, 255, 255));
+		btnNewButton.setHorizontalTextPosition(SwingConstants.CENTER);
+		btnNewButton.setRequestFocusEnabled(false);
+		btnNewButton.setFont(new Font("Rubik", Font.PLAIN, 12));
+		btnNewButton.setBackground(new Color(255, 0, 0));
+		btnNewButton.setBorder(null);
+		btnNewButton.setBounds(960, 0, 78, 30);
+		panel.add(btnNewButton);
 	}
 
 	/**

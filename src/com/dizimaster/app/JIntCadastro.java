@@ -8,6 +8,10 @@ import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.text.ParseException;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -18,17 +22,32 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EtchedBorder;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
+import javax.swing.text.MaskFormatter;
+
+import com.dizimaster.conexao.ConexaoDB;
+
 import javax.swing.border.LineBorder;
 import javax.swing.SwingConstants;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import javax.swing.JRadioButton;
+import javax.swing.JFormattedTextField;
+import javax.swing.JList;
+import javax.swing.JOptionPane;
+import javax.swing.AbstractListModel;
+import java.awt.Dimension;
+import java.awt.Component;
+import java.awt.Rectangle;
+import java.awt.ComponentOrientation;
+import javax.swing.JScrollBar;
+import javax.swing.JComboBox;
+import javax.swing.DefaultComboBoxModel;
 
 @SuppressWarnings("serial")
 public class JIntCadastro extends JInternalFrame {
-	private JTextField txtUsuario;
 	private JTextField txtEmail;
 	private JTextField txtConfEmail;
-	private JTextField txtCpf;
 	private JTextField txtNome;
-	private JTextField txtCelular;
 
 	/**
 	 * Launch the application.
@@ -68,6 +87,40 @@ public class JIntCadastro extends JInternalFrame {
 		panelCadastro.setBackground(new Color(135, 206, 235));
 		panelCadastro.setBounds(335, 34, 350, 570);
 		getContentPane().add(panelCadastro);
+		MaskFormatter mascaraCpf = null;
+		MaskFormatter mascaraNumero = null;
+		try {
+			mascaraCpf = new MaskFormatter("###.###.###-##");
+			mascaraNumero = new MaskFormatter("(##)#####-####");
+			mascaraCpf.setPlaceholderCharacter('*');
+			mascaraNumero.setPlaceholderCharacter('*');
+		} catch (ParseException e2) {
+			e2.printStackTrace();
+		}
+		
+		JFormattedTextField fTxtCpf = new JFormattedTextField(mascaraCpf);
+		fTxtCpf.setBounds(16, 290, 150, 30);
+		panelCadastro.add(fTxtCpf);
+		
+		JFormattedTextField fTxtNum = new JFormattedTextField(mascaraNumero);
+		fTxtNum.setBounds(182, 352, 150, 30);
+		panelCadastro.add(fTxtNum);
+
+		JComboBox boxSexo = new JComboBox();
+		boxSexo.setModel(new DefaultComboBoxModel(new String[] {"Masculino", "Feminino"}));
+		boxSexo.setMaximumRowCount(2);
+		boxSexo.setFont(new Font("Rubik", Font.PLAIN, 12));
+		boxSexo.setBounds(16, 350, 150, 30);
+		panelCadastro.add(boxSexo);
+		
+		JLabel lblSexo = new JLabel("Sexo");
+		lblSexo.setForeground(Color.WHITE);
+		lblSexo.setFont(new Font("Rubik", Font.PLAIN, 12));
+		lblSexo.setBorder(null);
+		lblSexo.setBackground(Color.WHITE);
+		lblSexo.setAlignmentX(0.5f);
+		lblSexo.setBounds(16, 330, 150, 24);
+		panelCadastro.add(lblSexo);
 		
 		JLabel lblTitulo = new JLabel("Cadastro de Funcionários");
 		lblTitulo.setBorder(new LineBorder(new Color(255, 255, 255), 2, true));
@@ -77,24 +130,6 @@ public class JIntCadastro extends JInternalFrame {
 		lblTitulo.setFont(new Font("Rubik", Font.BOLD, 16));
 		lblTitulo.setBounds(56, 220, 240, 35);
 		panelCadastro.add(lblTitulo);
-		
-		JLabel lblUsuario = new JLabel("Nome de Usuário");
-		lblUsuario.setForeground(Color.WHITE);
-		lblUsuario.setFont(new Font("Rubik", Font.PLAIN, 12));
-		lblUsuario.setBorder(null);
-		lblUsuario.setBackground(Color.WHITE);
-		lblUsuario.setAlignmentX(0.5f);
-		lblUsuario.setBounds(16, 330, 150, 24);
-		panelCadastro.add(lblUsuario);
-		
-		txtUsuario = new JTextField();
-		txtUsuario.setToolTipText("Nome de Usuário");
-		txtUsuario.setFont(new Font("Rubik", Font.PLAIN, 12));
-		txtUsuario.setColumns(10);
-		txtUsuario.setBorder(new EtchedBorder(EtchedBorder.RAISED, new Color(102, 51, 0), new Color(204, 153, 51)));
-		txtUsuario.setBackground(new Color(254, 213, 150));
-		txtUsuario.setBounds(16, 350, 150, 30);
-		panelCadastro.add(txtUsuario);
 		
 		JLabel lblEmail = new JLabel("Endereço de Email");
 		lblEmail.setForeground(Color.WHITE);
@@ -133,6 +168,41 @@ public class JIntCadastro extends JInternalFrame {
 		panelCadastro.add(lblLogo);
 		
 		JButton btnEnviar = new JButton("ENVIAR");
+		btnEnviar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					Connection con = ConexaoDB.conecta();
+					String sql = "insert into funcionario(cpf, nome, sexo, celular, email, senha) values (?,?,?,?,?,?)";
+					
+					PreparedStatement stmt = con.prepareCall(sql);
+					
+					stmt.setString(1, fTxtCpf.getText().replace(".", "").replace("-", ""));
+					stmt.setString(2, txtNome.getText());
+					if (boxSexo.getSelectedIndex() == 0) {
+						stmt.setString(3, "m");
+					} else if (boxSexo.getSelectedIndex() == 1) {
+						stmt.setString(3, "f");
+					}
+					stmt.setString(4, fTxtNum.getText().replace("(", "").replace(")", "").replace("-", ""));
+					if (txtEmail.getText().equals(txtConfEmail.getText())) {
+						stmt.setString(5, txtEmail.getText());
+					} else {
+						
+					}
+					stmt.setString(6, "dizi@2022");
+					
+					stmt.execute();
+					stmt.close();
+					con.close();
+					
+					JOptionPane.showMessageDialog(null, "Funcionário cadastrado com sucesso!");
+				} catch (SQLException e1) {
+					e1.printStackTrace();
+					JOptionPane.showMessageDialog(null, "Não foi possível cadastrar funcionário!");
+				}
+
+			}
+		});
 		btnEnviar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnEnviar.setForeground(Color.WHITE);
 		btnEnviar.setFont(new Font("Rubik", Font.BOLD, 15));
@@ -176,15 +246,6 @@ public class JIntCadastro extends JInternalFrame {
 		lblCpf.setBounds(16, 270, 150, 24);
 		panelCadastro.add(lblCpf);
 		
-		txtCpf = new JTextField();
-		txtCpf.setToolTipText("CPF");
-		txtCpf.setFont(new Font("Rubik", Font.PLAIN, 12));
-		txtCpf.setColumns(10);
-		txtCpf.setBorder(new EtchedBorder(EtchedBorder.RAISED, new Color(102, 51, 0), new Color(204, 153, 51)));
-		txtCpf.setBackground(new Color(254, 213, 150));
-		txtCpf.setBounds(16, 290, 150, 30);
-		panelCadastro.add(txtCpf);
-		
 		JLabel lblNomeFunc = new JLabel("Nome");
 		lblNomeFunc.setForeground(Color.WHITE);
 		lblNomeFunc.setFont(new Font("Rubik", Font.PLAIN, 12));
@@ -211,15 +272,6 @@ public class JIntCadastro extends JInternalFrame {
 		lblCelular.setAlignmentX(0.5f);
 		lblCelular.setBounds(182, 330, 150, 24);
 		panelCadastro.add(lblCelular);
-		
-		txtCelular = new JTextField();
-		txtCelular.setToolTipText("Número de Celular");
-		txtCelular.setFont(new Font("Rubik", Font.PLAIN, 12));
-		txtCelular.setColumns(10);
-		txtCelular.setBorder(new EtchedBorder(EtchedBorder.RAISED, new Color(102, 51, 0), new Color(204, 153, 51)));
-		txtCelular.setBackground(new Color(254, 213, 150));
-		txtCelular.setBounds(182, 350, 150, 30);
-		panelCadastro.add(txtCelular);
 		
 		JLabel lblBackgroundPanel = new JLabel("");
 		lblBackgroundPanel.setBorder(new LineBorder(new Color(255, 255, 255), 1, true));

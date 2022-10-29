@@ -34,6 +34,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import javax.swing.JPasswordField;
+import javax.swing.border.LineBorder;
 
 public class TelaLogin {
 
@@ -57,9 +58,6 @@ public class TelaLogin {
 		});
 	}
 
-	/**
-	 * Create the application.
-	 */
 	public TelaLogin() {
 		initialize();
 	}
@@ -72,9 +70,6 @@ public class TelaLogin {
 	    }
 	}
 
-	/**
-	 * Initialize the contents of the frame.
-	 */
 	private void initialize() {
 		setFrmLogin(new JFrame());
 		getFrmLogin().setResizable(false);
@@ -89,14 +84,50 @@ public class TelaLogin {
 		getFrmLogin().getContentPane().add(panelLogin);
 		panelLogin.setLayout(null);
 		
+		txtSenha = new JPasswordField();
+		txtSenha.setBorder(new EtchedBorder(EtchedBorder.RAISED, new Color(102, 51, 0), new Color(204, 153, 51)));
+		txtSenha.setBackground(new Color(254, 213, 150));
+		txtSenha.setFont(new Font("Lucida Console", Font.PLAIN, 12));
+		txtSenha.setToolTipText("Senha");
+		txtSenha.setColumns(10);
+		txtSenha.setBounds(20, 270, 150, 30);
+		panelLogin.add(txtSenha);
+		
 		txtUsuario = new JTextField();
 		txtUsuario.setBorder(new EtchedBorder(EtchedBorder.RAISED, new Color(102, 51, 0), new Color(204, 153, 51)));
 		txtUsuario.setBackground(new Color(254, 213, 150));
 		txtUsuario.setFont(new Font("Lucida Console", Font.PLAIN, 12));
 		txtUsuario.setToolTipText("Usuário");
-		txtUsuario.setBounds(40, 220, 150, 30);
+		txtUsuario.setBounds(20, 220, 150, 30);
 		panelLogin.add(txtUsuario);
 		txtUsuario.setColumns(10);
+		
+		JButton btnAjuda = new JButton("");
+		btnAjuda.setSelectedIcon(new ImageIcon(TelaLogin.class.getResource("/com/dizimaster/img/info-hold-icon.png")));
+		btnAjuda.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				btnAjuda.setIcon(new ImageIcon(TelaLogin.class.getResource("/com/dizimaster/img/info-hold-icon.png")));
+				btnAjuda.setBackground(new Color(255, 255, 255, 0));
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				btnAjuda.setIcon(new ImageIcon(TelaLogin.class.getResource("/com/dizimaster/img/info-icon.png")));
+				btnAjuda.setBackground(new Color(255, 255, 255, 0));
+			}
+		});
+		btnAjuda.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnAjuda.setBorder(null);
+		btnAjuda.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JOptionPane.showMessageDialog(null, "Use seu CPF como nome de usuário!");
+			}
+		});
+		btnAjuda.setBackground(new Color(255, 255, 255, 0));
+		btnAjuda.setIcon(new ImageIcon(TelaLogin.class.getResource("/com/dizimaster/img/info-icon.png")));
+		btnAjuda.setBounds(188, 226, 24, 24);
+		panelLogin.add(btnAjuda);
+		btnAjuda.setFont(new Font("Rubik", Font.PLAIN, 12));
 		
 		JLabel lblUsuario = new JLabel("Usuário:");
 		lblUsuario.setForeground(Color.WHITE);
@@ -104,24 +135,15 @@ public class TelaLogin {
 		lblUsuario.setAlignmentX(Component.CENTER_ALIGNMENT);
 		lblUsuario.setBorder(null);
 		lblUsuario.setFont(new Font("Lucida Console", Font.BOLD, 12));
-		lblUsuario.setBounds(40, 200, 150, 24);
+		lblUsuario.setBounds(20, 200, 150, 24);
 		panelLogin.add(lblUsuario);
 		
 		JLabel lblSenha = new JLabel("Senha:");
 		lblSenha.setForeground(Color.WHITE);
 		lblSenha.setAlignmentX(Component.CENTER_ALIGNMENT);
 		lblSenha.setFont(new Font("Lucida Console", Font.BOLD, 12));
-		lblSenha.setBounds(40, 250, 150, 24);
+		lblSenha.setBounds(20, 250, 150, 24);
 		panelLogin.add(lblSenha);
-		
-		txtSenha = new JPasswordField();
-		txtSenha.setBorder(new EtchedBorder(EtchedBorder.RAISED, new Color(102, 51, 0), new Color(204, 153, 51)));
-		txtSenha.setBackground(new Color(254, 213, 150));
-		txtSenha.setFont(new Font("Lucida Console", Font.PLAIN, 12));
-		txtSenha.setToolTipText("Senha");
-		txtSenha.setColumns(10);
-		txtSenha.setBounds(40, 270, 150, 30);
-		panelLogin.add(txtSenha);
 		
 		JButton btnEntrar = new JButton("ENTRAR");
 		btnEntrar.addActionListener(new ActionListener() {
@@ -129,7 +151,7 @@ public class TelaLogin {
 				try {
 					
 					Connection con = ConexaoDB.conecta();
-					String sql = "select *from cadastros where usuario = ? and senha = ?";
+					String sql = "select *from funcionario where cpf = ? and senha = ?";
 					PreparedStatement stmt = con.prepareStatement(sql);
 					
 					stmt.setString(1, txtUsuario.getText());
@@ -187,7 +209,7 @@ public class TelaLogin {
 		});
 		lblEsqueciSenha.setFont(new Font("Lucida Console", Font.PLAIN, 10));
 		lblEsqueciSenha.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		lblEsqueciSenha.setBounds(40, 305, 150, 14);
+		lblEsqueciSenha.setBounds(20, 305, 150, 14);
 		panelLogin.add(lblEsqueciSenha);
 		
 		JButton btnSair = new JButton("SAIR");
@@ -254,6 +276,7 @@ public class TelaLogin {
 		getFrmLogin().setTitle("LOGIN - Dizimaster");
 		getFrmLogin().setBounds(100, 100, 780, 445);
 		getFrmLogin().setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
 		txtSenha.addKeyListener(new KeyAdapter() {
 			public void keyPressed(KeyEvent e) {
 	               if (e.getKeyCode() == KeyEvent.VK_ENTER){
