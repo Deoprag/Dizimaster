@@ -8,9 +8,6 @@ import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
 import java.text.ParseException;
 
 import javax.swing.ImageIcon;
@@ -24,22 +21,14 @@ import javax.swing.border.EtchedBorder;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.text.MaskFormatter;
 
-import com.dizimaster.conexao.ConexaoDB;
+import com.dizimaster.util.DatabaseUtils;
 
 import javax.swing.border.LineBorder;
 import javax.swing.SwingConstants;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import javax.swing.JRadioButton;
 import javax.swing.JFormattedTextField;
-import javax.swing.JList;
 import javax.swing.JOptionPane;
-import javax.swing.AbstractListModel;
-import java.awt.Dimension;
-import java.awt.Component;
-import java.awt.Rectangle;
-import java.awt.ComponentOrientation;
-import javax.swing.JScrollBar;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 
@@ -73,6 +62,7 @@ public class JIntCadastro extends JInternalFrame {
 	    }
 	}
 	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public JIntCadastro() {
 		setBorder(null);
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
@@ -107,6 +97,8 @@ public class JIntCadastro extends JInternalFrame {
 		panelCadastro.add(fTxtNum);
 
 		JComboBox boxSexo = new JComboBox();
+		boxSexo.setAutoscrolls(true);
+		boxSexo.setName("");
 		boxSexo.setModel(new DefaultComboBoxModel(new String[] {"Masculino", "Feminino"}));
 		boxSexo.setMaximumRowCount(2);
 		boxSexo.setFont(new Font("Rubik", Font.PLAIN, 12));
@@ -170,37 +162,12 @@ public class JIntCadastro extends JInternalFrame {
 		JButton btnEnviar = new JButton("ENVIAR");
 		btnEnviar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				try {
-					Connection con = ConexaoDB.conecta();
-					String sql = "insert into funcionario(cpf, nome, sexo, celular, email, senha) values (?,?,?,?,?,?)";
-					
-					PreparedStatement stmt = con.prepareCall(sql);
-					
-					stmt.setString(1, fTxtCpf.getText().replace(".", "").replace("-", ""));
-					stmt.setString(2, txtNome.getText());
-					if (boxSexo.getSelectedIndex() == 0) {
-						stmt.setString(3, "m");
-					} else if (boxSexo.getSelectedIndex() == 1) {
-						stmt.setString(3, "f");
-					}
-					stmt.setString(4, fTxtNum.getText().replace("(", "").replace(")", "").replace("-", ""));
-					if (txtEmail.getText().equals(txtConfEmail.getText())) {
-						stmt.setString(5, txtEmail.getText());
-					} else {
-						
-					}
-					stmt.setString(6, "dizi@2022");
-					
-					stmt.execute();
-					stmt.close();
-					con.close();
-					
-					JOptionPane.showMessageDialog(null, "Funcionário cadastrado com sucesso!");
-				} catch (SQLException e1) {
-					e1.printStackTrace();
-					JOptionPane.showMessageDialog(null, "Não foi possível cadastrar funcionário!");
+				if (txtEmail.getText().equals(txtConfEmail.getText())) {
+					String sexo = (boxSexo.getSelectedIndex() == 0 ? "m" : "f");
+					DatabaseUtils.cadastro(fTxtCpf.getText(), txtNome.getText(), sexo, fTxtNum.getText(), txtEmail.getText());
+				} else {
+					JOptionPane.showMessageDialog(null, "ERRO! Verifique o email digitado e tente novamente!");
 				}
-
 			}
 		});
 		btnEnviar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));

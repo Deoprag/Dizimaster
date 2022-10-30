@@ -1,41 +1,31 @@
 package com.dizimaster.app;
 
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import java.awt.Toolkit;
 import java.awt.Color;
-import java.awt.SystemColor;
-import javax.swing.JPanel;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.ImageIcon;
-import javax.swing.border.EtchedBorder;
-
-import com.dizimaster.conexao.ConexaoDB;
-import com.dizimaster.util.Utilidades;
-
-import javax.swing.JTextField;
-import java.awt.Font;
-
-import javax.swing.JButton;
-import java.awt.Cursor;
-import java.awt.Desktop;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.net.URL;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.awt.Dimension;
 import java.awt.Component;
-import java.awt.event.ActionListener;
+import java.awt.Cursor;
+import java.awt.Dimension;
+import java.awt.EventQueue;
+import java.awt.Font;
+import java.awt.SystemColor;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JPasswordField;
-import javax.swing.border.LineBorder;
+import javax.swing.JTextField;
+import javax.swing.border.EtchedBorder;
+
+import com.dizimaster.util.DatabaseUtils;
+import com.dizimaster.util.Utilidades;
 
 public class TelaLogin {
 
@@ -96,6 +86,7 @@ public class TelaLogin {
 		txtUsuario.setColumns(10);
 		
 		JButton btnAjuda = new JButton("");
+		btnAjuda.setToolTipText("Utilize seu CPF no nome de usuário");
 		btnAjuda.setSelectedIcon(new ImageIcon(TelaLogin.class.getResource("/com/dizimaster/img/info-hold-icon.png")));
 		btnAjuda.addMouseListener(new MouseAdapter() {
 			@Override
@@ -111,11 +102,6 @@ public class TelaLogin {
 		});
 		btnAjuda.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnAjuda.setBorder(null);
-		btnAjuda.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				JOptionPane.showMessageDialog(null, "Use seu CPF como nome de usuário!");
-			}
-		});
 		btnAjuda.setBackground(new Color(255, 255, 255, 0));
 		btnAjuda.setIcon(new ImageIcon(TelaLogin.class.getResource("/com/dizimaster/img/info-icon.png")));
 		btnAjuda.setBounds(188, 226, 24, 24);
@@ -141,33 +127,9 @@ public class TelaLogin {
 		JButton btnEntrar = new JButton("ENTRAR");
 		btnEntrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				try {
-					
-					Connection con = ConexaoDB.conecta();
-					String sql = "select *from funcionario where cpf = ? and senha = ?";
-					PreparedStatement stmt = con.prepareStatement(sql);
-					
-					stmt.setString(1, txtUsuario.getText());
-					stmt.setString(2, txtSenha.getText());
-					
-					ResultSet rs = stmt.executeQuery();
-					
-					if(rs.next()) {
-						Sistema window = new Sistema();
-						window.getFrmDizimasterSistema().setVisible(true);
-						getFrmLogin().dispose();
-					} else {
-						txtSenha.setText(null);
-						JOptionPane.showMessageDialog(null, "Usuário e/ou senha incorretos!");
-					}
-					
-					stmt.close();
-					con.close();
-					
-				} catch (SQLException e1) {
-					e1.printStackTrace();
-					JOptionPane.showMessageDialog(null, "Não foi possível se conectar com o banco de dados!");
-				}
+				if(DatabaseUtils.login(txtUsuario.getText(), txtSenha.getText()) == true) {
+					getFrmLogin().dispose();
+				};
 			}
 		});
 		btnEntrar.setBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(0, 120, 215), new Color(0, 191, 255)));
