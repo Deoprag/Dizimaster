@@ -214,10 +214,10 @@ public class TelaLogin {
 		lblNewLabel.setBounds(0, 0, 230, 424);
 		panelLogin.add(lblNewLabel);
 		JLabel lblDeopragLabs = new JLabel("® Deoprag Labs");
-		lblDeopragLabs.setBounds(699, 381, 66, 25);
+		lblDeopragLabs.setBounds(678, 381, 86, 25);
 		getFrmLogin().getContentPane().add(lblDeopragLabs);
 		lblDeopragLabs.setForeground(Color.WHITE);
-		lblDeopragLabs.setFont(new Font("Arial", Font.BOLD, 8));
+		lblDeopragLabs.setFont(new Font("Segoe UI", Font.BOLD, 10));
 		
 		JLabel lblFundo = new JLabel("");
 		lblFundo.setBounds(0, -11, 766, 426);

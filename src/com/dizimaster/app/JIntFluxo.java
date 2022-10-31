@@ -41,7 +41,7 @@ public class JIntFluxo extends JInternalFrame {
 		
 		JLabel lblDeopragLabs = new JLabel("® Deoprag Labs");
 		lblDeopragLabs.setForeground(Color.WHITE);
-		lblDeopragLabs.setFont(new Font("Rubik", Font.BOLD, 10));
+		lblDeopragLabs.setFont(new Font("Segoe UI", Font.BOLD, 10));
 		lblDeopragLabs.setBounds(0, 0, 90, 25);
 		getContentPane().add(lblDeopragLabs);
 		

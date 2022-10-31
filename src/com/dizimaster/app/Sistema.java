@@ -91,7 +91,7 @@ public class Sistema {
 		
 		JLabel lblDeopragLabs = new JLabel("® Deoprag Labs");
 		lblDeopragLabs.setForeground(Color.WHITE);
-		lblDeopragLabs.setFont(new Font("Rubik", Font.BOLD, 10));
+		lblDeopragLabs.setFont(new Font("Segoe UI", Font.BOLD, 10));
 		lblDeopragLabs.setBounds(0, 0, 90, 25);
 		largeDesktopPane.add(lblDeopragLabs);
 		
@@ -108,7 +108,7 @@ public class Sistema {
 		panel.setLayout(null);
 		
 		JMenuBar menuTop = new JMenuBar();
-		menuTop.setBounds(20, 0, 930, 30);
+		menuTop.setBounds(40, 0, 920, 30);
 		panel.add(menuTop);
 		menuTop.setAlignmentY(Component.CENTER_ALIGNMENT);
 		menuTop.setPreferredSize(new Dimension(0, 30));
@@ -219,6 +219,8 @@ public class Sistema {
 		mnFinanceiro.add(mntmNewMenuItem);
 		
 		JButton btnNewButton = new JButton("Sair\r\n");
+		btnNewButton.setFocusable(false);
+		btnNewButton.setFocusPainted(false);
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				deslogar();
@@ -228,7 +230,7 @@ public class Sistema {
 		btnNewButton.setForeground(new Color(255, 255, 255));
 		btnNewButton.setHorizontalTextPosition(SwingConstants.CENTER);
 		btnNewButton.setRequestFocusEnabled(false);
-		btnNewButton.setFont(new Font("Rubik", Font.PLAIN, 12));
+		btnNewButton.setFont(new Font("Segoe UI", Font.BOLD, 12));
 		btnNewButton.setBackground(new Color(255, 0, 0));
 		btnNewButton.setBorder(null);
 		btnNewButton.setBounds(960, 0, 78, 30);

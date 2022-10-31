@@ -133,28 +133,28 @@ public class JIntCadastro extends JInternalFrame {
 		
 		JFormattedTextField fTxtSalario = new JFormattedTextField(mascaraSalario);
 		fTxtSalario.setBounds(182, 390, 150, 30);
-		fTxtSalario.setFont(new Font("Rubik", Font.PLAIN, 12));
+		fTxtSalario.setFont(new Font("Segoe UI", Font.PLAIN, 12));
 		fTxtSalario.setBorder(new EtchedBorder(EtchedBorder.RAISED, new Color(102, 51, 0), new Color(204, 153, 51)));
 		fTxtSalario.setBackground(new Color(254, 213, 150));
 		panelCadastro.add(fTxtSalario);
 		
 		JFormattedTextField fTxtNascimento = new JFormattedTextField(mascaraNascimento);
 		fTxtNascimento.setBounds(16, 340, 150, 30);
-		fTxtNascimento.setFont(new Font("Rubik", Font.PLAIN, 12));
+		fTxtNascimento.setFont(new Font("Segoe UI", Font.PLAIN, 12));
 		fTxtNascimento.setBorder(new EtchedBorder(EtchedBorder.RAISED, new Color(102, 51, 0), new Color(204, 153, 51)));
 		fTxtNascimento.setBackground(new Color(254, 213, 150));
 		panelCadastro.add(fTxtNascimento);
 		
 		JFormattedTextField fTxtCpf = new JFormattedTextField(mascaraCpf);
 		fTxtCpf.setBounds(16, 290, 150, 30);
-		fTxtCpf.setFont(new Font("Rubik", Font.PLAIN, 12));
+		fTxtCpf.setFont(new Font("Segoe UI", Font.PLAIN, 12));
 		fTxtCpf.setBorder(new EtchedBorder(EtchedBorder.RAISED, new Color(102, 51, 0), new Color(204, 153, 51)));
 		fTxtCpf.setBackground(new Color(254, 213, 150));
 		panelCadastro.add(fTxtCpf);
 		
 		JFormattedTextField fTxtCelular = new JFormattedTextField(mascaraNumero);
 		fTxtCelular.setBounds(16, 390, 150, 30);
-		fTxtCelular.setFont(new Font("Rubik", Font.PLAIN, 12));
+		fTxtCelular.setFont(new Font("Segoe UI", Font.PLAIN, 12));
 		fTxtCelular.setBorder(new EtchedBorder(EtchedBorder.RAISED, new Color(102, 51, 0), new Color(204, 153, 51)));
 		fTxtCelular.setBackground(new Color(254, 213, 150));
 		panelCadastro.add(fTxtCelular);
@@ -162,10 +162,9 @@ public class JIntCadastro extends JInternalFrame {
 		JComboBox boxSexo = new JComboBox();
 		boxSexo.setFocusTraversalKeysEnabled(false);
 		boxSexo.setRequestFocusEnabled(false);
-		boxSexo.setFocusable(false);
 		boxSexo.setModel(new DefaultComboBoxModel(new String[] {"Masculino", "Feminino"}));
 		boxSexo.setMaximumRowCount(2);
-		boxSexo.setFont(new Font("Rubik", Font.PLAIN, 12));
+		boxSexo.setFont(new Font("Segoe UI", Font.PLAIN, 12));
 		boxSexo.setRenderer(new MyCellRenderer());
 		boxSexo.setBorder(new EtchedBorder(EtchedBorder.RAISED, new Color(102, 51, 0), new Color(204, 153, 51)));
 		boxSexo.setBackground(new Color(254, 213, 150));
@@ -186,7 +185,7 @@ public class JIntCadastro extends JInternalFrame {
 		lblTitulo.setBackground(new Color(128, 128, 128));
 		lblTitulo.setForeground(new Color(255, 255, 255));
 		lblTitulo.setHorizontalAlignment(SwingConstants.CENTER);
-		lblTitulo.setFont(new Font("Rubik", Font.BOLD, 16));
+		lblTitulo.setFont(new Font("Segoe UI", Font.BOLD, 16));
 		lblTitulo.setBounds(56, 220, 240, 35);
 		panelCadastro.add(lblTitulo);
 		
@@ -199,7 +198,7 @@ public class JIntCadastro extends JInternalFrame {
 		
 		txtEmail = new JTextField();
 		txtEmail.setToolTipText("Endereço de Email");
-		txtEmail.setFont(new Font("Rubik", Font.PLAIN, 12));
+		txtEmail.setFont(new Font("Segoe UI", Font.PLAIN, 12));
 		txtEmail.setColumns(10);
 		txtEmail.setBorder(new EtchedBorder(EtchedBorder.RAISED, new Color(102, 51, 0), new Color(204, 153, 51)));
 		txtEmail.setBackground(new Color(254, 213, 150));
@@ -241,7 +240,7 @@ public class JIntCadastro extends JInternalFrame {
 		});
 		btnEnviar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnEnviar.setForeground(Color.WHITE);
-		btnEnviar.setFont(new Font("Rubik", Font.BOLD, 15));
+		btnEnviar.setFont(new Font("Segoe UI Black", Font.BOLD, 15));
 		btnEnviar.setBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(0, 120, 215), new Color(0, 191, 255)));
 		btnEnviar.setBackground(new Color(0, 122, 152));
 		btnEnviar.setBounds(100, 485, 150, 55);
@@ -266,7 +265,7 @@ public class JIntCadastro extends JInternalFrame {
 		
 		txtConfEmail = new JTextField();
 		txtConfEmail.setToolTipText("Confirmação de Email");
-		txtConfEmail.setFont(new Font("Rubik", Font.PLAIN, 12));
+		txtConfEmail.setFont(new Font("Segoe UI", Font.PLAIN, 12));
 		txtConfEmail.setColumns(10);
 		txtConfEmail.setBorder(new EtchedBorder(EtchedBorder.RAISED, new Color(102, 51, 0), new Color(204, 153, 51)));
 		txtConfEmail.setBackground(new Color(254, 213, 150));
@@ -293,7 +292,7 @@ public class JIntCadastro extends JInternalFrame {
 		
 		txtNome = new JTextField();
 		txtNome.setToolTipText("Nome");
-		txtNome.setFont(new Font("Rubik", Font.PLAIN, 12));
+		txtNome.setFont(new Font("Segoe UI", Font.PLAIN, 12));
 		txtNome.setBorder(new EtchedBorder(EtchedBorder.RAISED, new Color(102, 51, 0), new Color(204, 153, 51)));
 		txtNome.setBackground(new Color(254, 213, 150));
 		txtNome.setBounds(182, 290, 150, 30);
@@ -316,7 +315,7 @@ public class JIntCadastro extends JInternalFrame {
 		
 		JLabel lblDeopragLabs = new JLabel("® Deoprag Labs");
 		lblDeopragLabs.setForeground(Color.WHITE);
-		lblDeopragLabs.setFont(new Font("Rubik", Font.BOLD, 10));
+		lblDeopragLabs.setFont(new Font("Segoe UI", Font.BOLD, 10));
 		lblDeopragLabs.setBounds(0, 0, 90, 25);
 		getContentPane().add(lblDeopragLabs);
 		
