@@ -22,7 +22,6 @@ import javax.swing.JPanel;
 import javax.swing.border.MatteBorder;
 import javax.swing.SwingConstants;
 import java.awt.Insets;
-import javax.swing.border.LineBorder;
 import javax.swing.JButton;
 
 public class Sistema {
@@ -236,16 +235,10 @@ public class Sistema {
 		panel.add(btnNewButton);
 	}
 
-	/**
-	 * @return the frmDizimasterSistema
-	 */
 	public JFrame getFrmDizimasterSistema() {
 		return frmDizimasterSistema;
 	}
 
-	/**
-	 * @param frmDizimasterSistema the frmDizimasterSistema to set
-	 */
 	public void setFrmDizimasterSistema(JFrame frmDizimasterSistema) {
 		this.frmDizimasterSistema = frmDizimasterSistema;
 		frmDizimasterSistema.setResizable(false);

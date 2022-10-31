@@ -5,16 +5,11 @@ import java.awt.EventQueue;
 
 import javax.swing.JInternalFrame;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
-import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.ImageIcon;
 import java.awt.Font;
-import javax.swing.JProgressBar;
-import javax.swing.SwingConstants;
-import javax.swing.JSeparator;
-import javax.swing.JList;
-import java.awt.Canvas;
 
+@SuppressWarnings("serial")
 public class JIntFluxo extends JInternalFrame {
 
 	/**

@@ -33,9 +33,6 @@ public class TelaLogin {
 	private JTextField txtUsuario;
 	private JTextField txtSenha;
 
-	/**
-	 * Launch the application.
-	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
