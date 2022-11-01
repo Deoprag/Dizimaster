@@ -6,7 +6,7 @@ import javax.swing.JInternalFrame;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 
 @SuppressWarnings("serial")
-public class JIntPagamento extends JInternalFrame {
+public class IntFormPagamento extends JInternalFrame {
 
 	/**
 	 * Launch the application.
@@ -15,7 +15,7 @@ public class JIntPagamento extends JInternalFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					JIntPagamento frame = new JIntPagamento();
+					IntFormPagamento frame = new IntFormPagamento();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -27,7 +27,7 @@ public class JIntPagamento extends JInternalFrame {
 	/**
 	 * Create the frame.
 	 */
-	public JIntPagamento() {
+	public IntFormPagamento() {
 		setBounds(100, 100, 450, 300);
 		BasicInternalFrameUI bui = (BasicInternalFrameUI) this.getUI();
 		bui.setNorthPane(null);

@@ -3,12 +3,10 @@ package com.dizimaster.app;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Cursor;
-import java.awt.Desktop;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.net.URL;
 import java.text.ParseException;
 
 import javax.swing.ImageIcon;
@@ -25,10 +23,13 @@ import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.text.MaskFormatter;
 
 import com.dizimaster.util.DatabaseUtils;
+import com.dizimaster.util.Utilidades;
 
 import javax.swing.border.LineBorder;
 import javax.swing.SwingConstants;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.ActionEvent;
 import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
@@ -37,19 +38,16 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListCellRenderer;
 
 @SuppressWarnings("serial")
-public class JIntCadastro extends JInternalFrame {
+public class IntFormCadastro extends JInternalFrame {
 	private JTextField txtEmail;
 	private JTextField txtConfEmail;
 	private JTextField txtNome;
 
-	/**
-	 * Launch the application.
-	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					JIntCadastro frame = new JIntCadastro();
+					IntFormCadastro frame = new IntFormCadastro();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -58,19 +56,13 @@ public class JIntCadastro extends JInternalFrame {
 		});
 	}
 	
-	private static void openWebpage(String urlString) {
-	    try {
-	        Desktop.getDesktop().browse(new URL(urlString).toURI());
-	    } catch (Exception e) {
-	        e.printStackTrace();
-	    }
+	public void voltar() {
+		this.dispose();
 	}
 	
 	@SuppressWarnings("rawtypes")
 	public class MyCellRenderer implements ListCellRenderer{
-        
 	    protected DefaultListCellRenderer defaultRenderer = new DefaultListCellRenderer();
-	        @Override
 		public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus){
 			JLabel renderer = (JLabel) defaultRenderer.getListCellRendererComponent(list, value, index,
 	            isSelected, cellHasFocus);
@@ -82,7 +74,7 @@ public class JIntCadastro extends JInternalFrame {
 	}
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
-	public JIntCadastro() {
+	public IntFormCadastro() {
 		setBorder(null);
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		setBounds(0, 0, 1020, 665);
@@ -102,16 +94,43 @@ public class JIntCadastro extends JInternalFrame {
 		MaskFormatter mascaraSalario = null;
 		try {
 			mascaraCpf = new MaskFormatter("###.###.###-##");
-			mascaraNumero = new MaskFormatter("(##)#####-####");
+			mascaraNumero = new MaskFormatter("(##) #####-####");
 			mascaraNascimento = new MaskFormatter("##/##/####");
 			mascaraSalario = new MaskFormatter("R$####.##");
-			mascaraCpf.setPlaceholderCharacter('*');
-			mascaraNumero.setPlaceholderCharacter('*');
-			mascaraNascimento.setPlaceholderCharacter('*');
-			mascaraSalario.setPlaceholderCharacter('*');
+			mascaraCpf.setPlaceholderCharacter(' ');
+			mascaraNumero.setPlaceholderCharacter(' ');
+			mascaraNascimento.setPlaceholderCharacter(' ');
+			mascaraSalario.setPlaceholderCharacter(' ');
 		} catch (ParseException e2) {
 			e2.printStackTrace();
 		}
+		
+		JButton btnSair = new JButton("VOLTAR");
+		btnSair.setFocusable(false);
+		btnSair.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (JOptionPane.showConfirmDialog(null, "Tem certeza que deseja voltar?", "Voltar?", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+					voltar();
+				}
+			}
+		});
+		btnSair.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnSair.setForeground(Color.WHITE);
+		btnSair.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				btnSair.setBackground(new Color(143, 20, 29));
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				btnSair.setBackground(new Color(184, 44, 54));
+			}
+		});
+		btnSair.setFont(new Font("Segoe UI Black", Font.BOLD, 12));
+		btnSair.setBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(245, 54, 54), new Color(255, 84, 84)));
+		btnSair.setBackground(new Color(184, 44, 54));
+		btnSair.setBounds(56, 495, 90, 40);
+		panelCadastro.add(btnSair);
 		
 		JLabel lblSalario = new JLabel("Salário");
 		lblSalario.setForeground(Color.WHITE);
@@ -160,7 +179,6 @@ public class JIntCadastro extends JInternalFrame {
 		panelCadastro.add(fTxtCelular);
 
 		JComboBox boxSexo = new JComboBox();
-		boxSexo.setFocusTraversalKeysEnabled(false);
 		boxSexo.setRequestFocusEnabled(false);
 		boxSexo.setModel(new DefaultComboBoxModel(new String[] {"Masculino", "Feminino"}));
 		boxSexo.setMaximumRowCount(2);
@@ -209,33 +227,52 @@ public class JIntCadastro extends JInternalFrame {
 		lblLogo.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				openWebpage("https://www.instagram.com/deopraglabs");
+				Utilidades.openWebpage("https://www.instagram.com/deopraglabs");
 			}
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				lblLogo.setIcon(new ImageIcon(JIntCadastro.class.getResource("/com/dizimaster/img/logo-hold-small.png")));
+				lblLogo.setIcon(new ImageIcon(IntFormCadastro.class.getResource("/com/dizimaster/img/logo-hold-small.png")));
 
 			}
 			public void mouseExited(MouseEvent e) {
-				lblLogo.setIcon(new ImageIcon(JIntCadastro.class.getResource("/com/dizimaster/img/logo-small.png")));
+				lblLogo.setIcon(new ImageIcon(IntFormCadastro.class.getResource("/com/dizimaster/img/logo-small.png")));
 			}
 		});
 		lblLogo.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		lblLogo.setIcon(new ImageIcon(JIntCadastro.class.getResource("/com/dizimaster/img/logo-small.png")));
+		lblLogo.setIcon(new ImageIcon(IntFormCadastro.class.getResource("/com/dizimaster/img/logo-small.png")));
 		lblLogo.setBounds(100, 20, 150, 150);
 		panelCadastro.add(lblLogo);
 		
 		JButton btnEnviar = new JButton("ENVIAR");
+		btnEnviar.setFocusable(false);
 		btnEnviar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (txtEmail.getText().equals(txtConfEmail.getText())) {
-					String sexo = (boxSexo.getSelectedIndex() == 0 ? "m" : "f");
-					if (DatabaseUtils.cadastro(fTxtCpf.getText(), txtNome.getText(), fTxtNascimento.getText(), sexo, fTxtCelular.getText(), fTxtSalario.getText(), txtEmail.getText()) == true) {
-						// SETAR OS CAMPOS VAZIOS
+				if(Utilidades.isCPF(fTxtCpf.getText().replace(".", "").replace("-", "")) == true) {
+					if (txtEmail.getText().equals(txtConfEmail.getText())) {
+						String sexo = (boxSexo.getSelectedIndex() == 0 ? "m" : "f");
+						if (DatabaseUtils.cadastro(
+							fTxtCpf.getText(),
+							txtNome.getText(),
+							fTxtNascimento.getText(),
+							sexo,
+							fTxtCelular.getText(),
+							fTxtSalario.getText(),
+							txtEmail.getText()) == true) {
+							fTxtCpf.setText("");
+							txtNome.setText("");
+							fTxtNascimento.setText("");
+							fTxtCelular.setText("");
+							fTxtSalario.setText("");
+							txtEmail.setText("");
+							txtConfEmail.setText("");
+						}
+					} else {
+						JOptionPane.showMessageDialog(null, "ERRO! Verifique o email digitado e tente novamente!");
 					}
 				} else {
-					JOptionPane.showMessageDialog(null, "ERRO! Verifique o email digitado e tente novamente!");
+					JOptionPane.showMessageDialog(null, "ERRO! CPF Inválido!");
 				}
+				
 			}
 		});
 		btnEnviar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -243,7 +280,7 @@ public class JIntCadastro extends JInternalFrame {
 		btnEnviar.setFont(new Font("Segoe UI Black", Font.BOLD, 15));
 		btnEnviar.setBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(0, 120, 215), new Color(0, 191, 255)));
 		btnEnviar.setBackground(new Color(0, 122, 152));
-		btnEnviar.setBounds(100, 485, 150, 55);
+		btnEnviar.setBounds(202, 495, 90, 40);
 		btnEnviar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
@@ -271,6 +308,13 @@ public class JIntCadastro extends JInternalFrame {
 		txtConfEmail.setBackground(new Color(254, 213, 150));
 		txtConfEmail.setBounds(182, 440, 150, 30);
 		panelCadastro.add(txtConfEmail);
+		txtConfEmail.addKeyListener(new KeyAdapter() {
+			public void keyPressed(KeyEvent e) {
+	               if (e.getKeyCode() == KeyEvent.VK_ENTER){
+		                btnEnviar.doClick();
+	               }
+			}
+		});
 		
 		JLabel lblCpf = new JLabel("CPF");
 		lblCpf.setForeground(Color.WHITE);
@@ -309,7 +353,7 @@ public class JIntCadastro extends JInternalFrame {
 		
 		JLabel lblBackgroundPanel = new JLabel("");
 		lblBackgroundPanel.setBorder(new LineBorder(new Color(255, 255, 255), 1, true));
-		lblBackgroundPanel.setIcon(new ImageIcon(JIntCadastro.class.getResource("/com/dizimaster/img/Cad_Panel.jpg")));
+		lblBackgroundPanel.setIcon(new ImageIcon(IntFormCadastro.class.getResource("/com/dizimaster/img/Cad_Panel.jpg")));
 		lblBackgroundPanel.setBounds(0, 0, 350, 570);
 		panelCadastro.add(lblBackgroundPanel);
 		
@@ -320,7 +364,7 @@ public class JIntCadastro extends JInternalFrame {
 		getContentPane().add(lblDeopragLabs);
 		
 		JLabel lblBackground = new JLabel("");
-		lblBackground.setIcon(new ImageIcon(JIntCadastro.class.getResource("/com/dizimaster/img/Background.jpg")));
+		lblBackground.setIcon(new ImageIcon(IntFormCadastro.class.getResource("/com/dizimaster/img/Background.jpg")));
 		lblBackground.setBounds(0, 0, 1020, 665);
 		getContentPane().add(lblBackground);
 

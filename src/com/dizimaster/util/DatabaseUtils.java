@@ -30,7 +30,7 @@ public class DatabaseUtils {
 	
 	public static boolean login(String user, String password) {
 		try {
-			TelaLogin tl = new TelaLogin();
+			LoginForm tl = new LoginForm();
 			Connection con = DatabaseUtils.conecta();
 			String sql = "select *from funcionario where cpf = ? and senha = ?";
 			PreparedStatement stmt = con.prepareStatement(sql);
@@ -41,7 +41,7 @@ public class DatabaseUtils {
 			ResultSet rs = stmt.executeQuery();
 			
 			if(rs.next()) {
-				Sistema window = new Sistema();
+				SistemaForm window = new SistemaForm();
 				window.getFrmDizimasterSistema().setVisible(true);
 				tl.getFrmLogin().dispose();
 				stmt.close();
@@ -66,7 +66,7 @@ public class DatabaseUtils {
 			
 			LocalDate data = LocalDate.parse(nascimento, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
 			Connection con = DatabaseUtils.conecta();
-			String sql = "insert into funcionario(cpf, nome, nascimento, sexo, celular, salario, email, senha) values (?,?,?,?,?,?,?,?)";
+			String sql = "insert into funcionario(cpf, nome, nascimento, sexo, celular, salario, email) values (?,?,?,?,?,?,?)";
 			
 			PreparedStatement stmt = con.prepareCall(sql);
 		
@@ -74,10 +74,9 @@ public class DatabaseUtils {
 			stmt.setString(2, nome);
 			stmt.setDate(3, java.sql.Date.valueOf(data));
 			stmt.setString(4, sexo);
-			stmt.setString(5, numero.replace("(", "").replace(")", "").replace("-", ""));
+			stmt.setString(5, numero.replace("(", "").replace(")", "").replace(" ","").replace("-", ""));
 			stmt.setFloat(6, Float.valueOf(salario.replace("R", "").replace("$", "")));
 			stmt.setString(7, email);
-			stmt.setString(8, "dizi@2022");
 			
 			stmt.execute();
 			stmt.close();

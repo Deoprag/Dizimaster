@@ -27,7 +27,7 @@ import javax.swing.border.EtchedBorder;
 import com.dizimaster.util.DatabaseUtils;
 import com.dizimaster.util.Utilidades;
 
-public class TelaLogin {
+public class LoginForm {
 
 	private JFrame frmLogin;
 	private JTextField txtUsuario;
@@ -37,7 +37,7 @@ public class TelaLogin {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					TelaLogin window = new TelaLogin();
+					LoginForm window = new LoginForm();
 					window.getFrmLogin().setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -46,7 +46,7 @@ public class TelaLogin {
 		});
 	}
 
-	public TelaLogin() {
+	public LoginForm() {
 		initialize();
 	}
 
@@ -67,7 +67,7 @@ public class TelaLogin {
 		txtSenha = new JPasswordField();
 		txtSenha.setBorder(new EtchedBorder(EtchedBorder.RAISED, new Color(102, 51, 0), new Color(204, 153, 51)));
 		txtSenha.setBackground(new Color(254, 213, 150));
-		txtSenha.setFont(new Font("Lucida Console", Font.PLAIN, 12));
+		txtSenha.setFont(new Font("Segoe UI", Font.PLAIN, 12));
 		txtSenha.setToolTipText("Senha");
 		txtSenha.setColumns(10);
 		txtSenha.setBounds(20, 270, 150, 30);
@@ -76,31 +76,33 @@ public class TelaLogin {
 		txtUsuario = new JTextField();
 		txtUsuario.setBorder(new EtchedBorder(EtchedBorder.RAISED, new Color(102, 51, 0), new Color(204, 153, 51)));
 		txtUsuario.setBackground(new Color(254, 213, 150));
-		txtUsuario.setFont(new Font("Lucida Console", Font.PLAIN, 12));
+		txtUsuario.setFont(new Font("Segoe UI", Font.PLAIN, 12));
 		txtUsuario.setToolTipText("Usuário");
 		txtUsuario.setBounds(20, 220, 150, 30);
 		panelLogin.add(txtUsuario);
 		txtUsuario.setColumns(10);
 		
 		JButton btnAjuda = new JButton("");
-		btnAjuda.setToolTipText("Utilize seu CPF no nome de usuário");
-		btnAjuda.setSelectedIcon(new ImageIcon(TelaLogin.class.getResource("/com/dizimaster/img/info-hold-icon.png")));
+		btnAjuda.setFocusTraversalKeysEnabled(false);
+		btnAjuda.setFocusable(false);
+		btnAjuda.setToolTipText("Utilize seu CPF sem pontuação no nome de usuário");
+		btnAjuda.setSelectedIcon(new ImageIcon(LoginForm.class.getResource("/com/dizimaster/img/info-hold-icon.png")));
 		btnAjuda.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				btnAjuda.setIcon(new ImageIcon(TelaLogin.class.getResource("/com/dizimaster/img/info-hold-icon.png")));
+				btnAjuda.setIcon(new ImageIcon(LoginForm.class.getResource("/com/dizimaster/img/info-hold-icon.png")));
 				btnAjuda.setBackground(new Color(255, 255, 255, 0));
 			}
 			@Override
 			public void mouseExited(MouseEvent e) {
-				btnAjuda.setIcon(new ImageIcon(TelaLogin.class.getResource("/com/dizimaster/img/info-icon.png")));
+				btnAjuda.setIcon(new ImageIcon(LoginForm.class.getResource("/com/dizimaster/img/info-icon.png")));
 				btnAjuda.setBackground(new Color(255, 255, 255, 0));
 			}
 		});
 		btnAjuda.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnAjuda.setBorder(null);
 		btnAjuda.setBackground(new Color(255, 255, 255, 0));
-		btnAjuda.setIcon(new ImageIcon(TelaLogin.class.getResource("/com/dizimaster/img/info-icon.png")));
+		btnAjuda.setIcon(new ImageIcon(LoginForm.class.getResource("/com/dizimaster/img/info-icon.png")));
 		btnAjuda.setBounds(188, 226, 24, 24);
 		panelLogin.add(btnAjuda);
 		btnAjuda.setFont(new Font("Rubik", Font.PLAIN, 12));
@@ -110,14 +112,14 @@ public class TelaLogin {
 		lblUsuario.setBackground(Color.WHITE);
 		lblUsuario.setAlignmentX(Component.CENTER_ALIGNMENT);
 		lblUsuario.setBorder(null);
-		lblUsuario.setFont(new Font("Lucida Console", Font.BOLD, 12));
+		lblUsuario.setFont(new Font("Segoe UI", Font.PLAIN, 12));
 		lblUsuario.setBounds(20, 200, 150, 24);
 		panelLogin.add(lblUsuario);
 		
 		JLabel lblSenha = new JLabel("Senha:");
 		lblSenha.setForeground(Color.WHITE);
 		lblSenha.setAlignmentX(Component.CENTER_ALIGNMENT);
-		lblSenha.setFont(new Font("Lucida Console", Font.BOLD, 12));
+		lblSenha.setFont(new Font("Segoe UI", Font.PLAIN, 12));
 		lblSenha.setBounds(20, 250, 150, 24);
 		panelLogin.add(lblSenha);
 		
@@ -143,7 +145,7 @@ public class TelaLogin {
 		btnEntrar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnEntrar.setForeground(SystemColor.text);
 		btnEntrar.setBackground(new Color(60, 122, 194));
-		btnEntrar.setFont(new Font("Lucida Console", Font.BOLD, 11));
+		btnEntrar.setFont(new Font("Segoe UI", Font.BOLD, 12));
 		btnEntrar.setBounds(122, 345, 90, 40);
 		panelLogin.add(btnEntrar);
 		
@@ -159,7 +161,7 @@ public class TelaLogin {
 				lblEsqueciSenha.setForeground(Color.LIGHT_GRAY);
 			}
 		});
-		lblEsqueciSenha.setFont(new Font("Lucida Console", Font.PLAIN, 10));
+		lblEsqueciSenha.setFont(new Font("Segoe UI", Font.PLAIN, 12));
 		lblEsqueciSenha.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		lblEsqueciSenha.setBounds(20, 305, 150, 14);
 		panelLogin.add(lblEsqueciSenha);
@@ -184,7 +186,7 @@ public class TelaLogin {
 				btnSair.setBackground(new Color(184, 44, 54));
 			}
 		});
-		btnSair.setFont(new Font("Lucida Console", Font.BOLD, 11));
+		btnSair.setFont(new Font("Segoe UI", Font.BOLD, 12));
 		btnSair.setBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(245, 54, 54), new Color(255, 84, 84)));
 		btnSair.setBackground(new Color(184, 44, 54));
 		btnSair.setBounds(16, 345, 90, 40);
@@ -201,16 +203,16 @@ public class TelaLogin {
 			}
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				lblLogo.setIcon(new ImageIcon(TelaLogin.class.getResource("/com/dizimaster/img/logo-hold-small.png")));
+				lblLogo.setIcon(new ImageIcon(LoginForm.class.getResource("/com/dizimaster/img/logo-hold-small.png")));
 			}
 			public void mouseExited(MouseEvent e) {
-				lblLogo.setIcon(new ImageIcon(TelaLogin.class.getResource("/com/dizimaster/img/logo-small.png")));
+				lblLogo.setIcon(new ImageIcon(LoginForm.class.getResource("/com/dizimaster/img/logo-small.png")));
 			}
 		});
-		lblLogo.setIcon(new ImageIcon(TelaLogin.class.getResource("/com/dizimaster/img/logo-small.png")));
+		lblLogo.setIcon(new ImageIcon(LoginForm.class.getResource("/com/dizimaster/img/logo-small.png")));
 		
 		JLabel lblNewLabel = new JLabel("");
-		lblNewLabel.setIcon(new ImageIcon(TelaLogin.class.getResource("/com/dizimaster/img/Login Sidebar.png")));
+		lblNewLabel.setIcon(new ImageIcon(LoginForm.class.getResource("/com/dizimaster/img/Login Sidebar.png")));
 		lblNewLabel.setBounds(0, 0, 230, 424);
 		panelLogin.add(lblNewLabel);
 		JLabel lblDeopragLabs = new JLabel("® Deoprag Labs");
@@ -222,9 +224,9 @@ public class TelaLogin {
 		JLabel lblFundo = new JLabel("");
 		lblFundo.setBounds(0, -11, 766, 426);
 		getFrmLogin().getContentPane().add(lblFundo);
-		lblFundo.setIcon(new ImageIcon(TelaLogin.class.getResource("/com/dizimaster/img/Login background.png")));
+		lblFundo.setIcon(new ImageIcon(LoginForm.class.getResource("/com/dizimaster/img/Login background.png")));
 		getFrmLogin().setBackground(Color.WHITE);
-		getFrmLogin().setIconImage(Toolkit.getDefaultToolkit().getImage(TelaLogin.class.getResource("/com/dizimaster/img/icon.png")));
+		getFrmLogin().setIconImage(Toolkit.getDefaultToolkit().getImage(LoginForm.class.getResource("/com/dizimaster/img/icon.png")));
 		getFrmLogin().setTitle("LOGIN - Dizimaster");
 		getFrmLogin().setBounds(100, 100, 780, 445);
 		getFrmLogin().setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

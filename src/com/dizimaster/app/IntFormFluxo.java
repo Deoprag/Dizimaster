@@ -10,7 +10,7 @@ import javax.swing.ImageIcon;
 import java.awt.Font;
 
 @SuppressWarnings("serial")
-public class JIntFluxo extends JInternalFrame {
+public class IntFormFluxo extends JInternalFrame {
 
 	/**
 	 * Launch the application.
@@ -19,7 +19,7 @@ public class JIntFluxo extends JInternalFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					JIntFluxo frame = new JIntFluxo();
+					IntFormFluxo frame = new IntFormFluxo();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -31,7 +31,7 @@ public class JIntFluxo extends JInternalFrame {
 	/**
 	 * Create the frame.
 	 */
-	public JIntFluxo() {
+	public IntFormFluxo() {
 		getContentPane().setBackground(Color.DARK_GRAY);
 		setBounds(0, 0, 1020, 665);
 		getContentPane().setLayout(null);
@@ -46,7 +46,7 @@ public class JIntFluxo extends JInternalFrame {
 		getContentPane().add(lblDeopragLabs);
 		
 		JLabel lblNewLabel = new JLabel("");
-		lblNewLabel.setIcon(new ImageIcon(JIntFluxo.class.getResource("/com/dizimaster/img/Background.jpg")));
+		lblNewLabel.setIcon(new ImageIcon(IntFormFluxo.class.getResource("/com/dizimaster/img/Background.jpg")));
 		lblNewLabel.setBounds(0, 0, 1020, 665);
 		getContentPane().add(lblNewLabel);
 		
