@@ -6,10 +6,11 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/MySQL">
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/MySql">
 		<attributes>
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/JavaFX 19"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

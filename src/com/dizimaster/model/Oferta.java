@@ -3,20 +3,18 @@ package com.dizimaster.model;
 import java.sql.Date;
 
 public class Oferta {
-	private int dizimista;
-	private int funcionario;
+	private int dizimista; // OPCIONAL
 	private float valor;
 	private Date data;
-	
-	public Oferta(int dizimista,
-			int funcionario,
-			float valor,
-			Date data) {
-				this.setDizimista(dizimista);
-				this.setFuncionario(funcionario);
-				this.setValor(valor);
-				this.setData(data);
-			}
+	private String observacao;
+	private int funcionario;
+
+	public Oferta(int dizimista, int funcionario, float valor, Date data) {
+		this.setDizimista(dizimista);
+		this.setFuncionario(funcionario);
+		this.setValor(valor);
+		this.setData(data);
+	}
 
 	public int getDizimista() {
 		return dizimista;
@@ -48,5 +46,13 @@ public class Oferta {
 
 	public void setData(Date data) {
 		this.data = data;
+	}
+
+	public String getObservacao() {
+		return observacao;
+	}
+
+	public void setObservacao(String observacao) {
+		this.observacao = observacao;
 	}
 }

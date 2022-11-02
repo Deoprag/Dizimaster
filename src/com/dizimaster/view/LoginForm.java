@@ -1,4 +1,4 @@
-package com.dizimaster.app;
+package com.dizimaster.view;
 
 import java.awt.Color;
 import java.awt.Component;
@@ -25,7 +25,7 @@ import javax.swing.JTextField;
 import javax.swing.border.EtchedBorder;
 
 import com.dizimaster.util.DatabaseUtils;
-import com.dizimaster.util.Utilidades;
+import com.dizimaster.util.GenericUtils;
 
 public class LoginForm {
 
@@ -56,14 +56,14 @@ public class LoginForm {
 		getFrmLogin().getContentPane().setMaximumSize(new Dimension(0, 0));
 		getFrmLogin().getContentPane().setBackground(new Color(48, 133, 199));
 		getFrmLogin().getContentPane().setLayout(null);
-		
+
 		JPanel panelLogin = new JPanel();
 		panelLogin.setBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(0, 120, 215), new Color(0, 191, 255)));
 		panelLogin.setBackground(new Color(30, 144, 255));
 		panelLogin.setBounds(0, -9, 230, 424);
 		getFrmLogin().getContentPane().add(panelLogin);
 		panelLogin.setLayout(null);
-		
+
 		txtSenha = new JPasswordField();
 		txtSenha.setBorder(new EtchedBorder(EtchedBorder.RAISED, new Color(102, 51, 0), new Color(204, 153, 51)));
 		txtSenha.setBackground(new Color(254, 213, 150));
@@ -72,7 +72,7 @@ public class LoginForm {
 		txtSenha.setColumns(10);
 		txtSenha.setBounds(20, 270, 150, 30);
 		panelLogin.add(txtSenha);
-		
+
 		txtUsuario = new JTextField();
 		txtUsuario.setBorder(new EtchedBorder(EtchedBorder.RAISED, new Color(102, 51, 0), new Color(204, 153, 51)));
 		txtUsuario.setBackground(new Color(254, 213, 150));
@@ -81,7 +81,7 @@ public class LoginForm {
 		txtUsuario.setBounds(20, 220, 150, 30);
 		panelLogin.add(txtUsuario);
 		txtUsuario.setColumns(10);
-		
+
 		JButton btnAjuda = new JButton("");
 		btnAjuda.setFocusTraversalKeysEnabled(false);
 		btnAjuda.setFocusable(false);
@@ -93,6 +93,7 @@ public class LoginForm {
 				btnAjuda.setIcon(new ImageIcon(LoginForm.class.getResource("/com/dizimaster/img/info-hold-icon.png")));
 				btnAjuda.setBackground(new Color(255, 255, 255, 0));
 			}
+
 			@Override
 			public void mouseExited(MouseEvent e) {
 				btnAjuda.setIcon(new ImageIcon(LoginForm.class.getResource("/com/dizimaster/img/info-icon.png")));
@@ -106,7 +107,7 @@ public class LoginForm {
 		btnAjuda.setBounds(188, 226, 24, 24);
 		panelLogin.add(btnAjuda);
 		btnAjuda.setFont(new Font("Rubik", Font.PLAIN, 12));
-		
+
 		JLabel lblUsuario = new JLabel("Usuário:");
 		lblUsuario.setForeground(Color.WHITE);
 		lblUsuario.setBackground(Color.WHITE);
@@ -115,20 +116,21 @@ public class LoginForm {
 		lblUsuario.setFont(new Font("Segoe UI", Font.PLAIN, 12));
 		lblUsuario.setBounds(20, 200, 150, 24);
 		panelLogin.add(lblUsuario);
-		
+
 		JLabel lblSenha = new JLabel("Senha:");
 		lblSenha.setForeground(Color.WHITE);
 		lblSenha.setAlignmentX(Component.CENTER_ALIGNMENT);
 		lblSenha.setFont(new Font("Segoe UI", Font.PLAIN, 12));
 		lblSenha.setBounds(20, 250, 150, 24);
 		panelLogin.add(lblSenha);
-		
+
 		JButton btnEntrar = new JButton("ENTRAR");
 		btnEntrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(DatabaseUtils.login(txtUsuario.getText(), txtSenha.getText()) == true) {
+				if (DatabaseUtils.login(txtUsuario.getText(), txtSenha.getText()) == true) {
 					getFrmLogin().dispose();
-				};
+				}
+				;
 			}
 		});
 		btnEntrar.setBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(0, 120, 215), new Color(0, 191, 255)));
@@ -137,6 +139,7 @@ public class LoginForm {
 			public void mouseEntered(MouseEvent e) {
 				btnEntrar.setBackground(new Color(33, 91, 158));
 			}
+
 			@Override
 			public void mouseExited(MouseEvent e) {
 				btnEntrar.setBackground(new Color(60, 122, 194));
@@ -148,7 +151,7 @@ public class LoginForm {
 		btnEntrar.setFont(new Font("Segoe UI", Font.BOLD, 12));
 		btnEntrar.setBounds(122, 345, 90, 40);
 		panelLogin.add(btnEntrar);
-		
+
 		JLabel lblEsqueciSenha = new JLabel("Esqueci minha senha.");
 		lblEsqueciSenha.setForeground(Color.LIGHT_GRAY);
 		lblEsqueciSenha.addMouseListener(new MouseAdapter() {
@@ -156,6 +159,7 @@ public class LoginForm {
 			public void mouseEntered(MouseEvent e) {
 				lblEsqueciSenha.setForeground(Color.WHITE);
 			}
+
 			@Override
 			public void mouseExited(MouseEvent e) {
 				lblEsqueciSenha.setForeground(Color.LIGHT_GRAY);
@@ -165,11 +169,12 @@ public class LoginForm {
 		lblEsqueciSenha.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		lblEsqueciSenha.setBounds(20, 305, 150, 14);
 		panelLogin.add(lblEsqueciSenha);
-		
+
 		JButton btnSair = new JButton("SAIR");
 		btnSair.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (JOptionPane.showConfirmDialog(null, "Tem certeza que deseja sair?", "Sair?", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+				if (JOptionPane.showConfirmDialog(null, "Tem certeza que deseja sair?", "Sair?",
+						JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
 					System.exit(0);
 				}
 			}
@@ -181,6 +186,7 @@ public class LoginForm {
 			public void mouseEntered(MouseEvent e) {
 				btnSair.setBackground(new Color(143, 20, 29));
 			}
+
 			@Override
 			public void mouseExited(MouseEvent e) {
 				btnSair.setBackground(new Color(184, 44, 54));
@@ -191,7 +197,7 @@ public class LoginForm {
 		btnSair.setBackground(new Color(184, 44, 54));
 		btnSair.setBounds(16, 345, 90, 40);
 		panelLogin.add(btnSair);
-		
+
 		JLabel lblLogo = new JLabel("");
 		lblLogo.setBounds(40, 25, 150, 150);
 		panelLogin.add(lblLogo);
@@ -199,18 +205,20 @@ public class LoginForm {
 		lblLogo.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				Utilidades.openWebpage("https://www.instagram.com/deopraglabs");
+				GenericUtils.openWebpage("https://www.instagram.com/deopraglabs");
 			}
+
 			@Override
 			public void mouseEntered(MouseEvent e) {
 				lblLogo.setIcon(new ImageIcon(LoginForm.class.getResource("/com/dizimaster/img/logo-hold-small.png")));
 			}
+
 			public void mouseExited(MouseEvent e) {
 				lblLogo.setIcon(new ImageIcon(LoginForm.class.getResource("/com/dizimaster/img/logo-small.png")));
 			}
 		});
 		lblLogo.setIcon(new ImageIcon(LoginForm.class.getResource("/com/dizimaster/img/logo-small.png")));
-		
+
 		JLabel lblNewLabel = new JLabel("");
 		lblNewLabel.setIcon(new ImageIcon(LoginForm.class.getResource("/com/dizimaster/img/Login Sidebar.png")));
 		lblNewLabel.setBounds(0, 0, 230, 424);
@@ -220,22 +228,23 @@ public class LoginForm {
 		getFrmLogin().getContentPane().add(lblDeopragLabs);
 		lblDeopragLabs.setForeground(Color.WHITE);
 		lblDeopragLabs.setFont(new Font("Segoe UI", Font.BOLD, 10));
-		
+
 		JLabel lblFundo = new JLabel("");
 		lblFundo.setBounds(0, -11, 766, 426);
 		getFrmLogin().getContentPane().add(lblFundo);
 		lblFundo.setIcon(new ImageIcon(LoginForm.class.getResource("/com/dizimaster/img/Login background.png")));
 		getFrmLogin().setBackground(Color.WHITE);
-		getFrmLogin().setIconImage(Toolkit.getDefaultToolkit().getImage(LoginForm.class.getResource("/com/dizimaster/img/icon.png")));
+		getFrmLogin().setIconImage(
+				Toolkit.getDefaultToolkit().getImage(LoginForm.class.getResource("/com/dizimaster/img/icon.png")));
 		getFrmLogin().setTitle("LOGIN - Dizimaster");
 		getFrmLogin().setBounds(100, 100, 780, 445);
 		getFrmLogin().setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
+
 		txtSenha.addKeyListener(new KeyAdapter() {
 			public void keyPressed(KeyEvent e) {
-	               if (e.getKeyCode() == KeyEvent.VK_ENTER){
-		                btnEntrar.doClick();
-	               }
+				if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+					btnEntrar.doClick();
+				}
 			}
 		});
 	}

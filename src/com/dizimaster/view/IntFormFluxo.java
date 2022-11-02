@@ -1,4 +1,4 @@
-package com.dizimaster.app;
+package com.dizimaster.view;
 
 import java.awt.Color;
 import java.awt.EventQueue;

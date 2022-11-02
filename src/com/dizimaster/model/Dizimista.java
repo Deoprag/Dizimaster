@@ -10,20 +10,15 @@ public class Dizimista {
 	private String celular;
 	private float salario;
 
-	public Dizimista(int id,
-			String cpf,
-			String nome,
-			Date nascimento,
-			String celular,
-			float salario) {
-				this.setId(id);
-				this.setCpf(cpf);
-				this.setNome(nome);
-				this.setNascimento(nascimento);
-				this.setCelular(celular);
-				this.setSalario(salario);
-			}
-	
+	public Dizimista(int id, String cpf, String nome, Date nascimento, String celular, float salario) {
+		this.setId(id);
+		this.setCpf(cpf);
+		this.setNome(nome);
+		this.setNascimento(nascimento);
+		this.setCelular(celular);
+		this.setSalario(salario);
+	}
+
 	// ID
 	public int getId() {
 		return id;
@@ -37,6 +32,7 @@ public class Dizimista {
 	public String getCpf() {
 		return cpf;
 	}
+
 	public void setCpf(String cpf) {
 		this.cpf = cpf;
 	}
@@ -45,6 +41,7 @@ public class Dizimista {
 	public String getNome() {
 		return nome;
 	}
+
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
@@ -62,6 +59,7 @@ public class Dizimista {
 	public String getCelular() {
 		return celular;
 	}
+
 	public void setCelular(String celular) {
 		this.celular = celular;
 	}

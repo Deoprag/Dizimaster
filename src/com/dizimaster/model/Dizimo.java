@@ -6,17 +6,15 @@ public class Dizimo {
 	private int dizimista;
 	private int funcionario;
 	private float salario;
+	private String observacao;
 	private Date data;
-	
-	public Dizimo(int dizimista,
-			int funcionario,
-			float salario,
-			Date data) {
-				this.setDizimista(dizimista);
-				this.setFuncionario(funcionario);
-				this.setSalario(salario);
-				this.setData(data);
-			}
+
+	public Dizimo(int dizimista, int funcionario, float salario, Date data) {
+		this.setDizimista(dizimista);
+		this.setFuncionario(funcionario);
+		this.setSalario(salario);
+		this.setData(data);
+	}
 
 	public int getDizimista() {
 		return dizimista;
@@ -48,5 +46,13 @@ public class Dizimo {
 
 	public void setData(Date data) {
 		this.data = data;
+	}
+
+	public String getObservacao() {
+		return observacao;
+	}
+
+	public void setObservacao(String observacao) {
+		this.observacao = observacao;
 	}
 }

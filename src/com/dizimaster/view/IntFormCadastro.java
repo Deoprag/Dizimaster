@@ -1,4 +1,4 @@
-package com.dizimaster.app;
+package com.dizimaster.view;
 
 import java.awt.Color;
 import java.awt.Component;
@@ -23,7 +23,7 @@ import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.text.MaskFormatter;
 
 import com.dizimaster.util.DatabaseUtils;
-import com.dizimaster.util.Utilidades;
+import com.dizimaster.util.GenericUtils;
 
 import javax.swing.border.LineBorder;
 import javax.swing.SwingConstants;
@@ -55,20 +55,22 @@ public class IntFormCadastro extends JInternalFrame {
 			}
 		});
 	}
-	
+
 	public void voltar() {
 		this.dispose();
 	}
-	
+
 	@SuppressWarnings("rawtypes")
-	public class MyCellRenderer implements ListCellRenderer{
-	    protected DefaultListCellRenderer defaultRenderer = new DefaultListCellRenderer();
-		public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus){
-			JLabel renderer = (JLabel) defaultRenderer.getListCellRendererComponent(list, value, index,
-	            isSelected, cellHasFocus);
-	            if(isSelected){
-	                renderer.setBackground(new Color(237, 119, 64));
-	            }
+	public class MyCellRenderer implements ListCellRenderer {
+		protected DefaultListCellRenderer defaultRenderer = new DefaultListCellRenderer();
+
+		public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected,
+				boolean cellHasFocus) {
+			JLabel renderer = (JLabel) defaultRenderer.getListCellRendererComponent(list, value, index, isSelected,
+					cellHasFocus);
+			if (isSelected) {
+				renderer.setBackground(new Color(237, 119, 64));
+			}
 			return renderer;
 		}
 	}
@@ -81,7 +83,7 @@ public class IntFormCadastro extends JInternalFrame {
 		getContentPane().setLayout(null);
 		BasicInternalFrameUI bui = (BasicInternalFrameUI) this.getUI();
 		bui.setNorthPane(null);
-		
+
 		JPanel panelCadastro = new JPanel();
 		panelCadastro.setLayout(null);
 		panelCadastro.setBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(0, 120, 215), new Color(0, 191, 255)));
@@ -104,12 +106,13 @@ public class IntFormCadastro extends JInternalFrame {
 		} catch (ParseException e2) {
 			e2.printStackTrace();
 		}
-		
+
 		JButton btnSair = new JButton("VOLTAR");
 		btnSair.setFocusable(false);
 		btnSair.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (JOptionPane.showConfirmDialog(null, "Tem certeza que deseja voltar?", "Voltar?", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+				if (JOptionPane.showConfirmDialog(null, "Tem certeza que deseja voltar?", "Voltar?",
+						JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
 					voltar();
 				}
 			}
@@ -121,6 +124,7 @@ public class IntFormCadastro extends JInternalFrame {
 			public void mouseEntered(MouseEvent e) {
 				btnSair.setBackground(new Color(143, 20, 29));
 			}
+
 			@Override
 			public void mouseExited(MouseEvent e) {
 				btnSair.setBackground(new Color(184, 44, 54));
@@ -131,7 +135,7 @@ public class IntFormCadastro extends JInternalFrame {
 		btnSair.setBackground(new Color(184, 44, 54));
 		btnSair.setBounds(56, 495, 90, 40);
 		panelCadastro.add(btnSair);
-		
+
 		JLabel lblSalario = new JLabel("Salário");
 		lblSalario.setForeground(Color.WHITE);
 		lblSalario.setFont(new Font("Rubik", Font.PLAIN, 12));
@@ -140,7 +144,7 @@ public class IntFormCadastro extends JInternalFrame {
 		lblSalario.setAlignmentX(0.5f);
 		lblSalario.setBounds(182, 370, 150, 24);
 		panelCadastro.add(lblSalario);
-		
+
 		JLabel lblNascimento = new JLabel("Data de Nascimento");
 		lblNascimento.setForeground(Color.WHITE);
 		lblNascimento.setFont(new Font("Rubik", Font.PLAIN, 12));
@@ -149,28 +153,28 @@ public class IntFormCadastro extends JInternalFrame {
 		lblNascimento.setAlignmentX(0.5f);
 		lblNascimento.setBounds(16, 320, 150, 24);
 		panelCadastro.add(lblNascimento);
-		
+
 		JFormattedTextField fTxtSalario = new JFormattedTextField(mascaraSalario);
 		fTxtSalario.setBounds(182, 390, 150, 30);
 		fTxtSalario.setFont(new Font("Segoe UI", Font.PLAIN, 12));
 		fTxtSalario.setBorder(new EtchedBorder(EtchedBorder.RAISED, new Color(102, 51, 0), new Color(204, 153, 51)));
 		fTxtSalario.setBackground(new Color(254, 213, 150));
 		panelCadastro.add(fTxtSalario);
-		
+
 		JFormattedTextField fTxtNascimento = new JFormattedTextField(mascaraNascimento);
 		fTxtNascimento.setBounds(16, 340, 150, 30);
 		fTxtNascimento.setFont(new Font("Segoe UI", Font.PLAIN, 12));
 		fTxtNascimento.setBorder(new EtchedBorder(EtchedBorder.RAISED, new Color(102, 51, 0), new Color(204, 153, 51)));
 		fTxtNascimento.setBackground(new Color(254, 213, 150));
 		panelCadastro.add(fTxtNascimento);
-		
+
 		JFormattedTextField fTxtCpf = new JFormattedTextField(mascaraCpf);
 		fTxtCpf.setBounds(16, 290, 150, 30);
 		fTxtCpf.setFont(new Font("Segoe UI", Font.PLAIN, 12));
 		fTxtCpf.setBorder(new EtchedBorder(EtchedBorder.RAISED, new Color(102, 51, 0), new Color(204, 153, 51)));
 		fTxtCpf.setBackground(new Color(254, 213, 150));
 		panelCadastro.add(fTxtCpf);
-		
+
 		JFormattedTextField fTxtCelular = new JFormattedTextField(mascaraNumero);
 		fTxtCelular.setBounds(16, 390, 150, 30);
 		fTxtCelular.setFont(new Font("Segoe UI", Font.PLAIN, 12));
@@ -180,7 +184,7 @@ public class IntFormCadastro extends JInternalFrame {
 
 		JComboBox boxSexo = new JComboBox();
 		boxSexo.setRequestFocusEnabled(false);
-		boxSexo.setModel(new DefaultComboBoxModel(new String[] {"Masculino", "Feminino"}));
+		boxSexo.setModel(new DefaultComboBoxModel(new String[] { "Masculino", "Feminino" }));
 		boxSexo.setMaximumRowCount(2);
 		boxSexo.setFont(new Font("Segoe UI", Font.PLAIN, 12));
 		boxSexo.setRenderer(new MyCellRenderer());
@@ -188,7 +192,7 @@ public class IntFormCadastro extends JInternalFrame {
 		boxSexo.setBackground(new Color(254, 213, 150));
 		boxSexo.setBounds(182, 340, 150, 30);
 		panelCadastro.add(boxSexo);
-		
+
 		JLabel lblSexo = new JLabel("Sexo");
 		lblSexo.setForeground(Color.WHITE);
 		lblSexo.setFont(new Font("Rubik", Font.PLAIN, 12));
@@ -197,7 +201,7 @@ public class IntFormCadastro extends JInternalFrame {
 		lblSexo.setAlignmentX(0.5f);
 		lblSexo.setBounds(182, 320, 150, 24);
 		panelCadastro.add(lblSexo);
-		
+
 		JLabel lblTitulo = new JLabel("Cadastro de Funcionários");
 		lblTitulo.setBorder(new LineBorder(new Color(255, 255, 255), 2, true));
 		lblTitulo.setBackground(new Color(128, 128, 128));
@@ -206,14 +210,14 @@ public class IntFormCadastro extends JInternalFrame {
 		lblTitulo.setFont(new Font("Segoe UI", Font.BOLD, 16));
 		lblTitulo.setBounds(56, 220, 240, 35);
 		panelCadastro.add(lblTitulo);
-		
+
 		JLabel lblEmail = new JLabel("Endereço de Email");
 		lblEmail.setForeground(Color.WHITE);
 		lblEmail.setFont(new Font("Rubik", Font.PLAIN, 12));
 		lblEmail.setAlignmentX(0.5f);
 		lblEmail.setBounds(16, 420, 150, 24);
 		panelCadastro.add(lblEmail);
-		
+
 		txtEmail = new JTextField();
 		txtEmail.setToolTipText("Endereço de Email");
 		txtEmail.setFont(new Font("Segoe UI", Font.PLAIN, 12));
@@ -222,18 +226,21 @@ public class IntFormCadastro extends JInternalFrame {
 		txtEmail.setBackground(new Color(254, 213, 150));
 		txtEmail.setBounds(16, 440, 150, 30);
 		panelCadastro.add(txtEmail);
-		
+
 		JLabel lblLogo = new JLabel("");
 		lblLogo.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				Utilidades.openWebpage("https://www.instagram.com/deopraglabs");
+				GenericUtils.openWebpage("https://www.instagram.com/deopraglabs");
 			}
+
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				lblLogo.setIcon(new ImageIcon(IntFormCadastro.class.getResource("/com/dizimaster/img/logo-hold-small.png")));
+				lblLogo.setIcon(
+						new ImageIcon(IntFormCadastro.class.getResource("/com/dizimaster/img/logo-hold-small.png")));
 
 			}
+
 			public void mouseExited(MouseEvent e) {
 				lblLogo.setIcon(new ImageIcon(IntFormCadastro.class.getResource("/com/dizimaster/img/logo-small.png")));
 			}
@@ -242,22 +249,16 @@ public class IntFormCadastro extends JInternalFrame {
 		lblLogo.setIcon(new ImageIcon(IntFormCadastro.class.getResource("/com/dizimaster/img/logo-small.png")));
 		lblLogo.setBounds(100, 20, 150, 150);
 		panelCadastro.add(lblLogo);
-		
+
 		JButton btnEnviar = new JButton("ENVIAR");
 		btnEnviar.setFocusable(false);
 		btnEnviar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(Utilidades.isCPF(fTxtCpf.getText().replace(".", "").replace("-", "")) == true) {
+				if (GenericUtils.isCPF(fTxtCpf.getText().replace(".", "").replace("-", "")) == true) {
 					if (txtEmail.getText().equals(txtConfEmail.getText())) {
 						String sexo = (boxSexo.getSelectedIndex() == 0 ? "m" : "f");
-						if (DatabaseUtils.cadastro(
-							fTxtCpf.getText(),
-							txtNome.getText(),
-							fTxtNascimento.getText(),
-							sexo,
-							fTxtCelular.getText(),
-							fTxtSalario.getText(),
-							txtEmail.getText()) == true) {
+						if (DatabaseUtils.cadastro(fTxtCpf.getText(), txtNome.getText(), fTxtNascimento.getText(), sexo,
+								fTxtCelular.getText(), fTxtSalario.getText(), txtEmail.getText()) == true) {
 							fTxtCpf.setText("");
 							txtNome.setText("");
 							fTxtNascimento.setText("");
@@ -267,12 +268,12 @@ public class IntFormCadastro extends JInternalFrame {
 							txtConfEmail.setText("");
 						}
 					} else {
-						JOptionPane.showMessageDialog(null, "ERRO! Verifique o email digitado e tente novamente!");
+						JOptionPane.showMessageDialog(null, "Verifique os emails digitados e tente novamente!");
 					}
 				} else {
-					JOptionPane.showMessageDialog(null, "ERRO! CPF Inválido!");
+					JOptionPane.showMessageDialog(null, "CPF Inválido!");
 				}
-				
+
 			}
 		});
 		btnEnviar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -286,20 +287,21 @@ public class IntFormCadastro extends JInternalFrame {
 			public void mouseEntered(MouseEvent e) {
 				btnEnviar.setBackground(new Color(0, 105, 128));
 			}
+
 			@Override
 			public void mouseExited(MouseEvent e) {
 				btnEnviar.setBackground(new Color(0, 122, 152));
 			}
 		});
 		panelCadastro.add(btnEnviar);
-		
+
 		JLabel lblConfEmail = new JLabel("Confirmação de Email");
 		lblConfEmail.setForeground(Color.WHITE);
 		lblConfEmail.setFont(new Font("Rubik", Font.PLAIN, 12));
 		lblConfEmail.setAlignmentX(0.5f);
 		lblConfEmail.setBounds(182, 420, 150, 24);
 		panelCadastro.add(lblConfEmail);
-		
+
 		txtConfEmail = new JTextField();
 		txtConfEmail.setToolTipText("Confirmação de Email");
 		txtConfEmail.setFont(new Font("Segoe UI", Font.PLAIN, 12));
@@ -310,12 +312,12 @@ public class IntFormCadastro extends JInternalFrame {
 		panelCadastro.add(txtConfEmail);
 		txtConfEmail.addKeyListener(new KeyAdapter() {
 			public void keyPressed(KeyEvent e) {
-	               if (e.getKeyCode() == KeyEvent.VK_ENTER){
-		                btnEnviar.doClick();
-	               }
+				if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+					btnEnviar.doClick();
+				}
 			}
 		});
-		
+
 		JLabel lblCpf = new JLabel("CPF");
 		lblCpf.setForeground(Color.WHITE);
 		lblCpf.setFont(new Font("Rubik", Font.PLAIN, 12));
@@ -324,7 +326,7 @@ public class IntFormCadastro extends JInternalFrame {
 		lblCpf.setAlignmentX(0.5f);
 		lblCpf.setBounds(16, 270, 150, 24);
 		panelCadastro.add(lblCpf);
-		
+
 		JLabel lblNome = new JLabel("Nome");
 		lblNome.setForeground(Color.WHITE);
 		lblNome.setFont(new Font("Rubik", Font.PLAIN, 12));
@@ -333,7 +335,7 @@ public class IntFormCadastro extends JInternalFrame {
 		lblNome.setAlignmentX(0.5f);
 		lblNome.setBounds(182, 270, 150, 24);
 		panelCadastro.add(lblNome);
-		
+
 		txtNome = new JTextField();
 		txtNome.setToolTipText("Nome");
 		txtNome.setFont(new Font("Segoe UI", Font.PLAIN, 12));
@@ -341,7 +343,7 @@ public class IntFormCadastro extends JInternalFrame {
 		txtNome.setBackground(new Color(254, 213, 150));
 		txtNome.setBounds(182, 290, 150, 30);
 		panelCadastro.add(txtNome);
-		
+
 		JLabel lblCelular = new JLabel("Número de Celular");
 		lblCelular.setForeground(Color.WHITE);
 		lblCelular.setFont(new Font("Rubik", Font.PLAIN, 12));
@@ -350,19 +352,20 @@ public class IntFormCadastro extends JInternalFrame {
 		lblCelular.setAlignmentX(0.5f);
 		lblCelular.setBounds(16, 370, 150, 24);
 		panelCadastro.add(lblCelular);
-		
+
 		JLabel lblBackgroundPanel = new JLabel("");
 		lblBackgroundPanel.setBorder(new LineBorder(new Color(255, 255, 255), 1, true));
-		lblBackgroundPanel.setIcon(new ImageIcon(IntFormCadastro.class.getResource("/com/dizimaster/img/Cad_Panel.jpg")));
+		lblBackgroundPanel
+				.setIcon(new ImageIcon(IntFormCadastro.class.getResource("/com/dizimaster/img/Cad_Panel.jpg")));
 		lblBackgroundPanel.setBounds(0, 0, 350, 570);
 		panelCadastro.add(lblBackgroundPanel);
-		
+
 		JLabel lblDeopragLabs = new JLabel("® Deoprag Labs");
 		lblDeopragLabs.setForeground(Color.WHITE);
 		lblDeopragLabs.setFont(new Font("Segoe UI", Font.BOLD, 10));
 		lblDeopragLabs.setBounds(0, 0, 90, 25);
 		getContentPane().add(lblDeopragLabs);
-		
+
 		JLabel lblBackground = new JLabel("");
 		lblBackground.setIcon(new ImageIcon(IntFormCadastro.class.getResource("/com/dizimaster/img/Background.jpg")));
 		lblBackground.setBounds(0, 0, 1020, 665);
