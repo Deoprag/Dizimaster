@@ -1,34 +1,36 @@
 package com.dizimaster.model;
 
+import java.sql.Date;
+
 public class Dizimista {
 	private int id;
-	private float salario;
 	private String cpf;
 	private String nome;
+	private Date nascimento;
 	private String celular;
-	
-	public Dizimista(int id, float salario, String cpf, String nome, String celular) {
-		this.id = id;
-		this.salario = salario;
-		this.cpf = cpf;
-		this.nome = nome;
-		this.celular = celular;
-	}
+	private float salario;
 
+	public Dizimista(int id,
+			String cpf,
+			String nome,
+			Date nascimento,
+			String celular,
+			float salario) {
+				this.setId(id);
+				this.setCpf(cpf);
+				this.setNome(nome);
+				this.setNascimento(nascimento);
+				this.setCelular(celular);
+				this.setSalario(salario);
+			}
+	
 	// ID
 	public int getId() {
 		return id;
 	}
+
 	public void setId(int id) {
 		this.id = id;
-	}
-
-	// SALARIO
-	public float getSalario() {
-		return salario;
-	}
-	public void setSalario(float salario) {
-		this.salario = salario;
 	}
 
 	// CPF
@@ -47,6 +49,15 @@ public class Dizimista {
 		this.nome = nome;
 	}
 
+	// NASCIMENTO
+	public Date getNascimento() {
+		return nascimento;
+	}
+
+	public void setNascimento(Date nascimento) {
+		this.nascimento = nascimento;
+	}
+
 	// CELULAR
 	public String getCelular() {
 		return celular;
@@ -54,4 +65,13 @@ public class Dizimista {
 	public void setCelular(String celular) {
 		this.celular = celular;
 	}
+
+	public float getSalario() {
+		return salario;
+	}
+
+	public void setSalario(float salario) {
+		this.salario = salario;
+	}
+
 }

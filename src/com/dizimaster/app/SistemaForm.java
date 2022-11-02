@@ -194,10 +194,23 @@ public class SistemaForm {
 		mnFinanceiro.add(mnRegistrarPagamento);
 		
 		JMenuItem mntmDizimo = new JMenuItem("Dizimo");
+		mntmDizimo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				IntFormDizimo intDizimo = new IntFormDizimo();
+				largeDesktopPane.add(intDizimo);
+				intDizimo.show();
+			}
+		});
 		mnRegistrarPagamento.add(mntmDizimo);
 		mntmDizimo.setFont(new Font("Segoe UI", Font.PLAIN, 12));
 		mntmDizimo.setBorder(new MatteBorder(0, 0, 1, 0, (Color) new Color(192, 192, 192)));
-		mntmDizimo.setPreferredSize(new Dimension(150, 30));
+		mntmDizimo.setPreferredSize(new Dimension(100, 30));
+		
+		JMenuItem mntmOferta = new JMenuItem("Oferta");
+		mntmOferta.setIcon(new ImageIcon(SistemaForm.class.getResource("/com/dizimaster/img/offering-icon.png")));
+		mntmOferta.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+		mntmOferta.setPreferredSize(new Dimension(100, 30));
+		mnRegistrarPagamento.add(mntmOferta);
 		
 		JMenuItem mntmDespesa = new JMenuItem("Registrar Despesa");
 		mntmDespesa.setFont(new Font("Segoe UI", Font.PLAIN, 12));

@@ -3,6 +3,7 @@ package com.dizimaster.model;
 import java.sql.Date;
 
 public class Funcionario {
+	private int id;
 	private String cpf;
 	private String nome;
 	private Date nascimento;
@@ -13,18 +14,37 @@ public class Funcionario {
 	private float salario;
 	private boolean ativo;
 	
-	public Funcionario(String cpf, String nome, Date nascimento, char sexo, String celular, String email, float salario, boolean ativo) {
-		this.setCpf(cpf);
-		this.setNome(nome);
-		this.setNascimento(nascimento);
-		this.setSexo(sexo);
-		this.setCelular(celular);
-		this.setEmail(email);
-		this.setSenha("diz@2022");
-		this.setSalario(salario);
-		this.setAtivo(ativo);
+	public Funcionario(int id,
+			String cpf,
+			String nome,
+			Date nascimento,
+			char sexo,
+			String celular,
+			String email,
+			float salario,
+			boolean ativo) {
+				this.setId(id);
+				this.setCpf(cpf);
+				this.setNome(nome);
+				this.setNascimento(nascimento);
+				this.setSexo(sexo);
+				this.setCelular(celular);
+				this.setEmail(email);
+				this.setSenha("diz@2022");
+				this.setSalario(salario);
+				this.setAtivo(ativo);
+			}
+
+	// ID
+	public int getId() {
+		return id;
 	}
 
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	// CPF
 	public String getCpf() {
 		return cpf;
 	}
@@ -32,7 +52,8 @@ public class Funcionario {
 	public void setCpf(String cpf) {
 		this.cpf = cpf;
 	}
-
+	
+	// NOME
 	public String getNome() {
 		return nome;
 	}
@@ -40,7 +61,8 @@ public class Funcionario {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-
+	
+	// NASCIMENTO
 	public Date getNascimento() {
 		return nascimento;
 	}
@@ -49,6 +71,7 @@ public class Funcionario {
 		this.nascimento = nascimento;
 	}
 
+	// SEXO
 	public char getSexo() {
 		return sexo;
 	}
@@ -57,6 +80,7 @@ public class Funcionario {
 		this.sexo = sexo;
 	}
 
+	// CELULAR
 	public String getCelular() {
 		return celular;
 	}
@@ -64,7 +88,8 @@ public class Funcionario {
 	public void setCelular(String celular) {
 		this.celular = celular;
 	}
-
+	
+	// EMAIL
 	public String getEmail() {
 		return email;
 	}
@@ -73,6 +98,7 @@ public class Funcionario {
 		this.email = email;
 	}
 
+	// SENHA
 	public String getSenha() {
 		return senha;
 	}
@@ -80,7 +106,8 @@ public class Funcionario {
 	public void setSenha(String senha) {
 		this.senha = senha;
 	}
-
+	
+	// SALARIO
 	public float getSalario() {
 		return salario;
 	}
@@ -89,6 +116,7 @@ public class Funcionario {
 		this.salario = salario;
 	}
 
+	// ATIVO
 	public boolean isAtivo() {
 		return ativo;
 	}
