@@ -79,19 +79,19 @@ public class SistemaForm {
 		panelMid.add(largeDesktopPane);
 		largeDesktopPane.setLayout(null);
 
-		JPanel panel_1 = new JPanel();
-		panel_1.setBorder(new MatteBorder(1, 1, 1, 1, (Color) Color.BLACK));
-		panel_1.setBackground(Color.DARK_GRAY);
-		panel_1.setBounds(70, 42, 880, 580);
-		largeDesktopPane.add(panel_1);
-		panel_1.setLayout(null);
+		JPanel panelDesktopPane = new JPanel();
+		panelDesktopPane.setBorder(new MatteBorder(1, 1, 1, 1, (Color) Color.BLACK));
+		panelDesktopPane.setBackground(Color.DARK_GRAY);
+		panelDesktopPane.setBounds(70, 42, 880, 580);
+		largeDesktopPane.add(panelDesktopPane);
+		panelDesktopPane.setLayout(null);
 
 		JLabel lblMural = new JLabel("(MURAL)");
 		lblMural.setForeground(Color.WHITE);
 		lblMural.setFont(new Font("Segoe UI", Font.PLAIN, 30));
 		lblMural.setHorizontalAlignment(SwingConstants.CENTER);
 		lblMural.setBounds(358, 252, 164, 76);
-		panel_1.add(lblMural);
+		panelDesktopPane.add(lblMural);
 
 		JLabel lblDeopragLabs = new JLabel("® Deoprag Labs");
 		lblDeopragLabs.setForeground(Color.WHITE);
@@ -146,7 +146,7 @@ public class SistemaForm {
 		mnFuncionario.add(mntmGerenciarFuncionario);
 		mntmNovoFuncionario.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				IntFormCadastro intCad = new IntFormCadastro();
+				IntFormCadastroFuncionario intCad = new IntFormCadastroFuncionario();
 				largeDesktopPane.add(intCad);
 				intCad.show();
 			}
@@ -167,6 +167,13 @@ public class SistemaForm {
 		menuTop.add(mnDizimista);
 
 		JMenuItem mntmNovoDizimista = new JMenuItem("Novo Dizimista");
+		mntmNovoDizimista.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				IntFormCadastroDizimista intCad = new IntFormCadastroDizimista();
+				largeDesktopPane.add(intCad);
+				intCad.show();
+			}
+		});
 		mntmNovoDizimista.setFont(new Font("Segoe UI", Font.PLAIN, 12));
 		mntmNovoDizimista.setBorder(new MatteBorder(0, 0, 1, 0, (Color) new Color(192, 192, 192)));
 		mntmNovoDizimista.setPreferredSize(new Dimension(150, 30));

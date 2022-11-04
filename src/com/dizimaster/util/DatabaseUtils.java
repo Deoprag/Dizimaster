@@ -60,7 +60,7 @@ public class DatabaseUtils {
 		return false;
 	}
 
-	public static boolean cadastro(String cpf, String nome, String nascimento, String sexo, String numero,
+	public static boolean cadastroFuncionario(String cpf, String nome, String nascimento, String sexo, String numero,
 			String salario, String email) {
 		try {
 
@@ -75,7 +75,7 @@ public class DatabaseUtils {
 			stmt.setDate(3, java.sql.Date.valueOf(data));
 			stmt.setString(4, sexo);
 			stmt.setString(5, numero.replace("(", "").replace(")", "").replace(" ", "").replace("-", ""));
-			stmt.setFloat(6, Float.valueOf(salario.replace("R", "").replace("$", "")));
+			stmt.setFloat(6, Float.valueOf(salario.replace(",", ".")));
 			stmt.setString(7, email);
 
 			stmt.execute();

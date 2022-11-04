@@ -21,15 +21,12 @@ import javax.swing.ListCellRenderer;
 import javax.swing.border.EtchedBorder;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.text.MaskFormatter;
-
-import com.dizimaster.util.DatabaseUtils;
 import com.dizimaster.util.GenericUtils;
+import com.dizimaster.util.TxtSalarioFormat;
 
 import javax.swing.border.LineBorder;
 import javax.swing.SwingConstants;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 import java.awt.event.ActionEvent;
 import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
@@ -38,16 +35,14 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListCellRenderer;
 
 @SuppressWarnings("serial")
-public class IntFormCadastro extends JInternalFrame {
-	private JTextField txtEmail;
-	private JTextField txtConfEmail;
+public class IntFormCadastroDizimista extends JInternalFrame {
 	private JTextField txtNome;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					IntFormCadastro frame = new IntFormCadastro();
+					IntFormCadastroDizimista frame = new IntFormCadastroDizimista();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -76,7 +71,7 @@ public class IntFormCadastro extends JInternalFrame {
 	}
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
-	public IntFormCadastro() {
+	public IntFormCadastroDizimista() {
 		setBorder(null);
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		setBounds(0, 0, 1020, 665);
@@ -93,16 +88,13 @@ public class IntFormCadastro extends JInternalFrame {
 		MaskFormatter mascaraCpf = null;
 		MaskFormatter mascaraNumero = null;
 		MaskFormatter mascaraNascimento = null;
-		MaskFormatter mascaraSalario = null;
 		try {
 			mascaraCpf = new MaskFormatter("###.###.###-##");
 			mascaraNumero = new MaskFormatter("(##) #####-####");
 			mascaraNascimento = new MaskFormatter("##/##/####");
-			mascaraSalario = new MaskFormatter("R$####.##");
 			mascaraCpf.setPlaceholderCharacter(' ');
 			mascaraNumero.setPlaceholderCharacter(' ');
 			mascaraNascimento.setPlaceholderCharacter(' ');
-			mascaraSalario.setPlaceholderCharacter(' ');
 		} catch (ParseException e2) {
 			e2.printStackTrace();
 		}
@@ -153,8 +145,8 @@ public class IntFormCadastro extends JInternalFrame {
 		lblNascimento.setAlignmentX(0.5f);
 		lblNascimento.setBounds(16, 320, 150, 24);
 		panelCadastro.add(lblNascimento);
-
-		JFormattedTextField fTxtSalario = new JFormattedTextField(mascaraSalario);
+		
+		TxtSalarioFormat fTxtSalario = new TxtSalarioFormat(8);
 		fTxtSalario.setBounds(182, 390, 150, 30);
 		fTxtSalario.setFont(new Font("Segoe UI", Font.PLAIN, 12));
 		fTxtSalario.setBorder(new EtchedBorder(EtchedBorder.RAISED, new Color(102, 51, 0), new Color(204, 153, 51)));
@@ -202,7 +194,7 @@ public class IntFormCadastro extends JInternalFrame {
 		lblSexo.setBounds(182, 320, 150, 24);
 		panelCadastro.add(lblSexo);
 
-		JLabel lblTitulo = new JLabel("Cadastro de Funcionários");
+		JLabel lblTitulo = new JLabel("Cadastro de Dizimista");
 		lblTitulo.setBorder(new LineBorder(new Color(255, 255, 255), 2, true));
 		lblTitulo.setBackground(new Color(128, 128, 128));
 		lblTitulo.setForeground(new Color(255, 255, 255));
@@ -210,22 +202,6 @@ public class IntFormCadastro extends JInternalFrame {
 		lblTitulo.setFont(new Font("Segoe UI", Font.BOLD, 16));
 		lblTitulo.setBounds(56, 220, 240, 35);
 		panelCadastro.add(lblTitulo);
-
-		JLabel lblEmail = new JLabel("Endereço de Email");
-		lblEmail.setForeground(Color.WHITE);
-		lblEmail.setFont(new Font("Rubik", Font.PLAIN, 12));
-		lblEmail.setAlignmentX(0.5f);
-		lblEmail.setBounds(16, 420, 150, 24);
-		panelCadastro.add(lblEmail);
-
-		txtEmail = new JTextField();
-		txtEmail.setToolTipText("Endereço de Email");
-		txtEmail.setFont(new Font("Segoe UI", Font.PLAIN, 12));
-		txtEmail.setColumns(10);
-		txtEmail.setBorder(new EtchedBorder(EtchedBorder.RAISED, new Color(102, 51, 0), new Color(204, 153, 51)));
-		txtEmail.setBackground(new Color(254, 213, 150));
-		txtEmail.setBounds(16, 440, 150, 30);
-		panelCadastro.add(txtEmail);
 
 		JLabel lblLogo = new JLabel("");
 		lblLogo.addMouseListener(new MouseAdapter() {
@@ -237,45 +213,39 @@ public class IntFormCadastro extends JInternalFrame {
 			@Override
 			public void mouseEntered(MouseEvent e) {
 				lblLogo.setIcon(
-						new ImageIcon(IntFormCadastro.class.getResource("/com/dizimaster/img/logo-hold-small.png")));
+						new ImageIcon(IntFormCadastroDizimista.class.getResource("/com/dizimaster/img/logo-hold-small.png")));
 
 			}
 
 			public void mouseExited(MouseEvent e) {
-				lblLogo.setIcon(new ImageIcon(IntFormCadastro.class.getResource("/com/dizimaster/img/logo-small.png")));
+				lblLogo.setIcon(new ImageIcon(IntFormCadastroDizimista.class.getResource("/com/dizimaster/img/logo-small.png")));
 			}
 		});
 		lblLogo.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		lblLogo.setIcon(new ImageIcon(IntFormCadastro.class.getResource("/com/dizimaster/img/logo-small.png")));
+		lblLogo.setIcon(new ImageIcon(IntFormCadastroDizimista.class.getResource("/com/dizimaster/img/logo-small.png")));
 		lblLogo.setBounds(100, 20, 150, 150);
 		panelCadastro.add(lblLogo);
 
 		JButton btnEnviar = new JButton("ENVIAR");
 		btnEnviar.setFocusable(false);
-		btnEnviar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (GenericUtils.isCPF(fTxtCpf.getText().replace(".", "").replace("-", "")) == true) {
-					if (txtEmail.getText().equals(txtConfEmail.getText())) {
-						String sexo = (boxSexo.getSelectedIndex() == 0 ? "m" : "f");
-						if (DatabaseUtils.cadastro(fTxtCpf.getText(), txtNome.getText(), fTxtNascimento.getText(), sexo,
-								fTxtCelular.getText(), fTxtSalario.getText(), txtEmail.getText()) == true) {
-							fTxtCpf.setText("");
-							txtNome.setText("");
-							fTxtNascimento.setText("");
-							fTxtCelular.setText("");
-							fTxtSalario.setText("");
-							txtEmail.setText("");
-							txtConfEmail.setText("");
-						}
-					} else {
-						JOptionPane.showMessageDialog(null, "Verifique os emails digitados e tente novamente!");
-					}
-				} else {
-					JOptionPane.showMessageDialog(null, "CPF Inválido!");
-				}
-
-			}
-		});
+//		btnEnviar.addActionListener(new ActionListener() {
+//			public void actionPerformed(ActionEvent e) {
+//				if (GenericUtils.isCPF(fTxtCpf.getText().replace(".", "").replace("-", "")) == true) {
+//					String sexo = (boxSexo.getSelectedIndex() == 0 ? "m" : "f");
+//					if (DatabaseUtils.cadastroDizimista(fTxtCpf.getText(), txtNome.getText(), fTxtNascimento.getText(), sexo,
+//							fTxtCelular.getText(), fTxtSalario.getText()) == true) {
+//						fTxtCpf.setText("");
+//						txtNome.setText("");
+//						fTxtNascimento.setText("");
+//						fTxtCelular.setText("");
+//						fTxtSalario.setText("");
+//					}
+//				} else {
+//					JOptionPane.showMessageDialog(null, "CPF Inválido!");
+//				}
+//
+//			}
+//		});
 		btnEnviar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnEnviar.setForeground(Color.WHITE);
 		btnEnviar.setFont(new Font("Segoe UI Black", Font.BOLD, 15));
@@ -294,29 +264,6 @@ public class IntFormCadastro extends JInternalFrame {
 			}
 		});
 		panelCadastro.add(btnEnviar);
-
-		JLabel lblConfEmail = new JLabel("Confirmação de Email");
-		lblConfEmail.setForeground(Color.WHITE);
-		lblConfEmail.setFont(new Font("Rubik", Font.PLAIN, 12));
-		lblConfEmail.setAlignmentX(0.5f);
-		lblConfEmail.setBounds(182, 420, 150, 24);
-		panelCadastro.add(lblConfEmail);
-
-		txtConfEmail = new JTextField();
-		txtConfEmail.setToolTipText("Confirmação de Email");
-		txtConfEmail.setFont(new Font("Segoe UI", Font.PLAIN, 12));
-		txtConfEmail.setColumns(10);
-		txtConfEmail.setBorder(new EtchedBorder(EtchedBorder.RAISED, new Color(102, 51, 0), new Color(204, 153, 51)));
-		txtConfEmail.setBackground(new Color(254, 213, 150));
-		txtConfEmail.setBounds(182, 440, 150, 30);
-		panelCadastro.add(txtConfEmail);
-		txtConfEmail.addKeyListener(new KeyAdapter() {
-			public void keyPressed(KeyEvent e) {
-				if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-					btnEnviar.doClick();
-				}
-			}
-		});
 
 		JLabel lblCpf = new JLabel("CPF");
 		lblCpf.setForeground(Color.WHITE);
@@ -356,7 +303,7 @@ public class IntFormCadastro extends JInternalFrame {
 		JLabel lblBackgroundPanel = new JLabel("");
 		lblBackgroundPanel.setBorder(new LineBorder(new Color(255, 255, 255), 1, true));
 		lblBackgroundPanel
-				.setIcon(new ImageIcon(IntFormCadastro.class.getResource("/com/dizimaster/img/Cad_Panel.jpg")));
+				.setIcon(new ImageIcon(IntFormCadastroDizimista.class.getResource("/com/dizimaster/img/Cad_Panel.jpg")));
 		lblBackgroundPanel.setBounds(0, 0, 350, 570);
 		panelCadastro.add(lblBackgroundPanel);
 
@@ -367,7 +314,7 @@ public class IntFormCadastro extends JInternalFrame {
 		getContentPane().add(lblDeopragLabs);
 
 		JLabel lblBackground = new JLabel("");
-		lblBackground.setIcon(new ImageIcon(IntFormCadastro.class.getResource("/com/dizimaster/img/Background.jpg")));
+		lblBackground.setIcon(new ImageIcon(IntFormCadastroDizimista.class.getResource("/com/dizimaster/img/Background.jpg")));
 		lblBackground.setBounds(0, 0, 1020, 665);
 		getContentPane().add(lblBackground);
 
