@@ -98,9 +98,6 @@ public class IntFormCadastroFuncionario extends JInternalFrame {
 			mascaraCpf = new MaskFormatter("###.###.###-##");
 			mascaraNumero = new MaskFormatter("(##) #####-####");
 			mascaraNascimento = new MaskFormatter("##/##/####");
-			mascaraCpf.setPlaceholderCharacter(' ');
-			mascaraNumero.setPlaceholderCharacter(' ');
-			mascaraNascimento.setPlaceholderCharacter(' ');
 		} catch (ParseException e2) {
 			e2.printStackTrace();
 		}
@@ -128,10 +125,16 @@ public class IntFormCadastroFuncionario extends JInternalFrame {
 				btnSair.setBackground(new Color(184, 44, 54));
 			}
 		});
+		
+		JLabel lblNewLabel = new JLabel("* Campos obrigatórios");
+		lblNewLabel.setForeground(new Color(255, 255, 255));
+		lblNewLabel.setFont(new Font("Segoe UI", Font.PLAIN, 10));
+		lblNewLabel.setBounds(16, 475, 120, 14);
+		panelCadastro.add(lblNewLabel);
 		btnSair.setFont(new Font("Segoe UI Black", Font.BOLD, 12));
 		btnSair.setBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(245, 54, 54), new Color(255, 84, 84)));
 		btnSair.setBackground(new Color(184, 44, 54));
-		btnSair.setBounds(56, 495, 90, 40);
+		btnSair.setBounds(56, 510, 90, 40);
 		panelCadastro.add(btnSair);
 
 		JLabel lblSalario = new JLabel("Salário");
@@ -143,7 +146,7 @@ public class IntFormCadastroFuncionario extends JInternalFrame {
 		lblSalario.setBounds(182, 370, 150, 24);
 		panelCadastro.add(lblSalario);
 
-		JLabel lblNascimento = new JLabel("Data de Nascimento");
+		JLabel lblNascimento = new JLabel("Data de Nascimento *");
 		lblNascimento.setForeground(Color.WHITE);
 		lblNascimento.setFont(new Font("Rubik", Font.PLAIN, 12));
 		lblNascimento.setBorder(null);
@@ -191,7 +194,7 @@ public class IntFormCadastroFuncionario extends JInternalFrame {
 		boxSexo.setBounds(182, 340, 150, 30);
 		panelCadastro.add(boxSexo);
 
-		JLabel lblSexo = new JLabel("Sexo");
+		JLabel lblSexo = new JLabel("Sexo *");
 		lblSexo.setForeground(Color.WHITE);
 		lblSexo.setFont(new Font("Rubik", Font.PLAIN, 12));
 		lblSexo.setBorder(null);
@@ -209,7 +212,7 @@ public class IntFormCadastroFuncionario extends JInternalFrame {
 		lblTitulo.setBounds(56, 220, 240, 35);
 		panelCadastro.add(lblTitulo);
 
-		JLabel lblEmail = new JLabel("Endereço de Email");
+		JLabel lblEmail = new JLabel("Endereço de Email *");
 		lblEmail.setForeground(Color.WHITE);
 		lblEmail.setFont(new Font("Rubik", Font.PLAIN, 12));
 		lblEmail.setAlignmentX(0.5f);
@@ -252,26 +255,32 @@ public class IntFormCadastroFuncionario extends JInternalFrame {
 		btnEnviar.setFocusable(false);
 		btnEnviar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (GenericUtils.isCPF(fTxtCpf.getText().replace(".", "").replace("-", "")) == true) {
-					if (txtEmail.getText().equals(txtConfEmail.getText())) {
-						String sexo = (boxSexo.getSelectedIndex() == 0 ? "m" : "f");
-						if (DatabaseUtils.cadastroFuncionario(fTxtCpf.getText(), txtNome.getText(), fTxtNascimento.getText(), sexo,
-								fTxtCelular.getText(), fTxtSalario.getText(), txtEmail.getText()) == true) {
-							fTxtCpf.setText("");
-							txtNome.setText("");
-							fTxtNascimento.setText("");
-							fTxtCelular.setText("");
-							fTxtSalario.setText("");
-							txtEmail.setText("");
-							txtConfEmail.setText("");
+				if(fTxtCpf.getText().replaceAll(" ", "").length() == 14 && 
+						!txtNome.getText().isBlank() && 
+						fTxtNascimento.getText().replaceAll(" ", "").length() == 10 &&
+						fTxtCelular.getText().replaceAll(" ", "").length() == 14 	) {
+						if (GenericUtils.isCPF(fTxtCpf.getText().replace(".", "").replace("-", "")) == true) {
+							if (txtEmail.getText().equals(txtConfEmail.getText())) {
+								String sexo = (boxSexo.getSelectedIndex() == 0 ? "m" : "f");
+								if (DatabaseUtils.cadastroFuncionario(fTxtCpf.getText(), txtNome.getText(), fTxtNascimento.getText(), sexo,
+										fTxtCelular.getText(), fTxtSalario.getText(), txtEmail.getText()) == true) {
+									fTxtCpf.setText("");
+									txtNome.setText("");
+									fTxtNascimento.setText("");
+									fTxtCelular.setText("");
+									fTxtSalario.setText("");
+									txtEmail.setText("");
+									txtConfEmail.setText("");
+								}
+							} else {
+								JOptionPane.showMessageDialog(null, "Verifique os emails digitados e tente novamente!");
+							}
+						} else {
+							JOptionPane.showMessageDialog(null, "CPF Inválido!");
 						}
-					} else {
-						JOptionPane.showMessageDialog(null, "Verifique os emails digitados e tente novamente!");
-					}
 				} else {
-					JOptionPane.showMessageDialog(null, "CPF Inválido!");
+					JOptionPane.showMessageDialog(null, "Preencha todos os campos obrigatórios!");
 				}
-
 			}
 		});
 		btnEnviar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -279,7 +288,7 @@ public class IntFormCadastroFuncionario extends JInternalFrame {
 		btnEnviar.setFont(new Font("Segoe UI Black", Font.BOLD, 15));
 		btnEnviar.setBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(0, 120, 215), new Color(0, 191, 255)));
 		btnEnviar.setBackground(new Color(0, 122, 152));
-		btnEnviar.setBounds(202, 495, 90, 40);
+		btnEnviar.setBounds(202, 510, 90, 40);
 		btnEnviar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
@@ -293,7 +302,7 @@ public class IntFormCadastroFuncionario extends JInternalFrame {
 		});
 		panelCadastro.add(btnEnviar);
 
-		JLabel lblConfEmail = new JLabel("Confirmação de Email");
+		JLabel lblConfEmail = new JLabel("Confirmação de Email *");
 		lblConfEmail.setForeground(Color.WHITE);
 		lblConfEmail.setFont(new Font("Rubik", Font.PLAIN, 12));
 		lblConfEmail.setAlignmentX(0.5f);
@@ -316,7 +325,7 @@ public class IntFormCadastroFuncionario extends JInternalFrame {
 			}
 		});
 
-		JLabel lblCpf = new JLabel("CPF");
+		JLabel lblCpf = new JLabel("CPF *");
 		lblCpf.setForeground(Color.WHITE);
 		lblCpf.setFont(new Font("Rubik", Font.PLAIN, 12));
 		lblCpf.setBorder(null);
@@ -325,7 +334,7 @@ public class IntFormCadastroFuncionario extends JInternalFrame {
 		lblCpf.setBounds(16, 270, 150, 24);
 		panelCadastro.add(lblCpf);
 
-		JLabel lblNome = new JLabel("Nome");
+		JLabel lblNome = new JLabel("Nome *");
 		lblNome.setForeground(Color.WHITE);
 		lblNome.setFont(new Font("Rubik", Font.PLAIN, 12));
 		lblNome.setBorder(null);
@@ -342,7 +351,7 @@ public class IntFormCadastroFuncionario extends JInternalFrame {
 		txtNome.setBounds(182, 290, 150, 30);
 		panelCadastro.add(txtNome);
 
-		JLabel lblCelular = new JLabel("Número de Celular");
+		JLabel lblCelular = new JLabel("Número de Celular *");
 		lblCelular.setForeground(Color.WHITE);
 		lblCelular.setFont(new Font("Rubik", Font.PLAIN, 12));
 		lblCelular.setBorder(null);

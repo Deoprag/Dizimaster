@@ -26,6 +26,7 @@ import javax.swing.border.EtchedBorder;
 
 import com.dizimaster.util.DatabaseUtils;
 import com.dizimaster.util.GenericUtils;
+import com.dizimaster.util.TxtUsuarioFormat;
 
 public class LoginForm {
 
@@ -63,6 +64,15 @@ public class LoginForm {
 		panelLogin.setBounds(0, -9, 230, 424);
 		getFrmLogin().getContentPane().add(panelLogin);
 		panelLogin.setLayout(null);
+		
+				txtUsuario = new TxtUsuarioFormat(11);
+				txtUsuario.setBorder(new EtchedBorder(EtchedBorder.RAISED, new Color(102, 51, 0), new Color(204, 153, 51)));
+				txtUsuario.setBackground(new Color(254, 213, 150));
+				txtUsuario.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+				txtUsuario.setToolTipText("Usuário");
+				txtUsuario.setBounds(20, 220, 150, 30);
+				panelLogin.add(txtUsuario);
+				txtUsuario.setColumns(10);
 
 		txtSenha = new JPasswordField();
 		txtSenha.setBorder(new EtchedBorder(EtchedBorder.RAISED, new Color(102, 51, 0), new Color(204, 153, 51)));
@@ -72,15 +82,6 @@ public class LoginForm {
 		txtSenha.setColumns(10);
 		txtSenha.setBounds(20, 270, 150, 30);
 		panelLogin.add(txtSenha);
-
-		txtUsuario = new JTextField();
-		txtUsuario.setBorder(new EtchedBorder(EtchedBorder.RAISED, new Color(102, 51, 0), new Color(204, 153, 51)));
-		txtUsuario.setBackground(new Color(254, 213, 150));
-		txtUsuario.setFont(new Font("Segoe UI", Font.PLAIN, 12));
-		txtUsuario.setToolTipText("Usuário");
-		txtUsuario.setBounds(20, 220, 150, 30);
-		panelLogin.add(txtUsuario);
-		txtUsuario.setColumns(10);
 
 		JButton btnAjuda = new JButton("");
 		btnAjuda.setFocusTraversalKeysEnabled(false);
@@ -151,24 +152,6 @@ public class LoginForm {
 		btnEntrar.setFont(new Font("Segoe UI", Font.BOLD, 12));
 		btnEntrar.setBounds(122, 345, 90, 40);
 		panelLogin.add(btnEntrar);
-
-		JLabel lblEsqueciSenha = new JLabel("Esqueci minha senha.");
-		lblEsqueciSenha.setForeground(Color.LIGHT_GRAY);
-		lblEsqueciSenha.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseEntered(MouseEvent e) {
-				lblEsqueciSenha.setForeground(Color.WHITE);
-			}
-
-			@Override
-			public void mouseExited(MouseEvent e) {
-				lblEsqueciSenha.setForeground(Color.LIGHT_GRAY);
-			}
-		});
-		lblEsqueciSenha.setFont(new Font("Segoe UI", Font.PLAIN, 12));
-		lblEsqueciSenha.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		lblEsqueciSenha.setBounds(20, 305, 150, 14);
-		panelLogin.add(lblEsqueciSenha);
 
 		JButton btnSair = new JButton("SAIR");
 		btnSair.addActionListener(new ActionListener() {

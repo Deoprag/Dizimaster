@@ -65,7 +65,7 @@ public class SistemaForm {
 		getFrmDizimasterSistema().getContentPane().setLayout(null);
 
 		JPanel panelMid = new JPanel();
-		panelMid.setBackground(new Color(211, 211, 211));
+		panelMid.setBackground(new Color(192, 192, 192));
 		panelMid.setBounds(0, 29, 1038, 683);
 		getFrmDizimasterSistema().getContentPane().add(panelMid);
 		panelMid.setLayout(null);
@@ -109,15 +109,15 @@ public class SistemaForm {
 		panel.setBackground(new Color(192, 192, 192));
 		panel.setBounds(0, 0, 1038, 30);
 		frmDizimasterSistema.getContentPane().add(panel);
-		panel.setLayout(null);
+				panel.setLayout(null);
 
 		JMenuBar menuTop = new JMenuBar();
-		menuTop.setBounds(10, 0, 920, 30);
+		menuTop.setBounds(10, 0, 930, 30);
 		panel.add(menuTop);
 		menuTop.setAlignmentY(Component.CENTER_ALIGNMENT);
 		menuTop.setPreferredSize(new Dimension(0, 30));
 		menuTop.setBorderPainted(false);
-		menuTop.setBackground(new Color(192, 192, 192));
+		menuTop.setBackground(new Color(215, 215, 215));
 
 		JMenu mnFuncionario = new JMenu("Funcionário");
 		mnFuncionario.setMargin(new Insets(2, 4, 2, 2));
@@ -253,38 +253,38 @@ public class SistemaForm {
 		mntmFluxoCaixa.setPreferredSize(new Dimension(150, 30));
 		mntmFluxoCaixa.setIcon(new ImageIcon(SistemaForm.class.getResource("/com/dizimaster/img/graphic-icon.png")));
 		mnFinanceiro.add(mntmFluxoCaixa);
-
-		JButton btnSair = new JButton("Deslogar");
-		btnSair.setFocusable(false);
-		btnSair.setFocusPainted(false);
-		btnSair.setBorder(null);
-		btnSair.setBackground(new Color(184, 44, 54));
-		btnSair.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (JOptionPane.showConfirmDialog(null, "Tem certeza que deseja deslogar?", "Deslogar?",
-						JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-					deslogar();
-				}
-			}
-		});
-		btnSair.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseEntered(MouseEvent e) {
-				btnSair.setBackground(new Color(143, 20, 29));
-			}
-
-			@Override
-			public void mouseExited(MouseEvent e) {
+		
+				JButton btnSair = new JButton("Deslogar");
+				btnSair.setBounds(950, 10, 78, 20);
+				panel.add(btnSair);
+				btnSair.setFocusable(false);
+				btnSair.setFocusPainted(false);
+				btnSair.setBorder(null);
 				btnSair.setBackground(new Color(184, 44, 54));
-			}
-		});
-		btnSair.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnSair.setForeground(new Color(255, 255, 255));
-		btnSair.setHorizontalTextPosition(SwingConstants.CENTER);
-		btnSair.setRequestFocusEnabled(false);
-		btnSair.setFont(new Font("Segoe UI", Font.BOLD, 12));
-		btnSair.setBounds(950, 5, 78, 20);
-		panel.add(btnSair);
+				btnSair.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						if (JOptionPane.showConfirmDialog(null, "Tem certeza que deseja deslogar?", "Deslogar?",
+								JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+							deslogar();
+						}
+					}
+				});
+				btnSair.addMouseListener(new MouseAdapter() {
+					@Override
+					public void mouseEntered(MouseEvent e) {
+						btnSair.setBackground(new Color(143, 20, 29));
+					}
+
+					@Override
+					public void mouseExited(MouseEvent e) {
+						btnSair.setBackground(new Color(184, 44, 54));
+					}
+				});
+				btnSair.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+				btnSair.setForeground(new Color(255, 255, 255));
+				btnSair.setHorizontalTextPosition(SwingConstants.CENTER);
+				btnSair.setRequestFocusEnabled(false);
+				btnSair.setFont(new Font("Segoe UI", Font.BOLD, 12));
 	}
 
 	public JFrame getFrmDizimasterSistema() {
