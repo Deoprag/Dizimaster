@@ -12,6 +12,7 @@ import java.awt.Font;
 import javax.swing.JLabel;
 import javax.swing.border.LineBorder;
 import javax.swing.SwingConstants;
+import javax.swing.ImageIcon;
 
 @SuppressWarnings("serial")
 public class IntFormDizimo extends JInternalFrame {
@@ -61,10 +62,11 @@ public class IntFormDizimo extends JInternalFrame {
 		lblTitulo.setFont(new Font("Segoe UI", Font.BOLD, 16));
 		lblTitulo.setBorder(new LineBorder(new Color(255, 255, 255), 2, true));
 		lblTitulo.setBackground(Color.GRAY);
-		lblTitulo.setBounds(55, 20, 240, 35);
+		lblTitulo.setBounds(55, 200, 240, 35);
 		panelCadastro.add(lblTitulo);
 		
 		JLabel lblLogo = new JLabel("");
+		lblLogo.setIcon(new ImageIcon(IntFormDizimo.class.getResource("/com/dizimaster/img/logo-small.png")));
 		lblLogo.setBounds(100, 20, 150, 150);
 		panelCadastro.add(lblLogo);
 		
@@ -78,6 +80,7 @@ public class IntFormDizimo extends JInternalFrame {
 		panelCadastro.add(btnEnviar);
 		
 		JLabel lblBackgroundPanel = new JLabel("");
+		lblBackgroundPanel.setIcon(new ImageIcon(IntFormDizimo.class.getResource("/com/dizimaster/img/Cad_Panel.jpg")));
 		lblBackgroundPanel.setBorder(new LineBorder(new Color(255, 255, 255), 1, true));
 		lblBackgroundPanel.setBounds(0, 0, 350, 570);
 		panelCadastro.add(lblBackgroundPanel);
@@ -89,6 +92,7 @@ public class IntFormDizimo extends JInternalFrame {
 		getContentPane().add(lblDeopragLabs);
 		
 		JLabel lblBackground = new JLabel("");
+		lblBackground.setIcon(new ImageIcon(IntFormDizimo.class.getResource("/com/dizimaster/img/pray-bg.jpg")));
 		lblBackground.setBounds(0, 0, 1020, 665);
 		getContentPane().add(lblBackground);
 		BasicInternalFrameUI bui = (BasicInternalFrameUI) this.getUI();

@@ -314,7 +314,7 @@ public class IntFormCadastroDizimista extends JInternalFrame {
 		getContentPane().add(lblDeopragLabs);
 
 		JLabel lblBackground = new JLabel("");
-		lblBackground.setIcon(new ImageIcon(IntFormCadastroDizimista.class.getResource("/com/dizimaster/img/Background.jpg")));
+		lblBackground.setIcon(new ImageIcon(IntFormCadastroDizimista.class.getResource("/com/dizimaster/img/church-bg.png")));
 		lblBackground.setBounds(0, 0, 1020, 665);
 		getContentPane().add(lblBackground);
 
