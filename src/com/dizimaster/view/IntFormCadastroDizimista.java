@@ -21,6 +21,8 @@ import javax.swing.ListCellRenderer;
 import javax.swing.border.EtchedBorder;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.text.MaskFormatter;
+
+import com.dizimaster.util.DatabaseUtils;
 import com.dizimaster.util.GenericUtils;
 import com.dizimaster.util.TxtSalarioFormat;
 
@@ -122,6 +124,12 @@ public class IntFormCadastroDizimista extends JInternalFrame {
 				btnSair.setBackground(new Color(184, 44, 54));
 			}
 		});
+		
+		JLabel lblCamposObrigatorios = new JLabel("* Campos obrigatórios");
+		lblCamposObrigatorios.setForeground(new Color(255, 255, 255));
+		lblCamposObrigatorios.setFont(new Font("Segoe UI", Font.PLAIN, 11));
+		lblCamposObrigatorios.setBounds(16, 420, 130, 14);
+		panelCadastro.add(lblCamposObrigatorios);
 		btnSair.setFont(new Font("Segoe UI Black", Font.BOLD, 12));
 		btnSair.setBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(245, 54, 54), new Color(255, 84, 84)));
 		btnSair.setBackground(new Color(184, 44, 54));
@@ -137,7 +145,7 @@ public class IntFormCadastroDizimista extends JInternalFrame {
 		lblSalario.setBounds(182, 370, 150, 24);
 		panelCadastro.add(lblSalario);
 
-		JLabel lblNascimento = new JLabel("Data de Nascimento");
+		JLabel lblNascimento = new JLabel("Data de Nascimento *");
 		lblNascimento.setForeground(Color.WHITE);
 		lblNascimento.setFont(new Font("Rubik", Font.PLAIN, 12));
 		lblNascimento.setBorder(null);
@@ -185,7 +193,7 @@ public class IntFormCadastroDizimista extends JInternalFrame {
 		boxSexo.setBounds(182, 340, 150, 30);
 		panelCadastro.add(boxSexo);
 
-		JLabel lblSexo = new JLabel("Sexo");
+		JLabel lblSexo = new JLabel("Sexo *");
 		lblSexo.setForeground(Color.WHITE);
 		lblSexo.setFont(new Font("Rubik", Font.PLAIN, 12));
 		lblSexo.setBorder(null);
@@ -228,24 +236,29 @@ public class IntFormCadastroDizimista extends JInternalFrame {
 
 		JButton btnEnviar = new JButton("ENVIAR");
 		btnEnviar.setFocusable(false);
-//		btnEnviar.addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent e) {
-//				if (GenericUtils.isCPF(fTxtCpf.getText().replace(".", "").replace("-", "")) == true) {
-//					String sexo = (boxSexo.getSelectedIndex() == 0 ? "m" : "f");
-//					if (DatabaseUtils.cadastroDizimista(fTxtCpf.getText(), txtNome.getText(), fTxtNascimento.getText(), sexo,
-//							fTxtCelular.getText(), fTxtSalario.getText()) == true) {
-//						fTxtCpf.setText("");
-//						txtNome.setText("");
-//						fTxtNascimento.setText("");
-//						fTxtCelular.setText("");
-//						fTxtSalario.setText("");
-//					}
-//				} else {
-//					JOptionPane.showMessageDialog(null, "CPF Inválido!");
-//				}
-//
-//			}
-//		});
+		btnEnviar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(fTxtCpf.getText().replaceAll(" ", "").length() == 14 && 
+				!txtNome.getText().isBlank() && 
+				fTxtNascimento.getText().replaceAll(" ", "").length() == 10 &&
+				fTxtCelular.getText().replaceAll(" ", "").length() == 14 	) {
+				if (GenericUtils.isCPF(fTxtCpf.getText().replace(".", "").replace("-", "")) == true) {
+					String sexo = (boxSexo.getSelectedIndex() == 0 ? "m" : "f");
+					if (DatabaseUtils.cadastroDizimista(fTxtCpf.getText(), txtNome.getText(), fTxtNascimento.getText(), sexo, fTxtCelular.getText(), fTxtSalario.getText()) == true) {
+						fTxtCpf.setText("");
+						txtNome.setText("");
+						fTxtNascimento.setText("");
+						fTxtCelular.setText("");
+						fTxtSalario.setText("");
+					}
+				} else {
+					JOptionPane.showMessageDialog(null, "CPF Inválido!");
+				}
+				} else {
+					JOptionPane.showMessageDialog(null, "Preencha todos os campos obrigatórios!");
+				}
+			}
+		});
 		btnEnviar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnEnviar.setForeground(Color.WHITE);
 		btnEnviar.setFont(new Font("Segoe UI Black", Font.BOLD, 15));
@@ -265,7 +278,7 @@ public class IntFormCadastroDizimista extends JInternalFrame {
 		});
 		panelCadastro.add(btnEnviar);
 
-		JLabel lblCpf = new JLabel("CPF");
+		JLabel lblCpf = new JLabel("CPF *");
 		lblCpf.setForeground(Color.WHITE);
 		lblCpf.setFont(new Font("Rubik", Font.PLAIN, 12));
 		lblCpf.setBorder(null);
@@ -274,7 +287,7 @@ public class IntFormCadastroDizimista extends JInternalFrame {
 		lblCpf.setBounds(16, 270, 150, 24);
 		panelCadastro.add(lblCpf);
 
-		JLabel lblNome = new JLabel("Nome");
+		JLabel lblNome = new JLabel("Nome *");
 		lblNome.setForeground(Color.WHITE);
 		lblNome.setFont(new Font("Rubik", Font.PLAIN, 12));
 		lblNome.setBorder(null);
@@ -291,7 +304,7 @@ public class IntFormCadastroDizimista extends JInternalFrame {
 		txtNome.setBounds(182, 290, 150, 30);
 		panelCadastro.add(txtNome);
 
-		JLabel lblCelular = new JLabel("Número de Celular");
+		JLabel lblCelular = new JLabel("Número de Celular *");
 		lblCelular.setForeground(Color.WHITE);
 		lblCelular.setFont(new Font("Rubik", Font.PLAIN, 12));
 		lblCelular.setBorder(null);
@@ -306,12 +319,6 @@ public class IntFormCadastroDizimista extends JInternalFrame {
 				.setIcon(new ImageIcon(IntFormCadastroDizimista.class.getResource("/com/dizimaster/img/Cad_Panel.jpg")));
 		lblBackgroundPanel.setBounds(0, 0, 350, 570);
 		panelCadastro.add(lblBackgroundPanel);
-
-		JLabel lblDeopragLabs = new JLabel("® Deoprag Labs");
-		lblDeopragLabs.setForeground(Color.WHITE);
-		lblDeopragLabs.setFont(new Font("Segoe UI", Font.BOLD, 10));
-		lblDeopragLabs.setBounds(0, 0, 90, 25);
-		getContentPane().add(lblDeopragLabs);
 
 		JLabel lblBackground = new JLabel("");
 		lblBackground.setIcon(new ImageIcon(IntFormCadastroDizimista.class.getResource("/com/dizimaster/img/church-bg.png")));

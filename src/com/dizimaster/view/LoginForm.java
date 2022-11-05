@@ -65,14 +65,14 @@ public class LoginForm {
 		getFrmLogin().getContentPane().add(panelLogin);
 		panelLogin.setLayout(null);
 		
-				txtUsuario = new TxtUsuarioFormat(11);
-				txtUsuario.setBorder(new EtchedBorder(EtchedBorder.RAISED, new Color(102, 51, 0), new Color(204, 153, 51)));
-				txtUsuario.setBackground(new Color(254, 213, 150));
-				txtUsuario.setFont(new Font("Segoe UI", Font.PLAIN, 12));
-				txtUsuario.setToolTipText("Usuário");
-				txtUsuario.setBounds(20, 220, 150, 30);
-				panelLogin.add(txtUsuario);
-				txtUsuario.setColumns(10);
+		txtUsuario = new TxtUsuarioFormat(11);
+		txtUsuario.setBorder(new EtchedBorder(EtchedBorder.RAISED, new Color(102, 51, 0), new Color(204, 153, 51)));
+		txtUsuario.setBackground(new Color(254, 213, 150));
+		txtUsuario.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+		txtUsuario.setToolTipText("Usuário");
+		txtUsuario.setBounds(20, 220, 150, 30);
+		panelLogin.add(txtUsuario);
+		txtUsuario.setColumns(10);
 
 		txtSenha = new JPasswordField();
 		txtSenha.setBorder(new EtchedBorder(EtchedBorder.RAISED, new Color(102, 51, 0), new Color(204, 153, 51)));

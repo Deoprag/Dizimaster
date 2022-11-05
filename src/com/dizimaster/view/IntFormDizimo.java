@@ -85,12 +85,6 @@ public class IntFormDizimo extends JInternalFrame {
 		lblBackgroundPanel.setBounds(0, 0, 350, 570);
 		panelCadastro.add(lblBackgroundPanel);
 		
-		JLabel lblDeopragLabs = new JLabel("® Deoprag Labs");
-		lblDeopragLabs.setForeground(Color.WHITE);
-		lblDeopragLabs.setFont(new Font("Segoe UI", Font.BOLD, 10));
-		lblDeopragLabs.setBounds(0, 0, 90, 25);
-		getContentPane().add(lblDeopragLabs);
-		
 		JLabel lblBackground = new JLabel("");
 		lblBackground.setIcon(new ImageIcon(IntFormDizimo.class.getResource("/com/dizimaster/img/pray-bg.jpg")));
 		lblBackground.setBounds(0, 0, 1020, 665);
