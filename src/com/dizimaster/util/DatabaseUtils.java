@@ -1,17 +1,11 @@
 package com.dizimaster.util;
 
-import java.sql.Connection;
-import java.sql.Date;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.SQLIntegrityConstraintViolationException;
-import java.text.DateFormat;
+import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 
 import com.dizimaster.view.*;
@@ -33,33 +27,42 @@ public class DatabaseUtils {
 	}
 
 	public static boolean login(String user, String password) {
-		try {
-			Connection con = DatabaseUtils.conecta();
-			String sql = "select *from funcionario where cpf = ? and senha = ?";
-			PreparedStatement stmt = con.prepareStatement(sql);
+			try {
+				Connection con = DatabaseUtils.conecta();
+				String sql = "select *from funcionario where cpf = ? and senha = ?";
+				PreparedStatement stmt = con.prepareStatement(sql);
 
-			stmt.setString(1, user);
-			stmt.setString(2, password);
+				stmt.setString(1, user);
+				stmt.setString(2, password);
 
-			ResultSet rs = stmt.executeQuery();
+				ResultSet rs = stmt.executeQuery();
 
-			if (rs.next()) {
-				SistemaForm window = new SistemaForm();
-				window.getFrmDizimasterSistema().setVisible(true);
-				stmt.close();
-				con.close();
-				return true;
-			} else {
-				JOptionPane.showMessageDialog(null, "Usuário e/ou senha incorretos!");
-				stmt.close();
-				con.close();
-				return false;
+				if (rs.next()) {
+					if (!password.equals("dizi@2022")) {
+						SistemaForm window = new SistemaForm();
+						window.getFrmDizimasterSistema().setVisible(true);
+						stmt.close();
+						con.close();
+						return true;
+					} else {
+						AlterarSenha window = new AlterarSenha();
+						window.setVisible(true);
+					}
+				} else {
+					JOptionPane.showMessageDialog(null, "Usuário e/ou senha incorretos!");
+					stmt.close();
+					con.close();
+					return false;
+				}
+
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+				JOptionPane.showMessageDialog(null, "Não foi possível se conectar com o banco de dados!");
 			}
-
-		} catch (SQLException e1) {
-			e1.printStackTrace();
-			JOptionPane.showMessageDialog(null, "Não foi possível se conectar com o banco de dados!");
-		}
+			return false;
+	}
+	
+	public static boolean alterarSenha(String user, String password) {
 		return false;
 	}
 
@@ -132,6 +135,22 @@ public class DatabaseUtils {
 		} catch (Exception e) {
 			e.printStackTrace();
 			return false;
+		}
+	}
+	
+	public static void dadosComboNome(JComboBox box) {
+		try {
+			Connection con = DatabaseUtils.conecta();
+			Statement stmt = con.createStatement();
+			ResultSet rs = stmt.executeQuery("select nome from dizimista");
+			while(rs.next()){
+				String nome = rs.getString("nome");
+				box.addItem(nome);
+			}
+			con.close();
+			stmt.close();
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 }

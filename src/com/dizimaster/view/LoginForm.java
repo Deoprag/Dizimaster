@@ -27,6 +27,10 @@ import javax.swing.border.EtchedBorder;
 import com.dizimaster.util.DatabaseUtils;
 import com.dizimaster.util.GenericUtils;
 import com.dizimaster.util.TxtUsuarioFormat;
+import javax.swing.JSeparator;
+import javax.swing.border.MatteBorder;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 
 public class LoginForm {
 
@@ -60,27 +64,45 @@ public class LoginForm {
 
 		JPanel panelLogin = new JPanel();
 		panelLogin.setBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(0, 120, 215), new Color(0, 191, 255)));
-		panelLogin.setBackground(new Color(30, 144, 255));
+		panelLogin.setBackground(new Color(8, 82, 180));
 		panelLogin.setBounds(0, -9, 230, 424);
 		getFrmLogin().getContentPane().add(panelLogin);
 		panelLogin.setLayout(null);
 		
 		txtUsuario = new TxtUsuarioFormat(11);
-		txtUsuario.setBorder(new EtchedBorder(EtchedBorder.RAISED, new Color(102, 51, 0), new Color(204, 153, 51)));
-		txtUsuario.setBackground(new Color(254, 213, 150));
-		txtUsuario.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+		txtUsuario.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent e) {
+				txtUsuario.setText("");
+				txtUsuario.setForeground(Color.WHITE);
+			}
+		});
+		txtUsuario.setCursor(Cursor.getPredefinedCursor(Cursor.TEXT_CURSOR));
+		txtUsuario.setBorder(new MatteBorder(0, 0, 1, 0, (Color) new Color(0, 128, 192)));
+		txtUsuario.setForeground(new Color(192, 192, 192));
+		txtUsuario.setText("Insira seu usuário");
+		txtUsuario.setBackground(new Color(8,82,180));
+		txtUsuario.setFont(new Font("Segoe UI", Font.PLAIN, 13));
 		txtUsuario.setToolTipText("Usuário");
 		txtUsuario.setBounds(20, 220, 150, 30);
 		panelLogin.add(txtUsuario);
 		txtUsuario.setColumns(10);
 
 		txtSenha = new JPasswordField();
-		txtSenha.setBorder(new EtchedBorder(EtchedBorder.RAISED, new Color(102, 51, 0), new Color(204, 153, 51)));
-		txtSenha.setBackground(new Color(254, 213, 150));
-		txtSenha.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+		txtSenha.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent e) {
+				txtSenha.setText("");
+				txtSenha.setForeground(Color.WHITE);
+			}
+		});
+		txtSenha.setText("123456781234");
+		txtSenha.setBorder(new MatteBorder(0, 0, 1, 0, (Color) new Color(0, 128, 192)));
+		txtSenha.setForeground(new Color(192, 192, 192));
+		txtSenha.setBackground(new Color(8,82,180));
+		txtSenha.setFont(new Font("Segoe UI", Font.PLAIN, 13));
 		txtSenha.setToolTipText("Senha");
-		txtSenha.setColumns(10);
-		txtSenha.setBounds(20, 270, 150, 30);
+		txtSenha.setBounds(20, 290, 150, 30);
 		panelLogin.add(txtSenha);
 
 		JButton btnAjuda = new JButton("");
@@ -105,24 +127,24 @@ public class LoginForm {
 		btnAjuda.setBorder(null);
 		btnAjuda.setBackground(new Color(255, 255, 255, 0));
 		btnAjuda.setIcon(new ImageIcon(LoginForm.class.getResource("/com/dizimaster/img/info-icon.png")));
-		btnAjuda.setBounds(188, 226, 24, 24);
+		btnAjuda.setBounds(188, 220, 24, 24);
 		panelLogin.add(btnAjuda);
 		btnAjuda.setFont(new Font("Rubik", Font.PLAIN, 12));
 
-		JLabel lblUsuario = new JLabel("Usuário:");
+		JLabel lblUsuario = new JLabel("USUÁRIO");
 		lblUsuario.setForeground(Color.WHITE);
 		lblUsuario.setBackground(Color.WHITE);
 		lblUsuario.setAlignmentX(Component.CENTER_ALIGNMENT);
 		lblUsuario.setBorder(null);
-		lblUsuario.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+		lblUsuario.setFont(new Font("Segoe UI", Font.BOLD, 13));
 		lblUsuario.setBounds(20, 200, 150, 24);
 		panelLogin.add(lblUsuario);
 
-		JLabel lblSenha = new JLabel("Senha:");
+		JLabel lblSenha = new JLabel("SENHA");
 		lblSenha.setForeground(Color.WHITE);
 		lblSenha.setAlignmentX(Component.CENTER_ALIGNMENT);
-		lblSenha.setFont(new Font("Segoe UI", Font.PLAIN, 12));
-		lblSenha.setBounds(20, 250, 150, 24);
+		lblSenha.setFont(new Font("Segoe UI", Font.BOLD, 13));
+		lblSenha.setBounds(20, 270, 150, 24);
 		panelLogin.add(lblSenha);
 
 		JButton btnEntrar = new JButton("ENTRAR");
@@ -149,7 +171,7 @@ public class LoginForm {
 		btnEntrar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnEntrar.setForeground(SystemColor.text);
 		btnEntrar.setBackground(new Color(60, 122, 194));
-		btnEntrar.setFont(new Font("Segoe UI", Font.BOLD, 12));
+		btnEntrar.setFont(new Font("Segoe UI Black", Font.BOLD, 13));
 		btnEntrar.setBounds(122, 345, 90, 40);
 		panelLogin.add(btnEntrar);
 
@@ -175,7 +197,7 @@ public class LoginForm {
 				btnSair.setBackground(new Color(184, 44, 54));
 			}
 		});
-		btnSair.setFont(new Font("Segoe UI", Font.BOLD, 12));
+		btnSair.setFont(new Font("Segoe UI Black", Font.BOLD, 13));
 		btnSair.setBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(245, 54, 54), new Color(255, 84, 84)));
 		btnSair.setBackground(new Color(184, 44, 54));
 		btnSair.setBounds(16, 345, 90, 40);

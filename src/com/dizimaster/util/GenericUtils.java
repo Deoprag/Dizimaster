@@ -60,4 +60,8 @@ public class GenericUtils {
 			return (false);
 		}
 	}
+	
+	public static boolean reqSenha(String senha) {
+		return false;
+	}
 }

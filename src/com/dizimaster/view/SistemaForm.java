@@ -125,7 +125,6 @@ public class SistemaForm {
 		mnFuncionario.add(mntmGerenciarFuncionario);
 		mntmNovoFuncionario.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				panelMural.setVisible(false);
 				largeDesktopPane.removeAll();
 				IntFormCadastroFuncionario intCad = new IntFormCadastroFuncionario();
 				largeDesktopPane.add(intCad);
@@ -150,7 +149,6 @@ public class SistemaForm {
 		JMenuItem mntmNovoDizimista = new JMenuItem("Novo Dizimista");
 		mntmNovoDizimista.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				panelMural.setVisible(false);
 				largeDesktopPane.removeAll();
 				IntFormCadastroDizimista intCad = new IntFormCadastroDizimista();
 				largeDesktopPane.add(intCad);
@@ -191,7 +189,6 @@ public class SistemaForm {
 		mntmDizimo.setIcon(new ImageIcon(SistemaForm.class.getResource("/com/dizimaster/img/tithe-icon.png")));
 		mntmDizimo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				panelMural.setVisible(false);
 				largeDesktopPane.removeAll();
 				IntFormDizimo intDizimo = new IntFormDizimo();
 				largeDesktopPane.add(intDizimo);
@@ -226,7 +223,6 @@ public class SistemaForm {
 		JMenuItem mntmFluxoCaixa = new JMenuItem("Fluxo de Caixa");
 		mntmFluxoCaixa.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				panelMural.setVisible(false);
 				largeDesktopPane.removeAll();
 				IntFormFluxo intFluxo = new IntFormFluxo();
 				largeDesktopPane.add(intFluxo);

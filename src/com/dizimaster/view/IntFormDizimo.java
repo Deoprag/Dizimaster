@@ -4,6 +4,11 @@ import java.awt.EventQueue;
 
 import javax.swing.JInternalFrame;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
+
+import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
+
+import com.dizimaster.util.DatabaseUtils;
+
 import javax.swing.JPanel;
 import java.awt.Color;
 import javax.swing.border.EtchedBorder;
@@ -13,13 +18,21 @@ import javax.swing.JLabel;
 import javax.swing.border.LineBorder;
 import javax.swing.SwingConstants;
 import javax.swing.ImageIcon;
+import javax.swing.JFormattedTextField;
+import javax.swing.JFormattedTextField.AbstractFormatter;
+import javax.swing.DefaultComboBoxModel;
+import java.awt.Cursor;
+
+import org.jdesktop.swingx.JXComboBox;
+import org.jdesktop.swingx.JXCollapsiblePane;
+import org.jdesktop.swingx.painter.TextPainter;
+import org.jdesktop.swingx.painter.RectanglePainter;
+import org.jdesktop.swingx.painter.ShapePainter;
+import org.jdesktop.swingx.JXTextField;
+import javax.swing.UIManager;
 
 @SuppressWarnings("serial")
 public class IntFormDizimo extends JInternalFrame {
-
-	/**
-	 * Launch the application.
-	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -46,6 +59,33 @@ public class IntFormDizimo extends JInternalFrame {
 		panelCadastro.setBackground(new Color(135, 206, 235));
 		panelCadastro.setBounds(335, 34, 350, 570);
 		getContentPane().add(panelCadastro);
+		
+		JXComboBox comboNome = new JXComboBox();
+		comboNome.setFont(new Font("Segoe UI", Font.PLAIN, 11));
+		comboNome.setBackground(new Color(252, 201, 131));
+		comboNome.setCursor(Cursor.getPredefinedCursor(Cursor.TEXT_CURSOR));
+		comboNome.setModel(new DefaultComboBoxModel(new String[] {""}));
+		comboNome.setEditable(true);
+		comboNome.setBounds(176, 287, 150, 30);
+		panelCadastro.add(comboNome);
+		DatabaseUtils.dadosComboNome(comboNome);
+		AutoCompleteDecorator.decorate(comboNome);
+		
+		JLabel lblCpf = new JLabel("CPF *");
+		lblCpf.setForeground(Color.WHITE);
+		lblCpf.setFont(new Font("Rubik", Font.PLAIN, 12));
+		lblCpf.setBorder(null);
+		lblCpf.setBackground(Color.WHITE);
+		lblCpf.setAlignmentX(0.5f);
+		lblCpf.setBounds(16, 266, 150, 24);
+		panelCadastro.add(lblCpf);
+		
+		JFormattedTextField fTxtCpf = new JFormattedTextField((AbstractFormatter) null);
+		fTxtCpf.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+		fTxtCpf.setBorder(new EtchedBorder(EtchedBorder.RAISED, new Color(102, 51, 0), new Color(204, 153, 51)));
+		fTxtCpf.setBackground(new Color(254, 213, 150));
+		fTxtCpf.setBounds(16, 286, 150, 30);
+		panelCadastro.add(fTxtCpf);
 		
 		JButton btnSair = new JButton("VOLTAR");
 		btnSair.setForeground(Color.WHITE);
@@ -86,7 +126,7 @@ public class IntFormDizimo extends JInternalFrame {
 		panelCadastro.add(lblBackgroundPanel);
 		
 		JLabel lblBackground = new JLabel("");
-		lblBackground.setIcon(new ImageIcon(IntFormDizimo.class.getResource("/com/dizimaster/img/pray-bg.jpg")));
+		lblBackground.setBackground(new Color(66, 174, 193));
 		lblBackground.setBounds(0, 0, 1020, 665);
 		getContentPane().add(lblBackground);
 		BasicInternalFrameUI bui = (BasicInternalFrameUI) this.getUI();
