@@ -12,9 +12,6 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/JavaFX 19"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/MySQL"/>
 	<classpathentry kind="lib" path="libs/swingx-all-1.6.5.jar"/>
-	<classpathentry kind="lib" path="libs/xchart-3.8.2.jar"/>
-	<classpathentry kind="lib" path="libs/xchart-demo-3.8.2.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

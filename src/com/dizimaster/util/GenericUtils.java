@@ -3,6 +3,8 @@ package com.dizimaster.util;
 import java.awt.Desktop;
 import java.net.URL;
 
+import javax.swing.JOptionPane;
+
 public class GenericUtils {
 
 	public static void openWebpage(String urlString) {
@@ -61,7 +63,41 @@ public class GenericUtils {
 		}
 	}
 	
-	public static boolean reqSenha(String senha) {
+	public static boolean reqSenha(String senha, String confSenha) {
+		char[] letras = {'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z',
+						 'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'};
+		char[] numeros = {'0','1','2','3','4','5','6','7','8','9'};
+		char[] especiais = {'!','@','#','$','%','&','*'};
+		if(senha.length() < 8) {
+			JOptionPane.showMessageDialog(null, "Verifique os requisitos de senha e tente novamente!");
+			return false;
+		}
+		if(!senha.equals(confSenha)) {
+			JOptionPane.showMessageDialog(null, "As senha não coincidem!");
+			return false;
+		}
+		for (int i = 0; i < senha.length(); i++) {
+			for(int j = 0; j <letras.length; j++){
+                if(letras[j] == senha.charAt(i)){
+                    // LETRAS
+                    for (int i2 = 0; i2 < senha.length(); i2++) {
+            			for(int j2 = 0; j2 < numeros.length; j2++){
+                            if(numeros[j2] == senha.charAt(i2)){
+                            	// NUMEROS
+                            	for (int i3 = 0; i3 < senha.length(); i3++) {
+                        			for(int j3 = 0; j3 < especiais.length; j3++){
+                                        if(especiais[j3] == senha.charAt(i3)){
+                                        	// ESPECIAIS
+                                        	return true;
+                                        }
+                        			}
+                                }
+                            }
+            			}
+                    }     
+                }
+			}
+		}
 		return false;
 	}
 }

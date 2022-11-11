@@ -27,7 +27,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 
-public class AlterarSenha extends JFrame {
+public class FormAlterarSenha extends JFrame {
 
 	/**
 	 * 
@@ -36,6 +36,8 @@ public class AlterarSenha extends JFrame {
 	private JPanel contentPane;
 	private JPasswordField txtSenha;
 	private JPasswordField txtConfSenha;
+	private String cpf;
+	private String senha;
 	private int yMouse, xMouse;
 	/**
 	 * Launch the application.
@@ -44,7 +46,7 @@ public class AlterarSenha extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					AlterarSenha frame = new AlterarSenha();
+					FormAlterarSenha frame = new FormAlterarSenha();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -61,7 +63,7 @@ public class AlterarSenha extends JFrame {
 		this.dispose();
 	}
 	
-	public AlterarSenha() {
+	public FormAlterarSenha() {
 		setUndecorated(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 400);
@@ -155,28 +157,12 @@ public class AlterarSenha extends JFrame {
 		btnEnviar.addActionListener(new ActionListener() {
 			@SuppressWarnings("deprecation")
 			public void actionPerformed(ActionEvent e) {
-				if (GenericUtils.reqSenha(txtSenha.getText()) == true) {
-					
-				} else {
-					JOptionPane.showMessageDialog(null, "Sua senha não cumpre os requisitos mínimos do sistema!");
+				if (GenericUtils.reqSenha(txtSenha.getText(), txtConfSenha.getText()) == true) {
+					if (DatabaseUtils.alterarSenha(cpf, senha, txtSenha.getText()) == true) {
+						JOptionPane.showMessageDialog(null, "Senha alterada com sucesso! Realize seu login com a nova senha.");
+						sair();
+					}
 				}
-//				@SuppressWarnings("deprecation")
-//				String password = txtSenha.getText();
-//				@SuppressWarnings("deprecation")
-//				String confPassword = txtConfSenha.getText();
-//				if (password.length() >= 8) {
-//					
-//				} else {
-//					JOptionPane.showMessageDialog(null, "Sua senha precisa de no mínimo 8 caracteres!");
-//				}
-//				
-//				if (password.equals(confPassword)) {			
-//					if (DatabaseUtils.alterarSenha(user, password)== true) {
-//						JOptionPane.showMessageDialog(null, "Senha Alterada com sucesso!");
-//					}
-//				} else {
-//					JOptionPane.showMessageDialog(null, "As senhas inseridas são diferentes!");
-//				}
 			}
 		});
 		btnEnviar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -250,4 +236,21 @@ public class AlterarSenha extends JFrame {
 		lblNewLabel_2.setBounds(0, 0, 30, 30);
 		btnSair.add(lblNewLabel_2);
 	}
+
+	public void setCpf(String user) {
+		this.cpf = user;
+	}
+
+	public String getCpf() {
+		return cpf;
+	}
+	
+	public void setSenha(String password) {
+		this.senha = password;
+	}
+	
+	public String getSenha() {
+		return senha;
+	}
+
 }

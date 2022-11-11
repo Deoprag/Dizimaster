@@ -5,16 +5,15 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 
+import com.dizimaster.model.Dizimista;
 import com.dizimaster.view.*;
 
 public class DatabaseUtils {
-
-	private static String path = "jdbc:mysql://localhost/dizimaster_db";
-	private static String user = "root";
-	private static String password = "";
+public static String path = "jdbc:mysql://localhost/dizimaster_db";
+private static String user = "root";
+private static String password = "";
 
 	public static Connection conecta() throws SQLException {
 		try {
@@ -45,7 +44,9 @@ public class DatabaseUtils {
 						con.close();
 						return true;
 					} else {
-						AlterarSenha window = new AlterarSenha();
+						FormAlterarSenha window = new FormAlterarSenha();
+						window.setCpf(user);
+						window.setSenha(password);
 						window.setVisible(true);
 					}
 				} else {
@@ -60,10 +61,6 @@ public class DatabaseUtils {
 				JOptionPane.showMessageDialog(null, "Não foi possível se conectar com o banco de dados!");
 			}
 			return false;
-	}
-	
-	public static boolean alterarSenha(String user, String password) {
-		return false;
 	}
 
 	public static boolean cadastroFuncionario(String cpf, String nome, String nascimento, String sexo, String numero, String email) {
@@ -138,19 +135,49 @@ public class DatabaseUtils {
 		}
 	}
 	
-	public static void dadosComboNome(JComboBox box) {
+	public static Dizimista procurarDizimista(String cpf) {
 		try {
+			Dizimista dizimista = new Dizimista();
 			Connection con = DatabaseUtils.conecta();
 			Statement stmt = con.createStatement();
-			ResultSet rs = stmt.executeQuery("select nome from dizimista");
-			while(rs.next()){
-				String nome = rs.getString("nome");
-				box.addItem(nome);
+			ResultSet rs = stmt.executeQuery("select * from dizimista where cpf = " + cpf);
+			if(rs.next()){
+				if(rs.getBoolean("ativo") == true) {
+					dizimista.setId(rs.getInt("id"));
+					dizimista.setNome(rs.getString("nome"));
+					dizimista.setSalario(rs.getFloat("salario"));
+					return dizimista;
+				}
+			} else {
+				JOptionPane.showMessageDialog(null, "CPF não encontrado!");
 			}
 			con.close();
 			stmt.close();
 		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, "Erro ao procurar CPF!");
 			e.printStackTrace();
 		}
+		return null;
+	}
+	
+	public static boolean alterarSenha(String cpf, String senha, String senhaNova) {
+		try {
+			Connection con = DatabaseUtils.conecta();
+			String sql = "update funcionario set senha = ? where senha = ? and cpf = ?";
+			PreparedStatement stmt = con.prepareCall(sql);
+			
+			stmt.setString(1, senhaNova);
+			stmt.setString(2, senha);
+			stmt.setString(3, cpf);
+			
+			stmt.execute();
+			con.close();
+			stmt.close();
+			return true;
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, "Erro ao alterar senha!");
+			e.printStackTrace();
+		}
+		return false;
 	}
 }

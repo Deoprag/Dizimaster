@@ -19,6 +19,10 @@ public class Dizimista {
 		this.setSalario(salario);
 	}
 
+	public Dizimista() {
+		// TODO Auto-generated constructor stub
+	}
+
 	// ID
 	public int getId() {
 		return id;

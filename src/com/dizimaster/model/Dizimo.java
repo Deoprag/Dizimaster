@@ -16,6 +16,10 @@ public class Dizimo {
 		this.setData(data);
 	}
 
+	public Dizimo() {
+		
+	}
+
 	public int getDizimista() {
 		return dizimista;
 	}

@@ -4,9 +4,11 @@ import java.awt.EventQueue;
 
 import javax.swing.JInternalFrame;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
+import javax.swing.text.MaskFormatter;
 
 import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 
+import com.dizimaster.model.Dizimista;
 import com.dizimaster.util.DatabaseUtils;
 
 import javax.swing.JPanel;
@@ -14,7 +16,10 @@ import java.awt.Color;
 import javax.swing.border.EtchedBorder;
 import javax.swing.JButton;
 import java.awt.Font;
+import java.text.ParseException;
+
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.border.LineBorder;
 import javax.swing.SwingConstants;
 import javax.swing.ImageIcon;
@@ -30,9 +35,15 @@ import org.jdesktop.swingx.painter.RectanglePainter;
 import org.jdesktop.swingx.painter.ShapePainter;
 import org.jdesktop.swingx.JXTextField;
 import javax.swing.UIManager;
+import javax.swing.JTextField;
+import javax.swing.border.MatteBorder;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 @SuppressWarnings("serial")
 public class IntFormDizimo extends JInternalFrame {
+	private JTextField txtCpf;
+	private JTextField txtNome;
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -60,34 +71,96 @@ public class IntFormDizimo extends JInternalFrame {
 		panelCadastro.setBounds(335, 34, 350, 570);
 		getContentPane().add(panelCadastro);
 		
-		JXComboBox comboNome = new JXComboBox();
-		comboNome.setFont(new Font("Segoe UI", Font.PLAIN, 11));
-		comboNome.setBackground(new Color(252, 201, 131));
-		comboNome.setCursor(Cursor.getPredefinedCursor(Cursor.TEXT_CURSOR));
-		comboNome.setModel(new DefaultComboBoxModel(new String[] {""}));
-		comboNome.setEditable(true);
-		comboNome.setBounds(176, 287, 150, 30);
-		panelCadastro.add(comboNome);
-		DatabaseUtils.dadosComboNome(comboNome);
-		AutoCompleteDecorator.decorate(comboNome);
+		JTextField txtValor = new JTextField();
+		txtValor.setForeground(new Color(255, 255, 255));
+		txtValor.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+		txtValor.setColumns(10);
+		txtValor.setBorder(new MatteBorder(0, 0, 1, 0, (Color) new Color(10, 60, 70)));
+		txtValor.setBackground(new Color(25, 120, 150));
+		txtValor.setBounds(100, 340, 150, 30);
+		panelCadastro.add(txtValor);
 		
-		JLabel lblCpf = new JLabel("CPF *");
-		lblCpf.setForeground(Color.WHITE);
-		lblCpf.setFont(new Font("Rubik", Font.PLAIN, 12));
-		lblCpf.setBorder(null);
-		lblCpf.setBackground(Color.WHITE);
-		lblCpf.setAlignmentX(0.5f);
-		lblCpf.setBounds(16, 266, 150, 24);
-		panelCadastro.add(lblCpf);
+		JLabel lblNome_2_1 = new JLabel("Valor");
+		lblNome_2_1.setForeground(Color.WHITE);
+		lblNome_2_1.setFont(new Font("Rubik", Font.PLAIN, 12));
+		lblNome_2_1.setBorder(null);
+		lblNome_2_1.setBackground(Color.WHITE);
+		lblNome_2_1.setAlignmentX(0.5f);
+		lblNome_2_1.setBounds(53, 340, 63, 24);
+		panelCadastro.add(lblNome_2_1);
 		
-		JFormattedTextField fTxtCpf = new JFormattedTextField((AbstractFormatter) null);
-		fTxtCpf.setFont(new Font("Segoe UI", Font.PLAIN, 12));
-		fTxtCpf.setBorder(new EtchedBorder(EtchedBorder.RAISED, new Color(102, 51, 0), new Color(204, 153, 51)));
-		fTxtCpf.setBackground(new Color(254, 213, 150));
-		fTxtCpf.setBounds(16, 286, 150, 30);
-		panelCadastro.add(fTxtCpf);
+		txtNome = new JTextField();
+		txtNome.setForeground(new Color(255, 255, 255));
+		txtNome.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+		txtNome.setColumns(10);
+		txtNome.setBorder(new MatteBorder(0, 0, 1, 0, (Color) new Color(10, 60, 70)));
+		txtNome.setBackground(new Color(25, 120, 150));
+		txtNome.setBounds(100, 299, 150, 30);
+		panelCadastro.add(txtNome);
+		
+		JPanel panelSearch = new JPanel();
+		panelSearch.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		panelSearch.setBackground(new Color(25, 120, 150));
+		panelSearch.setBounds(225, 263, 25, 25);
+		panelCadastro.add(panelSearch);
+		panelSearch.setLayout(null);
+		
+		JLabel lblSearch = new JLabel("");
+		lblSearch.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				try {
+					Dizimista dizimista;
+					dizimista = DatabaseUtils.procurarDizimista(txtCpf.getText().replace("-", "").replace(".", ""));
+					txtNome.setText(dizimista.getNome());
+					float valor = dizimista.getSalario() / 10;
+					txtValor.setText("R$ " + String.valueOf(valor));
+				} catch(Exception e1) {
+					e1.printStackTrace();
+				}
+			}
+		});
+		lblSearch.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		lblSearch.setBounds(0, 0, 25, 25);
+		panelSearch.add(lblSearch);
+		lblSearch.setIcon(new ImageIcon(IntFormDizimo.class.getResource("/com/dizimaster/img/find-icon.png")));
+		
+		MaskFormatter mascaraCpf = null;
+		try {
+			mascaraCpf = new MaskFormatter("###.###.###-##");
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		txtCpf = new JFormattedTextField(mascaraCpf);
+		txtCpf.setForeground(new Color(255, 255, 255));
+		txtCpf.setText("00000000000");
+		txtCpf.setBorder(new MatteBorder(0, 0, 1, 0, (Color) new Color(10, 60, 70)));
+		txtCpf.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+		txtCpf.setBackground(new Color(25, 120, 150));
+		txtCpf.setBounds(100, 258, 125, 30);
+		panelCadastro.add(txtCpf);
+		txtCpf.setColumns(10);
+		
+		JLabel lblNome_2 = new JLabel("Nome");
+		lblNome_2.setForeground(Color.WHITE);
+		lblNome_2.setFont(new Font("Rubik", Font.PLAIN, 12));
+		lblNome_2.setBorder(null);
+		lblNome_2.setBackground(Color.WHITE);
+		lblNome_2.setAlignmentX(0.5f);
+		lblNome_2.setBounds(53, 299, 63, 24);
+		panelCadastro.add(lblNome_2);
+		
+		JLabel lblNome = new JLabel("CPF");
+		lblNome.setForeground(Color.WHITE);
+		lblNome.setFont(new Font("Rubik", Font.PLAIN, 12));
+		lblNome.setBorder(null);
+		lblNome.setBackground(Color.WHITE);
+		lblNome.setAlignmentX(0.5f);
+		lblNome.setBounds(56, 260, 60, 24);
+		panelCadastro.add(lblNome);
 		
 		JButton btnSair = new JButton("VOLTAR");
+		btnSair.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnSair.setForeground(Color.WHITE);
 		btnSair.setFont(new Font("Segoe UI Black", Font.BOLD, 12));
 		btnSair.setFocusable(false);
@@ -111,6 +184,7 @@ public class IntFormDizimo extends JInternalFrame {
 		panelCadastro.add(lblLogo);
 		
 		JButton btnEnviar = new JButton("ENVIAR");
+		btnEnviar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnEnviar.setForeground(Color.WHITE);
 		btnEnviar.setFont(new Font("Segoe UI Black", Font.BOLD, 15));
 		btnEnviar.setFocusable(false);
