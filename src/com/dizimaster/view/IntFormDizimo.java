@@ -80,14 +80,14 @@ public class IntFormDizimo extends JInternalFrame {
 		txtValor.setBounds(100, 340, 150, 30);
 		panelCadastro.add(txtValor);
 		
-		JLabel lblNome_2_1 = new JLabel("Valor");
-		lblNome_2_1.setForeground(Color.WHITE);
-		lblNome_2_1.setFont(new Font("Rubik", Font.PLAIN, 12));
-		lblNome_2_1.setBorder(null);
-		lblNome_2_1.setBackground(Color.WHITE);
-		lblNome_2_1.setAlignmentX(0.5f);
-		lblNome_2_1.setBounds(53, 340, 63, 24);
-		panelCadastro.add(lblNome_2_1);
+		JLabel lblValor = new JLabel("Valor");
+		lblValor.setForeground(Color.WHITE);
+		lblValor.setFont(new Font("Rubik", Font.PLAIN, 12));
+		lblValor.setBorder(null);
+		lblValor.setBackground(Color.WHITE);
+		lblValor.setAlignmentX(0.5f);
+		lblValor.setBounds(53, 340, 63, 24);
+		panelCadastro.add(lblValor);
 		
 		txtNome = new JTextField();
 		txtNome.setForeground(new Color(255, 255, 255));
@@ -119,6 +119,14 @@ public class IntFormDizimo extends JInternalFrame {
 					e1.printStackTrace();
 				}
 			}
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				lblSearch.setIcon(new ImageIcon(IntFormDizimo.class.getResource("/com/dizimaster/img/find-icon-hold.png")));
+			}
+			
+			public void mouseExited(MouseEvent e) {
+				lblSearch.setIcon(new ImageIcon(IntFormDizimo.class.getResource("/com/dizimaster/img/find-icon.png")));
+			}
 		});
 		lblSearch.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		lblSearch.setBounds(0, 0, 25, 25);
@@ -141,23 +149,23 @@ public class IntFormDizimo extends JInternalFrame {
 		panelCadastro.add(txtCpf);
 		txtCpf.setColumns(10);
 		
-		JLabel lblNome_2 = new JLabel("Nome");
-		lblNome_2.setForeground(Color.WHITE);
-		lblNome_2.setFont(new Font("Rubik", Font.PLAIN, 12));
-		lblNome_2.setBorder(null);
-		lblNome_2.setBackground(Color.WHITE);
-		lblNome_2.setAlignmentX(0.5f);
-		lblNome_2.setBounds(53, 299, 63, 24);
-		panelCadastro.add(lblNome_2);
-		
-		JLabel lblNome = new JLabel("CPF");
+		JLabel lblNome = new JLabel("Nome");
 		lblNome.setForeground(Color.WHITE);
 		lblNome.setFont(new Font("Rubik", Font.PLAIN, 12));
 		lblNome.setBorder(null);
 		lblNome.setBackground(Color.WHITE);
 		lblNome.setAlignmentX(0.5f);
-		lblNome.setBounds(56, 260, 60, 24);
+		lblNome.setBounds(53, 299, 63, 24);
 		panelCadastro.add(lblNome);
+		
+		JLabel lblCpf = new JLabel("CPF");
+		lblCpf.setForeground(Color.WHITE);
+		lblCpf.setFont(new Font("Rubik", Font.PLAIN, 12));
+		lblCpf.setBorder(null);
+		lblCpf.setBackground(Color.WHITE);
+		lblCpf.setAlignmentX(0.5f);
+		lblCpf.setBounds(56, 260, 60, 24);
+		panelCadastro.add(lblCpf);
 		
 		JButton btnSair = new JButton("VOLTAR");
 		btnSair.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -183,7 +191,7 @@ public class IntFormDizimo extends JInternalFrame {
 		lblLogo.setBounds(100, 20, 150, 150);
 		panelCadastro.add(lblLogo);
 		
-		JButton btnEnviar = new JButton("ENVIAR");
+		JButton btnEnviar = new JButton("REGISTRAR");
 		btnEnviar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnEnviar.setForeground(Color.WHITE);
 		btnEnviar.setFont(new Font("Segoe UI Black", Font.BOLD, 15));
