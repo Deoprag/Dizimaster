@@ -30,7 +30,9 @@ import javax.swing.JButton;
 public class SistemaForm {
 
 	private JFrame frmDizimasterSistema;
-
+	private IntFormMural intMural = new IntFormMural();
+	private int funcionario;
+	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -73,7 +75,7 @@ public class SistemaForm {
 		JLabel lblDeopragLabs = new JLabel("® Deoprag Labs");
 		lblDeopragLabs.setForeground(Color.WHITE);
 		lblDeopragLabs.setFont(new Font("Segoe UI", Font.BOLD, 10));
-		lblDeopragLabs.setBounds(10, 9, 90, 25);
+		lblDeopragLabs.setBounds(20, 20, 90, 25);
 		panelMid.add(lblDeopragLabs);
 		
 		JDesktopPane largeDesktopPane = new JDesktopPane();
@@ -85,7 +87,9 @@ public class SistemaForm {
 		largeDesktopPane.setAlignmentX(0.0f);
 		largeDesktopPane.setBounds(10, 11, 1020, 665);
 		panelMid.add(largeDesktopPane);
-
+		largeDesktopPane.add(intMural);
+		intMural.show();
+		
 		JPanel panel = new JPanel();
 		panel.setBackground(new Color(255, 255, 255));
 		panel.setBounds(0, 0, 1038, 30);
@@ -127,6 +131,8 @@ public class SistemaForm {
 			public void actionPerformed(ActionEvent e) {
 				largeDesktopPane.removeAll();
 				IntFormCadastroFuncionario intCad = new IntFormCadastroFuncionario();
+				largeDesktopPane.add(intMural);
+				intMural.show();
 				largeDesktopPane.add(intCad);
 				intCad.show();
 			}
@@ -151,6 +157,8 @@ public class SistemaForm {
 			public void actionPerformed(ActionEvent e) {
 				largeDesktopPane.removeAll();
 				IntFormCadastroDizimista intCad = new IntFormCadastroDizimista();
+				largeDesktopPane.add(intMural);
+				intMural.show();
 				largeDesktopPane.add(intCad);
 				intCad.show();
 			}
@@ -191,6 +199,9 @@ public class SistemaForm {
 			public void actionPerformed(ActionEvent e) {
 				largeDesktopPane.removeAll();
 				IntFormDizimo intDizimo = new IntFormDizimo();
+				intDizimo.setFuncionario(funcionario);
+				largeDesktopPane.add(intMural);
+				intMural.show();
 				largeDesktopPane.add(intDizimo);
 				intDizimo.show();
 			}
@@ -225,6 +236,8 @@ public class SistemaForm {
 			public void actionPerformed(ActionEvent e) {
 				largeDesktopPane.removeAll();
 				IntFormFluxo intFluxo = new IntFormFluxo();
+				largeDesktopPane.add(intMural);
+				intMural.show();
 				largeDesktopPane.add(intFluxo);
 				intFluxo.show();
 			}
@@ -275,5 +288,21 @@ public class SistemaForm {
 	public void setFrmDizimasterSistema(JFrame frmDizimasterSistema) {
 		this.frmDizimasterSistema = frmDizimasterSistema;
 		frmDizimasterSistema.setResizable(false);
+	}
+
+	public IntFormMural getIntMural() {
+		return intMural;
+	}
+
+	public void setIntMural(IntFormMural intMural) {
+		this.intMural = intMural;
+	}
+
+	public int getFuncionario() {
+		return funcionario;
+	}
+
+	public void setFuncionario(int funcionario) {
+		this.funcionario = funcionario;
 	}
 }

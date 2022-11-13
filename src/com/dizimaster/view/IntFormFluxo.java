@@ -35,15 +35,9 @@ public class IntFormFluxo extends JInternalFrame {
 		getContentPane().setBackground(Color.DARK_GRAY);
 		setBounds(0, 0, 1020, 665);
 		getContentPane().setLayout(null);
+		setBorder(null);
 		BasicInternalFrameUI bui = (BasicInternalFrameUI) this.getUI();
 		bui.setNorthPane(null);
-		setBorder(null);
-		
-		JLabel lblDeopragLabs = new JLabel("® Deoprag Labs");
-		lblDeopragLabs.setForeground(Color.WHITE);
-		lblDeopragLabs.setFont(new Font("Segoe UI", Font.BOLD, 10));
-		lblDeopragLabs.setBounds(0, 0, 90, 25);
-		getContentPane().add(lblDeopragLabs);
 		
 		JLabel lblNewLabel = new JLabel("");
 		lblNewLabel.setIcon(new ImageIcon(IntFormFluxo.class.getResource("/com/dizimaster/img/Background.jpg")));

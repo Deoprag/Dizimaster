@@ -61,10 +61,8 @@ public class IntFormCadastroDizimista extends JInternalFrame {
 	public class MyCellRenderer implements ListCellRenderer {
 		protected DefaultListCellRenderer defaultRenderer = new DefaultListCellRenderer();
 
-		public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected,
-				boolean cellHasFocus) {
-			JLabel renderer = (JLabel) defaultRenderer.getListCellRendererComponent(list, value, index, isSelected,
-					cellHasFocus);
+		public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+			JLabel renderer = (JLabel) defaultRenderer.getListCellRendererComponent(list, value, index, isSelected,cellHasFocus);
 			if (isSelected) {
 				renderer.setBackground(new Color(237, 119, 64));
 			}
@@ -169,6 +167,7 @@ public class IntFormCadastroDizimista extends JInternalFrame {
 		panelCadastro.add(fTxtNascimento);
 
 		JFormattedTextField fTxtCpf = new JFormattedTextField(mascaraCpf);
+		fTxtCpf.setCursor(Cursor.getPredefinedCursor(Cursor.TEXT_CURSOR));
 		fTxtCpf.setBounds(16, 290, 150, 30);
 		fTxtCpf.setFont(new Font("Segoe UI", Font.PLAIN, 12));
 		fTxtCpf.setBorder(new EtchedBorder(EtchedBorder.RAISED, new Color(102, 51, 0), new Color(204, 153, 51)));

@@ -39,6 +39,7 @@ private static String password = "";
 				if (rs.next()) {
 					if (!password.equals("dizi@2022")) {
 						SistemaForm window = new SistemaForm();
+						window.setFuncionario(rs.getInt("id"));
 						window.getFrmDizimasterSistema().setVisible(true);
 						stmt.close();
 						con.close();
@@ -178,6 +179,11 @@ private static String password = "";
 			JOptionPane.showMessageDialog(null, "Erro ao alterar senha!");
 			e.printStackTrace();
 		}
+		return false;
+	}
+	
+	public static boolean registraDizimo(int funcionario, int dizimista, float valor, String obs) {
+		
 		return false;
 	}
 }

@@ -27,7 +27,6 @@ import javax.swing.border.EtchedBorder;
 import com.dizimaster.util.DatabaseUtils;
 import com.dizimaster.util.GenericUtils;
 import com.dizimaster.util.TxtUsuarioFormat;
-import javax.swing.JSeparator;
 import javax.swing.border.MatteBorder;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
