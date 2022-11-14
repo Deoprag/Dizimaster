@@ -11,19 +11,14 @@
  ## Controle de funcionários
  - Cadastro e manutenção de funcionários
  
- ## Tipos de dizimista 
- - Dizimista
- - Extra
- 
  ## Tipo de recebimento 
  - Dízimo
  - Oferta
- - Outros
  
  ## Registro dos recebimentos
  - Data do recebimento em DD/MM/AAAA
  - MM/AAAA de referência
  
  ## Consulta/relatório dos recebimentos
- - Recebimento mensal e anual
- - Recebimento por dizimista
+ - Pesquisa por período
+ - Fluxo de Caixa
