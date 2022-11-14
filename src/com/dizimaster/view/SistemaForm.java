@@ -6,6 +6,7 @@ import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.Frame;
 import java.awt.SystemColor;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -26,13 +27,18 @@ import javax.swing.border.MatteBorder;
 import javax.swing.SwingConstants;
 import java.awt.Insets;
 import javax.swing.JButton;
+import org.jdesktop.swingx.JXButton;
+import java.awt.event.MouseMotionAdapter;
+import javax.swing.border.CompoundBorder;
+import javax.swing.border.LineBorder;
 
 public class SistemaForm {
 
 	private JFrame frmDizimasterSistema;
 	private IntFormMural intMural = new IntFormMural();
 	private int funcionario;
-	
+	private int yMouse, xMouse;
+
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -50,6 +56,10 @@ public class SistemaForm {
 		initialize();
 	}
 
+	private void mexe(int x, int y) {
+		getFrmDizimasterSistema().setLocation(x - xMouse, y - yMouse);
+	}
+
 	public void deslogar() {
 		this.frmDizimasterSistema.dispose();
 		LoginForm window = new LoginForm();
@@ -59,25 +69,101 @@ public class SistemaForm {
 
 	private void initialize() {
 		setFrmDizimasterSistema(new JFrame());
-		getFrmDizimasterSistema().setIconImage(
-		Toolkit.getDefaultToolkit().getImage(SistemaForm.class.getResource("/com/dizimaster/img/icon.png")));
+		getFrmDizimasterSistema().setIconImage(Toolkit.getDefaultToolkit().getImage(SistemaForm.class.getResource("/com/dizimaster/img/icon.png")));
 		getFrmDizimasterSistema().setTitle("DIZIMASTER");
-		getFrmDizimasterSistema().setBounds(100, 100, 1055, 750);
+		getFrmDizimasterSistema().setBounds(100, 100, 1055, 775);
 		getFrmDizimasterSistema().setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		getFrmDizimasterSistema().getContentPane().setLayout(null);
 
+		JPanel panelTop = new JPanel();
+		panelTop.setBorder(null);
+		panelTop.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+		panelTop.setBackground(new Color(62, 62, 62));
+		panelTop.setBounds(0, 0, 1055, 39);
+		frmDizimasterSistema.getContentPane().add(panelTop);
+		panelTop.setLayout(null);
+
+		JXButton btnMinimize = new JXButton();
+		btnMinimize.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				btnMinimize.setBackground(new Color(110, 110, 110));
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				btnMinimize.setBackground(new Color(128, 128, 128));
+			}
+		});
+		btnMinimize.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				getFrmDizimasterSistema().setState(Frame.ICONIFIED);
+			}
+		});
+		btnMinimize.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnMinimize.setFocusPainted(false);
+		btnMinimize.setFocusable(false);
+		btnMinimize.setBorderPainted(false);
+		btnMinimize.setBounds(965, 4, 35, 30);
+		panelTop.add(btnMinimize);
+		btnMinimize.setText("_");
+		btnMinimize.setForeground(new Color(255, 255, 255));
+		btnMinimize.setFont(new Font("Noto Sans", Font.BOLD, 15));
+		btnMinimize.setBorder(new LineBorder(new Color(0, 0, 0), 2));
+		btnMinimize.setBackground(new Color(128, 128, 128));
+
+		JXButton btnFechar = new JXButton();
+		btnFechar.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				btnFechar.setBackground(new Color(175, 0, 0));
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				btnFechar.setBackground(new Color(215, 0, 0));
+			}
+		});
+		btnFechar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnFechar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.exit(0);
+			}
+		});
+		btnFechar.setFocusPainted(false);
+		btnFechar.setFocusable(false);
+		btnFechar.setBorderPainted(false);
+		btnFechar.setBounds(1000, 4, 50, 30);
+		panelTop.add(btnFechar);
+		btnFechar.setText("X");
+		btnFechar.setFont(new Font("Noto Sans", Font.BOLD, 16));
+		btnFechar.setForeground(new Color(255, 255, 255));
+		btnFechar.setBackground(new Color(215, 0, 0));
+		btnFechar.setBorder(new LineBorder(new Color(0, 0, 0), 2));
+
+		JLabel lblIcon = new JLabel("");
+		lblIcon.setIcon(new ImageIcon(SistemaForm.class.getResource("/com/dizimaster/img/icon.png")));
+		lblIcon.setBounds(428, 7, 24, 24);
+		panelTop.add(lblIcon);
+
+		JLabel lblTitle = new JLabel("Dizimaster");
+		lblTitle.setForeground(new Color(255, 255, 255));
+		lblTitle.setFont(new Font("Segoe UI", Font.BOLD, 15));
+		lblTitle.setBounds(462, 4, 100, 30);
+		panelTop.add(lblTitle);
+
 		JPanel panelMid = new JPanel();
-		panelMid.setBackground(new Color(255, 255, 255));
-		panelMid.setBounds(0, 29, 1038, 683);
+		panelMid.setBorder(new MatteBorder(0, 1, 1, 1, (Color) new Color(255, 255, 255)));
+		panelMid.setBackground(new Color(0, 128, 192));
+		panelMid.setBounds(10, 80, 1040, 683);
 		getFrmDizimasterSistema().getContentPane().add(panelMid);
 		panelMid.setLayout(null);
-		
+
 		JLabel lblDeopragLabs = new JLabel("® Deoprag Labs");
 		lblDeopragLabs.setForeground(Color.WHITE);
 		lblDeopragLabs.setFont(new Font("Segoe UI", Font.BOLD, 10));
-		lblDeopragLabs.setBounds(20, 20, 90, 25);
+		lblDeopragLabs.setBounds(10, 10, 90, 25);
 		panelMid.add(lblDeopragLabs);
-		
+
 		JDesktopPane largeDesktopPane = new JDesktopPane();
 		largeDesktopPane.setLayout(null);
 		largeDesktopPane.setEnabled(false);
@@ -89,28 +175,31 @@ public class SistemaForm {
 		panelMid.add(largeDesktopPane);
 		largeDesktopPane.add(intMural);
 		intMural.show();
-		
-		JPanel panel = new JPanel();
-		panel.setBackground(new Color(255, 255, 255));
-		panel.setBounds(0, 0, 1038, 30);
-		frmDizimasterSistema.getContentPane().add(panel);
-		panel.setLayout(null);
+
+		JPanel panelMenu = new JPanel();
+		panelMenu.setBorder(new MatteBorder(1, 1, 0, 1, (Color) new Color(255, 255, 255)));
+		panelMenu.setBackground(new Color(0, 128, 192));
+		panelMenu.setBounds(10, 40, 1040, 40);
+		frmDizimasterSistema.getContentPane().add(panelMenu);
+		panelMenu.setLayout(null);
 
 		JMenuBar menuTop = new JMenuBar();
-		menuTop.setBounds(10, 0, 930, 30);
-		panel.add(menuTop);
+		menuTop.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(255, 255, 255)));
+		menuTop.setBounds(99, 1, 842, 40);
+		panelMenu.add(menuTop);
 		menuTop.setAlignmentY(Component.CENTER_ALIGNMENT);
 		menuTop.setPreferredSize(new Dimension(0, 30));
 		menuTop.setBorderPainted(false);
-		menuTop.setBackground(new Color(255, 255, 255));
+		menuTop.setBackground(new Color(0, 145, 215));
 
 		JMenu mnFuncionario = new JMenu("Funcionário");
+		mnFuncionario.setForeground(new Color(255, 255, 255));
 		mnFuncionario.setMargin(new Insets(2, 4, 2, 2));
-		mnFuncionario.setBorder(new MatteBorder(0, 0, 0, 1, (Color) new Color(128, 128, 128)));
-		mnFuncionario.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+		mnFuncionario.setBorder(null);
+		mnFuncionario.setFont(new Font("Segoe UI", Font.BOLD, 14));
 		mnFuncionario.setHorizontalTextPosition(SwingConstants.CENTER);
 		mnFuncionario.setHorizontalAlignment(SwingConstants.CENTER);
-		mnFuncionario.setPreferredSize(new Dimension(80, 30));
+		mnFuncionario.setPreferredSize(new Dimension(90, 30));
 		mnFuncionario.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 		menuTop.add(mnFuncionario);
 
@@ -119,11 +208,13 @@ public class SistemaForm {
 		mntmNovoFuncionario.setBorder(new MatteBorder(0, 0, 1, 0, (Color) new Color(192, 192, 192)));
 		mntmNovoFuncionario.setPreferredSize(new Dimension(150, 30));
 		mnFuncionario.add(mntmNovoFuncionario);
-		mntmNovoFuncionario.setIcon(new ImageIcon(SistemaForm.class.getResource("/com/dizimaster/img/signup-icon.png")));
+		mntmNovoFuncionario
+				.setIcon(new ImageIcon(SistemaForm.class.getResource("/com/dizimaster/img/signup-icon.png")));
 
 		JMenuItem mntmGerenciarFuncionario = new JMenuItem("Gerenciar Funcionários");
 		mntmGerenciarFuncionario.setFont(new Font("Segoe UI", Font.PLAIN, 12));
-		mntmGerenciarFuncionario.setIcon(new ImageIcon(SistemaForm.class.getResource("/com/dizimaster/img/mange-icon.png")));
+		mntmGerenciarFuncionario
+				.setIcon(new ImageIcon(SistemaForm.class.getResource("/com/dizimaster/img/mange-icon.png")));
 		mntmGerenciarFuncionario.setPreferredSize(new Dimension(170, 30));
 		mntmGerenciarFuncionario.setBorder(new MatteBorder(0, 0, 1, 0, (Color) new Color(192, 192, 192)));
 		mnFuncionario.add(mntmGerenciarFuncionario);
@@ -139,12 +230,13 @@ public class SistemaForm {
 		});
 
 		JMenu mnDizimista = new JMenu("Dizimista");
+		mnDizimista.setForeground(new Color(255, 255, 255));
 		mnDizimista.setMargin(new Insets(2, 4, 2, 2));
-		mnDizimista.setBorder(new MatteBorder(0, 0, 0, 1, (Color) new Color(128, 128, 128)));
-		mnDizimista.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+		mnDizimista.setBorder(null);
+		mnDizimista.setFont(new Font("Segoe UI", Font.BOLD, 14));
 		mnDizimista.setHorizontalTextPosition(SwingConstants.CENTER);
 		mnDizimista.setHorizontalAlignment(SwingConstants.CENTER);
-		mnDizimista.setPreferredSize(new Dimension(80, 30));
+		mnDizimista.setPreferredSize(new Dimension(90, 30));
 		mnDizimista.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 		mnDizimista.setIcon(null);
 		mnDizimista.setBorderPainted(true);
@@ -177,12 +269,13 @@ public class SistemaForm {
 		mnDizimista.add(mntmGerenciarDizimista);
 
 		JMenu mnFinanceiro = new JMenu("Financeiro");
+		mnFinanceiro.setForeground(new Color(255, 255, 255));
 		mnFinanceiro.setMargin(new Insets(2, 4, 2, 2));
-		mnFinanceiro.setBorder(new MatteBorder(0, 0, 0, 1, (Color) new Color(128, 128, 128)));
-		mnFinanceiro.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+		mnFinanceiro.setBorder(null);
+		mnFinanceiro.setFont(new Font("Segoe UI", Font.BOLD, 14));
 		mnFinanceiro.setHorizontalTextPosition(SwingConstants.CENTER);
 		mnFinanceiro.setHorizontalAlignment(SwingConstants.CENTER);
-		mnFinanceiro.setPreferredSize(new Dimension(80, 30));
+		mnFinanceiro.setPreferredSize(new Dimension(90, 30));
 		menuTop.add(mnFinanceiro);
 
 		JMenu mnRegistrarPagamento = new JMenu("Registrar Pagamento");
@@ -226,7 +319,8 @@ public class SistemaForm {
 
 		JMenuItem mntmNewRelatorioRecebimentos = new JMenuItem("Relatório de Recebimentos");
 		mntmNewRelatorioRecebimentos.setFont(new Font("Segoe UI", Font.PLAIN, 12));
-		mntmNewRelatorioRecebimentos.setIcon(new ImageIcon(SistemaForm.class.getResource("/com/dizimaster/img/report-icon.png")));
+		mntmNewRelatorioRecebimentos
+				.setIcon(new ImageIcon(SistemaForm.class.getResource("/com/dizimaster/img/report-icon.png")));
 		mntmNewRelatorioRecebimentos.setPreferredSize(new Dimension(180, 30));
 		mntmNewRelatorioRecebimentos.setBorder(new MatteBorder(0, 0, 1, 0, (Color) new Color(192, 192, 192)));
 		mnFinanceiro.add(mntmNewRelatorioRecebimentos);
@@ -247,15 +341,15 @@ public class SistemaForm {
 		mntmFluxoCaixa.setPreferredSize(new Dimension(150, 30));
 		mntmFluxoCaixa.setIcon(new ImageIcon(SistemaForm.class.getResource("/com/dizimaster/img/graphic-icon.png")));
 		mnFinanceiro.add(mntmFluxoCaixa);
-		
-		JButton btnSair = new JButton("Deslogar");
-		btnSair.setBounds(950, 10, 78, 20);
-		panel.add(btnSair);
-		btnSair.setFocusable(false);
-		btnSair.setFocusPainted(false);
-		btnSair.setBorder(null);
-		btnSair.setBackground(new Color(184, 44, 54));
-		btnSair.addActionListener(new ActionListener() {
+
+		JButton btnDeslogar = new JButton("Deslogar");
+		btnDeslogar.setBounds(10, 10, 78, 20);
+		panelMenu.add(btnDeslogar);
+		btnDeslogar.setFocusable(false);
+		btnDeslogar.setFocusPainted(false);
+		btnDeslogar.setBorder(new LineBorder(new Color(128, 0, 0)));
+		btnDeslogar.setBackground(new Color(184, 44, 54));
+		btnDeslogar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (JOptionPane.showConfirmDialog(null, "Tem certeza que deseja deslogar?", "Deslogar?",
 						JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
@@ -263,22 +357,38 @@ public class SistemaForm {
 				}
 			}
 		});
-		btnSair.addMouseListener(new MouseAdapter() {
+		btnDeslogar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				btnSair.setBackground(new Color(143, 20, 29));
+				btnDeslogar.setBackground(new Color(143, 20, 29));
 			}
 
 			@Override
 			public void mouseExited(MouseEvent e) {
-				btnSair.setBackground(new Color(184, 44, 54));
+				btnDeslogar.setBackground(new Color(184, 44, 54));
 			}
 		});
-		btnSair.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnSair.setForeground(new Color(255, 255, 255));
-		btnSair.setHorizontalTextPosition(SwingConstants.CENTER);
-		btnSair.setRequestFocusEnabled(false);
-		btnSair.setFont(new Font("Segoe UI", Font.BOLD, 12));
+		btnDeslogar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnDeslogar.setForeground(new Color(255, 255, 255));
+		btnDeslogar.setHorizontalTextPosition(SwingConstants.CENTER);
+		btnDeslogar.setRequestFocusEnabled(false);
+		btnDeslogar.setFont(new Font("Segoe UI", Font.BOLD, 12));
+
+		panelTop.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				yMouse = e.getY();
+				xMouse = e.getX();
+			}
+		});
+		panelTop.addMouseMotionListener(new MouseMotionAdapter() {
+			@Override
+			public void mouseDragged(MouseEvent e) {
+				int x = e.getXOnScreen();
+				int y = e.getYOnScreen();
+				mexe(x, y);
+			}
+		});
 	}
 
 	public JFrame getFrmDizimasterSistema() {
@@ -287,6 +397,8 @@ public class SistemaForm {
 
 	public void setFrmDizimasterSistema(JFrame frmDizimasterSistema) {
 		this.frmDizimasterSistema = frmDizimasterSistema;
+		frmDizimasterSistema.getContentPane().setBackground(new Color(62, 62, 62));
+		frmDizimasterSistema.setUndecorated(true);
 		frmDizimasterSistema.setResizable(false);
 	}
 

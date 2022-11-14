@@ -217,21 +217,22 @@ public class FormAlterarSenha extends JFrame {
 		panelRequisitos.add(lblDiferenteDa);
 
 		JPanel panelUpBar = new JPanel();
+		panelUpBar.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 		panelUpBar.setBounds(0, 0, 450, 30);
 		contentPane.add(panelUpBar);
+		panelUpBar.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				yMouse = e.getY();
+				xMouse = e.getX();
+			}
+		});
 		panelUpBar.addMouseMotionListener(new MouseMotionAdapter() {
 			@Override
 			public void mouseDragged(MouseEvent e) {
 				int x = e.getXOnScreen();
 				int y = e.getYOnScreen();
 				mexe(x, y);
-			}
-		});
-		panelUpBar.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mousePressed(MouseEvent e) {
-				yMouse = e.getY();
-				xMouse = e.getX();
 			}
 		});
 		panelUpBar.setBorder(new MatteBorder(1, 1, 0, 1, (Color) new Color(255, 255, 255)));
