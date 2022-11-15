@@ -29,8 +29,8 @@ import java.awt.Insets;
 import javax.swing.JButton;
 import org.jdesktop.swingx.JXButton;
 import java.awt.event.MouseMotionAdapter;
-import javax.swing.border.CompoundBorder;
 import javax.swing.border.LineBorder;
+import javax.swing.border.CompoundBorder;
 
 public class SistemaForm {
 
@@ -69,7 +69,8 @@ public class SistemaForm {
 
 	private void initialize() {
 		setFrmDizimasterSistema(new JFrame());
-		getFrmDizimasterSistema().setIconImage(Toolkit.getDefaultToolkit().getImage(SistemaForm.class.getResource("/com/dizimaster/img/icon.png")));
+		getFrmDizimasterSistema().setIconImage(
+				Toolkit.getDefaultToolkit().getImage(SistemaForm.class.getResource("/com/dizimaster/img/icon.png")));
 		getFrmDizimasterSistema().setTitle("DIZIMASTER");
 		getFrmDizimasterSistema().setBounds(100, 100, 1055, 775);
 		getFrmDizimasterSistema().setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -89,6 +90,7 @@ public class SistemaForm {
 			public void mouseEntered(MouseEvent e) {
 				btnMinimize.setBackground(new Color(110, 110, 110));
 			}
+
 			@Override
 			public void mouseExited(MouseEvent e) {
 				btnMinimize.setBackground(new Color(128, 128, 128));
@@ -108,7 +110,7 @@ public class SistemaForm {
 		btnMinimize.setText("_");
 		btnMinimize.setForeground(new Color(255, 255, 255));
 		btnMinimize.setFont(new Font("Noto Sans", Font.BOLD, 15));
-		btnMinimize.setBorder(new LineBorder(new Color(0, 0, 0), 2));
+		btnMinimize.setBorder(new LineBorder(new Color(255, 255, 255)));
 		btnMinimize.setBackground(new Color(128, 128, 128));
 
 		JXButton btnFechar = new JXButton();
@@ -138,7 +140,7 @@ public class SistemaForm {
 		btnFechar.setFont(new Font("Noto Sans", Font.BOLD, 16));
 		btnFechar.setForeground(new Color(255, 255, 255));
 		btnFechar.setBackground(new Color(215, 0, 0));
-		btnFechar.setBorder(new LineBorder(new Color(0, 0, 0), 2));
+		btnFechar.setBorder(new LineBorder(new Color(255, 255, 255)));
 
 		JLabel lblIcon = new JLabel("");
 		lblIcon.setIcon(new ImageIcon(SistemaForm.class.getResource("/com/dizimaster/img/icon.png")));
@@ -158,21 +160,17 @@ public class SistemaForm {
 		getFrmDizimasterSistema().getContentPane().add(panelMid);
 		panelMid.setLayout(null);
 
-		JLabel lblDeopragLabs = new JLabel("® Deoprag Labs");
-		lblDeopragLabs.setForeground(Color.WHITE);
-		lblDeopragLabs.setFont(new Font("Segoe UI", Font.BOLD, 10));
-		lblDeopragLabs.setBounds(10, 10, 90, 25);
-		panelMid.add(lblDeopragLabs);
-
 		JDesktopPane largeDesktopPane = new JDesktopPane();
-		largeDesktopPane.setLayout(null);
-		largeDesktopPane.setEnabled(false);
+		largeDesktopPane.setFocusable(false);
+		largeDesktopPane.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 		largeDesktopPane.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
 		largeDesktopPane.setBackground(SystemColor.textHighlight);
-		largeDesktopPane.setAlignmentY(0.0f);
-		largeDesktopPane.setAlignmentX(0.0f);
-		largeDesktopPane.setBounds(10, 11, 1020, 665);
+		largeDesktopPane.setBounds(10, 10, 1020, 665);
 		panelMid.add(largeDesktopPane);
+		largeDesktopPane.setLayer(intMural, 0);
+		intMural.setBounds(1, 1, 1018, 663);
+		intMural.setVisible(true);
+		largeDesktopPane.setLayout(null);
 		largeDesktopPane.add(intMural);
 		intMural.show();
 
@@ -183,14 +181,52 @@ public class SistemaForm {
 		frmDizimasterSistema.getContentPane().add(panelMenu);
 		panelMenu.setLayout(null);
 
+		JButton btnDeslogar = new JButton("Deslogar");
+		btnDeslogar.setBounds(10, 10, 78, 20);
+		panelMenu.add(btnDeslogar);
+		btnDeslogar.setFocusable(false);
+		btnDeslogar.setFocusPainted(false);
+		btnDeslogar.setBorder(new LineBorder(new Color(128, 0, 0)));
+		btnDeslogar.setBackground(new Color(184, 44, 54));
+		btnDeslogar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (JOptionPane.showConfirmDialog(null, "Tem certeza que deseja deslogar?", "Deslogar?",
+						JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+					deslogar();
+				}
+			}
+		});
+		btnDeslogar.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				btnDeslogar.setBackground(new Color(143, 20, 29));
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				btnDeslogar.setBackground(new Color(184, 44, 54));
+			}
+		});
+		btnDeslogar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnDeslogar.setForeground(new Color(255, 255, 255));
+		btnDeslogar.setHorizontalTextPosition(SwingConstants.CENTER);
+		btnDeslogar.setRequestFocusEnabled(false);
+		btnDeslogar.setFont(new Font("Segoe UI", Font.BOLD, 12));
+
+		JLabel lblDeopragLabs = new JLabel("® Deoprag Labs");
+		lblDeopragLabs.setBounds(950, 10, 80, 25);
+		panelMenu.add(lblDeopragLabs);
+		lblDeopragLabs.setForeground(Color.WHITE);
+		lblDeopragLabs.setFont(new Font("Segoe UI", Font.BOLD, 10));
+
 		JMenuBar menuTop = new JMenuBar();
-		menuTop.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(255, 255, 255)));
-		menuTop.setBounds(99, 1, 842, 40);
+		menuTop.setBounds(98, 1, 842, 40);
 		panelMenu.add(menuTop);
+		menuTop.setBorder(null);
 		menuTop.setAlignmentY(Component.CENTER_ALIGNMENT);
 		menuTop.setPreferredSize(new Dimension(0, 30));
 		menuTop.setBorderPainted(false);
-		menuTop.setBackground(new Color(0, 145, 215));
+		menuTop.setBackground(new Color(0, 106, 157));
 
 		JMenu mnFuncionario = new JMenu("Funcionário");
 		mnFuncionario.setForeground(new Color(255, 255, 255));
@@ -265,7 +301,8 @@ public class SistemaForm {
 		mntmGerenciarDizimista.setFont(new Font("Segoe UI", Font.PLAIN, 12));
 		mntmGerenciarDizimista.setBorder(new MatteBorder(0, 0, 1, 0, (Color) new Color(192, 192, 192)));
 		mntmGerenciarDizimista.setPreferredSize(new Dimension(150, 30));
-		mntmGerenciarDizimista.setIcon(new ImageIcon(SistemaForm.class.getResource("/com/dizimaster/img/mange-icon.png")));
+		mntmGerenciarDizimista
+				.setIcon(new ImageIcon(SistemaForm.class.getResource("/com/dizimaster/img/mange-icon.png")));
 		mnDizimista.add(mntmGerenciarDizimista);
 
 		JMenu mnFinanceiro = new JMenu("Financeiro");
@@ -305,6 +342,16 @@ public class SistemaForm {
 		mntmDizimo.setPreferredSize(new Dimension(100, 30));
 
 		JMenuItem mntmOferta = new JMenuItem("Oferta");
+		mntmOferta.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				largeDesktopPane.removeAll();
+				IntFormOferta intOferta = new IntFormOferta();
+				largeDesktopPane.add(intMural);
+				intMural.show();
+				largeDesktopPane.add(intOferta);
+				intOferta.show();
+			}
+		});
 		mntmOferta.setIcon(new ImageIcon(SistemaForm.class.getResource("/com/dizimaster/img/offering-icon.png")));
 		mntmOferta.setFont(new Font("Segoe UI", Font.PLAIN, 12));
 		mntmOferta.setPreferredSize(new Dimension(100, 30));
@@ -341,38 +388,6 @@ public class SistemaForm {
 		mntmFluxoCaixa.setPreferredSize(new Dimension(150, 30));
 		mntmFluxoCaixa.setIcon(new ImageIcon(SistemaForm.class.getResource("/com/dizimaster/img/graphic-icon.png")));
 		mnFinanceiro.add(mntmFluxoCaixa);
-
-		JButton btnDeslogar = new JButton("Deslogar");
-		btnDeslogar.setBounds(10, 10, 78, 20);
-		panelMenu.add(btnDeslogar);
-		btnDeslogar.setFocusable(false);
-		btnDeslogar.setFocusPainted(false);
-		btnDeslogar.setBorder(new LineBorder(new Color(128, 0, 0)));
-		btnDeslogar.setBackground(new Color(184, 44, 54));
-		btnDeslogar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (JOptionPane.showConfirmDialog(null, "Tem certeza que deseja deslogar?", "Deslogar?",
-						JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-					deslogar();
-				}
-			}
-		});
-		btnDeslogar.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseEntered(MouseEvent e) {
-				btnDeslogar.setBackground(new Color(143, 20, 29));
-			}
-
-			@Override
-			public void mouseExited(MouseEvent e) {
-				btnDeslogar.setBackground(new Color(184, 44, 54));
-			}
-		});
-		btnDeslogar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnDeslogar.setForeground(new Color(255, 255, 255));
-		btnDeslogar.setHorizontalTextPosition(SwingConstants.CENTER);
-		btnDeslogar.setRequestFocusEnabled(false);
-		btnDeslogar.setFont(new Font("Segoe UI", Font.BOLD, 12));
 
 		panelTop.addMouseListener(new MouseAdapter() {
 			@Override

@@ -10,6 +10,7 @@ import com.dizimaster.model.Dizimista;
 import com.dizimaster.util.DatabaseUtils;
 import com.dizimaster.util.GenericUtils;
 import com.dizimaster.util.TxtObservacao;
+import com.dizimaster.util.TxtSalarioFormat;
 
 import javax.swing.JPanel;
 import java.awt.Color;
@@ -42,20 +43,23 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JScrollPane;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JCheckBox;
 
 @SuppressWarnings("serial")
-public class IntFormDizimo extends JInternalFrame {
+public class IntFormOferta extends JInternalFrame {
 	
 	private JTextField txtCpf;
+	private int funcionario;
 	private JTextField txtNome;
 	private JTextField txtValor;
-	private int funcionario;
+	private JLabel lblCpf;
+	private JButton btnSearch;
 	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					IntFormDizimo frame = new IntFormDizimo();
+					IntFormOferta frame = new IntFormOferta();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -68,7 +72,7 @@ public class IntFormDizimo extends JInternalFrame {
 		this.dispose();
 	}
 	
-	public IntFormDizimo() {
+	public IntFormOferta() {
 		setBorder(null);
 		setBounds(0, 0, 1020, 665);
 		getContentPane().setLayout(null);
@@ -80,13 +84,48 @@ public class IntFormDizimo extends JInternalFrame {
 		getContentPane().add(panelCadastro);
 		panelCadastro.setLayout(null);
 		
+		JLabel lblReal = new JLabel("R$");
+		lblReal.setForeground(Color.WHITE);
+		lblReal.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+		lblReal.setBorder(new MatteBorder(0, 0, 1, 0, (Color) new Color(10, 60, 70)));
+		lblReal.setBackground(Color.WHITE);
+		lblReal.setAlignmentX(0.5f);
+		lblReal.setBounds(100, 340, 25, 30);
+		panelCadastro.add(lblReal);
+		
+		JCheckBox chckbxDizimista = new JCheckBox("Dizimista");
+		chckbxDizimista.setFocusable(false);
+		chckbxDizimista.setFocusPainted(false);
+		chckbxDizimista.setForeground(new Color(255, 255, 255));
+		chckbxDizimista.setFont(new Font("Segoe UI", Font.PLAIN, 10));
+		chckbxDizimista.setBackground(new Color(25, 120, 150));
+		chckbxDizimista.setBounds(137, 265, 75, 23);
+		panelCadastro.add(chckbxDizimista);
+		
+		txtValor = new TxtSalarioFormat(8);
+		txtValor.setForeground(Color.WHITE);
+		txtValor.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+		txtValor.setColumns(10);
+		txtValor.setBorder(new MatteBorder(0, 0, 1, 0, (Color) new Color(10, 60, 70)));
+		txtValor.setBackground(new Color(25, 120, 150));
+		txtValor.setBounds(120, 340, 60, 30);
+		panelCadastro.add(txtValor);
+		
+		txtNome = new JTextField();
+		txtNome.setForeground(Color.WHITE);
+		txtNome.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+		txtNome.setColumns(10);
+		txtNome.setBorder(new MatteBorder(0, 0, 1, 0, (Color) new Color(10, 60, 70)));
+		txtNome.setBackground(new Color(25, 120, 150));
+		txtNome.setBounds(100, 300, 150, 30);
+		panelCadastro.add(txtNome);
+		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(100, 384, 150, 100);
 		scrollPane.setBorder(null);
 		panelCadastro.add(scrollPane);
 		
 		TxtObservacao txtObs = new TxtObservacao(199);
-		txtObs.setEnabled(false);
 		scrollPane.setViewportView(txtObs);
 		txtObs.addFocusListener(new FocusAdapter() {
 			@Override
@@ -114,6 +153,8 @@ public class IntFormDizimo extends JInternalFrame {
 		panelCadastro.add(lblObs);
 		
 		JButton btnSearch = new JButton("");
+		btnSearch.setVisible(false);
+		btnSearch.setEnabled(false);
 		btnSearch.setBounds(190, 265, 25, 25);
 		btnSearch.setBorder(null);
 		btnSearch.setBorderPainted(false);
@@ -123,17 +164,7 @@ public class IntFormDizimo extends JInternalFrame {
 		btnSearch.setBackground(new Color(25, 120, 150));
 		panelCadastro.add(btnSearch);
 		btnSearch.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnSearch.setIcon(new ImageIcon(IntFormDizimo.class.getResource("/com/dizimaster/img/find-icon.png")));
-		
-		JTextField txtValor = new JTextField();
-		txtValor.setBounds(100, 340, 60, 30);
-		txtValor.setEnabled(false);
-		txtValor.setForeground(new Color(255, 255, 255));
-		txtValor.setFont(new Font("Segoe UI", Font.PLAIN, 12));
-		txtValor.setColumns(10);
-		txtValor.setBorder(new MatteBorder(0, 0, 1, 0, (Color) new Color(10, 60, 70)));
-		txtValor.setBackground(new Color(25, 120, 150));
-		panelCadastro.add(txtValor);
+		btnSearch.setIcon(new ImageIcon(IntFormOferta.class.getResource("/com/dizimaster/img/find-icon.png")));
 		
 		JLabel lblValor = new JLabel("Valor");
 		lblValor.setBounds(53, 340, 63, 24);
@@ -144,16 +175,6 @@ public class IntFormDizimo extends JInternalFrame {
 		lblValor.setAlignmentX(0.5f);
 		panelCadastro.add(lblValor);
 		
-		txtNome = new JTextField();
-		txtNome.setBounds(100, 300, 150, 30);
-		txtNome.setEnabled(false);
-		txtNome.setForeground(new Color(255, 255, 255));
-		txtNome.setFont(new Font("Segoe UI", Font.PLAIN, 12));
-		txtNome.setColumns(10);
-		txtNome.setBorder(new MatteBorder(0, 0, 1, 0, (Color) new Color(10, 60, 70)));
-		txtNome.setBackground(new Color(25, 120, 150));
-		panelCadastro.add(txtNome);
-		
 		MaskFormatter mascaraCpf = null;
 		try {
 			mascaraCpf = new MaskFormatter("###.###.###-##");
@@ -161,6 +182,8 @@ public class IntFormDizimo extends JInternalFrame {
 			e.printStackTrace();
 		}
 		txtCpf = new JFormattedTextField(mascaraCpf);
+		txtCpf.setVisible(false);
+		txtCpf.setEnabled(false);
 		txtCpf.setBounds(100, 260, 90, 30);
 		txtCpf.addKeyListener(new KeyAdapter() {
 			@Override
@@ -195,6 +218,8 @@ public class IntFormDizimo extends JInternalFrame {
 		panelCadastro.add(lblNome);
 		
 		JLabel lblCpf = new JLabel("CPF");
+		lblCpf.setVisible(false);
+		lblCpf.setEnabled(false);
 		lblCpf.setBounds(53, 260, 46, 24);
 		lblCpf.setForeground(Color.WHITE);
 		lblCpf.setFont(new Font("Rubik", Font.PLAIN, 12));
@@ -231,7 +256,7 @@ public class IntFormDizimo extends JInternalFrame {
 		btnSair.setBackground(new Color(184, 44, 54));
 		panelCadastro.add(btnSair);
 		
-		JLabel lblTitulo = new JLabel("Dízimo");
+		JLabel lblTitulo = new JLabel("Oferta");
 		lblTitulo.setBounds(55, 200, 240, 35);
 		lblTitulo.setHorizontalAlignment(SwingConstants.CENTER);
 		lblTitulo.setForeground(Color.WHITE);
@@ -251,32 +276,19 @@ public class IntFormDizimo extends JInternalFrame {
 			@Override
 			public void mouseEntered(MouseEvent e) {
 				lblLogo.setIcon(
-						new ImageIcon(IntFormDizimo.class.getResource("/com/dizimaster/img/logo-hold-small.png")));
+						new ImageIcon(IntFormOferta.class.getResource("/com/dizimaster/img/logo-hold-small.png")));
 
 			}
 			@Override
 			public void mouseExited(MouseEvent e) {
-				lblLogo.setIcon(new ImageIcon(IntFormDizimo.class.getResource("/com/dizimaster/img/logo-small.png")));
+				lblLogo.setIcon(new ImageIcon(IntFormOferta.class.getResource("/com/dizimaster/img/logo-small.png")));
 			}
 		});
 		lblLogo.setBounds(100, 20, 150, 150);
-		lblLogo.setIcon(new ImageIcon(IntFormDizimo.class.getResource("/com/dizimaster/img/logo-small.png")));
+		lblLogo.setIcon(new ImageIcon(IntFormOferta.class.getResource("/com/dizimaster/img/logo-small.png")));
 		panelCadastro.add(lblLogo);
 		
 		JButton btnEnviar = new JButton("REGISTRAR");
-		btnEnviar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if((txtCpf.getText().trim().length() < 14)) {
-					JOptionPane.showMessageDialog(null, "Preencha o CPF!");
-				} else {
-					if (!txtNome.getText().isBlank() && !txtValor.getText().isBlank()) {
-						
-					} else {
-						JOptionPane.showMessageDialog(null, "Pesquise o CPF antes de registrar!");
-					}
-				}
-			}
-		});
 		btnEnviar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
@@ -299,12 +311,12 @@ public class IntFormDizimo extends JInternalFrame {
 		
 		JLabel lblBackgroundPanel = new JLabel("");
 		lblBackgroundPanel.setBounds(0, 0, 350, 570);
-		lblBackgroundPanel.setIcon(new ImageIcon(IntFormDizimo.class.getResource("/com/dizimaster/img/Cad_Panel.jpg")));
+		lblBackgroundPanel.setIcon(new ImageIcon(IntFormOferta.class.getResource("/com/dizimaster/img/Cad_Panel.jpg")));
 		lblBackgroundPanel.setBorder(new LineBorder(new Color(255, 255, 255), 1, true));
 		panelCadastro.add(lblBackgroundPanel);
 		
 		JLabel lblBackground = new JLabel("");
-		lblBackground.setIcon(new ImageIcon(IntFormDizimo.class.getResource("/com/dizimaster/img/church-bg.png")));
+		lblBackground.setIcon(new ImageIcon(IntFormOferta.class.getResource("/com/dizimaster/img/church-bg.png")));
 		lblBackground.setBackground(new Color(66, 174, 193));
 		lblBackground.setBounds(0, 0, 1020, 665);
 		getContentPane().add(lblBackground);
@@ -314,34 +326,57 @@ public class IntFormDizimo extends JInternalFrame {
 		btnSearch.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				if((txtCpf.getText().trim().length() < 14)) {
-					JOptionPane.showMessageDialog(null, "Preencha o CPF!");
-				} else {
-					txtNome.setText("");
-					txtValor.setText("");
-					try {
-						Dizimista dizimista;
-						dizimista = DatabaseUtils.procurarDizimista(txtCpf.getText().replace("-", "").replace(".", ""));
+				txtNome.setText("");
+				txtValor.setText("");
+				try {
+					Dizimista dizimista;
+					dizimista = DatabaseUtils.procurarDizimista(txtCpf.getText().replace("-", "").replace(".", ""));
 
-						txtNome.setForeground(Color.WHITE);
-						txtValor.setForeground(Color.WHITE);
-						
-						txtNome.setText(dizimista.getNome());
-						DecimalFormat df = new DecimalFormat("0.00");
-						txtValor.setText("R$ " + df.format(dizimista.getSalario() / 10).replace(".", ","));
-						txtObs.setEnabled(true);
-					} catch(Exception e1) {
-						e1.printStackTrace();
-					}
+					txtNome.setForeground(Color.WHITE);
+					txtNome.setText(dizimista.getNome());
+				} catch(Exception e1) {
+					e1.printStackTrace();
 				}
 			}
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				btnSearch.setIcon(new ImageIcon(IntFormDizimo.class.getResource("/com/dizimaster/img/find-icon-hold.png")));
+				btnSearch.setIcon(new ImageIcon(IntFormOferta.class.getResource("/com/dizimaster/img/find-icon-hold.png")));
 			}
 			
 			public void mouseExited(MouseEvent e) {
-				btnSearch.setIcon(new ImageIcon(IntFormDizimo.class.getResource("/com/dizimaster/img/find-icon.png")));
+				btnSearch.setIcon(new ImageIcon(IntFormOferta.class.getResource("/com/dizimaster/img/find-icon.png")));
+			}
+		});
+		
+		chckbxDizimista.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (chckbxDizimista.isSelected()) {
+					
+					txtCpf.setVisible(true);
+					lblCpf.setVisible(true);
+					btnSearch.setVisible(true);
+					
+					txtNome.setEditable(false);
+					txtCpf.setEnabled(true);
+					lblCpf.setEnabled(true);
+					btnSearch.setEnabled(true);
+					txtCpf.requestFocus();
+					txtCpf.setForeground(new Color(192,192,192));
+					txtCpf.setText("000.000.000-00");
+					chckbxDizimista.setBounds(220, 260, 75, 23);
+				} else {
+					txtCpf.setVisible(false);
+					lblCpf.setVisible(false);
+					btnSearch.setVisible(false);
+					
+					txtNome.requestFocus();
+					txtNome.setText("");
+					txtNome.setEditable(true);
+					txtCpf.setEnabled(false);
+					lblCpf.setEnabled(false);
+					btnSearch.setEnabled(false);
+					chckbxDizimista.setBounds(135, 260, 75, 23);
+				}
 			}
 		});
 	}

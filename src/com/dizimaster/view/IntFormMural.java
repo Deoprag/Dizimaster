@@ -11,9 +11,8 @@ import javax.swing.ImageIcon;
 
 public class IntFormMural extends JInternalFrame {
 
-	/**
-	 * Launch the application.
-	 */
+	private static final long serialVersionUID = 1L;
+
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
