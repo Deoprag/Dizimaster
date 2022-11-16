@@ -24,6 +24,8 @@ import javax.swing.text.MaskFormatter;
 
 import com.dizimaster.util.DatabaseUtils;
 import com.dizimaster.util.GenericUtils;
+import com.dizimaster.util.TxtNome;
+
 import javax.swing.border.LineBorder;
 import javax.swing.SwingConstants;
 import java.awt.event.ActionListener;
@@ -237,14 +239,18 @@ public class IntFormCadastroFuncionario extends JInternalFrame {
 						fTxtCelular.getText().replaceAll(" ", "").length() == 14 	) {
 						if (GenericUtils.isCPF(fTxtCpf.getText().replace(".", "").replace("-", "")) == true) {
 							if (txtEmail.getText().equals(txtConfEmail.getText())) {
-								String sexo = (boxSexo.getSelectedIndex() == 0 ? "m" : "f");
-								if (DatabaseUtils.cadastroFuncionario(fTxtCpf.getText(), txtNome.getText(), fTxtNascimento.getText(), sexo, fTxtCelular.getText(), txtEmail.getText()) == true) {
-									fTxtCpf.setText("");
-									txtNome.setText("");
-									fTxtNascimento.setText("");
-									fTxtCelular.setText("");
-									txtEmail.setText("");
-									txtConfEmail.setText("");
+								if(GenericUtils.isEmail(txtEmail.getText()) == true) {
+									String sexo = (boxSexo.getSelectedIndex() == 0 ? "m" : "f");
+									if (DatabaseUtils.cadastroFuncionario(fTxtCpf.getText(), txtNome.getText(), fTxtNascimento.getText(), sexo, fTxtCelular.getText(), txtEmail.getText()) == true) {
+										fTxtCpf.setText("");
+										txtNome.setText("");
+										fTxtNascimento.setText("");
+										fTxtCelular.setText("");
+										txtEmail.setText("");
+										txtConfEmail.setText("");
+									}
+								} else {
+									JOptionPane.showMessageDialog(null, "Email Inválido!");
 								}
 							} else {
 								JOptionPane.showMessageDialog(null, "Verifique os emails digitados e tente novamente!");
@@ -317,7 +323,7 @@ public class IntFormCadastroFuncionario extends JInternalFrame {
 		lblNome.setBounds(182, 270, 150, 24);
 		panelCadastro.add(lblNome);
 
-		txtNome = new JTextField();
+		txtNome = new TxtNome(100);
 		txtNome.setToolTipText("Nome");
 		txtNome.setFont(new Font("Segoe UI", Font.PLAIN, 12));
 		txtNome.setBorder(new EtchedBorder(EtchedBorder.RAISED, new Color(102, 51, 0), new Color(204, 153, 51)));

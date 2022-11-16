@@ -24,6 +24,7 @@ import javax.swing.text.MaskFormatter;
 
 import com.dizimaster.util.DatabaseUtils;
 import com.dizimaster.util.GenericUtils;
+import com.dizimaster.util.TxtNome;
 import com.dizimaster.util.TxtSalarioFormat;
 
 import javax.swing.border.LineBorder;
@@ -154,12 +155,12 @@ public class IntFormCadastroDizimista extends JInternalFrame {
 		lblNascimento.setBounds(16, 320, 150, 24);
 		panelCadastro.add(lblNascimento);
 
-		TxtSalarioFormat fTxtSalario = new TxtSalarioFormat(8);
-		fTxtSalario.setBounds(182, 390, 150, 30);
-		fTxtSalario.setFont(new Font("Segoe UI", Font.PLAIN, 12));
-		fTxtSalario.setBorder(new EtchedBorder(EtchedBorder.RAISED, new Color(102, 51, 0), new Color(204, 153, 51)));
-		fTxtSalario.setBackground(new Color(254, 213, 150));
-		panelCadastro.add(fTxtSalario);
+		TxtSalarioFormat txtSalario = new TxtSalarioFormat(8);
+		txtSalario.setBounds(182, 390, 150, 30);
+		txtSalario.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+		txtSalario.setBorder(new EtchedBorder(EtchedBorder.RAISED, new Color(102, 51, 0), new Color(204, 153, 51)));
+		txtSalario.setBackground(new Color(254, 213, 150));
+		panelCadastro.add(txtSalario);
 
 		JFormattedTextField fTxtNascimento = new JFormattedTextField(mascaraNascimento);
 		fTxtNascimento.setBounds(16, 340, 150, 30);
@@ -241,24 +242,30 @@ public class IntFormCadastroDizimista extends JInternalFrame {
 		btnEnviar.setFocusable(false);
 		btnEnviar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (fTxtCpf.getText().replaceAll(" ", "").length() == 14 && !txtNome.getText().isBlank()
-						&& fTxtNascimento.getText().replaceAll(" ", "").length() == 10
-						&& fTxtCelular.getText().replaceAll(" ", "").length() == 14) {
-					if (GenericUtils.isCPF(fTxtCpf.getText().replace(".", "").replace("-", "")) == true) {
-						String sexo = (boxSexo.getSelectedIndex() == 0 ? "m" : "f");
-						if (DatabaseUtils.cadastroDizimista(fTxtCpf.getText(), txtNome.getText(),
-								fTxtNascimento.getText(), sexo, fTxtCelular.getText(), fTxtSalario.getText()) == true) {
-							fTxtCpf.setText("");
-							txtNome.setText("");
-							fTxtNascimento.setText("");
-							fTxtCelular.setText("");
-							fTxtSalario.setText("");
+				try {
+					if (fTxtCpf.getText().replaceAll(" ", "").length() == 14 && !txtNome.getText().isBlank()
+							&& fTxtNascimento.getText().replaceAll(" ", "").length() == 10
+							&& fTxtCelular.getText().replaceAll(" ", "").length() == 14) {
+						if (GenericUtils.isCPF(fTxtCpf.getText().replace(".", "").replace("-", "")) == true) {
+							String sexo = (boxSexo.getSelectedIndex() == 0 ? "m" : "f");
+							if (DatabaseUtils.cadastroDizimista(fTxtCpf.getText(), txtNome.getText(),
+									fTxtNascimento.getText(), sexo, fTxtCelular.getText(), txtSalario.getText().replace(",", ".")) == true) {
+								fTxtCpf.setText("");
+								txtNome.setText("");
+								fTxtNascimento.setText("");
+								fTxtCelular.setText("");
+								txtSalario.setText("");
+							}
+						} else {
+							JOptionPane.showMessageDialog(null, "CPF Inválido!");
 						}
 					} else {
-						JOptionPane.showMessageDialog(null, "CPF Inválido!");
+						JOptionPane.showMessageDialog(null, "Preencha todos os campos obrigatórios!");
 					}
-				} else {
-					JOptionPane.showMessageDialog(null, "Preencha todos os campos obrigatórios!");
+				} catch (NumberFormatException e1) {
+					JOptionPane.showMessageDialog(null, "O valor inserido é inválido!");
+				} catch (Exception e2) {
+					e2.printStackTrace();
 				}
 			}
 		});
@@ -299,7 +306,7 @@ public class IntFormCadastroDizimista extends JInternalFrame {
 		lblNome.setBounds(182, 270, 150, 24);
 		panelCadastro.add(lblNome);
 
-		txtNome = new JTextField();
+		txtNome = new TxtNome(100);
 		txtNome.setToolTipText("Nome");
 		txtNome.setFont(new Font("Segoe UI", Font.PLAIN, 12));
 		txtNome.setBorder(new EtchedBorder(EtchedBorder.RAISED, new Color(102, 51, 0), new Color(204, 153, 51)));

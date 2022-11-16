@@ -9,6 +9,7 @@ import javax.swing.text.MaskFormatter;
 import com.dizimaster.model.Dizimista;
 import com.dizimaster.util.DatabaseUtils;
 import com.dizimaster.util.GenericUtils;
+import com.dizimaster.util.TxtNome;
 import com.dizimaster.util.TxtObservacao;
 import com.dizimaster.util.TxtSalarioFormat;
 
@@ -82,7 +83,7 @@ public class IntFormOferta extends JInternalFrame {
 		panelCadastro.setBounds(335, 34, 350, 570);
 		getContentPane().add(panelCadastro);
 		panelCadastro.setLayout(null);
-		
+
 		JLabel lblObrigatorio = new JLabel("* Campos Obrigatórios");
 		lblObrigatorio.setForeground(Color.WHITE);
 		lblObrigatorio.setFont(new Font("Segoe UI", Font.PLAIN, 10));
@@ -119,7 +120,7 @@ public class IntFormOferta extends JInternalFrame {
 		txtValor.setBounds(120, 340, 60, 30);
 		panelCadastro.add(txtValor);
 
-		txtNome = new JTextField();
+		txtNome = new TxtNome(100);
 		txtNome.setForeground(Color.WHITE);
 		txtNome.setFont(new Font("Segoe UI", Font.PLAIN, 12));
 		txtNome.setColumns(10);
@@ -302,28 +303,39 @@ public class IntFormOferta extends JInternalFrame {
 		JButton btnEnviar = new JButton("REGISTRAR");
 		btnEnviar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String obs = null;
-				int id = 0;
-				boolean isDizimista = chckbxDizimista.isSelected() ? true : false;
-				if (!txtObs.getText().isBlank() && txtObs.getForeground() == Color.WHITE) {
-					obs = txtObs.getText();
-				}
-				if (isDizimista == true) {
-					if (txtCpf.getText().trim().length() < 14) {
-						JOptionPane.showMessageDialog(null, "Preencha o CPF!");
+				try {
+					String obs = null;
+					int id = 0;
+					boolean isDizimista = chckbxDizimista.isSelected() ? true : false;
+					if (!txtObs.getText().isBlank() && txtObs.getForeground() == Color.WHITE) {
+						obs = txtObs.getText();
 					}
-					id = dizimista.getId();
-				}
-				if (!txtNome.getText().isBlank() && !txtValor.getText().isBlank()) {
-					if (DatabaseUtils.registraOferta(funcionario, isDizimista, txtNome.getText(), Float.parseFloat(txtValor.getText()), obs, id) == true) {
-						txtCpf.setText("");
-						txtNome.setText("");
-						txtValor.setText("");
-						txtObs.setText("Insira aqui uma observação");
-						txtObs.setForeground(new Color(192,192,192));
+					if (Float.parseFloat(txtValor.getText()) >= 1) {
+						if (isDizimista == true) {
+							if (txtCpf.getText().trim().length() < 14) {
+								JOptionPane.showMessageDialog(null, "Preencha o CPF!");
+							}
+							id = dizimista.getId();
+						}
+						if (!txtNome.getText().isBlank() && !txtValor.getText().isBlank()) {
+							if (DatabaseUtils.registraOferta(funcionario, isDizimista, txtNome.getText(),
+									Float.parseFloat(txtValor.getText().replace(",", ".")), obs, id) == true) {
+								txtCpf.setText("");
+								txtNome.setText("");
+								txtValor.setText("");
+								txtObs.setText("Insira aqui uma observação");
+								txtObs.setForeground(new Color(192, 192, 192));
+							}
+						} else {
+							JOptionPane.showMessageDialog(null, "Preencha todos os dados obrigatórios!");
+						}
+					} else {
+						JOptionPane.showMessageDialog(null, "Insira um valor maior que R$1,00 na oferta!");
 					}
-				} else {
-					JOptionPane.showMessageDialog(null, "Preencha todos os dados obrigatórios!");
+				} catch (NumberFormatException e1) {
+					JOptionPane.showMessageDialog(null, "O valor inserido é inválido!");
+				} catch (Exception e2) {
+					e2.printStackTrace();
 				}
 			}
 		});

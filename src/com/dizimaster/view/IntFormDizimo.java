@@ -9,6 +9,7 @@ import javax.swing.text.MaskFormatter;
 import com.dizimaster.model.Dizimista;
 import com.dizimaster.util.DatabaseUtils;
 import com.dizimaster.util.GenericUtils;
+import com.dizimaster.util.TxtNome;
 import com.dizimaster.util.TxtObservacao;
 
 import javax.swing.JPanel;
@@ -155,7 +156,7 @@ public class IntFormDizimo extends JInternalFrame {
 		lblValor.setAlignmentX(0.5f);
 		panelCadastro.add(lblValor);
 
-		txtNome = new JTextField();
+		txtNome = new TxtNome(100);
 		txtNome.setBounds(100, 300, 150, 30);
 		txtNome.setEnabled(false);
 		txtNome.setForeground(new Color(255, 255, 255));

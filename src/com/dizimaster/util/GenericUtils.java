@@ -6,6 +6,8 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
 import javax.swing.JOptionPane;
 
 public class GenericUtils {
@@ -17,13 +19,24 @@ public class GenericUtils {
 			e.printStackTrace();
 		}
 	}
+	
+	public static boolean isEmail(String email) {
+		   boolean result = true;
+		   try {
+		      InternetAddress emailAddr = new InternetAddress(email);
+		      emailAddr.validate();
+		   } catch (AddressException ex) {
+		      result = false;
+		   }
+		   return result;
+		}
 
 	public static boolean isCPF(String cpf) {
 
 		if (cpf.equals("00000000000") || cpf.equals("11111111111") || cpf.equals("22222222222")
-			|| cpf.equals("33333333333") || cpf.equals("44444444444") || cpf.equals("55555555555")
-			|| cpf.equals("66666666666") || cpf.equals("77777777777") || cpf.equals("88888888888")
-			|| cpf.equals("99999999999") || cpf.length() != 11)
+				|| cpf.equals("33333333333") || cpf.equals("44444444444") || cpf.equals("55555555555")
+				|| cpf.equals("66666666666") || cpf.equals("77777777777") || cpf.equals("88888888888")
+				|| cpf.equals("99999999999") || cpf.length() != 11)
 			return (false);
 
 		char dig10, dig11;

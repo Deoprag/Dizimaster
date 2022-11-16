@@ -122,6 +122,9 @@ public class DatabaseUtils {
 
 			JOptionPane.showMessageDialog(null, "Dizimista cadastrado com sucesso!");
 			return true;
+		} catch (NumberFormatException e1) {
+			JOptionPane.showMessageDialog(null, "O salário inserido é inválido!");
+			return false;
 		} catch (SQLIntegrityConstraintViolationException e) {
 			e.printStackTrace();
 			JOptionPane.showMessageDialog(null, "CPF já cadastrado. Tente novamente!");
@@ -198,6 +201,9 @@ public class DatabaseUtils {
 
 			JOptionPane.showMessageDialog(null, "Dízimo registrado com sucesso!");
 			return true;
+		} catch (NumberFormatException e1) {
+			JOptionPane.showMessageDialog(null, "O valor inserido é inválido!");
+			return false;
 		} catch (Exception e) {
 			e.printStackTrace();
 			return false;

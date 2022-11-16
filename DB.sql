@@ -53,3 +53,12 @@ create table if not exists oferta (
     data date not null,
     hora time not null
 ) default charset = utf8;
+
+create table if not exists despesa (
+	id int primary key not null auto_increment,
+    valor float not null,
+    descricao varchar(200) not null,
+    funcionario int not null,
+    data date not null,
+    hora time not null
+) default charset = utf8;
