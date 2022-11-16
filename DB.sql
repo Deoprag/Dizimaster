@@ -3,7 +3,10 @@ default character set utf8
 default collate utf8_general_ci;
 
 use dizimaster_db;
+select *from dizimo;
+select *from oferta;
 select *from funcionario;
+select *from dizimista;
 
 create table if not exists funcionario (
 	id int primary key not null auto_increment,
@@ -32,16 +35,21 @@ create table if not exists dizimista (
 create table if not exists dizimo (
 	id int primary key not null auto_increment,
     dizimista int not null,
-    salario int not null,
+    valor float not null,
+	observacao varchar(200),
     funcionario int not null,
-    observacao varchar(200),
-    data datetime not null
+    data date not null,
+    hora time not null
 ) default charset = utf8;
+
 create table if not exists oferta (
 	id int primary key not null auto_increment,
     dizimista int,
+    isDizimista boolean not null,
+    nome varchar(100),
     valor float not null,
-    funcionario int not null,
     observacao varchar(200),
-    data datetime not null
+    funcionario int not null,
+    data date not null,
+    hora time not null
 ) default charset = utf8;

@@ -8,7 +8,6 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.Frame;
 import java.awt.SystemColor;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -25,19 +24,37 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.MatteBorder;
 import javax.swing.SwingConstants;
+import javax.swing.Timer;
+
 import java.awt.Insets;
 import javax.swing.JButton;
 import org.jdesktop.swingx.JXButton;
+
+import com.dizimaster.util.GenericUtils;
+
 import java.awt.event.MouseMotionAdapter;
+import java.util.Date;
+
 import javax.swing.border.LineBorder;
-import javax.swing.border.CompoundBorder;
+import java.text.SimpleDateFormat;
+import java.awt.Toolkit;
 
 public class SistemaForm {
 
 	private JFrame frmDizimasterSistema;
 	private IntFormMural intMural = new IntFormMural();
+	private JLabel lblHora;
+	private JLabel lblData;
 	private int funcionario;
 	private int yMouse, xMouse;
+
+	public JLabel getLblData() {
+		return lblData;
+	}
+
+	public void setLblData(JLabel lblData) {
+		this.lblData = lblData;
+	}
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -54,6 +71,23 @@ public class SistemaForm {
 
 	public SistemaForm() {
 		initialize();
+		data();
+		hora();
+	}
+
+	private void data() {
+		SimpleDateFormat s = new SimpleDateFormat("dd/MM/yyyy");
+		Date d = new Date();
+		getLblData().setText(s.format(d));
+	}
+
+	private void hora() {
+		new Timer(0, new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				getLblHora().setText(GenericUtils.horaAtual());
+			}
+		}).start();
 	}
 
 	private void mexe(int x, int y) {
@@ -69,11 +103,7 @@ public class SistemaForm {
 
 	private void initialize() {
 		setFrmDizimasterSistema(new JFrame());
-		getFrmDizimasterSistema().setIconImage(
-				Toolkit.getDefaultToolkit().getImage(SistemaForm.class.getResource("/com/dizimaster/img/icon.png")));
-		getFrmDizimasterSistema().setTitle("DIZIMASTER");
 		getFrmDizimasterSistema().setBounds(100, 100, 1055, 775);
-		getFrmDizimasterSistema().setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		getFrmDizimasterSistema().getContentPane().setLayout(null);
 
 		JPanel panelTop = new JPanel();
@@ -153,10 +183,24 @@ public class SistemaForm {
 		lblTitle.setBounds(462, 4, 100, 30);
 		panelTop.add(lblTitle);
 
+		lblData = new JLabel();
+		lblData.setBounds(5, 2, 65, 25);
+		panelTop.add(lblData);
+		lblData.setHorizontalAlignment(SwingConstants.CENTER);
+		lblData.setForeground(Color.WHITE);
+		lblData.setFont(new Font("Segoe UI", Font.BOLD, 10));
+
+		lblHora = new JLabel();
+		lblHora.setBounds(5, 15, 65, 25);
+		panelTop.add(lblHora);
+		lblHora.setHorizontalAlignment(SwingConstants.CENTER);
+		lblHora.setForeground(Color.WHITE);
+		lblHora.setFont(new Font("Segoe UI", Font.BOLD, 10));
+
 		JPanel panelMid = new JPanel();
 		panelMid.setBorder(new MatteBorder(0, 1, 1, 1, (Color) new Color(255, 255, 255)));
 		panelMid.setBackground(new Color(0, 128, 192));
-		panelMid.setBounds(10, 80, 1040, 683);
+		panelMid.setBounds(7, 80, 1040, 683);
 		getFrmDizimasterSistema().getContentPane().add(panelMid);
 		panelMid.setLayout(null);
 
@@ -177,7 +221,7 @@ public class SistemaForm {
 		JPanel panelMenu = new JPanel();
 		panelMenu.setBorder(new MatteBorder(1, 1, 0, 1, (Color) new Color(255, 255, 255)));
 		panelMenu.setBackground(new Color(0, 128, 192));
-		panelMenu.setBounds(10, 40, 1040, 40);
+		panelMenu.setBounds(7, 40, 1040, 40);
 		frmDizimasterSistema.getContentPane().add(panelMenu);
 		panelMenu.setLayout(null);
 
@@ -212,12 +256,6 @@ public class SistemaForm {
 		btnDeslogar.setHorizontalTextPosition(SwingConstants.CENTER);
 		btnDeslogar.setRequestFocusEnabled(false);
 		btnDeslogar.setFont(new Font("Segoe UI", Font.BOLD, 12));
-
-		JLabel lblDeopragLabs = new JLabel("® Deoprag Labs");
-		lblDeopragLabs.setBounds(950, 10, 80, 25);
-		panelMenu.add(lblDeopragLabs);
-		lblDeopragLabs.setForeground(Color.WHITE);
-		lblDeopragLabs.setFont(new Font("Segoe UI", Font.BOLD, 10));
 
 		JMenuBar menuTop = new JMenuBar();
 		menuTop.setBounds(98, 1, 842, 40);
@@ -346,6 +384,7 @@ public class SistemaForm {
 			public void actionPerformed(ActionEvent e) {
 				largeDesktopPane.removeAll();
 				IntFormOferta intOferta = new IntFormOferta();
+				intOferta.setFuncionario(funcionario);
 				largeDesktopPane.add(intMural);
 				intMural.show();
 				largeDesktopPane.add(intOferta);
@@ -412,6 +451,8 @@ public class SistemaForm {
 
 	public void setFrmDizimasterSistema(JFrame frmDizimasterSistema) {
 		this.frmDizimasterSistema = frmDizimasterSistema;
+		frmDizimasterSistema.setIconImage(
+				Toolkit.getDefaultToolkit().getImage(SistemaForm.class.getResource("/com/dizimaster/img/icon2.png")));
 		frmDizimasterSistema.getContentPane().setBackground(new Color(62, 62, 62));
 		frmDizimasterSistema.setUndecorated(true);
 		frmDizimasterSistema.setResizable(false);
@@ -431,5 +472,13 @@ public class SistemaForm {
 
 	public void setFuncionario(int funcionario) {
 		this.funcionario = funcionario;
+	}
+
+	public JLabel getLblHora() {
+		return lblHora;
+	}
+
+	public void setLblHora(JLabel lblHora) {
+		this.lblHora = lblHora;
 	}
 }

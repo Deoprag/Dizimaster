@@ -61,8 +61,10 @@ public class IntFormCadastroDizimista extends JInternalFrame {
 	public class MyCellRenderer implements ListCellRenderer {
 		protected DefaultListCellRenderer defaultRenderer = new DefaultListCellRenderer();
 
-		public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
-			JLabel renderer = (JLabel) defaultRenderer.getListCellRendererComponent(list, value, index, isSelected,cellHasFocus);
+		public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected,
+				boolean cellHasFocus) {
+			JLabel renderer = (JLabel) defaultRenderer.getListCellRendererComponent(list, value, index, isSelected,
+					cellHasFocus);
 			if (isSelected) {
 				renderer.setBackground(new Color(237, 119, 64));
 			}
@@ -122,7 +124,7 @@ public class IntFormCadastroDizimista extends JInternalFrame {
 				btnSair.setBackground(new Color(184, 44, 54));
 			}
 		});
-		
+
 		JLabel lblCamposObrigatorios = new JLabel("* Campos obrigatórios");
 		lblCamposObrigatorios.setForeground(new Color(255, 255, 255));
 		lblCamposObrigatorios.setFont(new Font("Segoe UI", Font.PLAIN, 11));
@@ -151,7 +153,7 @@ public class IntFormCadastroDizimista extends JInternalFrame {
 		lblNascimento.setAlignmentX(0.5f);
 		lblNascimento.setBounds(16, 320, 150, 24);
 		panelCadastro.add(lblNascimento);
-		
+
 		TxtSalarioFormat fTxtSalario = new TxtSalarioFormat(8);
 		fTxtSalario.setBounds(182, 390, 150, 30);
 		fTxtSalario.setFont(new Font("Segoe UI", Font.PLAIN, 12));
@@ -219,17 +221,19 @@ public class IntFormCadastroDizimista extends JInternalFrame {
 
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				lblLogo.setIcon(
-						new ImageIcon(IntFormCadastroDizimista.class.getResource("/com/dizimaster/img/logo-hold-small.png")));
+				lblLogo.setIcon(new ImageIcon(
+						IntFormCadastroDizimista.class.getResource("/com/dizimaster/img/logo-hold-small.png")));
 
 			}
 
 			public void mouseExited(MouseEvent e) {
-				lblLogo.setIcon(new ImageIcon(IntFormCadastroDizimista.class.getResource("/com/dizimaster/img/logo-small.png")));
+				lblLogo.setIcon(new ImageIcon(
+						IntFormCadastroDizimista.class.getResource("/com/dizimaster/img/logo-small.png")));
 			}
 		});
 		lblLogo.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		lblLogo.setIcon(new ImageIcon(IntFormCadastroDizimista.class.getResource("/com/dizimaster/img/logo-small.png")));
+		lblLogo.setIcon(
+				new ImageIcon(IntFormCadastroDizimista.class.getResource("/com/dizimaster/img/logo-small.png")));
 		lblLogo.setBounds(100, 20, 150, 150);
 		panelCadastro.add(lblLogo);
 
@@ -237,22 +241,22 @@ public class IntFormCadastroDizimista extends JInternalFrame {
 		btnEnviar.setFocusable(false);
 		btnEnviar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(fTxtCpf.getText().replaceAll(" ", "").length() == 14 && 
-				!txtNome.getText().isBlank() && 
-				fTxtNascimento.getText().replaceAll(" ", "").length() == 10 &&
-				fTxtCelular.getText().replaceAll(" ", "").length() == 14 	) {
-				if (GenericUtils.isCPF(fTxtCpf.getText().replace(".", "").replace("-", "")) == true) {
-					String sexo = (boxSexo.getSelectedIndex() == 0 ? "m" : "f");
-					if (DatabaseUtils.cadastroDizimista(fTxtCpf.getText(), txtNome.getText(), fTxtNascimento.getText(), sexo, fTxtCelular.getText(), fTxtSalario.getText()) == true) {
-						fTxtCpf.setText("");
-						txtNome.setText("");
-						fTxtNascimento.setText("");
-						fTxtCelular.setText("");
-						fTxtSalario.setText("");
+				if (fTxtCpf.getText().replaceAll(" ", "").length() == 14 && !txtNome.getText().isBlank()
+						&& fTxtNascimento.getText().replaceAll(" ", "").length() == 10
+						&& fTxtCelular.getText().replaceAll(" ", "").length() == 14) {
+					if (GenericUtils.isCPF(fTxtCpf.getText().replace(".", "").replace("-", "")) == true) {
+						String sexo = (boxSexo.getSelectedIndex() == 0 ? "m" : "f");
+						if (DatabaseUtils.cadastroDizimista(fTxtCpf.getText(), txtNome.getText(),
+								fTxtNascimento.getText(), sexo, fTxtCelular.getText(), fTxtSalario.getText()) == true) {
+							fTxtCpf.setText("");
+							txtNome.setText("");
+							fTxtNascimento.setText("");
+							fTxtCelular.setText("");
+							fTxtSalario.setText("");
+						}
+					} else {
+						JOptionPane.showMessageDialog(null, "CPF Inválido!");
 					}
-				} else {
-					JOptionPane.showMessageDialog(null, "CPF Inválido!");
-				}
 				} else {
 					JOptionPane.showMessageDialog(null, "Preencha todos os campos obrigatórios!");
 				}
@@ -314,13 +318,14 @@ public class IntFormCadastroDizimista extends JInternalFrame {
 
 		JLabel lblBackgroundPanel = new JLabel("");
 		lblBackgroundPanel.setBorder(new LineBorder(new Color(255, 255, 255), 1, true));
-		lblBackgroundPanel
-				.setIcon(new ImageIcon(IntFormCadastroDizimista.class.getResource("/com/dizimaster/img/Cad_Panel.jpg")));
+		lblBackgroundPanel.setIcon(
+				new ImageIcon(IntFormCadastroDizimista.class.getResource("/com/dizimaster/img/Cad_Panel.jpg")));
 		lblBackgroundPanel.setBounds(0, 0, 350, 570);
 		panelCadastro.add(lblBackgroundPanel);
 
 		JLabel lblBackground = new JLabel("");
-		lblBackground.setIcon(new ImageIcon(IntFormCadastroDizimista.class.getResource("/com/dizimaster/img/church-bg.png")));
+		lblBackground.setIcon(
+				new ImageIcon(IntFormCadastroDizimista.class.getResource("/com/dizimaster/img/church-bg.png")));
 		lblBackground.setBounds(0, 0, 1020, 665);
 		getContentPane().add(lblBackground);
 
