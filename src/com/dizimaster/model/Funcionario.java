@@ -11,10 +11,9 @@ public class Funcionario {
 	private String celular;
 	private String email;
 	private String senha;
-	private float salario;
 	private boolean ativo;
 
-	public Funcionario(int id, String cpf, String nome, Date nascimento, char sexo, String celular, String email, float salario, boolean ativo) {
+	public Funcionario(int id, String cpf, String nome, Date nascimento, char sexo, String celular, String email, boolean ativo) {
 		this.setId(id);
 		this.setCpf(cpf);
 		this.setNome(nome);
@@ -23,8 +22,11 @@ public class Funcionario {
 		this.setCelular(celular);
 		this.setEmail(email);
 		this.setSenha("diz@2022");
-		this.setSalario(salario);
 		this.setAtivo(ativo);
+	}
+	
+	public Funcionario() {
+		
 	}
 
 	// ID
@@ -97,15 +99,6 @@ public class Funcionario {
 
 	public void setSenha(String senha) {
 		this.senha = senha;
-	}
-
-	// SALARIO
-	public float getSalario() {
-		return salario;
-	}
-
-	public void setSalario(float salario) {
-		this.salario = salario;
 	}
 
 	// ATIVO

@@ -6,6 +6,7 @@ import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.Frame;
 import java.awt.SystemColor;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -14,6 +15,9 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -30,12 +34,20 @@ import com.dizimaster.util.TxtUsuarioFormat;
 import javax.swing.border.MatteBorder;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
+import org.jdesktop.swingx.JXButton;
+import javax.swing.border.LineBorder;
+import javax.swing.SwingConstants;
+import javax.swing.Timer;
+import java.awt.event.MouseMotionAdapter;
 
 public class LoginForm {
 
 	private JFrame frmLogin;
 	private JTextField txtUsuario;
 	private JTextField txtSenha;
+	private JLabel lblData;
+	private JLabel lblHora;
+	private int yMouse, xMouse;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -52,19 +64,146 @@ public class LoginForm {
 
 	public LoginForm() {
 		initialize();
+		data();
+		hora();
+	}
+	
+	private void data() {
+		SimpleDateFormat s = new SimpleDateFormat("dd/MM/yyyy");
+		Date d = new Date();
+		getLblData().setText(s.format(d));
+	}
+
+	private void hora() {
+		new Timer(0, new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				getLblHora().setText(GenericUtils.horaAtual());
+			}
+		}).start();
+	}
+
+	private void mexe(int x, int y) {
+		getFrmLogin().setLocation(x - xMouse, y - yMouse);
 	}
 
 	private void initialize() {
 		setFrmLogin(new JFrame());
 		getFrmLogin().setResizable(false);
 		getFrmLogin().getContentPane().setMaximumSize(new Dimension(0, 0));
-		getFrmLogin().getContentPane().setBackground(new Color(48, 133, 199));
+		getFrmLogin().getContentPane().setBackground(new Color(8, 82, 180));
 		getFrmLogin().getContentPane().setLayout(null);
+		
+		JPanel panelTop = new JPanel();
+		panelTop.addMouseMotionListener(new MouseMotionAdapter() {
+			@Override
+			public void mouseDragged(MouseEvent e) {
+				int x = e.getXOnScreen();
+				int y = e.getYOnScreen();
+				mexe(x, y);
+			}
+		});
+		panelTop.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				yMouse = e.getY();
+				xMouse = e.getX();
+			}
+		});
+		panelTop.setLayout(null);
+		panelTop.setBorder(null);
+		panelTop.setBackground(new Color(62, 62, 62));
+		panelTop.setBounds(0, 0, 770, 39);
+		frmLogin.getContentPane().add(panelTop);
+		
+		JXButton btnMinimize = new JXButton();
+		btnMinimize.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				btnMinimize.setBackground(new Color(110, 110, 110));
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				btnMinimize.setBackground(new Color(128, 128, 128));
+			}
+		});
+		btnMinimize.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				getFrmLogin().setState(Frame.ICONIFIED);
+			}
+		});
+		btnMinimize.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnMinimize.setText("_");
+		btnMinimize.setForeground(Color.WHITE);
+		btnMinimize.setFont(new Font("Noto Sans", Font.BOLD, 15));
+		btnMinimize.setFocusable(false);
+		btnMinimize.setFocusPainted(false);
+		btnMinimize.setBorderPainted(false);
+		btnMinimize.setBorder(new LineBorder(new Color(255, 255, 255)));
+		btnMinimize.setBackground(Color.GRAY);
+		btnMinimize.setBounds(680, 4, 35, 30);
+		panelTop.add(btnMinimize);
+		
+		JXButton btnFechar = new JXButton();
+		btnFechar.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				btnFechar.setBackground(new Color(175, 0, 0));
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				btnFechar.setBackground(new Color(215, 0, 0));
+			}
+		});
+		btnFechar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.exit(0);
+			}
+		});
+		btnFechar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnFechar.setText("X");
+		btnFechar.setForeground(Color.WHITE);
+		btnFechar.setFont(new Font("Noto Sans", Font.BOLD, 16));
+		btnFechar.setFocusable(false);
+		btnFechar.setFocusPainted(false);
+		btnFechar.setBorderPainted(false);
+		btnFechar.setBorder(new LineBorder(new Color(255, 255, 255)));
+		btnFechar.setBackground(new Color(215, 0, 0));
+		btnFechar.setBounds(715, 4, 50, 30);
+		panelTop.add(btnFechar);
+		
+		JLabel lblIcon = new JLabel("");
+		lblIcon.setIcon(new ImageIcon(LoginForm.class.getResource("/com/dizimaster/img/icon.png")));
+		lblIcon.setBounds(291, 7, 24, 24);
+		panelTop.add(lblIcon);
+		
+		JLabel lblTitle = new JLabel("Dizimaster - Login");
+		lblTitle.setForeground(Color.WHITE);
+		lblTitle.setFont(new Font("Segoe UI", Font.BOLD, 15));
+		lblTitle.setBounds(320, 4, 130, 30);
+		panelTop.add(lblTitle);
+		
+		lblData = new JLabel();
+		lblData.setText("16/11/2022");
+		lblData.setHorizontalAlignment(SwingConstants.CENTER);
+		lblData.setForeground(Color.WHITE);
+		lblData.setFont(new Font("Segoe UI", Font.BOLD, 10));
+		lblData.setBounds(5, 2, 65, 25);
+		panelTop.add(lblData);
+		
+		lblHora = new JLabel();
+		lblHora.setHorizontalAlignment(SwingConstants.CENTER);
+		lblHora.setForeground(Color.WHITE);
+		lblHora.setFont(new Font("Segoe UI", Font.BOLD, 10));
+		lblHora.setBounds(5, 15, 65, 25);
+		panelTop.add(lblHora);
 
 		JPanel panelLogin = new JPanel();
 		panelLogin.setBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(0, 120, 215), new Color(0, 191, 255)));
 		panelLogin.setBackground(new Color(8, 82, 180));
-		panelLogin.setBounds(0, -9, 230, 424);
+		panelLogin.setBounds(0, 46, 230, 424);
 		getFrmLogin().getContentPane().add(panelLogin);
 		panelLogin.setLayout(null);
 		
@@ -80,7 +219,7 @@ public class LoginForm {
 		txtUsuario.setBorder(new MatteBorder(0, 0, 1, 0, (Color) new Color(0, 128, 192)));
 		txtUsuario.setForeground(new Color(192, 192, 192));
 		txtUsuario.setText("Insira seu usuário");
-		txtUsuario.setBackground(new Color(8,82,180));
+		txtUsuario.setBackground(new Color(8, 82, 180));
 		txtUsuario.setFont(new Font("Segoe UI", Font.PLAIN, 13));
 		txtUsuario.setToolTipText("Usuário");
 		txtUsuario.setBounds(20, 220, 150, 30);
@@ -171,39 +310,11 @@ public class LoginForm {
 		btnEntrar.setForeground(SystemColor.text);
 		btnEntrar.setBackground(new Color(60, 122, 194));
 		btnEntrar.setFont(new Font("Segoe UI Black", Font.BOLD, 13));
-		btnEntrar.setBounds(122, 345, 90, 40);
+		btnEntrar.setBounds(70, 345, 90, 40);
 		panelLogin.add(btnEntrar);
 
-		JButton btnSair = new JButton("SAIR");
-		btnSair.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (JOptionPane.showConfirmDialog(null, "Tem certeza que deseja sair?", "Sair?",
-						JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-					System.exit(0);
-				}
-			}
-		});
-		btnSair.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnSair.setForeground(Color.WHITE);
-		btnSair.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseEntered(MouseEvent e) {
-				btnSair.setBackground(new Color(143, 20, 29));
-			}
-
-			@Override
-			public void mouseExited(MouseEvent e) {
-				btnSair.setBackground(new Color(184, 44, 54));
-			}
-		});
-		btnSair.setFont(new Font("Segoe UI Black", Font.BOLD, 13));
-		btnSair.setBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(245, 54, 54), new Color(255, 84, 84)));
-		btnSair.setBackground(new Color(184, 44, 54));
-		btnSair.setBounds(16, 345, 90, 40);
-		panelLogin.add(btnSair);
-
 		JLabel lblLogo = new JLabel("");
-		lblLogo.setBounds(40, 25, 150, 150);
+		lblLogo.setBounds(40, 28, 150, 150);
 		panelLogin.add(lblLogo);
 		lblLogo.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		lblLogo.addMouseListener(new MouseAdapter() {
@@ -222,26 +333,26 @@ public class LoginForm {
 			}
 		});
 		lblLogo.setIcon(new ImageIcon(LoginForm.class.getResource("/com/dizimaster/img/logo-small.png")));
-
-		JLabel lblNewLabel = new JLabel("");
-		lblNewLabel.setIcon(new ImageIcon(LoginForm.class.getResource("/com/dizimaster/img/Login Sidebar.png")));
-		lblNewLabel.setBounds(0, 0, 230, 424);
-		panelLogin.add(lblNewLabel);
+		
+				JLabel lblNewLabel = new JLabel("");
+				lblNewLabel.setBorder(null);
+				lblNewLabel.setBounds(0, 0, 230, 424);
+				panelLogin.add(lblNewLabel);
+				lblNewLabel.setIcon(new ImageIcon(LoginForm.class.getResource("/com/dizimaster/img/Login Sidebar.png")));
 		JLabel lblDeopragLabs = new JLabel("® Deoprag Labs");
-		lblDeopragLabs.setBounds(678, 381, 86, 25);
+		lblDeopragLabs.setBounds(684, 424, 86, 25);
 		getFrmLogin().getContentPane().add(lblDeopragLabs);
 		lblDeopragLabs.setForeground(Color.WHITE);
 		lblDeopragLabs.setFont(new Font("Segoe UI", Font.BOLD, 10));
 
 		JLabel lblFundo = new JLabel("");
-		lblFundo.setBounds(0, -11, 766, 426);
+		lblFundo.setBounds(2, 35, 770, 426);
 		getFrmLogin().getContentPane().add(lblFundo);
 		lblFundo.setIcon(new ImageIcon(LoginForm.class.getResource("/com/dizimaster/img/Login background.png")));
 		getFrmLogin().setBackground(Color.WHITE);
 		getFrmLogin().setIconImage(
 				Toolkit.getDefaultToolkit().getImage(LoginForm.class.getResource("/com/dizimaster/img/icon.png")));
-		getFrmLogin().setTitle("LOGIN - Dizimaster");
-		getFrmLogin().setBounds(100, 100, 780, 445);
+		getFrmLogin().setBounds(100, 100, 770, 460);
 		getFrmLogin().setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		txtSenha.addKeyListener(new KeyAdapter() {
@@ -259,5 +370,22 @@ public class LoginForm {
 
 	public void setFrmLogin(JFrame frmLogin) {
 		this.frmLogin = frmLogin;
+		frmLogin.setUndecorated(true);
+	}
+
+	public JLabel getLblData() {
+		return lblData;
+	}
+
+	public void setLblData(JLabel lblData) {
+		this.lblData = lblData;
+	}
+
+	public JLabel getLblHora() {
+		return lblHora;
+	}
+
+	public void setLblHora(JLabel lblHora) {
+		this.lblHora = lblHora;
 	}
 }

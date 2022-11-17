@@ -26,9 +26,6 @@ public class IntFormMural extends JInternalFrame {
 		});
 	}
 
-	/**
-	 * Create the frame.
-	 */
 	public IntFormMural() {
 		setBorder(null);
 		setBounds(0, 0, 1020, 665);

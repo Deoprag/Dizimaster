@@ -16,6 +16,10 @@ public class Despesa {
 		this.setDescricao(descricao);
 		this.setFuncionario(funcionario);
 	}
+	
+	public Despesa() {
+		
+	}
 
 	public String getNomeDespesa() {
 		return nomeDespesa;

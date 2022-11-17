@@ -67,7 +67,7 @@ public class FormAlterarSenha extends JFrame {
 	public FormAlterarSenha() {
 		setUndecorated(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 400);
+		setBounds(100, 100, 450, 450);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -77,7 +77,7 @@ public class FormAlterarSenha extends JFrame {
 		JPanel panelDown = new JPanel();
 		panelDown.setBorder(new LineBorder(new Color(255, 255, 255)));
 		panelDown.setBackground(new Color(8, 82, 180));
-		panelDown.setBounds(0, 30, 450, 370);
+		panelDown.setBounds(0, 30, 450, 409);
 		contentPane.add(panelDown);
 		panelDown.setLayout(null);
 
@@ -103,21 +103,21 @@ public class FormAlterarSenha extends JFrame {
 		txtSenha.setBorder(new MatteBorder(0, 0, 1, 0, (Color) new Color(0, 0, 64)));
 		txtSenha.setBackground(new Color(8, 82, 180));
 		txtSenha.setForeground(new Color(128, 128, 128));
-		txtSenha.setBounds(125, 99, 200, 30);
+		txtSenha.setBounds(125, 69, 200, 30);
 		panelDown.add(txtSenha);
 
 		JLabel lblSenha = new JLabel("Nova senha");
 		lblSenha.setForeground(new Color(255, 255, 255));
 		lblSenha.setHorizontalAlignment(SwingConstants.CENTER);
 		lblSenha.setFont(new Font("Segoe UI", Font.PLAIN, 15));
-		lblSenha.setBounds(175, 74, 100, 30);
+		lblSenha.setBounds(175, 44, 100, 30);
 		panelDown.add(lblSenha);
 
 		JLabel lblConfSenha = new JLabel("Confirmar senha");
 		lblConfSenha.setHorizontalAlignment(SwingConstants.CENTER);
 		lblConfSenha.setForeground(Color.WHITE);
 		lblConfSenha.setFont(new Font("Segoe UI", Font.PLAIN, 15));
-		lblConfSenha.setBounds(165, 140, 120, 30);
+		lblConfSenha.setBounds(165, 110, 120, 30);
 		panelDown.add(lblConfSenha);
 
 		txtConfSenha = new JPasswordField();
@@ -134,7 +134,7 @@ public class FormAlterarSenha extends JFrame {
 		txtConfSenha.setForeground(new Color(128, 128, 128));
 		txtConfSenha.setBorder(new MatteBorder(0, 0, 1, 0, (Color) new Color(0, 0, 64)));
 		txtConfSenha.setBackground(new Color(8, 82, 180));
-		txtConfSenha.setBounds(125, 165, 200, 30);
+		txtConfSenha.setBounds(125, 135, 200, 30);
 		panelDown.add(txtConfSenha);
 
 		JButton btnEnviar = new JButton("Enviar");
@@ -166,40 +166,25 @@ public class FormAlterarSenha extends JFrame {
 		btnEnviar.setForeground(new Color(255, 255, 255));
 		btnEnviar.setBackground(new Color(0, 0, 64));
 		btnEnviar.setBorder(new LineBorder(new Color(255, 255, 255)));
-		btnEnviar.setBounds(165, 319, 120, 40);
+		btnEnviar.setBounds(165, 358, 120, 40);
 		panelDown.add(btnEnviar);
 
 		JPanel panelRequisitos = new JPanel();
-		panelRequisitos.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		panelRequisitos.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseEntered(MouseEvent e) {
-				panelRequisitos.setBackground(new Color(0, 0, 128));
-			}
-
-			public void mouseExited(MouseEvent e) {
-				panelRequisitos.setBackground(new Color(0, 0, 64));
-			}
-
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				JOptionPane.showMessageDialog(null, "Caracteres especiais permitidos: []{}()*-+=.:;/|\\?!@#$%&*");
-			}
-		});
+		panelRequisitos.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 		panelRequisitos.setBorder(new LineBorder(new Color(255, 255, 255)));
 		panelRequisitos.setBackground(new Color(0, 0, 64));
-		panelRequisitos.setBounds(75, 206, 300, 102);
+		panelRequisitos.setBounds(75, 176, 300, 171);
 		panelDown.add(panelRequisitos);
 		panelRequisitos.setLayout(null);
 
 		JLabel lblRequisitos2 = new JLabel("* No mínimo 1 letra, 1 número e 1 caractere especial");
-		lblRequisitos2.setBounds(14, 24, 272, 22);
+		lblRequisitos2.setBounds(14, 32, 272, 22);
 		panelRequisitos.add(lblRequisitos2);
 		lblRequisitos2.setForeground(new Color(255, 255, 255));
 		lblRequisitos2.setFont(new Font("Segoe UI", Font.PLAIN, 11));
 
 		JLabel lblRequisitos1 = new JLabel("* 8-32 Caracteres");
-		lblRequisitos1.setBounds(14, 0, 272, 22);
+		lblRequisitos1.setBounds(14, 5, 272, 22);
 		panelRequisitos.add(lblRequisitos1);
 		lblRequisitos1.setForeground(new Color(255, 255, 255));
 		lblRequisitos1.setFont(new Font("Segoe UI", Font.PLAIN, 11));
@@ -207,14 +192,26 @@ public class FormAlterarSenha extends JFrame {
 		JLabel lblExDizimaster = new JLabel("* Exemplo: dizimaster@2022");
 		lblExDizimaster.setForeground(Color.WHITE);
 		lblExDizimaster.setFont(new Font("Segoe UI", Font.PLAIN, 11));
-		lblExDizimaster.setBounds(14, 72, 272, 22);
+		lblExDizimaster.setBounds(14, 98, 272, 22);
 		panelRequisitos.add(lblExDizimaster);
 
 		JLabel lblDiferenteDa = new JLabel("* Diferente da senha atual");
 		lblDiferenteDa.setForeground(Color.WHITE);
 		lblDiferenteDa.setFont(new Font("Segoe UI", Font.PLAIN, 11));
-		lblDiferenteDa.setBounds(14, 48, 272, 22);
+		lblDiferenteDa.setBounds(14, 65, 272, 22);
 		panelRequisitos.add(lblDiferenteDa);
+		
+		JLabel lblCaracteresEspeciaisPermitidos = new JLabel("* Caracteres especiais permitidos: ");
+		lblCaracteresEspeciaisPermitidos.setBounds(14, 125, 174, 22);
+		panelRequisitos.add(lblCaracteresEspeciaisPermitidos);
+		lblCaracteresEspeciaisPermitidos.setForeground(Color.WHITE);
+		lblCaracteresEspeciaisPermitidos.setFont(new Font("Segoe UI", Font.PLAIN, 11));
+		
+		JLabel lblCaracteresEspeciaisPermitidos_1 = new JLabel("[]{}()*-+=.:;/|\\\\?!@#$%&*");
+		lblCaracteresEspeciaisPermitidos_1.setForeground(Color.WHITE);
+		lblCaracteresEspeciaisPermitidos_1.setFont(new Font("Segoe UI", Font.PLAIN, 9));
+		lblCaracteresEspeciaisPermitidos_1.setBounds(191, 125, 109, 22);
+		panelRequisitos.add(lblCaracteresEspeciaisPermitidos_1);
 
 		JPanel panelUpBar = new JPanel();
 		panelUpBar.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
@@ -235,8 +232,8 @@ public class FormAlterarSenha extends JFrame {
 				mexe(x, y);
 			}
 		});
-		panelUpBar.setBorder(new MatteBorder(1, 1, 0, 1, (Color) new Color(255, 255, 255)));
-		panelUpBar.setBackground(new Color(0, 0, 64));
+		panelUpBar.setBorder(null);
+		panelUpBar.setBackground(new Color(62, 62, 62));
 		panelUpBar.setLayout(null);
 
 		JPanel btnSair = new JPanel();
@@ -264,7 +261,7 @@ public class FormAlterarSenha extends JFrame {
 			}
 
 		});
-		lblNewLabel_2.setBorder(new MatteBorder(1, 0, 0, 1, (Color) new Color(255, 255, 255)));
+		lblNewLabel_2.setBorder(null);
 		lblNewLabel_2.setForeground(new Color(255, 255, 255));
 		lblNewLabel_2.setFont(new Font("Segoe UI Black", Font.BOLD, 14));
 		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);

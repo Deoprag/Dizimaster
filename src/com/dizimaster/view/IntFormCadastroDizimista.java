@@ -28,6 +28,7 @@ import com.dizimaster.util.TxtNome;
 import com.dizimaster.util.TxtSalarioFormat;
 
 import javax.swing.border.LineBorder;
+import javax.swing.border.MatteBorder;
 import javax.swing.SwingConstants;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -67,7 +68,7 @@ public class IntFormCadastroDizimista extends JInternalFrame {
 			JLabel renderer = (JLabel) defaultRenderer.getListCellRendererComponent(list, value, index, isSelected,
 					cellHasFocus);
 			if (isSelected) {
-				renderer.setBackground(new Color(237, 119, 64));
+				renderer.setBackground(new Color(30,170,200));
 			}
 			return renderer;
 		}
@@ -129,7 +130,7 @@ public class IntFormCadastroDizimista extends JInternalFrame {
 		JLabel lblCamposObrigatorios = new JLabel("* Campos obrigatórios");
 		lblCamposObrigatorios.setForeground(new Color(255, 255, 255));
 		lblCamposObrigatorios.setFont(new Font("Segoe UI", Font.PLAIN, 11));
-		lblCamposObrigatorios.setBounds(16, 420, 130, 14);
+		lblCamposObrigatorios.setBounds(16, 425, 130, 14);
 		panelCadastro.add(lblCamposObrigatorios);
 		btnSair.setFont(new Font("Segoe UI Black", Font.BOLD, 12));
 		btnSair.setBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(245, 54, 54), new Color(255, 84, 84)));
@@ -156,42 +157,47 @@ public class IntFormCadastroDizimista extends JInternalFrame {
 		panelCadastro.add(lblNascimento);
 
 		TxtSalarioFormat txtSalario = new TxtSalarioFormat(8);
+		txtSalario.setForeground(new Color(255, 255, 255));
 		txtSalario.setBounds(182, 390, 150, 30);
 		txtSalario.setFont(new Font("Segoe UI", Font.PLAIN, 12));
-		txtSalario.setBorder(new EtchedBorder(EtchedBorder.RAISED, new Color(102, 51, 0), new Color(204, 153, 51)));
-		txtSalario.setBackground(new Color(254, 213, 150));
+		txtSalario.setBorder(new MatteBorder(0, 0, 1, 0, (Color) new Color(10, 60, 70)));
+		txtSalario.setBackground(new Color(25, 120, 150));
 		panelCadastro.add(txtSalario);
 
 		JFormattedTextField fTxtNascimento = new JFormattedTextField(mascaraNascimento);
+		fTxtNascimento.setForeground(new Color(255, 255, 255));
 		fTxtNascimento.setBounds(16, 340, 150, 30);
 		fTxtNascimento.setFont(new Font("Segoe UI", Font.PLAIN, 12));
-		fTxtNascimento.setBorder(new EtchedBorder(EtchedBorder.RAISED, new Color(102, 51, 0), new Color(204, 153, 51)));
-		fTxtNascimento.setBackground(new Color(254, 213, 150));
+		fTxtNascimento.setBorder(new MatteBorder(0, 0, 1, 0, (Color) new Color(10, 60, 70)));
+		fTxtNascimento.setBackground(new Color(25, 120, 150));
 		panelCadastro.add(fTxtNascimento);
 
 		JFormattedTextField fTxtCpf = new JFormattedTextField(mascaraCpf);
+		fTxtCpf.setForeground(new Color(255, 255, 255));
 		fTxtCpf.setCursor(Cursor.getPredefinedCursor(Cursor.TEXT_CURSOR));
 		fTxtCpf.setBounds(16, 290, 150, 30);
 		fTxtCpf.setFont(new Font("Segoe UI", Font.PLAIN, 12));
-		fTxtCpf.setBorder(new EtchedBorder(EtchedBorder.RAISED, new Color(102, 51, 0), new Color(204, 153, 51)));
-		fTxtCpf.setBackground(new Color(254, 213, 150));
+		fTxtCpf.setBorder(new MatteBorder(0, 0, 1, 0, (Color) new Color(10, 60, 70)));
+		fTxtCpf.setBackground(new Color(25, 120, 150));
 		panelCadastro.add(fTxtCpf);
 
 		JFormattedTextField fTxtCelular = new JFormattedTextField(mascaraNumero);
+		fTxtCelular.setForeground(new Color(255, 255, 255));
 		fTxtCelular.setBounds(16, 390, 150, 30);
 		fTxtCelular.setFont(new Font("Segoe UI", Font.PLAIN, 12));
-		fTxtCelular.setBorder(new EtchedBorder(EtchedBorder.RAISED, new Color(102, 51, 0), new Color(204, 153, 51)));
-		fTxtCelular.setBackground(new Color(254, 213, 150));
+		fTxtCelular.setBorder(new MatteBorder(0, 0, 1, 0, (Color) new Color(10, 60, 70)));
+		fTxtCelular.setBackground(new Color(25, 120, 150));
 		panelCadastro.add(fTxtCelular);
 
 		JComboBox boxSexo = new JComboBox();
+		boxSexo.setForeground(new Color(0, 0, 0));
 		boxSexo.setRequestFocusEnabled(false);
 		boxSexo.setModel(new DefaultComboBoxModel(new String[] { "Masculino", "Feminino" }));
 		boxSexo.setMaximumRowCount(2);
 		boxSexo.setFont(new Font("Segoe UI", Font.PLAIN, 12));
 		boxSexo.setRenderer(new MyCellRenderer());
-		boxSexo.setBorder(new EtchedBorder(EtchedBorder.RAISED, new Color(102, 51, 0), new Color(204, 153, 51)));
-		boxSexo.setBackground(new Color(254, 213, 150));
+		boxSexo.setBorder(null);
+		boxSexo.setBackground(new Color(240, 240, 240));
 		boxSexo.setBounds(182, 340, 150, 30);
 		panelCadastro.add(boxSexo);
 
@@ -307,10 +313,11 @@ public class IntFormCadastroDizimista extends JInternalFrame {
 		panelCadastro.add(lblNome);
 
 		txtNome = new TxtNome(100);
+		txtNome.setForeground(new Color(255, 255, 255));
 		txtNome.setToolTipText("Nome");
 		txtNome.setFont(new Font("Segoe UI", Font.PLAIN, 12));
-		txtNome.setBorder(new EtchedBorder(EtchedBorder.RAISED, new Color(102, 51, 0), new Color(204, 153, 51)));
-		txtNome.setBackground(new Color(254, 213, 150));
+		txtNome.setBorder(new MatteBorder(0, 0, 1, 0, (Color) new Color(10, 60, 70)));
+		txtNome.setBackground(new Color(25, 120, 150));
 		txtNome.setBounds(182, 290, 150, 30);
 		panelCadastro.add(txtNome);
 

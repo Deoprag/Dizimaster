@@ -27,6 +27,7 @@ import com.dizimaster.util.GenericUtils;
 import com.dizimaster.util.TxtNome;
 
 import javax.swing.border.LineBorder;
+import javax.swing.border.MatteBorder;
 import javax.swing.SwingConstants;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
@@ -70,7 +71,7 @@ public class IntFormCadastroFuncionario extends JInternalFrame {
 			JLabel renderer = (JLabel) defaultRenderer.getListCellRendererComponent(list, value, index, isSelected,
 					cellHasFocus);
 			if (isSelected) {
-				renderer.setBackground(new Color(237, 119, 64));
+				renderer.setBackground(new Color(30,170,200));
 			}
 			return renderer;
 		}
@@ -141,34 +142,38 @@ public class IntFormCadastroFuncionario extends JInternalFrame {
 		panelCadastro.add(lblNascimento);
 
 		JFormattedTextField fTxtNascimento = new JFormattedTextField(mascaraNascimento);
+		fTxtNascimento.setForeground(new Color(255, 255, 255));
 		fTxtNascimento.setBounds(16, 340, 150, 30);
 		fTxtNascimento.setFont(new Font("Segoe UI", Font.PLAIN, 12));
-		fTxtNascimento.setBorder(new EtchedBorder(EtchedBorder.RAISED, new Color(102, 51, 0), new Color(204, 153, 51)));
-		fTxtNascimento.setBackground(new Color(254, 213, 150));
+		fTxtNascimento.setBorder(new MatteBorder(0, 0, 1, 0, (Color) new Color(10, 60, 70)));
+		fTxtNascimento.setBackground(new Color(25, 120, 150));
 		panelCadastro.add(fTxtNascimento);
 
 		JFormattedTextField fTxtCpf = new JFormattedTextField(mascaraCpf);
+		fTxtCpf.setForeground(new Color(255, 255, 255));
 		fTxtCpf.setBounds(16, 290, 150, 30);
 		fTxtCpf.setFont(new Font("Segoe UI", Font.PLAIN, 12));
-		fTxtCpf.setBorder(new EtchedBorder(EtchedBorder.RAISED, new Color(102, 51, 0), new Color(204, 153, 51)));
-		fTxtCpf.setBackground(new Color(254, 213, 150));
+		fTxtCpf.setBorder(new MatteBorder(0, 0, 1, 0, (Color) new Color(10, 60, 70)));
+		fTxtCpf.setBackground(new Color(25, 120, 150));
 		panelCadastro.add(fTxtCpf);
 
 		JFormattedTextField fTxtCelular = new JFormattedTextField(mascaraNumero);
+		fTxtCelular.setForeground(new Color(255, 255, 255));
 		fTxtCelular.setBounds(16, 390, 150, 30);
 		fTxtCelular.setFont(new Font("Segoe UI", Font.PLAIN, 12));
-		fTxtCelular.setBorder(new EtchedBorder(EtchedBorder.RAISED, new Color(102, 51, 0), new Color(204, 153, 51)));
-		fTxtCelular.setBackground(new Color(254, 213, 150));
+		fTxtCelular.setBorder(new MatteBorder(0, 0, 1, 0, (Color) new Color(10, 60, 70)));
+		fTxtCelular.setBackground(new Color(25, 120, 150));
 		panelCadastro.add(fTxtCelular);
 
 		JComboBox boxSexo = new JComboBox();
+		boxSexo.setForeground(new Color(0, 0, 0));
 		boxSexo.setRequestFocusEnabled(false);
 		boxSexo.setModel(new DefaultComboBoxModel(new String[] { "Masculino", "Feminino" }));
 		boxSexo.setMaximumRowCount(2);
 		boxSexo.setFont(new Font("Segoe UI", Font.PLAIN, 12));
 		boxSexo.setRenderer(new MyCellRenderer());
-		boxSexo.setBorder(new EtchedBorder(EtchedBorder.RAISED, new Color(102, 51, 0), new Color(204, 153, 51)));
-		boxSexo.setBackground(new Color(254, 213, 150));
+		boxSexo.setBorder(null);
+		boxSexo.setBackground(new Color(240, 240, 240));
 		boxSexo.setBounds(182, 340, 150, 30);
 		panelCadastro.add(boxSexo);
 
@@ -198,11 +203,12 @@ public class IntFormCadastroFuncionario extends JInternalFrame {
 		panelCadastro.add(lblEmail);
 
 		txtEmail = new JTextField();
+		txtEmail.setForeground(new Color(255, 255, 255));
 		txtEmail.setToolTipText("Endereço de Email");
 		txtEmail.setFont(new Font("Segoe UI", Font.PLAIN, 12));
 		txtEmail.setColumns(10);
-		txtEmail.setBorder(new EtchedBorder(EtchedBorder.RAISED, new Color(102, 51, 0), new Color(204, 153, 51)));
-		txtEmail.setBackground(new Color(254, 213, 150));
+		txtEmail.setBorder(new MatteBorder(0, 0, 1, 0, (Color) new Color(10, 60, 70)));
+		txtEmail.setBackground(new Color(25, 120, 150));
 		txtEmail.setBounds(182, 390, 150, 30);
 		panelCadastro.add(txtEmail);
 
@@ -286,16 +292,17 @@ public class IntFormCadastroFuncionario extends JInternalFrame {
 		lblConfEmail.setForeground(Color.WHITE);
 		lblConfEmail.setFont(new Font("Rubik", Font.PLAIN, 12));
 		lblConfEmail.setAlignmentX(0.5f);
-		lblConfEmail.setBounds(16, 420, 150, 24);
+		lblConfEmail.setBounds(100, 420, 150, 24);
 		panelCadastro.add(lblConfEmail);
 
 		txtConfEmail = new JTextField();
+		txtConfEmail.setForeground(new Color(255, 255, 255));
 		txtConfEmail.setToolTipText("Confirmação de Email");
 		txtConfEmail.setFont(new Font("Segoe UI", Font.PLAIN, 12));
 		txtConfEmail.setColumns(10);
-		txtConfEmail.setBorder(new EtchedBorder(EtchedBorder.RAISED, new Color(102, 51, 0), new Color(204, 153, 51)));
-		txtConfEmail.setBackground(new Color(254, 213, 150));
-		txtConfEmail.setBounds(16, 440, 150, 30);
+		txtConfEmail.setBorder(new MatteBorder(0, 0, 1, 0, (Color) new Color(10, 60, 70)));
+		txtConfEmail.setBackground(new Color(25, 120, 150));
+		txtConfEmail.setBounds(100, 440, 150, 30);
 		panelCadastro.add(txtConfEmail);
 		txtConfEmail.addKeyListener(new KeyAdapter() {
 			public void keyPressed(KeyEvent e) {
@@ -324,10 +331,11 @@ public class IntFormCadastroFuncionario extends JInternalFrame {
 		panelCadastro.add(lblNome);
 
 		txtNome = new TxtNome(100);
+		txtNome.setForeground(new Color(255, 255, 255));
 		txtNome.setToolTipText("Nome");
 		txtNome.setFont(new Font("Segoe UI", Font.PLAIN, 12));
-		txtNome.setBorder(new EtchedBorder(EtchedBorder.RAISED, new Color(102, 51, 0), new Color(204, 153, 51)));
-		txtNome.setBackground(new Color(254, 213, 150));
+		txtNome.setBorder(new MatteBorder(0, 0, 1, 0, (Color) new Color(10, 60, 70)));
+		txtNome.setBackground(new Color(25, 120, 150));
 		txtNome.setBounds(182, 290, 150, 30);
 		panelCadastro.add(txtNome);
 

@@ -7,13 +7,19 @@ import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.Frame;
+import java.awt.Insets;
 import java.awt.SystemColor;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionAdapter;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JDesktopPane;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -22,27 +28,19 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.border.MatteBorder;
 import javax.swing.SwingConstants;
 import javax.swing.Timer;
+import javax.swing.border.LineBorder;
+import javax.swing.border.MatteBorder;
 
-import java.awt.Insets;
-import javax.swing.JButton;
 import org.jdesktop.swingx.JXButton;
 
 import com.dizimaster.util.GenericUtils;
 
-import java.awt.event.MouseMotionAdapter;
-import java.util.Date;
-
-import javax.swing.border.LineBorder;
-import java.text.SimpleDateFormat;
-import java.awt.Toolkit;
-
 public class SistemaForm {
 
 	private JFrame frmDizimasterSistema;
-	private IntFormMural intMural = new IntFormMural();
+	private IntFormMural intMural;
 	private JLabel lblHora;
 	private JLabel lblData;
 	private int funcionario;
@@ -174,13 +172,13 @@ public class SistemaForm {
 
 		JLabel lblIcon = new JLabel("");
 		lblIcon.setIcon(new ImageIcon(SistemaForm.class.getResource("/com/dizimaster/img/icon.png")));
-		lblIcon.setBounds(428, 7, 24, 24);
+		lblIcon.setBounds(413, 7, 24, 24);
 		panelTop.add(lblIcon);
 
-		JLabel lblTitle = new JLabel("Dizimaster");
+		JLabel lblTitle = new JLabel("Dizimaster - Principal");
 		lblTitle.setForeground(new Color(255, 255, 255));
 		lblTitle.setFont(new Font("Segoe UI", Font.BOLD, 15));
-		lblTitle.setBounds(462, 4, 100, 30);
+		lblTitle.setBounds(447, 4, 160, 30);
 		panelTop.add(lblTitle);
 
 		lblData = new JLabel();
@@ -208,9 +206,10 @@ public class SistemaForm {
 		largeDesktopPane.setFocusable(false);
 		largeDesktopPane.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 		largeDesktopPane.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
-		largeDesktopPane.setBackground(SystemColor.textHighlight);
+		largeDesktopPane.setBackground(SystemColor.textHighlight);	
 		largeDesktopPane.setBounds(10, 10, 1020, 665);
 		panelMid.add(largeDesktopPane);
+		intMural = new IntFormMural();
 		largeDesktopPane.setLayer(intMural, 0);
 		intMural.setBounds(1, 1, 1018, 663);
 		intMural.setVisible(true);

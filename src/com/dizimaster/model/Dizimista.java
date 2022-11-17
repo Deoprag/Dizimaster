@@ -6,21 +6,23 @@ public class Dizimista {
 	private int id;
 	private String cpf;
 	private String nome;
+	private char sexo;
 	private Date nascimento;
 	private String celular;
 	private float salario;
 
-	public Dizimista(int id, String cpf, String nome, Date nascimento, String celular, float salario) {
+	public Dizimista(int id, String cpf, String nome, char sexo, Date nascimento, String celular, float salario) {
 		this.setId(id);
 		this.setCpf(cpf);
 		this.setNome(nome);
+		this.setSexo(sexo);
 		this.setNascimento(nascimento);
 		this.setCelular(celular);
 		this.setSalario(salario);
 	}
 
 	public Dizimista() {
-		// TODO Auto-generated constructor stub
+		
 	}
 
 	// ID
@@ -74,6 +76,14 @@ public class Dizimista {
 
 	public void setSalario(float salario) {
 		this.salario = salario;
+	}
+
+	public char getSexo() {
+		return sexo;
+	}
+
+	public void setSexo(char sexo) {
+		this.sexo = sexo;
 	}
 
 }

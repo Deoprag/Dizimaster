@@ -7,6 +7,10 @@ select *from dizimo;
 select *from oferta;
 select *from funcionario;
 select *from dizimista;
+select *from despesa;
+
+drop table dizimo;
+drop table oferta;
 
 create table if not exists funcionario (
 	id int primary key not null auto_increment,

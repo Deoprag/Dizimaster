@@ -5,14 +5,15 @@ import java.sql.Date;
 public class Dizimo {
 	private int dizimista;
 	private int funcionario;
-	private float salario;
+	private float valor;
 	private String observacao;
 	private Date data;
 
-	public Dizimo(int dizimista, int funcionario, float salario, Date data) {
+	public Dizimo(int dizimista, int funcionario, float valor, String obs, Date data) {
 		this.setDizimista(dizimista);
 		this.setFuncionario(funcionario);
-		this.setSalario(salario);
+		this.setValor(valor);
+		this.setObservacao(obs);
 		this.setData(data);
 	}
 
@@ -36,14 +37,6 @@ public class Dizimo {
 		this.funcionario = funcionario;
 	}
 
-	public float getSalario() {
-		return salario;
-	}
-
-	public void setSalario(float salario) {
-		this.salario = salario;
-	}
-
 	public Date getData() {
 		return data;
 	}
@@ -58,5 +51,13 @@ public class Dizimo {
 
 	public void setObservacao(String observacao) {
 		this.observacao = observacao;
+	}
+
+	public float getValor() {
+		return valor;
+	}
+
+	public void setValor(float valor) {
+		this.valor = valor;
 	}
 }
