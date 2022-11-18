@@ -35,6 +35,7 @@ import javax.swing.border.MatteBorder;
 
 import org.jdesktop.swingx.JXButton;
 
+import com.dizimaster.util.DatabaseUtils;
 import com.dizimaster.util.GenericUtils;
 
 public class SistemaForm {
@@ -43,7 +44,7 @@ public class SistemaForm {
 	private IntFormMural intMural;
 	private JLabel lblHora;
 	private JLabel lblData;
-	private int funcionario;
+	private int funcionario = DatabaseUtils.getFuncionario().getId();
 	private int yMouse, xMouse;
 
 	public JLabel getLblData() {
@@ -264,44 +265,46 @@ public class SistemaForm {
 		menuTop.setPreferredSize(new Dimension(0, 30));
 		menuTop.setBorderPainted(false);
 		menuTop.setBackground(new Color(0, 106, 157));
+		
+		if(DatabaseUtils.getFuncionario().isAdmin() == true) {
+			JMenu mnFuncionario = new JMenu("Funcionário");
+			mnFuncionario.setForeground(new Color(255, 255, 255));
+			mnFuncionario.setMargin(new Insets(2, 4, 2, 2));
+			mnFuncionario.setBorder(null);
+			mnFuncionario.setFont(new Font("Segoe UI", Font.BOLD, 14));
+			mnFuncionario.setHorizontalTextPosition(SwingConstants.CENTER);
+			mnFuncionario.setHorizontalAlignment(SwingConstants.CENTER);
+			mnFuncionario.setPreferredSize(new Dimension(90, 30));
+			mnFuncionario.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+			menuTop.add(mnFuncionario);
+			
+			JMenuItem mntmNovoFuncionario = new JMenuItem("Novo Funcionário");
+			mntmNovoFuncionario.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+			mntmNovoFuncionario.setBorder(new MatteBorder(0, 0, 1, 0, (Color) new Color(192, 192, 192)));
+			mntmNovoFuncionario.setPreferredSize(new Dimension(150, 30));
+			mnFuncionario.add(mntmNovoFuncionario);
+			mntmNovoFuncionario
+					.setIcon(new ImageIcon(SistemaForm.class.getResource("/com/dizimaster/img/signup-icon.png")));
 
-		JMenu mnFuncionario = new JMenu("Funcionário");
-		mnFuncionario.setForeground(new Color(255, 255, 255));
-		mnFuncionario.setMargin(new Insets(2, 4, 2, 2));
-		mnFuncionario.setBorder(null);
-		mnFuncionario.setFont(new Font("Segoe UI", Font.BOLD, 14));
-		mnFuncionario.setHorizontalTextPosition(SwingConstants.CENTER);
-		mnFuncionario.setHorizontalAlignment(SwingConstants.CENTER);
-		mnFuncionario.setPreferredSize(new Dimension(90, 30));
-		mnFuncionario.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
-		menuTop.add(mnFuncionario);
-
-		JMenuItem mntmNovoFuncionario = new JMenuItem("Novo Funcionário");
-		mntmNovoFuncionario.setFont(new Font("Segoe UI", Font.PLAIN, 12));
-		mntmNovoFuncionario.setBorder(new MatteBorder(0, 0, 1, 0, (Color) new Color(192, 192, 192)));
-		mntmNovoFuncionario.setPreferredSize(new Dimension(150, 30));
-		mnFuncionario.add(mntmNovoFuncionario);
-		mntmNovoFuncionario
-				.setIcon(new ImageIcon(SistemaForm.class.getResource("/com/dizimaster/img/signup-icon.png")));
-
-		JMenuItem mntmGerenciarFuncionario = new JMenuItem("Gerenciar Funcionários");
-		mntmGerenciarFuncionario.setFont(new Font("Segoe UI", Font.PLAIN, 12));
-		mntmGerenciarFuncionario
-				.setIcon(new ImageIcon(SistemaForm.class.getResource("/com/dizimaster/img/mange-icon.png")));
-		mntmGerenciarFuncionario.setPreferredSize(new Dimension(170, 30));
-		mntmGerenciarFuncionario.setBorder(new MatteBorder(0, 0, 1, 0, (Color) new Color(192, 192, 192)));
-		mnFuncionario.add(mntmGerenciarFuncionario);
-		mntmNovoFuncionario.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				largeDesktopPane.removeAll();
-				IntFormCadastroFuncionario intCad = new IntFormCadastroFuncionario();
-				largeDesktopPane.add(intMural);
-				intMural.show();
-				largeDesktopPane.add(intCad);
-				intCad.show();
-			}
-		});
-
+			JMenuItem mntmGerenciarFuncionario = new JMenuItem("Gerenciar Funcionários");
+			mntmGerenciarFuncionario.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+			mntmGerenciarFuncionario
+					.setIcon(new ImageIcon(SistemaForm.class.getResource("/com/dizimaster/img/mange-icon.png")));
+			mntmGerenciarFuncionario.setPreferredSize(new Dimension(170, 30));
+			mntmGerenciarFuncionario.setBorder(new MatteBorder(0, 0, 1, 0, (Color) new Color(192, 192, 192)));
+			mnFuncionario.add(mntmGerenciarFuncionario);
+			mntmNovoFuncionario.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					largeDesktopPane.removeAll();
+					IntFormCadastroFuncionario intCad = new IntFormCadastroFuncionario();
+					largeDesktopPane.add(intMural);
+					intMural.show();
+					largeDesktopPane.add(intCad);
+					intCad.show();
+				}
+			});
+		}
+		
 		JMenu mnDizimista = new JMenu("Dizimista");
 		mnDizimista.setForeground(new Color(255, 255, 255));
 		mnDizimista.setMargin(new Insets(2, 4, 2, 2));

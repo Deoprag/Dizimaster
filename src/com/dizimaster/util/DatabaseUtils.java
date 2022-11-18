@@ -7,12 +7,14 @@ import java.time.format.DateTimeFormatter;
 import javax.swing.JOptionPane;
 
 import com.dizimaster.model.Dizimista;
+import com.dizimaster.model.Funcionario;
 import com.dizimaster.view.*;
 
 public class DatabaseUtils {
 	public static String path = "jdbc:mysql://localhost/dizimaster_db";
 	private static String user = "root";
 	private static String password = "";
+	private static Funcionario funcionario;
 
 	public static Connection conecta() throws SQLException {
 		try {
@@ -27,7 +29,7 @@ public class DatabaseUtils {
 	public static boolean login(String user, String password) {
 		try {
 			Connection con = DatabaseUtils.conecta();
-			String sql = "select *from funcionario where cpf = ? and senha = ?";
+			String sql = "select * from funcionario where cpf = ? and senha = ?";
 			PreparedStatement stmt = con.prepareStatement(sql);
 
 			stmt.setString(1, user);
@@ -37,12 +39,18 @@ public class DatabaseUtils {
 
 			if (rs.next()) {
 				if (!password.equals("dizi@2022")) {
-					SistemaForm window = new SistemaForm();
-					window.setFuncionario(rs.getInt("id"));
-					window.getFrmDizimasterSistema().setVisible(true);
-					stmt.close();
-					con.close();
-					return true;
+					if(rs.getBoolean("ativo") == true) {
+						funcionario = new Funcionario();
+						funcionario.setId(rs.getInt("id"));
+						funcionario.setAdmin(rs.getBoolean("isAdmin"));
+						SistemaForm window = new SistemaForm();
+						window.getFrmDizimasterSistema().setVisible(true);
+						stmt.close();
+						con.close();
+						return true;
+					} else {
+						JOptionPane.showMessageDialog(null, "Cadastro desativado! Entre em contato com um administrador");
+					}
 				} else {
 					FormAlterarSenha window = new FormAlterarSenha();
 					window.setCpf(user);
@@ -237,5 +245,13 @@ public class DatabaseUtils {
 			e.printStackTrace();
 			return false;
 		}
+	}
+
+	public static Funcionario getFuncionario() {
+		return funcionario;
+	}
+
+	public static void setFuncionario(Funcionario funcionario) {
+		DatabaseUtils.funcionario = funcionario;
 	}
 }

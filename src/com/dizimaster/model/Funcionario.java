@@ -12,8 +12,9 @@ public class Funcionario {
 	private String email;
 	private String senha;
 	private boolean ativo;
+	private boolean isAdmin;
 
-	public Funcionario(int id, String cpf, String nome, Date nascimento, char sexo, String celular, String email, boolean ativo) {
+	public Funcionario(int id, String cpf, String nome, Date nascimento, char sexo, String celular, String email, boolean ativo, boolean isAdmin) {
 		this.setId(id);
 		this.setCpf(cpf);
 		this.setNome(nome);
@@ -23,6 +24,7 @@ public class Funcionario {
 		this.setEmail(email);
 		this.setSenha("diz@2022");
 		this.setAtivo(ativo);
+		this.setAdmin(isAdmin);
 	}
 	
 	public Funcionario() {
@@ -108,6 +110,14 @@ public class Funcionario {
 
 	public void setAtivo(boolean ativo) {
 		this.ativo = ativo;
+	}
+
+	public boolean isAdmin() {
+		return isAdmin;
+	}
+
+	public void setAdmin(boolean isAdmin) {
+		this.isAdmin = isAdmin;
 	}
 
 }
