@@ -104,6 +104,7 @@ public class SistemaForm {
 		setFrmDizimasterSistema(new JFrame());
 		getFrmDizimasterSistema().setBounds(100, 100, 1055, 775);
 		getFrmDizimasterSistema().getContentPane().setLayout(null);
+		getFrmDizimasterSistema().setLocationRelativeTo(null);
 
 		JPanel panelTop = new JPanel();
 		panelTop.setBorder(null);
@@ -399,6 +400,17 @@ public class SistemaForm {
 		mnRegistrarPagamento.add(mntmOferta);
 
 		JMenuItem mntmDespesa = new JMenuItem("Registrar Despesa");
+		mntmDespesa.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				largeDesktopPane.removeAll();
+				IntFormDespesa intDespesa = new IntFormDespesa();
+				intDespesa.setFuncionario(funcionario);
+				largeDesktopPane.add(intMural);
+				intMural.show();
+				largeDesktopPane.add(intDespesa);
+				intDespesa.show();
+			}
+		});
 		mntmDespesa.setFont(new Font("Segoe UI", Font.PLAIN, 12));
 		mntmDespesa.setBorder(new MatteBorder(0, 0, 1, 0, (Color) new Color(192, 192, 192)));
 		mntmDespesa.setPreferredSize(new Dimension(150, 30));

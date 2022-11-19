@@ -96,9 +96,9 @@ public class IntFormCadastroDizimista extends JInternalFrame {
 			mascaraCpf = new MaskFormatter("###.###.###-##");
 			mascaraNumero = new MaskFormatter("(##) #####-####");
 			mascaraNascimento = new MaskFormatter("##/##/####");
-			mascaraCpf.setPlaceholderCharacter(' ');
-			mascaraNumero.setPlaceholderCharacter(' ');
-			mascaraNascimento.setPlaceholderCharacter(' ');
+			mascaraCpf.setPlaceholderCharacter('*');
+			mascaraNumero.setPlaceholderCharacter('*');
+			mascaraNascimento.setPlaceholderCharacter('*');
 		} catch (ParseException e2) {
 			e2.printStackTrace();
 		}

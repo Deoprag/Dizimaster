@@ -38,12 +38,16 @@ import javax.swing.JOptionPane;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListCellRenderer;
+import javax.swing.JToggleButton;
+import javax.swing.JCheckBox;
+import javax.swing.JSeparator;
 
 @SuppressWarnings("serial")
 public class IntFormCadastroFuncionario extends JInternalFrame {
 	private JTextField txtEmail;
 	private JTextField txtConfEmail;
 	private JTextField txtNome;
+	private JCheckBox chckbxAdmin;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -99,6 +103,9 @@ public class IntFormCadastroFuncionario extends JInternalFrame {
 			mascaraCpf = new MaskFormatter("###.###.###-##");
 			mascaraNumero = new MaskFormatter("(##) #####-####");
 			mascaraNascimento = new MaskFormatter("##/##/####");
+			mascaraCpf.setPlaceholderCharacter('*');
+			mascaraNumero.setPlaceholderCharacter('*');
+			mascaraNascimento.setPlaceholderCharacter('*');
 		} catch (ParseException e2) {
 			e2.printStackTrace();
 		}
@@ -126,6 +133,17 @@ public class IntFormCadastroFuncionario extends JInternalFrame {
 				btnSair.setBackground(new Color(184, 44, 54));
 			}
 		});
+		
+		chckbxAdmin = new JCheckBox("Administrador");
+		chckbxAdmin.setRequestFocusEnabled(false);
+		chckbxAdmin.setFocusPainted(false);
+		chckbxAdmin.setFocusable(false);
+		chckbxAdmin.setBorder(new MatteBorder(0, 0, 1, 0, (Color) new Color(10, 60, 70)));
+		chckbxAdmin.setForeground(new Color(255, 255, 255));
+		chckbxAdmin.setBackground(new Color(25, 120, 150));
+		chckbxAdmin.setFont(new Font("Segoe UI", Font.BOLD, 12));
+		chckbxAdmin.setBounds(208, 440, 105, 27);
+		panelCadastro.add(chckbxAdmin);
 		btnSair.setFont(new Font("Segoe UI Black", Font.BOLD, 12));
 		btnSair.setBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(245, 54, 54), new Color(255, 84, 84)));
 		btnSair.setBackground(new Color(184, 44, 54));
@@ -247,7 +265,13 @@ public class IntFormCadastroFuncionario extends JInternalFrame {
 							if (txtEmail.getText().equals(txtConfEmail.getText())) {
 								if(GenericUtils.isEmail(txtEmail.getText()) == true) {
 									String sexo = (boxSexo.getSelectedIndex() == 0 ? "m" : "f");
-									if (DatabaseUtils.cadastroFuncionario(fTxtCpf.getText(), txtNome.getText(), fTxtNascimento.getText(), sexo, fTxtCelular.getText(), txtEmail.getText()) == true) {
+									boolean admin;
+									if	(chckbxAdmin.isSelected()) {
+										admin = true;
+									} else {
+										admin = false;
+									}
+									if (DatabaseUtils.cadastroFuncionario(fTxtCpf.getText(), txtNome.getText(), fTxtNascimento.getText(), sexo, fTxtCelular.getText(), txtEmail.getText(), admin) == true) {
 										fTxtCpf.setText("");
 										txtNome.setText("");
 										fTxtNascimento.setText("");
@@ -292,7 +316,7 @@ public class IntFormCadastroFuncionario extends JInternalFrame {
 		lblConfEmail.setForeground(Color.WHITE);
 		lblConfEmail.setFont(new Font("Rubik", Font.PLAIN, 12));
 		lblConfEmail.setAlignmentX(0.5f);
-		lblConfEmail.setBounds(100, 420, 150, 24);
+		lblConfEmail.setBounds(16, 420, 150, 24);
 		panelCadastro.add(lblConfEmail);
 
 		txtConfEmail = new JTextField();
@@ -302,7 +326,7 @@ public class IntFormCadastroFuncionario extends JInternalFrame {
 		txtConfEmail.setColumns(10);
 		txtConfEmail.setBorder(new MatteBorder(0, 0, 1, 0, (Color) new Color(10, 60, 70)));
 		txtConfEmail.setBackground(new Color(25, 120, 150));
-		txtConfEmail.setBounds(100, 440, 150, 30);
+		txtConfEmail.setBounds(16, 440, 150, 30);
 		panelCadastro.add(txtConfEmail);
 		txtConfEmail.addKeyListener(new KeyAdapter() {
 			public void keyPressed(KeyEvent e) {

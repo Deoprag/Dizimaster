@@ -9,8 +9,8 @@ select *from funcionario;
 select *from dizimista;
 select *from despesa;
 
-drop table dizimo;
-drop table oferta;
+alter table funcionario
+drop column salario;
 
 create table if not exists funcionario (
 	id int primary key not null auto_increment,

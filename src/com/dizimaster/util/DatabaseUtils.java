@@ -6,6 +6,7 @@ import java.time.format.DateTimeFormatter;
 
 import javax.swing.JOptionPane;
 
+import com.dizimaster.model.Despesa;
 import com.dizimaster.model.Dizimista;
 import com.dizimaster.model.Funcionario;
 import com.dizimaster.view.*;
@@ -72,12 +73,12 @@ public class DatabaseUtils {
 	}
 
 	public static boolean cadastroFuncionario(String cpf, String nome, String nascimento, String sexo, String numero,
-			String email) {
+			String email, boolean admin) {
 		try {
 			LocalDate data = LocalDate.parse(nascimento, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
 
 			Connection con = DatabaseUtils.conecta();
-			String sql = "insert into funcionario(cpf, nome, nascimento, sexo, celular, email, dataCadastro) values (?,?,?,?,?,?,?)";
+			String sql = "insert into funcionario(cpf, nome, nascimento, sexo, celular, email, dataCadastro, isAdmin) values (?,?,?,?,?,?,?,?)";
 
 			PreparedStatement stmt = con.prepareCall(sql);
 
@@ -88,6 +89,7 @@ public class DatabaseUtils {
 			stmt.setString(5, numero.replace("(", "").replace(")", "").replace(" ", "").replace("-", ""));
 			stmt.setString(6, email);
 			stmt.setDate(7, Date.valueOf(GenericUtils.dataAtual()));
+			stmt.setBoolean(8, admin);
 
 			stmt.execute();
 			stmt.close();
@@ -240,6 +242,31 @@ public class DatabaseUtils {
 			con.close();
 
 			JOptionPane.showMessageDialog(null, "Oferta registrada com sucesso!");
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+	
+	public static boolean registraDespesa(Despesa despesa) {
+		try {
+			Connection con = DatabaseUtils.conecta();
+			String sql = "insert into despesa(valor, descricao, funcionario, data, hora) values (?,?,?,?,?)";
+
+			PreparedStatement stmt = con.prepareCall(sql);
+
+			stmt.setFloat(1, despesa.getValor());
+			stmt.setString(2, despesa.getDescricao());
+			stmt.setInt(3, despesa.getFuncionario());
+			stmt.setDate(4, Date.valueOf(despesa.getData()));
+			stmt.setTime(5, Time.valueOf(despesa.getHora()));
+
+			stmt.execute();
+			stmt.close();
+			con.close();
+
+			JOptionPane.showMessageDialog(null, "Despesa registrada com sucesso!");
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();

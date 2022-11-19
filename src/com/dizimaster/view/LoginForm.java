@@ -27,14 +27,15 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.border.EtchedBorder;
-
-import com.dizimaster.util.DatabaseUtils;
-import com.dizimaster.util.GenericUtils;
-import com.dizimaster.util.TxtUsuarioFormat;
 import javax.swing.border.MatteBorder;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import org.jdesktop.swingx.JXButton;
+
+import com.dizimaster.util.DatabaseUtils;
+import com.dizimaster.util.GenericUtils;
+import com.dizimaster.util.TxtUsuarioFormat;
+
 import javax.swing.border.LineBorder;
 import javax.swing.SwingConstants;
 import javax.swing.Timer;
@@ -93,6 +94,7 @@ public class LoginForm {
 		getFrmLogin().getContentPane().setMaximumSize(new Dimension(0, 0));
 		getFrmLogin().getContentPane().setBackground(new Color(8, 82, 180));
 		getFrmLogin().getContentPane().setLayout(null);
+		getFrmLogin().setLocationRelativeTo(null);
 		
 		JPanel panelTop = new JPanel();
 		panelTop.addMouseMotionListener(new MouseMotionAdapter() {

@@ -1,32 +1,24 @@
 package com.dizimaster.model;
 
-import java.sql.Date;
+import java.time.LocalDate;
 
 public class Despesa {
-	private String nomeDespesa;
 	private float valor;
-	private Date data;
+	private LocalDate data;
+	private String hora;
 	private String descricao;
 	private int funcionario;
 
-	public Despesa(String nomeDespesa, float valor, Date data, String descricao, int funcionario) {
-		this.setNomeDespesa(nomeDespesa);
+	public Despesa(String nomeDespesa, float valor, LocalDate data, String descricao, int funcionario, String hora) {
 		this.setValor(valor);
 		this.setData(data);
+		this.setHora(hora);
 		this.setDescricao(descricao);
 		this.setFuncionario(funcionario);
 	}
 	
 	public Despesa() {
 		
-	}
-
-	public String getNomeDespesa() {
-		return nomeDespesa;
-	}
-
-	public void setNomeDespesa(String nomeDespesa) {
-		this.nomeDespesa = nomeDespesa;
 	}
 
 	public float getValor() {
@@ -37,12 +29,12 @@ public class Despesa {
 		this.valor = valor;
 	}
 
-	public Date getData() {
+	public LocalDate getData() {
 		return data;
 	}
 
-	public void setData(Date data) {
-		this.data = data;
+	public void setData(LocalDate localDate) {
+		this.data = localDate;
 	}
 
 	public String getDescricao() {
@@ -59,6 +51,14 @@ public class Despesa {
 
 	public void setFuncionario(int funcionario) {
 		this.funcionario = funcionario;
+	}
+
+	public String getHora() {
+		return hora;
+	}
+
+	public void setHora(String hora) {
+		this.hora = hora;
 	}
 
 }
