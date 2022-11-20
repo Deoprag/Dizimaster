@@ -353,7 +353,7 @@ public class LoginForm {
 		lblFundo.setIcon(new ImageIcon(LoginForm.class.getResource("/com/dizimaster/img/Login background.png")));
 		getFrmLogin().setBackground(Color.WHITE);
 		getFrmLogin().setIconImage(
-				Toolkit.getDefaultToolkit().getImage(LoginForm.class.getResource("/com/dizimaster/img/icon.png")));
+				Toolkit.getDefaultToolkit().getImage(LoginForm.class.getResource("/com/dizimaster/img/icon2.png")));
 		getFrmLogin().setBounds(100, 100, 770, 460);
 		getFrmLogin().setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 

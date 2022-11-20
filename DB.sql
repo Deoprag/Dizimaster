@@ -9,9 +9,6 @@ select *from funcionario;
 select *from dizimista;
 select *from despesa;
 
-alter table funcionario
-drop column salario;
-
 create table if not exists funcionario (
 	id int primary key not null auto_increment,
     cpf char(11) not null unique,

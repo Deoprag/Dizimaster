@@ -7,6 +7,7 @@ import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.text.MaskFormatter;
 
 import com.dizimaster.model.Dizimista;
+import com.dizimaster.model.Funcionario;
 import com.dizimaster.util.DatabaseUtils;
 import com.dizimaster.util.GenericUtils;
 import com.dizimaster.util.TxtNome;
@@ -36,7 +37,6 @@ import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import javax.swing.JTextArea;
 import java.awt.Insets;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
@@ -50,7 +50,7 @@ public class IntFormDizimo extends JInternalFrame {
 	private JTextField txtCpf;
 	private JTextField txtNome;
 	private JTextField txtValor;
-	private int funcionario;
+	private Funcionario funcionario;
 	private Dizimista dizimista;
 
 	public static void main(String[] args) {
@@ -288,7 +288,7 @@ public class IntFormDizimo extends JInternalFrame {
 					JOptionPane.showMessageDialog(null, "Preencha o CPF!");
 				} else {
 					if (!txtNome.getText().isBlank() && !txtValor.getText().isBlank()) {
-						if (DatabaseUtils.registraDizimo(funcionario, Float.parseFloat(txtValor.getText()), obs,
+						if (DatabaseUtils.registraDizimo(funcionario.getId(), Float.parseFloat(txtValor.getText()), obs,
 								dizimista.getId()) == true) {
 							txtCpf.setText("");
 							txtNome.setText("");
@@ -381,11 +381,11 @@ public class IntFormDizimo extends JInternalFrame {
 		this.txtValor = txtValor;
 	}
 
-	public int getFuncionario() {
+	public Funcionario getFuncionario() {
 		return funcionario;
 	}
 
-	public void setFuncionario(int funcionario) {
+	public void setFuncionario(Funcionario funcionario) {
 		this.funcionario = funcionario;
 	}
 }

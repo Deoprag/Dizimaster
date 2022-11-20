@@ -6,6 +6,7 @@ import javax.swing.JInternalFrame;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 
 import com.dizimaster.model.Despesa;
+import com.dizimaster.model.Funcionario;
 import com.dizimaster.util.DatabaseUtils;
 import com.dizimaster.util.GenericUtils;
 import com.dizimaster.util.TxtObservacao;
@@ -37,7 +38,7 @@ import java.awt.event.ActionEvent;
 public class IntFormDespesa extends JInternalFrame {
 
 	private static final long serialVersionUID = 1L;
-	private int funcionario;
+	private Funcionario funcionario;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -202,7 +203,7 @@ public class IntFormDespesa extends JInternalFrame {
 						Despesa despesa = new Despesa();
 						despesa.setValor(Float.parseFloat(txtValor.getText().replace(",",".")));
 						despesa.setDescricao(txtDescricao.getText());
-						despesa.setFuncionario(funcionario);
+						despesa.setFuncionario(funcionario.getId());
 						despesa.setData(GenericUtils.dataAtual());
 						despesa.setHora(GenericUtils.horaAtual());
 						if(DatabaseUtils.registraDespesa(despesa)) {
@@ -254,11 +255,11 @@ public class IntFormDespesa extends JInternalFrame {
 		bui.setNorthPane(null);
 	}
 
-	public int getFuncionario() {
+	public Funcionario getFuncionario() {
 		return funcionario;
 	}
 
-	public void setFuncionario(int funcionario) {
+	public void setFuncionario(Funcionario funcionario) {
 		this.funcionario = funcionario;
 	}
 }

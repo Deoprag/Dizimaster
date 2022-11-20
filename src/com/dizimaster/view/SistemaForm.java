@@ -35,6 +35,7 @@ import javax.swing.border.MatteBorder;
 
 import org.jdesktop.swingx.JXButton;
 
+import com.dizimaster.model.Funcionario;
 import com.dizimaster.util.DatabaseUtils;
 import com.dizimaster.util.GenericUtils;
 
@@ -44,7 +45,7 @@ public class SistemaForm {
 	private IntFormMural intMural;
 	private JLabel lblHora;
 	private JLabel lblData;
-	private int funcionario = DatabaseUtils.getFuncionario().getId();
+	private Funcionario funcionario = DatabaseUtils.getFuncionario();
 	private int yMouse, xMouse;
 
 	public JLabel getLblData() {
@@ -304,6 +305,17 @@ public class SistemaForm {
 					intCad.show();
 				}
 			});
+			mntmGerenciarFuncionario.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					largeDesktopPane.removeAll();
+					IntFormAdmFuncionario intAdmFunc = new IntFormAdmFuncionario();
+					intAdmFunc.setFuncionario(funcionario);
+					largeDesktopPane.add(intMural);
+					intMural.show();
+					largeDesktopPane.add(intAdmFunc);
+					intAdmFunc.show();
+				}
+			});
 		}
 		
 		JMenu mnDizimista = new JMenu("Dizimista");
@@ -469,7 +481,6 @@ public class SistemaForm {
 				Toolkit.getDefaultToolkit().getImage(SistemaForm.class.getResource("/com/dizimaster/img/icon2.png")));
 		frmDizimasterSistema.getContentPane().setBackground(new Color(62, 62, 62));
 		frmDizimasterSistema.setUndecorated(true);
-		frmDizimasterSistema.setResizable(false);
 	}
 
 	public IntFormMural getIntMural() {
@@ -480,11 +491,11 @@ public class SistemaForm {
 		this.intMural = intMural;
 	}
 
-	public int getFuncionario() {
+	public Funcionario getFuncionario() {
 		return funcionario;
 	}
 
-	public void setFuncionario(int funcionario) {
+	public void setFuncionario(Funcionario funcionario) {
 		this.funcionario = funcionario;
 	}
 

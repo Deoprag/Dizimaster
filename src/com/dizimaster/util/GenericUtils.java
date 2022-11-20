@@ -95,12 +95,10 @@ public class GenericUtils {
 			JOptionPane.showMessageDialog(null, "Verifique os requisitos de senha e tente novamente!");
 			return false;
 		}
-		System.out.println("passou");
 		if (!senha.equals(confSenha)) {
 			JOptionPane.showMessageDialog(null, "As senha não coincidem!");
 			return false;
 		}
-		System.out.println("passou");
 		for (int i = 0; i < senha.length(); i++) {
 			for (int j = 0; j < letras.length; j++) {
 				if (letras[j] == senha.charAt(i)) {

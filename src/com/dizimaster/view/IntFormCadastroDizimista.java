@@ -190,14 +190,16 @@ public class IntFormCadastroDizimista extends JInternalFrame {
 		panelCadastro.add(fTxtCelular);
 
 		JComboBox boxSexo = new JComboBox();
-		boxSexo.setForeground(new Color(0, 0, 0));
+		boxSexo.setFocusable(false);
+		boxSexo.setFocusTraversalKeysEnabled(false);
+		boxSexo.setForeground(new Color(255, 255, 255));
 		boxSexo.setRequestFocusEnabled(false);
 		boxSexo.setModel(new DefaultComboBoxModel(new String[] { "Masculino", "Feminino" }));
 		boxSexo.setMaximumRowCount(2);
 		boxSexo.setFont(new Font("Segoe UI", Font.PLAIN, 12));
 		boxSexo.setRenderer(new MyCellRenderer());
 		boxSexo.setBorder(null);
-		boxSexo.setBackground(new Color(240, 240, 240));
+		boxSexo.setBackground(new Color(40, 135, 165));
 		boxSexo.setBounds(182, 340, 150, 30);
 		panelCadastro.add(boxSexo);
 

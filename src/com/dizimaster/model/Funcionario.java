@@ -1,20 +1,21 @@
 package com.dizimaster.model;
 
-import java.sql.Date;
+import java.time.LocalDate;
 
 public class Funcionario {
 	private int id;
 	private String cpf;
 	private String nome;
-	private Date nascimento;
+	private LocalDate nascimento;
 	private char sexo;
 	private String celular;
 	private String email;
+	private LocalDate dataCadastro;
 	private String senha;
 	private boolean ativo;
 	private boolean isAdmin;
 
-	public Funcionario(int id, String cpf, String nome, Date nascimento, char sexo, String celular, String email, boolean ativo, boolean isAdmin) {
+	public Funcionario(int id, String cpf, String nome, LocalDate nascimento, char sexo, String celular, String email, LocalDate dataCadastro, boolean ativo, boolean isAdmin) {
 		this.setId(id);
 		this.setCpf(cpf);
 		this.setNome(nome);
@@ -22,6 +23,7 @@ public class Funcionario {
 		this.setSexo(sexo);
 		this.setCelular(celular);
 		this.setEmail(email);
+		this.setDataCadastro(dataCadastro);
 		this.setSenha("diz@2022");
 		this.setAtivo(ativo);
 		this.setAdmin(isAdmin);
@@ -59,11 +61,11 @@ public class Funcionario {
 	}
 
 	// NASCIMENTO
-	public Date getNascimento() {
+	public LocalDate getNascimento() {
 		return nascimento;
 	}
 
-	public void setNascimento(Date nascimento) {
+	public void setNascimento(LocalDate nascimento) {
 		this.nascimento = nascimento;
 	}
 
@@ -118,6 +120,14 @@ public class Funcionario {
 
 	public void setAdmin(boolean isAdmin) {
 		this.isAdmin = isAdmin;
+	}
+
+	public LocalDate getDataCadastro() {
+		return dataCadastro;
+	}
+
+	public void setDataCadastro(LocalDate dataCadastro) {
+		this.dataCadastro = dataCadastro;
 	}
 
 }

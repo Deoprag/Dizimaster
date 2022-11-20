@@ -37,12 +37,19 @@ public class DatabaseUtils {
 			stmt.setString(2, password);
 
 			ResultSet rs = stmt.executeQuery();
-
+			
 			if (rs.next()) {
-				if (!password.equals("dizi@2022")) {
-					if(rs.getBoolean("ativo") == true) {
+				if(rs.getBoolean("ativo") == true) {
+					if (!password.equals("dizi@2022")) {
 						funcionario = new Funcionario();
 						funcionario.setId(rs.getInt("id"));
+						funcionario.setCpf(rs.getString("cpf"));
+						funcionario.setNome(rs.getString("nome"));
+						funcionario.setNascimento(rs.getDate("nascimento").toLocalDate());
+						funcionario.setSexo(rs.getString("sexo").charAt(0));
+						funcionario.setEmail(rs.getString("email"));
+						funcionario.setDataCadastro(rs.getDate("dataCadastro").toLocalDate());
+						funcionario.setAtivo(rs.getBoolean("ativo"));
 						funcionario.setAdmin(rs.getBoolean("isAdmin"));
 						SistemaForm window = new SistemaForm();
 						window.getFrmDizimasterSistema().setVisible(true);
@@ -50,13 +57,13 @@ public class DatabaseUtils {
 						con.close();
 						return true;
 					} else {
-						JOptionPane.showMessageDialog(null, "Cadastro desativado! Entre em contato com um administrador");
+						FormAlterarSenha window = new FormAlterarSenha();
+						window.setCpf(user);
+						window.setSenha(password);
+						window.setVisible(true);
 					}
 				} else {
-					FormAlterarSenha window = new FormAlterarSenha();
-					window.setCpf(user);
-					window.setSenha(password);
-					window.setVisible(true);
+					JOptionPane.showMessageDialog(null, "Cadastro desativado! Entre em contato com um administrador");
 				}
 			} else {
 				JOptionPane.showMessageDialog(null, "Usuário e/ou senha incorretos!");
@@ -272,6 +279,70 @@ public class DatabaseUtils {
 			e.printStackTrace();
 			return false;
 		}
+	}
+	
+	public static Funcionario pesquisaFuncionario(String cpf) {
+		Funcionario funcionarioPesquisa;
+		funcionarioPesquisa = null;
+		
+		try {
+			Connection con = DatabaseUtils.conecta();
+			Statement stmt = con.createStatement();
+			ResultSet rs = stmt.executeQuery("select * from funcionario where cpf = " + cpf);
+			
+			if(rs.next()) {
+				funcionarioPesquisa = new Funcionario();
+				funcionarioPesquisa.setId(rs.getInt("id"));
+				funcionarioPesquisa.setCpf(rs.getString("cpf"));
+				funcionarioPesquisa.setNome(rs.getString("nome"));
+				funcionarioPesquisa.setNascimento(rs.getDate("nascimento").toLocalDate());
+				funcionarioPesquisa.setSexo(rs.getString("sexo").charAt(0));
+				funcionarioPesquisa.setEmail(rs.getString("email"));
+				funcionarioPesquisa.setCelular(rs.getString("celular"));
+				funcionarioPesquisa.setSenha(rs.getString("senha"));
+				funcionarioPesquisa.setDataCadastro(rs.getDate("dataCadastro").toLocalDate());
+				funcionarioPesquisa.setAtivo(rs.getBoolean("ativo"));
+				funcionarioPesquisa.setAdmin(rs.getBoolean("isAdmin"));
+				
+				con.close();
+				stmt.close();
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return funcionarioPesquisa;
+	}
+	
+	public static boolean alterarFuncionario(Funcionario altFuncionario, Boolean senha) {
+		try {
+			Connection con = DatabaseUtils.conecta();
+			String sql = "update funcionario set nome = ?, celular = ?, email = ?, nascimento = ?, sexo = ?, isAdmin = ?, ativo = ?, senha = ? where cpf = ?";
+			if(senha == true) {
+				altFuncionario.setSenha("dizi@2022");
+			}
+			PreparedStatement stmt = con.prepareCall(sql);
+			
+			stmt.setString(1, altFuncionario.getNome());
+			stmt.setString(2, altFuncionario.getCelular());
+			stmt.setString(3, altFuncionario.getEmail());
+			stmt.setDate(4, Date.valueOf(altFuncionario.getNascimento()));
+			stmt.setString(5, String.valueOf(altFuncionario.getSexo()));
+			stmt.setBoolean(6, altFuncionario.isAdmin());
+			stmt.setBoolean(7, altFuncionario.isAtivo());
+			stmt.setString(8, altFuncionario.getSenha());
+			stmt.setString(9, altFuncionario.getCpf());
+			
+			stmt.execute();
+			stmt.close();
+			con.close();
+			JOptionPane.showMessageDialog(null, "Dados atualizados com sucesso!");
+			return true;
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, "Erro ao atualizar os dados!");
+			e.printStackTrace();
+		}
+		return false;
 	}
 
 	public static Funcionario getFuncionario() {

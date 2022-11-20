@@ -7,6 +7,7 @@ import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.text.MaskFormatter;
 
 import com.dizimaster.model.Dizimista;
+import com.dizimaster.model.Funcionario;
 import com.dizimaster.util.DatabaseUtils;
 import com.dizimaster.util.GenericUtils;
 import com.dizimaster.util.TxtNome;
@@ -48,7 +49,7 @@ import javax.swing.JCheckBox;
 public class IntFormOferta extends JInternalFrame {
 
 	private JTextField txtCpf;
-	private int funcionario;
+	private Funcionario funcionario;
 	private JTextField txtNome;
 	private JTextField txtValor;
 	private JLabel lblCpf;
@@ -318,7 +319,7 @@ public class IntFormOferta extends JInternalFrame {
 							id = dizimista.getId();
 						}
 						if (!txtNome.getText().isBlank() && !txtValor.getText().isBlank()) {
-							if (DatabaseUtils.registraOferta(funcionario, isDizimista, txtNome.getText(),
+							if (DatabaseUtils.registraOferta(funcionario.getId(), isDizimista, txtNome.getText(),
 									Float.parseFloat(txtValor.getText().replace(",", ".")), obs, id) == true) {
 								txtCpf.setText("");
 								txtNome.setText("");
@@ -441,11 +442,11 @@ public class IntFormOferta extends JInternalFrame {
 		this.txtValor = txtValor;
 	}
 
-	public int getFuncionario() {
+	public Funcionario getFuncionario() {
 		return funcionario;
 	}
 
-	public void setFuncionario(int funcionario) {
+	public void setFuncionario(Funcionario funcionario) {
 		this.funcionario = funcionario;
 	}
 
