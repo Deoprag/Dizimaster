@@ -1,6 +1,8 @@
 package com.dizimaster.controller;
 
 import java.sql.*;
+
+import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 
 import com.dizimaster.model.Despesa;

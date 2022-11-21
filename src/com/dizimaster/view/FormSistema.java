@@ -454,6 +454,7 @@ public class FormSistema {
 			public void actionPerformed(ActionEvent e) {
 				largeDesktopPane.removeAll();
 				IntFormFluxo intFluxo = new IntFormFluxo();
+				intFluxo.setFuncionario(funcionario);
 				largeDesktopPane.add(intMural);
 				intMural.show();
 				largeDesktopPane.add(intFluxo);
