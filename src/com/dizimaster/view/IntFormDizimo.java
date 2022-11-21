@@ -6,12 +6,14 @@ import javax.swing.JInternalFrame;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.text.MaskFormatter;
 
+import com.dizimaster.controller.DatabaseUtils;
 import com.dizimaster.model.Dizimista;
+import com.dizimaster.model.Dizimo;
 import com.dizimaster.model.Funcionario;
-import com.dizimaster.util.DatabaseUtils;
-import com.dizimaster.util.GenericUtils;
-import com.dizimaster.util.TxtNome;
-import com.dizimaster.util.TxtObservacao;
+import com.dizimaster.swing.TxtNome;
+import com.dizimaster.swing.TxtObservacao;
+import com.dizimaster.swing.TxtSalarioFormat;
+import com.dizimaster.util.Util;
 
 import javax.swing.JPanel;
 import java.awt.Color;
@@ -44,14 +46,15 @@ import javax.swing.JScrollPane;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-@SuppressWarnings("serial")
 public class IntFormDizimo extends JInternalFrame {
 
+	private static final long serialVersionUID = 1L;
 	private JTextField txtCpf;
 	private JTextField txtNome;
 	private JTextField txtValor;
 	private Funcionario funcionario;
 	private Dizimista dizimista;
+	private Util util = new Util();
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -137,7 +140,7 @@ public class IntFormDizimo extends JInternalFrame {
 		btnSearch.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnSearch.setIcon(new ImageIcon(IntFormDizimo.class.getResource("/com/dizimaster/img/find-icon.png")));
 
-		JTextField txtValor = new JTextField();
+		TxtSalarioFormat txtValor = new TxtSalarioFormat(8);
 		txtValor.setBounds(120, 340, 60, 30);
 		txtValor.setEnabled(false);
 		txtValor.setForeground(new Color(255, 255, 255));
@@ -169,6 +172,7 @@ public class IntFormDizimo extends JInternalFrame {
 		MaskFormatter mascaraCpf = null;
 		try {
 			mascaraCpf = new MaskFormatter("###.###.###-##");
+			mascaraCpf.setPlaceholderCharacter('*');
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
@@ -258,7 +262,7 @@ public class IntFormDizimo extends JInternalFrame {
 		lblLogo.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				GenericUtils.openWebpage("https://www.instagram.com/deopraglabs");
+				Util.openWebpage("https://www.instagram.com/deopraglabs");
 			}
 
 			@Override
@@ -280,26 +284,36 @@ public class IntFormDizimo extends JInternalFrame {
 		JButton btnEnviar = new JButton("REGISTRAR");
 		btnEnviar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String obs = null;
-				if (!txtObs.getText().isBlank() && txtObs.getForeground() == Color.WHITE) {
-					obs = txtObs.getText();
-				}
-				if ((txtCpf.getText().trim().length() < 14)) {
-					JOptionPane.showMessageDialog(null, "Preencha o CPF!");
-				} else {
-					if (!txtNome.getText().isBlank() && !txtValor.getText().isBlank()) {
-						if (DatabaseUtils.registraDizimo(funcionario.getId(), Float.parseFloat(txtValor.getText()), obs,
-								dizimista.getId()) == true) {
-							txtCpf.setText("");
-							txtNome.setText("");
-							txtValor.setText("");
-							txtObs.setText("Insira aqui uma observação");
-							txtObs.setForeground(new Color(192,192,192));
-							txtObs.setEnabled(false);
-						}
+				try {
+					if ((txtCpf.getText().trim().length() < 14)) {
+						JOptionPane.showMessageDialog(null, "Preencha o CPF!");
 					} else {
-						JOptionPane.showMessageDialog(null, "Pesquise o CPF antes de registrar!");
+						if (!txtNome.getText().isBlank() && !txtValor.getText().isBlank()) {
+							Dizimo dizimo = new Dizimo();
+							dizimo.setDizimista(dizimista.getId());
+							dizimo.setValor(Float.parseFloat(txtValor.getText()));
+							dizimo.setFuncionario(funcionario.getId());
+							if (!txtObs.getText().isBlank() && txtObs.getForeground() == Color.WHITE) {
+								dizimo.setObservacao(txtObs.getText());
+							}
+							dizimo.setData(util.dataAtual());
+							dizimo.setHora(util.horaAtual());
+							if (DatabaseUtils.registraDizimo(dizimo) == true) {
+								txtCpf.setText("");
+								txtNome.setText("");
+								txtValor.setText("");
+								txtObs.setText("Insira aqui uma observação");
+								txtObs.setForeground(new Color(192,192,192));
+								txtObs.setEnabled(false);
+							}
+						} else {
+							JOptionPane.showMessageDialog(null, "Pesquise o CPF antes de registrar!");
+						}
 					}
+				} catch (NumberFormatException e1) {
+					JOptionPane.showMessageDialog(null, "O valor inserido é inválido!");
+				} catch (Exception e2) {
+					e2.printStackTrace();
 				}
 			}
 		});
@@ -346,15 +360,18 @@ public class IntFormDizimo extends JInternalFrame {
 					txtNome.setText("");
 					txtValor.setText("");
 					try {
-						dizimista = DatabaseUtils.procurarDizimista(txtCpf.getText().replace("-", "").replace(".", ""));
+						dizimista = DatabaseUtils.pesquisaDizimista(txtCpf.getText().replace("-", "").replace(".", ""));
+						if(dizimista.isAtivo()) {
+							txtNome.setForeground(Color.WHITE);
+							txtValor.setForeground(Color.WHITE);
 
-						txtNome.setForeground(Color.WHITE);
-						txtValor.setForeground(Color.WHITE);
-
-						txtNome.setText(dizimista.getNome());
-						DecimalFormat df = new DecimalFormat("0.00");
-						txtValor.setText(df.format(dizimista.getSalario() / 10));
-						txtObs.setEnabled(true);
+							txtNome.setText(dizimista.getNome());
+							DecimalFormat df = new DecimalFormat("0.00");
+							txtValor.setText(df.format(dizimista.getSalario() / 10));
+							txtObs.setEnabled(true);
+						} else {
+							JOptionPane.showMessageDialog(null, "Cadastro desativado!");
+						}
 					} catch (Exception e1) {
 						e1.printStackTrace();
 					}

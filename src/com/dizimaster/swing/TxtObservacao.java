@@ -1,4 +1,4 @@
-package com.dizimaster.util;
+package com.dizimaster.swing;
 
 import java.awt.event.KeyEvent;
 

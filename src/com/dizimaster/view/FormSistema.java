@@ -35,18 +35,19 @@ import javax.swing.border.MatteBorder;
 
 import org.jdesktop.swingx.JXButton;
 
+import com.dizimaster.controller.DatabaseUtils;
 import com.dizimaster.model.Funcionario;
-import com.dizimaster.util.DatabaseUtils;
-import com.dizimaster.util.GenericUtils;
+import com.dizimaster.util.Util;
 
-public class SistemaForm {
+public class FormSistema {
 
 	private JFrame frmDizimasterSistema;
 	private IntFormMural intMural;
 	private JLabel lblHora;
 	private JLabel lblData;
-	private Funcionario funcionario = DatabaseUtils.getFuncionario();
+	private Funcionario funcionario;
 	private int yMouse, xMouse;
+	private Util util = new Util();
 
 	public JLabel getLblData() {
 		return lblData;
@@ -60,7 +61,7 @@ public class SistemaForm {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					SistemaForm window = new SistemaForm();
+					FormSistema window = new FormSistema();
 					window.getFrmDizimasterSistema().setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -69,7 +70,7 @@ public class SistemaForm {
 		});
 	}
 
-	public SistemaForm() {
+	public FormSistema() {
 		initialize();
 		data();
 		hora();
@@ -85,7 +86,7 @@ public class SistemaForm {
 		new Timer(0, new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				getLblHora().setText(GenericUtils.horaAtual());
+				getLblHora().setText(util.horaAtual());
 			}
 		}).start();
 	}
@@ -96,7 +97,7 @@ public class SistemaForm {
 
 	public void deslogar() {
 		this.frmDizimasterSistema.dispose();
-		LoginForm window = new LoginForm();
+		FormLogin window = new FormLogin();
 		window.getFrmLogin().setVisible(true);
 		getFrmDizimasterSistema().dispose();
 	}
@@ -174,7 +175,7 @@ public class SistemaForm {
 		btnFechar.setBorder(new LineBorder(new Color(255, 255, 255)));
 
 		JLabel lblIcon = new JLabel("");
-		lblIcon.setIcon(new ImageIcon(SistemaForm.class.getResource("/com/dizimaster/img/icon.png")));
+		lblIcon.setIcon(new ImageIcon(FormSistema.class.getResource("/com/dizimaster/img/icon.png")));
 		lblIcon.setBounds(413, 7, 24, 24);
 		panelTop.add(lblIcon);
 
@@ -286,12 +287,12 @@ public class SistemaForm {
 			mntmNovoFuncionario.setPreferredSize(new Dimension(150, 30));
 			mnFuncionario.add(mntmNovoFuncionario);
 			mntmNovoFuncionario
-					.setIcon(new ImageIcon(SistemaForm.class.getResource("/com/dizimaster/img/signup-icon.png")));
+					.setIcon(new ImageIcon(FormSistema.class.getResource("/com/dizimaster/img/signup-icon.png")));
 
 			JMenuItem mntmGerenciarFuncionario = new JMenuItem("Gerenciar Funcionários");
 			mntmGerenciarFuncionario.setFont(new Font("Segoe UI", Font.PLAIN, 12));
 			mntmGerenciarFuncionario
-					.setIcon(new ImageIcon(SistemaForm.class.getResource("/com/dizimaster/img/mange-icon.png")));
+					.setIcon(new ImageIcon(FormSistema.class.getResource("/com/dizimaster/img/mange-icon.png")));
 			mntmGerenciarFuncionario.setPreferredSize(new Dimension(170, 30));
 			mntmGerenciarFuncionario.setBorder(new MatteBorder(0, 0, 1, 0, (Color) new Color(192, 192, 192)));
 			mnFuncionario.add(mntmGerenciarFuncionario);
@@ -347,15 +348,26 @@ public class SistemaForm {
 		mntmNovoDizimista.setFont(new Font("Segoe UI", Font.PLAIN, 12));
 		mntmNovoDizimista.setBorder(new MatteBorder(0, 0, 1, 0, (Color) new Color(192, 192, 192)));
 		mntmNovoDizimista.setPreferredSize(new Dimension(150, 30));
-		mntmNovoDizimista.setIcon(new ImageIcon(SistemaForm.class.getResource("/com/dizimaster/img/signup-icon.png")));
+		mntmNovoDizimista.setIcon(new ImageIcon(FormSistema.class.getResource("/com/dizimaster/img/signup-icon.png")));
 		mnDizimista.add(mntmNovoDizimista);
 
 		JMenuItem mntmGerenciarDizimista = new JMenuItem("Gerenciar Dizimistas");
+		mntmGerenciarDizimista.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				largeDesktopPane.removeAll();
+				IntFormAdmDizimista intAdmDiz = new IntFormAdmDizimista();
+				intAdmDiz.setFuncionario(funcionario);
+				largeDesktopPane.add(intMural);
+				intMural.show();
+				largeDesktopPane.add(intAdmDiz);
+				intAdmDiz.show();
+			}
+		});
 		mntmGerenciarDizimista.setFont(new Font("Segoe UI", Font.PLAIN, 12));
 		mntmGerenciarDizimista.setBorder(new MatteBorder(0, 0, 1, 0, (Color) new Color(192, 192, 192)));
 		mntmGerenciarDizimista.setPreferredSize(new Dimension(150, 30));
 		mntmGerenciarDizimista
-				.setIcon(new ImageIcon(SistemaForm.class.getResource("/com/dizimaster/img/mange-icon.png")));
+				.setIcon(new ImageIcon(FormSistema.class.getResource("/com/dizimaster/img/mange-icon.png")));
 		mnDizimista.add(mntmGerenciarDizimista);
 
 		JMenu mnFinanceiro = new JMenu("Financeiro");
@@ -373,11 +385,11 @@ public class SistemaForm {
 		mnRegistrarPagamento.setFont(new Font("Segoe UI", Font.PLAIN, 12));
 		mnRegistrarPagamento.setPreferredSize(new Dimension(150, 30));
 		mnRegistrarPagamento
-				.setIcon(new ImageIcon(SistemaForm.class.getResource("/com/dizimaster/img/receipt-icon.png")));
+				.setIcon(new ImageIcon(FormSistema.class.getResource("/com/dizimaster/img/receipt-icon.png")));
 		mnFinanceiro.add(mnRegistrarPagamento);
 
 		JMenuItem mntmDizimo = new JMenuItem("Dizimo");
-		mntmDizimo.setIcon(new ImageIcon(SistemaForm.class.getResource("/com/dizimaster/img/tithe-icon.png")));
+		mntmDizimo.setIcon(new ImageIcon(FormSistema.class.getResource("/com/dizimaster/img/tithe-icon.png")));
 		mntmDizimo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				largeDesktopPane.removeAll();
@@ -406,7 +418,7 @@ public class SistemaForm {
 				intOferta.show();
 			}
 		});
-		mntmOferta.setIcon(new ImageIcon(SistemaForm.class.getResource("/com/dizimaster/img/offering-icon.png")));
+		mntmOferta.setIcon(new ImageIcon(FormSistema.class.getResource("/com/dizimaster/img/offering-icon.png")));
 		mntmOferta.setFont(new Font("Segoe UI", Font.PLAIN, 12));
 		mntmOferta.setPreferredSize(new Dimension(100, 30));
 		mnRegistrarPagamento.add(mntmOferta);
@@ -426,13 +438,13 @@ public class SistemaForm {
 		mntmDespesa.setFont(new Font("Segoe UI", Font.PLAIN, 12));
 		mntmDespesa.setBorder(new MatteBorder(0, 0, 1, 0, (Color) new Color(192, 192, 192)));
 		mntmDespesa.setPreferredSize(new Dimension(150, 30));
-		mntmDespesa.setIcon(new ImageIcon(SistemaForm.class.getResource("/com/dizimaster/img/spent-icon.png")));
+		mntmDespesa.setIcon(new ImageIcon(FormSistema.class.getResource("/com/dizimaster/img/spent-icon.png")));
 		mnFinanceiro.add(mntmDespesa);
 
 		JMenuItem mntmNewRelatorioRecebimentos = new JMenuItem("Relatório de Recebimentos");
 		mntmNewRelatorioRecebimentos.setFont(new Font("Segoe UI", Font.PLAIN, 12));
 		mntmNewRelatorioRecebimentos
-				.setIcon(new ImageIcon(SistemaForm.class.getResource("/com/dizimaster/img/report-icon.png")));
+				.setIcon(new ImageIcon(FormSistema.class.getResource("/com/dizimaster/img/report-icon.png")));
 		mntmNewRelatorioRecebimentos.setPreferredSize(new Dimension(180, 30));
 		mntmNewRelatorioRecebimentos.setBorder(new MatteBorder(0, 0, 1, 0, (Color) new Color(192, 192, 192)));
 		mnFinanceiro.add(mntmNewRelatorioRecebimentos);
@@ -451,7 +463,7 @@ public class SistemaForm {
 		mntmFluxoCaixa.setFont(new Font("Segoe UI", Font.PLAIN, 12));
 		mntmFluxoCaixa.setBorder(new MatteBorder(0, 0, 1, 0, (Color) new Color(192, 192, 192)));
 		mntmFluxoCaixa.setPreferredSize(new Dimension(150, 30));
-		mntmFluxoCaixa.setIcon(new ImageIcon(SistemaForm.class.getResource("/com/dizimaster/img/graphic-icon.png")));
+		mntmFluxoCaixa.setIcon(new ImageIcon(FormSistema.class.getResource("/com/dizimaster/img/graphic-icon.png")));
 		mnFinanceiro.add(mntmFluxoCaixa);
 
 		panelTop.addMouseListener(new MouseAdapter() {
@@ -478,7 +490,7 @@ public class SistemaForm {
 	public void setFrmDizimasterSistema(JFrame frmDizimasterSistema) {
 		this.frmDizimasterSistema = frmDizimasterSistema;
 		frmDizimasterSistema.setIconImage(
-				Toolkit.getDefaultToolkit().getImage(SistemaForm.class.getResource("/com/dizimaster/img/icon2.png")));
+				Toolkit.getDefaultToolkit().getImage(FormSistema.class.getResource("/com/dizimaster/img/icon2.png")));
 		frmDizimasterSistema.getContentPane().setBackground(new Color(62, 62, 62));
 		frmDizimasterSistema.setUndecorated(true);
 	}

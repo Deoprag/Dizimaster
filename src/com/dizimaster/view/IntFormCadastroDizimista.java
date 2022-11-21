@@ -22,10 +22,11 @@ import javax.swing.border.EtchedBorder;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.text.MaskFormatter;
 
-import com.dizimaster.util.DatabaseUtils;
-import com.dizimaster.util.GenericUtils;
-import com.dizimaster.util.TxtNome;
-import com.dizimaster.util.TxtSalarioFormat;
+import com.dizimaster.controller.DatabaseUtils;
+import com.dizimaster.model.Dizimista;
+import com.dizimaster.swing.TxtNome;
+import com.dizimaster.swing.TxtSalarioFormat;
+import com.dizimaster.util.Util;
 
 import javax.swing.border.LineBorder;
 import javax.swing.border.MatteBorder;
@@ -38,9 +39,11 @@ import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListCellRenderer;
 
-@SuppressWarnings("serial")
 public class IntFormCadastroDizimista extends JInternalFrame {
+
+	private static final long serialVersionUID = 1L;
 	private JTextField txtNome;
+	private Util util = new Util();
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -225,7 +228,7 @@ public class IntFormCadastroDizimista extends JInternalFrame {
 		lblLogo.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				GenericUtils.openWebpage("https://www.instagram.com/deopraglabs");
+				Util.openWebpage("https://www.instagram.com/deopraglabs");
 			}
 
 			@Override
@@ -251,13 +254,20 @@ public class IntFormCadastroDizimista extends JInternalFrame {
 		btnEnviar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
+					Dizimista cadDizimista = new Dizimista();
 					if (fTxtCpf.getText().replaceAll(" ", "").length() == 14 && !txtNome.getText().isBlank()
 							&& fTxtNascimento.getText().replaceAll(" ", "").length() == 10
 							&& fTxtCelular.getText().replaceAll(" ", "").length() == 14) {
-						if (GenericUtils.isCPF(fTxtCpf.getText().replace(".", "").replace("-", "")) == true) {
-							String sexo = (boxSexo.getSelectedIndex() == 0 ? "m" : "f");
-							if (DatabaseUtils.cadastroDizimista(fTxtCpf.getText(), txtNome.getText(),
-									fTxtNascimento.getText(), sexo, fTxtCelular.getText(), txtSalario.getText().replace(",", ".")) == true) {
+						if (util.isCPF(fTxtCpf.getText().replace(".", "").replace("-", "")) == true) {
+							cadDizimista.setCpf(fTxtCpf.getText().replace(".", "").replace("-", ""));
+							cadDizimista.setNome(txtNome.getText());
+							cadDizimista.setNascimento(util.formataData(fTxtNascimento.getText()));
+							cadDizimista.setSexo(boxSexo.getSelectedIndex() == 0 ? 'm' : 'f');
+							cadDizimista.setCelular(fTxtCelular.getText().replace("(", "").replace(")", "").replace(" ", "").replace("-", ""));
+							cadDizimista.setSalario(Float.parseFloat(txtSalario.getText()));
+							cadDizimista.setDataCadastro(util.dataAtual());
+							cadDizimista.setAtivo(true);
+							if (DatabaseUtils.cadastroDizimista(cadDizimista) == true) {
 								fTxtCpf.setText("");
 								txtNome.setText("");
 								fTxtNascimento.setText("");

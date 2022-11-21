@@ -1,17 +1,19 @@
 package com.dizimaster.model;
 
-import java.sql.Date;
+import java.time.LocalDate;
 
 public class Dizimista {
 	private int id;
 	private String cpf;
 	private String nome;
 	private char sexo;
-	private Date nascimento;
+	private LocalDate nascimento;
 	private String celular;
 	private float salario;
+	private LocalDate dataCadastro;
+	private boolean ativo;
 
-	public Dizimista(int id, String cpf, String nome, char sexo, Date nascimento, String celular, float salario) {
+	public Dizimista(int id, String cpf, String nome, char sexo, LocalDate nascimento, String celular, float salario, LocalDate dataCadastro, boolean ativo) {
 		this.setId(id);
 		this.setCpf(cpf);
 		this.setNome(nome);
@@ -19,6 +21,16 @@ public class Dizimista {
 		this.setNascimento(nascimento);
 		this.setCelular(celular);
 		this.setSalario(salario);
+		this.setAtivo(ativo);
+		this.setDataCadastro(dataCadastro);
+	}
+
+	public boolean isAtivo() {
+		return ativo;
+	}
+
+	public void setAtivo(boolean ativo) {
+		this.ativo = ativo;
 	}
 
 	public Dizimista() {
@@ -53,12 +65,12 @@ public class Dizimista {
 	}
 
 	// NASCIMENTO
-	public Date getNascimento() {
+	public LocalDate getNascimento() {
 		return nascimento;
 	}
 
-	public void setNascimento(Date nascimento) {
-		this.nascimento = nascimento;
+	public void setNascimento(LocalDate data) {
+		this.nascimento = data;
 	}
 
 	// CELULAR
@@ -84,6 +96,14 @@ public class Dizimista {
 
 	public void setSexo(char sexo) {
 		this.sexo = sexo;
+	}
+
+	public LocalDate getDataCadastro() {
+		return dataCadastro;
+	}
+
+	public void setDataCadastro(LocalDate dataCadastro) {
+		this.dataCadastro = dataCadastro;
 	}
 
 }

@@ -8,8 +8,9 @@ import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.text.MaskFormatter;
 
 import com.dizimaster.controller.DatabaseUtils;
+import com.dizimaster.model.Dizimista;
 import com.dizimaster.model.Funcionario;
-import com.dizimaster.util.Util;
+import com.dizimaster.swing.TxtSalarioFormat;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -26,6 +27,7 @@ import javax.swing.JFormattedTextField;
 import javax.swing.JButton;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.awt.Cursor;
 import java.awt.event.ActionListener;
@@ -33,30 +35,26 @@ import java.awt.event.ActionEvent;
 import javax.swing.border.EtchedBorder;
 import javax.swing.JComboBox;
 import javax.swing.JCheckBox;
-import javax.swing.JToggleButton;
 
-public class IntFormAdmFuncionario extends JInternalFrame {
+public class IntFormAdmDizimista extends JInternalFrame {
 
 	private static final long serialVersionUID = 1L;
 	private Funcionario funcionario;
-	private Funcionario funcionarioPesquisa;
+	private Dizimista dizimistaPesquisa;
 	private JFormattedTextField txtEditCpf;
 	private JTextField txtNome;
 	private JTextField fTxtNascimento;
 	private JComboBox<?> boxSexo;
 	private JFormattedTextField fTxtCelular;
-	private JTextField txtEmail;
-	private JCheckBox chckbxAdmin;
+	private TxtSalarioFormat txtSalario;
 	private JCheckBox chckbxAtivo;
-	private JToggleButton btnRedefinir;
 	private JButton btnSalvar;
-	private Util util = new Util();
 	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					IntFormAdmFuncionario frame = new IntFormAdmFuncionario();
+					IntFormAdmDizimista frame = new IntFormAdmDizimista();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -76,21 +74,18 @@ public class IntFormAdmFuncionario extends JInternalFrame {
 		txtNome.setEnabled(false);
 		fTxtNascimento.setText("");
 		fTxtNascimento.setEnabled(false);
+		boxSexo.setSelectedIndex(-1);
 		boxSexo.setEnabled(false);
 		fTxtCelular.setText("");
 		fTxtCelular.setEnabled(false);
-		txtEmail.setText("");
-		txtEmail.setEnabled(false);
-		chckbxAdmin.setSelected(false);
-		chckbxAdmin.setEnabled(false);
+		txtSalario.setText("");
+		txtSalario.setEnabled(false);
 		chckbxAtivo.setSelected(false);
 		chckbxAtivo.setEnabled(false);
-		btnRedefinir.setSelected(false);
-		btnRedefinir.setEnabled(false);
 	}
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public IntFormAdmFuncionario() {
+	public IntFormAdmDizimista() {
 		getContentPane().setBackground(new Color(230, 243, 255));
 		setBorder(null);
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
@@ -120,7 +115,7 @@ public class IntFormAdmFuncionario extends JInternalFrame {
 		getContentPane().add(panelTop);
 		panelTop.setLayout(null);
 		
-		JLabel lblConsulta = new JLabel("Consultar Funcionário");
+		JLabel lblConsulta = new JLabel("Consultar Dizimista");
 		lblConsulta.setFont(new Font("Segoe UI", Font.BOLD, 22));
 		lblConsulta.setBounds(10, 11, 320, 35);
 		panelTop.add(lblConsulta);
@@ -148,45 +143,35 @@ public class IntFormAdmFuncionario extends JInternalFrame {
 			public void actionPerformed(ActionEvent e) {
 				limpar();				
 				if (txtCpf.getText().replace(".", "").replace("-", "").replace("*", "").length() == 11) {
-					funcionarioPesquisa = DatabaseUtils.pesquisaFuncionario(txtCpf.getText().replace(".", "").replace("-", ""));
-					if (funcionarioPesquisa != null) {
-						if(funcionario.getCpf().equals(funcionarioPesquisa.getCpf())) {
-							JOptionPane.showMessageDialog(null, "Você não pode alterar seu próprio cadastro!");
-						} else {
-							txtNome.setEnabled(true);
-							fTxtNascimento.setEnabled(true);
-							boxSexo.setEnabled(true);
-							fTxtCelular.setEnabled(true);
-							txtEmail.setEnabled(true);
-							chckbxAdmin.setEnabled(true);
-							chckbxAtivo.setEnabled(true);
-							
-							txtEditCpf.setText(txtCpf.getText());
-							txtNome.setText(funcionarioPesquisa.getNome());
-							
-							DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/YYYY");
-							fTxtNascimento.setText(formatter.format(funcionarioPesquisa.getNascimento()));
-							if (funcionarioPesquisa.getSexo() == 'm') {
-								boxSexo.setSelectedItem("Masculino");
-							} else if (funcionarioPesquisa.getSexo() == 'f'){
-								boxSexo.setSelectedItem("Feminino");
-							}
-							fTxtCelular.setText(funcionarioPesquisa.getCelular());						
-							txtEmail.setText(funcionarioPesquisa.getEmail());
-							if(funcionarioPesquisa.isAdmin()) {
-								chckbxAdmin.setSelected(true);
-							} else {
-								chckbxAdmin.setSelected(false);
-							}
-							if(funcionarioPesquisa.isAtivo()) {
-								chckbxAtivo.setSelected(true);
-							} else {
-								chckbxAtivo.setSelected(false);
-							}
-							
-							btnRedefinir.setEnabled(true);
-							btnSalvar.setEnabled(true);
+					dizimistaPesquisa = DatabaseUtils.pesquisaDizimista(txtCpf.getText().replace(".", "").replace("-", ""));
+					if (dizimistaPesquisa != null) {
+						
+						txtNome.setEnabled(true);
+						fTxtNascimento.setEnabled(true);
+						boxSexo.setEnabled(true);
+						fTxtCelular.setEnabled(true);
+						txtSalario.setEnabled(true);
+						chckbxAtivo.setEnabled(true);
+						
+						txtEditCpf.setText(txtCpf.getText());
+						txtNome.setText(dizimistaPesquisa.getNome());
+						
+						DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/YYYY");
+						fTxtNascimento.setText(formatter.format(dizimistaPesquisa.getNascimento()));
+						if (dizimistaPesquisa.getSexo() == 'm') {
+							boxSexo.setSelectedItem("Masculino");
+						} else if (dizimistaPesquisa.getSexo() == 'f'){
+							boxSexo.setSelectedItem("Feminino");
 						}
+						fTxtCelular.setText(dizimistaPesquisa.getCelular());						
+						txtSalario.setText(String.valueOf(dizimistaPesquisa.getSalario()));
+						if(dizimistaPesquisa.isAtivo()) {
+							chckbxAtivo.setSelected(true);
+						} else {
+							chckbxAtivo.setSelected(false);
+						}
+						
+						btnSalvar.setEnabled(true);
 					} else {
 						JOptionPane.showMessageDialog(null, "CPF não encontrado!");
 					}
@@ -201,14 +186,14 @@ public class IntFormAdmFuncionario extends JInternalFrame {
 		btnSearch.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				btnSearch.setIcon(new ImageIcon(IntFormAdmFuncionario.class.getResource("/com/dizimaster/img/find-icon-2-hold.png")));
+				btnSearch.setIcon(new ImageIcon(IntFormAdmDizimista.class.getResource("/com/dizimaster/img/find-icon-2-hold.png")));
 			}
 			@Override
 			public void mouseExited(MouseEvent e) {
-				btnSearch.setIcon(new ImageIcon(IntFormAdmFuncionario.class.getResource("/com/dizimaster/img/find-icon-2.png")));
+				btnSearch.setIcon(new ImageIcon(IntFormAdmDizimista.class.getResource("/com/dizimaster/img/find-icon-2.png")));
 			}
 		});
-		btnSearch.setIcon(new ImageIcon(IntFormAdmFuncionario.class.getResource("/com/dizimaster/img/find-icon-2.png")));
+		btnSearch.setIcon(new ImageIcon(IntFormAdmDizimista.class.getResource("/com/dizimaster/img/find-icon-2.png")));
 		btnSearch.setRequestFocusEnabled(false);
 		btnSearch.setFocusable(false);
 		btnSearch.setFocusPainted(false);
@@ -348,31 +333,6 @@ public class IntFormAdmFuncionario extends JInternalFrame {
 		lblNome_1.setBounds(10, 130, 87, 30);
 		panelBottom.add(lblNome_1);
 		
-		btnRedefinir = new JToggleButton("Redefinir Senha");
-		btnRedefinir.setEnabled(false);
-		btnRedefinir.setFocusPainted(false);
-		btnRedefinir.setFocusTraversalKeysEnabled(false);
-		btnRedefinir.setBounds(387, 329, 125, 30);
-		panelBottom.add(btnRedefinir);
-		btnRedefinir.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseEntered(MouseEvent e) {
-				if(btnRedefinir.isEnabled()) {
-					btnRedefinir.setBackground(new Color(180, 180, 180));
-				}
-			}
-			@Override
-			public void mouseExited(MouseEvent e) {
-				btnRedefinir.setBackground(new Color(220, 220, 220));
-			}
-		});
-		btnRedefinir.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnRedefinir.setForeground(new Color(0, 0, 0));
-		btnRedefinir.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-		btnRedefinir.setFocusable(false);
-		btnRedefinir.setBorder(new LineBorder(new Color(60, 60, 60), 1, true));
-		btnRedefinir.setBackground(new Color(200, 200, 200));
-		
 		JLabel lblNascimento2 = new JLabel("Nascimento");
 		lblNascimento2.setForeground(new Color(0, 0, 0));
 		lblNascimento2.setFont(new Font("Segoe UI", Font.BOLD, 14));
@@ -417,30 +377,19 @@ public class IntFormAdmFuncionario extends JInternalFrame {
 		fTxtCelular.setBounds(107, 280, 150, 30);
 		panelBottom.add(fTxtCelular);
 		
-		JLabel lblEmail = new JLabel("Email");
-		lblEmail.setForeground(new Color(0, 0, 0));
-		lblEmail.setFont(new Font("Segoe UI", Font.BOLD, 14));
-		lblEmail.setBounds(10, 330, 87, 30);
-		panelBottom.add(lblEmail);
+		JLabel lblSalario = new JLabel("Salário");
+		lblSalario.setForeground(new Color(0, 0, 0));
+		lblSalario.setFont(new Font("Segoe UI", Font.BOLD, 14));
+		lblSalario.setBounds(10, 330, 87, 30);
+		panelBottom.add(lblSalario);
 		
-		txtEmail = new JTextField();
-		txtEmail.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-		txtEmail.setEnabled(false);
-		txtEmail.setBorder(new MatteBorder(0, 0, 1, 0, (Color) new Color(192, 192, 192)));
-		txtEmail.setBackground(new Color(255, 255, 255));
-		txtEmail.setBounds(107, 330, 270, 30);
-		panelBottom.add(txtEmail);
-		
-		chckbxAdmin = new JCheckBox("Administrador");
-		chckbxAdmin.setBackground(new Color(255, 255, 255));
-		chckbxAdmin.setEnabled(false);
-		chckbxAdmin.setFocusPainted(false);
-		chckbxAdmin.setFocusable(false);
-		chckbxAdmin.setRolloverEnabled(false);
-		chckbxAdmin.setRequestFocusEnabled(false);
-		chckbxAdmin.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-		chckbxAdmin.setBounds(245, 80, 120, 30);
-		panelBottom.add(chckbxAdmin);
+		txtSalario = new TxtSalarioFormat(8);
+		txtSalario.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+		txtSalario.setEnabled(false);
+		txtSalario.setBorder(new MatteBorder(0, 0, 1, 0, (Color) new Color(192, 192, 192)));
+		txtSalario.setBackground(new Color(255, 255, 255));
+		txtSalario.setBounds(107, 330, 100, 30);
+		panelBottom.add(txtSalario);
 		
 		chckbxAtivo = new JCheckBox("Ativo");
 		chckbxAtivo.setBackground(new Color(255, 255, 255));
@@ -450,46 +399,41 @@ public class IntFormAdmFuncionario extends JInternalFrame {
 		chckbxAtivo.setRolloverEnabled(false);
 		chckbxAtivo.setRequestFocusEnabled(false);
 		chckbxAtivo.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-		chckbxAtivo.setBounds(380, 80, 100, 30);
+		chckbxAtivo.setBounds(245, 80, 100, 30);
 		panelBottom.add(chckbxAtivo);
 		
 		btnSalvar = new JButton("SALVAR");
 		btnSalvar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(txtEditCpf.getText().length() == 14 && !txtNome.getText().isBlank() && fTxtCelular.getText().length() == 15 && !txtEmail.getText().isBlank() && fTxtNascimento.getText().length() == 10) {
-					if(util.isEmail(txtEmail.getText())) {
-						Funcionario funcionarioEdita = new Funcionario();
-						funcionarioEdita.setCpf(txtEditCpf.getText().replace("-", "").replace(".", ""));
-						funcionarioEdita.setNome(txtNome.getText());
-						funcionarioEdita.setCelular(fTxtCelular.getText().replace("(", "").replace(")", "").replace("-", "").replace(" ", ""));			
-						funcionarioEdita.setEmail(txtEmail.getText());
-						funcionarioEdita.setSenha(funcionarioPesquisa.getSenha());
-						funcionarioEdita.setNascimento(util.formataData(fTxtNascimento.getText()));
-						
+				if(txtEditCpf.getText().length() == 14 && !txtNome.getText().isBlank() && fTxtCelular.getText().length() == 15 && !txtSalario.getText().isBlank() && fTxtNascimento.getText().length() == 10) {
+					try {
+						Dizimista dizimistaEdita = new Dizimista();
+						dizimistaEdita.setCpf(txtEditCpf.getText().replace("-", "").replace(".", ""));
+						dizimistaEdita.setNome(txtNome.getText());
+						dizimistaEdita.setCelular(fTxtCelular.getText().replace("(", "").replace(")", "").replace("-", "").replace(" ", ""));			
+						LocalDate data = LocalDate.parse(fTxtNascimento.getText(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+						dizimistaEdita.setNascimento(data);
+						dizimistaEdita.setSalario(Float.parseFloat(txtSalario.getText().replace(",", ".")));
 						if (boxSexo.getSelectedIndex() == 0) {
-							funcionarioEdita.setSexo('m');
+							dizimistaEdita.setSexo('m');
 						} else {
-							funcionarioEdita.setSexo('f');
-						}
-						
-						if(chckbxAdmin.isSelected()) {
-							funcionarioEdita.setAdmin(true);
-						} else {
-							funcionarioEdita.setAdmin(false);
+							dizimistaEdita.setSexo('f');
 						}
 						
 						if(chckbxAtivo.isSelected()) {
-							funcionarioEdita.setAtivo(true);
+							dizimistaEdita.setAtivo(true);
 						} else {
-							funcionarioEdita.setAtivo(false);
+							dizimistaEdita.setAtivo(false);
 						}
-						if(DatabaseUtils.alterarFuncionario(funcionarioEdita, btnRedefinir.isSelected()) == true) {
+						if(DatabaseUtils.alterarDizimista(dizimistaEdita) == true) {
 							limpar();
 						} else {
 							
 						}
-					} else {
-						JOptionPane.showMessageDialog(null, "Insira um email válido!");
+					} catch (NumberFormatException e1) {
+						JOptionPane.showMessageDialog(null, "O salário inserido é inválido!");
+					}  catch (Exception e2) {
+						e2.printStackTrace();
 					}
 				} else {
 					JOptionPane.showMessageDialog(null, "Preencha todos os campos!");
@@ -519,7 +463,7 @@ public class IntFormAdmFuncionario extends JInternalFrame {
 		btnSalvar.setBackground(new Color(60, 122, 194));
 		
 		JLabel lblBackground = new JLabel("");
-		lblBackground.setIcon(new ImageIcon(IntFormAdmFuncionario.class.getResource("/com/dizimaster/img/heaven-bg.jpg")));
+		lblBackground.setIcon(new ImageIcon(IntFormAdmDizimista.class.getResource("/com/dizimaster/img/heaven-bg.jpg")));
 		lblBackground.setBounds(0, 0, 1020, 665);
 		getContentPane().add(lblBackground);
 		
@@ -533,12 +477,12 @@ public class IntFormAdmFuncionario extends JInternalFrame {
 		this.funcionario = funcionario;
 	}
 
-	public Funcionario getFuncionarioPesquisa() {
-		return funcionarioPesquisa;
+	public Dizimista getdizimistaPesquisa() {
+		return dizimistaPesquisa;
 	}
 
-	public void setFuncionarioPesquisa(Funcionario funcionarioPesquisa) {
-		this.funcionarioPesquisa = funcionarioPesquisa;
+	public void setdizimistaPesquisa(Dizimista dizimistaPesquisa) {
+		this.dizimistaPesquisa = dizimistaPesquisa;
 	}
 
 	public JTextField getfTxtNascimento() {

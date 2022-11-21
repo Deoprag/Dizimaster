@@ -22,7 +22,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
@@ -32,16 +31,16 @@ import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import org.jdesktop.swingx.JXButton;
 
-import com.dizimaster.util.DatabaseUtils;
-import com.dizimaster.util.GenericUtils;
-import com.dizimaster.util.TxtUsuarioFormat;
+import com.dizimaster.controller.DatabaseUtils;
+import com.dizimaster.swing.TxtUsuarioFormat;
+import com.dizimaster.util.Util;
 
 import javax.swing.border.LineBorder;
 import javax.swing.SwingConstants;
 import javax.swing.Timer;
 import java.awt.event.MouseMotionAdapter;
 
-public class LoginForm {
+public class FormLogin {
 
 	private JFrame frmLogin;
 	private JTextField txtUsuario;
@@ -49,12 +48,13 @@ public class LoginForm {
 	private JLabel lblData;
 	private JLabel lblHora;
 	private int yMouse, xMouse;
+	private Util util = new Util();
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					LoginForm window = new LoginForm();
+					FormLogin window = new FormLogin();
 					window.getFrmLogin().setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -63,7 +63,7 @@ public class LoginForm {
 		});
 	}
 
-	public LoginForm() {
+	public FormLogin() {
 		initialize();
 		data();
 		hora();
@@ -79,7 +79,7 @@ public class LoginForm {
 		new Timer(0, new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				getLblHora().setText(GenericUtils.horaAtual());
+				getLblHora().setText(util.horaAtual());
 			}
 		}).start();
 	}
@@ -177,7 +177,7 @@ public class LoginForm {
 		panelTop.add(btnFechar);
 		
 		JLabel lblIcon = new JLabel("");
-		lblIcon.setIcon(new ImageIcon(LoginForm.class.getResource("/com/dizimaster/img/icon.png")));
+		lblIcon.setIcon(new ImageIcon(FormLogin.class.getResource("/com/dizimaster/img/icon.png")));
 		lblIcon.setBounds(291, 7, 24, 24);
 		panelTop.add(lblIcon);
 		
@@ -188,7 +188,7 @@ public class LoginForm {
 		panelTop.add(lblTitle);
 		
 		lblData = new JLabel();
-		lblData.setText("16/11/2022");
+		lblData.setText("");
 		lblData.setHorizontalAlignment(SwingConstants.CENTER);
 		lblData.setForeground(Color.WHITE);
 		lblData.setFont(new Font("Segoe UI", Font.BOLD, 10));
@@ -249,24 +249,24 @@ public class LoginForm {
 		btnAjuda.setFocusTraversalKeysEnabled(false);
 		btnAjuda.setFocusable(false);
 		btnAjuda.setToolTipText("Utilize seu CPF sem pontuação no nome de usuário");
-		btnAjuda.setSelectedIcon(new ImageIcon(LoginForm.class.getResource("/com/dizimaster/img/info-hold-icon.png")));
+		btnAjuda.setSelectedIcon(new ImageIcon(FormLogin.class.getResource("/com/dizimaster/img/info-hold-icon.png")));
 		btnAjuda.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				btnAjuda.setIcon(new ImageIcon(LoginForm.class.getResource("/com/dizimaster/img/info-hold-icon.png")));
+				btnAjuda.setIcon(new ImageIcon(FormLogin.class.getResource("/com/dizimaster/img/info-hold-icon.png")));
 				btnAjuda.setBackground(new Color(255, 255, 255, 0));
 			}
 
 			@Override
 			public void mouseExited(MouseEvent e) {
-				btnAjuda.setIcon(new ImageIcon(LoginForm.class.getResource("/com/dizimaster/img/info-icon.png")));
+				btnAjuda.setIcon(new ImageIcon(FormLogin.class.getResource("/com/dizimaster/img/info-icon.png")));
 				btnAjuda.setBackground(new Color(255, 255, 255, 0));
 			}
 		});
 		btnAjuda.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnAjuda.setBorder(null);
 		btnAjuda.setBackground(new Color(255, 255, 255, 0));
-		btnAjuda.setIcon(new ImageIcon(LoginForm.class.getResource("/com/dizimaster/img/info-icon.png")));
+		btnAjuda.setIcon(new ImageIcon(FormLogin.class.getResource("/com/dizimaster/img/info-icon.png")));
 		btnAjuda.setBounds(188, 220, 24, 24);
 		panelLogin.add(btnAjuda);
 		btnAjuda.setFont(new Font("Rubik", Font.PLAIN, 12));
@@ -322,25 +322,25 @@ public class LoginForm {
 		lblLogo.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				GenericUtils.openWebpage("https://www.instagram.com/deopraglabs");
+				Util.openWebpage("https://www.instagram.com/deopraglabs");
 			}
 
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				lblLogo.setIcon(new ImageIcon(LoginForm.class.getResource("/com/dizimaster/img/logo-hold-small.png")));
+				lblLogo.setIcon(new ImageIcon(FormLogin.class.getResource("/com/dizimaster/img/logo-hold-small.png")));
 			}
 
 			public void mouseExited(MouseEvent e) {
-				lblLogo.setIcon(new ImageIcon(LoginForm.class.getResource("/com/dizimaster/img/logo-small.png")));
+				lblLogo.setIcon(new ImageIcon(FormLogin.class.getResource("/com/dizimaster/img/logo-small.png")));
 			}
 		});
-		lblLogo.setIcon(new ImageIcon(LoginForm.class.getResource("/com/dizimaster/img/logo-small.png")));
+		lblLogo.setIcon(new ImageIcon(FormLogin.class.getResource("/com/dizimaster/img/logo-small.png")));
 		
 				JLabel lblNewLabel = new JLabel("");
 				lblNewLabel.setBorder(null);
 				lblNewLabel.setBounds(0, 0, 230, 424);
 				panelLogin.add(lblNewLabel);
-				lblNewLabel.setIcon(new ImageIcon(LoginForm.class.getResource("/com/dizimaster/img/Login Sidebar.png")));
+				lblNewLabel.setIcon(new ImageIcon(FormLogin.class.getResource("/com/dizimaster/img/Login Sidebar.png")));
 		JLabel lblDeopragLabs = new JLabel("® Deoprag Labs");
 		lblDeopragLabs.setBounds(684, 424, 86, 25);
 		getFrmLogin().getContentPane().add(lblDeopragLabs);
@@ -350,10 +350,10 @@ public class LoginForm {
 		JLabel lblFundo = new JLabel("");
 		lblFundo.setBounds(2, 35, 770, 426);
 		getFrmLogin().getContentPane().add(lblFundo);
-		lblFundo.setIcon(new ImageIcon(LoginForm.class.getResource("/com/dizimaster/img/Login background.png")));
+		lblFundo.setIcon(new ImageIcon(FormLogin.class.getResource("/com/dizimaster/img/Login background.png")));
 		getFrmLogin().setBackground(Color.WHITE);
 		getFrmLogin().setIconImage(
-				Toolkit.getDefaultToolkit().getImage(LoginForm.class.getResource("/com/dizimaster/img/icon2.png")));
+				Toolkit.getDefaultToolkit().getImage(FormLogin.class.getResource("/com/dizimaster/img/icon2.png")));
 		getFrmLogin().setBounds(100, 100, 770, 460);
 		getFrmLogin().setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 

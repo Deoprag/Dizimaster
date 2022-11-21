@@ -5,11 +5,12 @@ import java.awt.EventQueue;
 import javax.swing.JInternalFrame;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 
+import com.dizimaster.controller.DatabaseUtils;
 import com.dizimaster.model.Despesa;
 import com.dizimaster.model.Funcionario;
-import com.dizimaster.util.DatabaseUtils;
-import com.dizimaster.util.GenericUtils;
-import com.dizimaster.util.TxtObservacao;
+import com.dizimaster.swing.TxtObservacao;
+import com.dizimaster.util.Util;
+
 import javax.swing.JPanel;
 import java.awt.Color;
 import javax.swing.border.EtchedBorder;
@@ -39,6 +40,7 @@ public class IntFormDespesa extends JInternalFrame {
 
 	private static final long serialVersionUID = 1L;
 	private Funcionario funcionario;
+	private Util util = new Util();
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -174,7 +176,7 @@ public class IntFormDespesa extends JInternalFrame {
 		lblLogo.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				GenericUtils.openWebpage("https://www.instagram.com/deopraglabs");
+				Util.openWebpage("https://www.instagram.com/deopraglabs");
 			}
 
 			@Override
@@ -204,8 +206,8 @@ public class IntFormDespesa extends JInternalFrame {
 						despesa.setValor(Float.parseFloat(txtValor.getText().replace(",",".")));
 						despesa.setDescricao(txtDescricao.getText());
 						despesa.setFuncionario(funcionario.getId());
-						despesa.setData(GenericUtils.dataAtual());
-						despesa.setHora(GenericUtils.horaAtual());
+						despesa.setData(util.dataAtual());
+						despesa.setHora(util.horaAtual());
 						if(DatabaseUtils.registraDespesa(despesa)) {
 							txtValor.setText("");
 							txtDescricao.setText("");

@@ -1,15 +1,15 @@
-package com.dizimaster.util;
+package com.dizimaster.swing;
 
 import java.awt.event.KeyEvent;
 
 import javax.swing.JTextField;
 
-public class TxtSalarioFormat extends JTextField {
+public class TxtUsuarioFormat extends JTextField {
 
 	private static final long serialVersionUID = 1L;
 	private int maximoCaracteres = -1;
 
-	public TxtSalarioFormat() {
+	public TxtUsuarioFormat() {
 		super();
 		addKeyListener(new java.awt.event.KeyAdapter() {
 			@Override
@@ -19,7 +19,7 @@ public class TxtSalarioFormat extends JTextField {
 		});
 	}
 
-	public TxtSalarioFormat(int maximo) {
+	public TxtUsuarioFormat(int maximo) {
 		super();
 		setMaximoCaracteres(maximo);
 
@@ -33,7 +33,7 @@ public class TxtSalarioFormat extends JTextField {
 
 	private void jTextFieldKeyTyped(KeyEvent evt) {
 
-		String caracteres = "0987654321,.";
+		String caracteres = "0987654321";
 		if (!caracteres.contains(evt.getKeyChar() + "")) {
 			evt.consume();
 		}

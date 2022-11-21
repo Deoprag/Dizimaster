@@ -13,8 +13,9 @@ import java.awt.Font;
 import javax.swing.JPasswordField;
 import javax.swing.border.MatteBorder;
 
-import com.dizimaster.util.DatabaseUtils;
-import com.dizimaster.util.GenericUtils;
+import com.dizimaster.controller.DatabaseUtils;
+import com.dizimaster.model.Funcionario;
+import com.dizimaster.util.Util;
 
 import javax.swing.JButton;
 import javax.swing.border.LineBorder;
@@ -29,20 +30,14 @@ import java.awt.event.FocusEvent;
 
 public class FormAlterarSenha extends JFrame {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JPasswordField txtSenha;
 	private JPasswordField txtConfSenha;
-	private String cpf;
-	private String senha;
+	private Funcionario funcionario;
 	private int yMouse, xMouse;
+	private Util util = new Util();
 
-	/**
-	 * Launch the application.
-	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -141,8 +136,8 @@ public class FormAlterarSenha extends JFrame {
 		btnEnviar.addActionListener(new ActionListener() {
 			@SuppressWarnings("deprecation")
 			public void actionPerformed(ActionEvent e) {
-				if (GenericUtils.reqSenha(txtSenha.getText(), txtConfSenha.getText(), senha) == true) {
-					if (DatabaseUtils.alterarSenha(cpf, senha, txtSenha.getText()) == true) {
+				if (util.reqSenha(txtSenha.getText(), txtConfSenha.getText(), funcionario.getSenha()) == true) {
+					if (DatabaseUtils.alterarSenha(funcionario.getCpf(), funcionario.getSenha(), txtSenha.getText()) == true) {
 						JOptionPane.showMessageDialog(null,
 								"Senha alterada com sucesso! Realize seu login com a nova senha.");
 						sair();
@@ -242,9 +237,9 @@ public class FormAlterarSenha extends JFrame {
 		panelUpBar.add(btnSair);
 		btnSair.setLayout(null);
 
-		JLabel lblNewLabel_2 = new JLabel("X");
-		lblNewLabel_2.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		lblNewLabel_2.addMouseListener(new MouseAdapter() {
+		JLabel lblX = new JLabel("X");
+		lblX.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		lblX.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				sair();
@@ -261,28 +256,20 @@ public class FormAlterarSenha extends JFrame {
 			}
 
 		});
-		lblNewLabel_2.setBorder(null);
-		lblNewLabel_2.setForeground(new Color(255, 255, 255));
-		lblNewLabel_2.setFont(new Font("Segoe UI Black", Font.BOLD, 14));
-		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_2.setHorizontalTextPosition(SwingConstants.CENTER);
-		lblNewLabel_2.setBounds(0, 0, 30, 30);
-		btnSair.add(lblNewLabel_2);
+		lblX.setBorder(null);
+		lblX.setForeground(new Color(255, 255, 255));
+		lblX.setFont(new Font("Segoe UI Black", Font.BOLD, 14));
+		lblX.setHorizontalAlignment(SwingConstants.CENTER);
+		lblX.setHorizontalTextPosition(SwingConstants.CENTER);
+		lblX.setBounds(0, 0, 30, 30);
+		btnSair.add(lblX);
 	}
 
-	public void setCpf(String user) {
-		this.cpf = user;
+	public Funcionario getFuncionario() {
+		return funcionario;
 	}
 
-	public String getCpf() {
-		return cpf;
-	}
-
-	public void setSenha(String password) {
-		this.senha = password;
-	}
-
-	public String getSenha() {
-		return senha;
+	public void setFuncionario(Funcionario funcionario) {
+		this.funcionario = funcionario;
 	}
 }

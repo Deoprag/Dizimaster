@@ -7,14 +7,11 @@ import javax.swing.JInternalFrame;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.JLabel;
 import javax.swing.ImageIcon;
-import java.awt.Font;
 
-@SuppressWarnings("serial")
 public class IntFormFluxo extends JInternalFrame {
 
-	/**
-	 * Launch the application.
-	 */
+	private static final long serialVersionUID = 1L;
+
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -28,9 +25,6 @@ public class IntFormFluxo extends JInternalFrame {
 		});
 	}
 
-	/**
-	 * Create the frame.
-	 */
 	public IntFormFluxo() {
 		getContentPane().setBackground(Color.DARK_GRAY);
 		setBounds(0, 0, 1020, 665);
@@ -44,13 +38,5 @@ public class IntFormFluxo extends JInternalFrame {
 		lblNewLabel.setBounds(0, 0, 1020, 665);
 		getContentPane().add(lblNewLabel);
 		
-//											TESTE:
-//		PieChart pieChart = new PieChart();
-//		pieChart1.setChartType(PieChart.PeiChartType.DONUT_CHART);
-//
-//		pieChart1.addData(new ModelPieChart("Fanta", 150, new Color(23, 126, 238)));
-//		pieChart1.addData(new ModelPieChart("Other", 100, new Color(221, 65, 65)));
-//		pieChart1.addData(new ModelPieChart("Coca", 80, new Color(47, 157, 64)));
-//		pieChart1.addData(new ModelPieChart("Vita", 60, new Color(196, 151, 58)));
 	}
 }

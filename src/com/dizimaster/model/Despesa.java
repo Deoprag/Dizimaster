@@ -3,13 +3,15 @@ package com.dizimaster.model;
 import java.time.LocalDate;
 
 public class Despesa {
+	private int id;
 	private float valor;
 	private LocalDate data;
 	private String hora;
 	private String descricao;
 	private int funcionario;
 
-	public Despesa(String nomeDespesa, float valor, LocalDate data, String descricao, int funcionario, String hora) {
+	public Despesa(int id, String nomeDespesa, float valor, LocalDate data, String descricao, int funcionario, String hora) {
+		this.setId(id);
 		this.setValor(valor);
 		this.setData(data);
 		this.setHora(hora);
@@ -19,6 +21,14 @@ public class Despesa {
 	
 	public Despesa() {
 		
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public float getValor() {

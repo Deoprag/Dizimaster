@@ -1,24 +1,36 @@
 package com.dizimaster.model;
 
-import java.sql.Date;
+import java.time.LocalDate;
 
 public class Dizimo {
+	private int id;
 	private int dizimista;
 	private int funcionario;
 	private float valor;
 	private String observacao;
-	private Date data;
+	private LocalDate data;
+	private String hora;
 
-	public Dizimo(int dizimista, int funcionario, float valor, String obs, Date data) {
+	public Dizimo(int id, int dizimista, int funcionario, float valor, String obs, LocalDate data, String hora) {
+		this.setId(id);
 		this.setDizimista(dizimista);
 		this.setFuncionario(funcionario);
 		this.setValor(valor);
 		this.setObservacao(obs);
 		this.setData(data);
+		this.setHora(hora);
 	}
 
 	public Dizimo() {
 		
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public int getDizimista() {
@@ -37,11 +49,11 @@ public class Dizimo {
 		this.funcionario = funcionario;
 	}
 
-	public Date getData() {
+	public LocalDate getData() {
 		return data;
 	}
 
-	public void setData(Date data) {
+	public void setData(LocalDate data) {
 		this.data = data;
 	}
 
@@ -59,5 +71,13 @@ public class Dizimo {
 
 	public void setValor(float valor) {
 		this.valor = valor;
+	}
+
+	public String getHora() {
+		return hora;
+	}
+
+	public void setHora(String hora) {
+		this.hora = hora;
 	}
 }

@@ -1,14 +1,13 @@
-package com.dizimaster.util;
+package com.dizimaster.controller;
 
 import java.sql.*;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-
 import javax.swing.JOptionPane;
 
 import com.dizimaster.model.Despesa;
 import com.dizimaster.model.Dizimista;
+import com.dizimaster.model.Dizimo;
 import com.dizimaster.model.Funcionario;
+import com.dizimaster.model.Oferta;
 import com.dizimaster.view.*;
 
 public class DatabaseUtils {
@@ -16,7 +15,7 @@ public class DatabaseUtils {
 	private static String user = "root";
 	private static String password = "";
 	private static Funcionario funcionario;
-
+	
 	public static Connection conecta() throws SQLException {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
@@ -39,28 +38,28 @@ public class DatabaseUtils {
 			ResultSet rs = stmt.executeQuery();
 			
 			if (rs.next()) {
+				funcionario = new Funcionario();
+				funcionario.setId(rs.getInt("id"));
+				funcionario.setCpf(rs.getString("cpf"));
+				funcionario.setNome(rs.getString("nome"));
+				funcionario.setNascimento(rs.getDate("nascimento").toLocalDate());
+				funcionario.setSexo(rs.getString("sexo").charAt(0));
+				funcionario.setEmail(rs.getString("email"));
+				funcionario.setDataCadastro(rs.getDate("dataCadastro").toLocalDate());
+				funcionario.setAtivo(rs.getBoolean("ativo"));
+				funcionario.setAdmin(rs.getBoolean("isAdmin"));
 				if(rs.getBoolean("ativo") == true) {
 					if (!password.equals("dizi@2022")) {
-						funcionario = new Funcionario();
-						funcionario.setId(rs.getInt("id"));
-						funcionario.setCpf(rs.getString("cpf"));
-						funcionario.setNome(rs.getString("nome"));
-						funcionario.setNascimento(rs.getDate("nascimento").toLocalDate());
-						funcionario.setSexo(rs.getString("sexo").charAt(0));
-						funcionario.setEmail(rs.getString("email"));
-						funcionario.setDataCadastro(rs.getDate("dataCadastro").toLocalDate());
-						funcionario.setAtivo(rs.getBoolean("ativo"));
-						funcionario.setAdmin(rs.getBoolean("isAdmin"));
-						SistemaForm window = new SistemaForm();
+						FormSistema window = new FormSistema();
+						window.setFuncionario(funcionario);
 						window.getFrmDizimasterSistema().setVisible(true);
 						stmt.close();
 						con.close();
 						return true;
 					} else {
 						FormAlterarSenha window = new FormAlterarSenha();
-						window.setCpf(user);
-						window.setSenha(password);
-						window.setVisible(true);
+						window.setFuncionario(funcionario);
+						window.setVisible(true);	
 					}
 				} else {
 					JOptionPane.showMessageDialog(null, "Cadastro desativado! Entre em contato com um administrador");
@@ -79,24 +78,20 @@ public class DatabaseUtils {
 		return false;
 	}
 
-	public static boolean cadastroFuncionario(String cpf, String nome, String nascimento, String sexo, String numero,
-			String email, boolean admin) {
+	public static boolean cadastroFuncionario(Funcionario cadFuncionario) {
 		try {
-			LocalDate data = LocalDate.parse(nascimento, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-
 			Connection con = DatabaseUtils.conecta();
 			String sql = "insert into funcionario(cpf, nome, nascimento, sexo, celular, email, dataCadastro, isAdmin) values (?,?,?,?,?,?,?,?)";
-
 			PreparedStatement stmt = con.prepareCall(sql);
 
-			stmt.setString(1, cpf.replace(".", "").replace("-", ""));
-			stmt.setString(2, nome);
-			stmt.setDate(3, java.sql.Date.valueOf(data));
-			stmt.setString(4, sexo);
-			stmt.setString(5, numero.replace("(", "").replace(")", "").replace(" ", "").replace("-", ""));
-			stmt.setString(6, email);
-			stmt.setDate(7, Date.valueOf(GenericUtils.dataAtual()));
-			stmt.setBoolean(8, admin);
+			stmt.setString(1, cadFuncionario.getCpf());
+			stmt.setString(2, cadFuncionario.getNome());
+			stmt.setDate(3, java.sql.Date.valueOf(cadFuncionario.getNascimento()));
+			stmt.setString(4, String.valueOf(cadFuncionario.getSexo()));
+			stmt.setString(5, cadFuncionario.getCelular());
+			stmt.setString(6, cadFuncionario.getEmail());
+			stmt.setDate(7, Date.valueOf(cadFuncionario.getDataCadastro()));
+			stmt.setBoolean(8, cadFuncionario.isAdmin());
 
 			stmt.execute();
 			stmt.close();
@@ -114,25 +109,21 @@ public class DatabaseUtils {
 		}
 	}
 
-	public static boolean cadastroDizimista(String cpf, String nome, String nascimento, String sexo, String numero,
-			String salario) {
+	public static boolean cadastroDizimista(Dizimista cadDizimista) {
 		try {
-
-			LocalDate data = LocalDate.parse(nascimento, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-
 			Connection con = DatabaseUtils.conecta();
-			String sql = "insert into dizimista(cpf, nome, nascimento, sexo, celular, salario, dataCadastro) values (?,?,?,?,?,?,?)";
-
+			String sql = "insert into dizimista(cpf, nome, nascimento, sexo, celular, salario, dataCadastro, ativo) values (?,?,?,?,?,?,?,?)";
 			PreparedStatement stmt = con.prepareCall(sql);
 
-			stmt.setString(1, cpf.replace(".", "").replace("-", ""));
-			stmt.setString(2, nome);
-			stmt.setDate(3, java.sql.Date.valueOf(data));
-			stmt.setString(4, sexo);
-			stmt.setString(5, numero.replace("(", "").replace(")", "").replace(" ", "").replace("-", ""));
-			stmt.setFloat(6, Float.parseFloat(salario.replace(",", ".")));
-			stmt.setDate(7, Date.valueOf(GenericUtils.dataAtual()));
-
+			stmt.setString(1, cadDizimista.getCpf());
+			stmt.setString(2, cadDizimista.getNome());
+			stmt.setDate(3, java.sql.Date.valueOf(cadDizimista.getNascimento()));
+			stmt.setString(4, String.valueOf(cadDizimista.getSexo()));
+			stmt.setString(5, cadDizimista.getCelular());
+			stmt.setFloat(6, cadDizimista.getSalario());
+			stmt.setDate(7, Date.valueOf(cadDizimista.getDataCadastro()));
+			stmt.setBoolean(8, cadDizimista.isAtivo());
+			
 			stmt.execute();
 			stmt.close();
 			con.close();
@@ -150,31 +141,6 @@ public class DatabaseUtils {
 			e.printStackTrace();
 			return false;
 		}
-	}
-
-	public static Dizimista procurarDizimista(String cpf) {
-		try {
-			Dizimista dizimista = new Dizimista();
-			Connection con = DatabaseUtils.conecta();
-			Statement stmt = con.createStatement();
-			ResultSet rs = stmt.executeQuery("select * from dizimista where cpf = " + cpf);
-			if (rs.next()) {
-				if (rs.getBoolean("ativo") == true) {
-					dizimista.setId(rs.getInt("id"));
-					dizimista.setNome(rs.getString("nome"));
-					dizimista.setSalario(rs.getFloat("salario"));
-					return dizimista;
-				}
-			} else {
-				JOptionPane.showMessageDialog(null, "CPF não encontrado!");
-			}
-			con.close();
-			stmt.close();
-		} catch (Exception e) {
-			JOptionPane.showMessageDialog(null, "Erro ao procurar CPF!");
-			e.printStackTrace();
-		}
-		return null;
 	}
 
 	public static boolean alterarSenha(String cpf, String senha, String senhaNova) {
@@ -198,19 +164,19 @@ public class DatabaseUtils {
 		return false;
 	}
 
-	public static boolean registraDizimo(int funcionario, float valor, String obs, int dizimista) {
+	public static boolean registraDizimo(Dizimo dizimo) {
 		try {
 			Connection con = DatabaseUtils.conecta();
 			String sql = "insert into dizimo(dizimista, valor, observacao, funcionario, data, hora) values (?,?,?,?,?,?)";
 
 			PreparedStatement stmt = con.prepareCall(sql);
 
-			stmt.setInt(1, dizimista);
-			stmt.setFloat(2, valor);
-			stmt.setString(3, obs);
-			stmt.setInt(4, funcionario);
-			stmt.setDate(5, Date.valueOf(GenericUtils.dataAtual()));
-			stmt.setTime(6, Time.valueOf(GenericUtils.horaAtual()));
+			stmt.setInt(1, dizimo.getDizimista());
+			stmt.setFloat(2, dizimo.getValor());
+			stmt.setString(3, dizimo.getObservacao());
+			stmt.setInt(4, dizimo.getFuncionario());
+			stmt.setDate(5, Date.valueOf(dizimo.getData()));
+			stmt.setTime(6, Time.valueOf(dizimo.getHora()));
 
 			stmt.execute();
 			stmt.close();
@@ -227,22 +193,21 @@ public class DatabaseUtils {
 		}
 	}
 
-	public static boolean registraOferta(int funcionario, boolean isDizimista, String nome, float valor, String obs,
-			int dizimista) {
+	public static boolean registraOferta(Oferta oferta) {
 		try {
 			Connection con = DatabaseUtils.conecta();
 			String sql = "insert into oferta(dizimista, isDizimista, nome, valor, observacao, funcionario, data, hora) values (?,?,?,?,?,?,?,?)";
 
 			PreparedStatement stmt = con.prepareCall(sql);
 
-			stmt.setInt(1, dizimista);
-			stmt.setBoolean(2, isDizimista);
-			stmt.setString(3, nome);
-			stmt.setFloat(4, valor);
-			stmt.setString(5, obs);
-			stmt.setInt(6, funcionario);
-			stmt.setDate(7, Date.valueOf(GenericUtils.dataAtual()));
-			stmt.setTime(8, Time.valueOf(GenericUtils.horaAtual()));
+			stmt.setInt(1, oferta.getDizimista());
+			stmt.setBoolean(2, oferta.isDizimista());
+			stmt.setString(3, oferta.getNome());
+			stmt.setFloat(4, oferta.getValor());
+			stmt.setString(5, oferta.getObservacao());
+			stmt.setInt(6, oferta.getFuncionario());
+			stmt.setDate(7, Date.valueOf(oferta.getData()));
+			stmt.setTime(8, Time.valueOf(oferta.getHora()));
 
 			stmt.execute();
 			stmt.close();
@@ -332,6 +297,63 @@ public class DatabaseUtils {
 			stmt.setBoolean(7, altFuncionario.isAtivo());
 			stmt.setString(8, altFuncionario.getSenha());
 			stmt.setString(9, altFuncionario.getCpf());
+			
+			stmt.execute();
+			stmt.close();
+			con.close();
+			JOptionPane.showMessageDialog(null, "Dados atualizados com sucesso!");
+			return true;
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, "Erro ao atualizar os dados!");
+			e.printStackTrace();
+		}
+		return false;
+	}
+	
+	public static Dizimista pesquisaDizimista(String cpf) {
+		Dizimista dizimistaPesquisa;
+		dizimistaPesquisa = null;
+		
+		try {
+			Connection con = DatabaseUtils.conecta();
+			Statement stmt = con.createStatement();
+			ResultSet rs = stmt.executeQuery("select * from dizimista where cpf = " + cpf);
+			
+			if(rs.next()) {
+				dizimistaPesquisa = new Dizimista();
+				dizimistaPesquisa.setId(rs.getInt("id"));
+				dizimistaPesquisa.setCpf(rs.getString("cpf"));
+				dizimistaPesquisa.setNome(rs.getString("nome"));
+				dizimistaPesquisa.setNascimento(rs.getDate("nascimento").toLocalDate());
+				dizimistaPesquisa.setSexo(rs.getString("sexo").charAt(0));
+				dizimistaPesquisa.setCelular(rs.getString("celular"));
+				dizimistaPesquisa.setSalario(rs.getFloat("salario"));
+				dizimistaPesquisa.setDataCadastro(rs.getDate("dataCadastro").toLocalDate());
+				dizimistaPesquisa.setAtivo(rs.getBoolean("ativo"));
+				
+				con.close();
+				stmt.close();
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return dizimistaPesquisa;
+	}
+	
+	public static boolean alterarDizimista(Dizimista altDizimista) {
+		try {
+			Connection con = DatabaseUtils.conecta();
+			String sql = "update dizimista set nome = ?, celular = ?, salario = ?, nascimento = ?, sexo = ?, ativo = ? where cpf = ?";
+			PreparedStatement stmt = con.prepareCall(sql);
+			
+			stmt.setString(1, altDizimista.getNome());
+			stmt.setString(2, altDizimista.getCelular());
+			stmt.setFloat(3, altDizimista.getSalario());
+			stmt.setDate(4, Date.valueOf(altDizimista.getNascimento()));
+			stmt.setString(5, String.valueOf(altDizimista.getSexo()));
+			stmt.setBoolean(6, altDizimista.isAtivo());
+			stmt.setString(7, altDizimista.getCpf());
 			
 			stmt.execute();
 			stmt.close();

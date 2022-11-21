@@ -8,7 +8,6 @@ import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.text.ParseException;
-
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -22,9 +21,10 @@ import javax.swing.border.EtchedBorder;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.text.MaskFormatter;
 
-import com.dizimaster.util.DatabaseUtils;
-import com.dizimaster.util.GenericUtils;
-import com.dizimaster.util.TxtNome;
+import com.dizimaster.controller.DatabaseUtils;
+import com.dizimaster.model.Funcionario;
+import com.dizimaster.swing.TxtNome;
+import com.dizimaster.util.Util;
 
 import javax.swing.border.LineBorder;
 import javax.swing.border.MatteBorder;
@@ -38,16 +38,16 @@ import javax.swing.JOptionPane;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListCellRenderer;
-import javax.swing.JToggleButton;
 import javax.swing.JCheckBox;
-import javax.swing.JSeparator;
 
-@SuppressWarnings("serial")
 public class IntFormCadastroFuncionario extends JInternalFrame {
+	
+	private static final long serialVersionUID = 1L;
 	private JTextField txtEmail;
 	private JTextField txtConfEmail;
 	private JTextField txtNome;
 	private JCheckBox chckbxAdmin;
+	private Util util = new Util();
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -236,7 +236,7 @@ public class IntFormCadastroFuncionario extends JInternalFrame {
 		lblLogo.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				GenericUtils.openWebpage("https://www.instagram.com/deopraglabs");
+				Util.openWebpage("https://www.instagram.com/deopraglabs");
 			}
 
 			@Override
@@ -259,21 +259,25 @@ public class IntFormCadastroFuncionario extends JInternalFrame {
 		btnEnviar.setFocusable(false);
 		btnEnviar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				Funcionario cadFuncionario = new Funcionario();
 				if(fTxtCpf.getText().replaceAll(" ", "").length() == 14 && 
 						!txtNome.getText().isBlank() && 
 						fTxtNascimento.getText().replaceAll(" ", "").length() == 10 &&
 						fTxtCelular.getText().replaceAll(" ", "").length() == 14 	) {
-						if (GenericUtils.isCPF(fTxtCpf.getText().replace(".", "").replace("-", "")) == true) {
+						if (util.isCPF(fTxtCpf.getText().replace(".", "").replace("-", "")) == true) {
 							if (txtEmail.getText().equals(txtConfEmail.getText())) {
-								if(GenericUtils.isEmail(txtEmail.getText()) == true) {
-									String sexo = (boxSexo.getSelectedIndex() == 0 ? "m" : "f");
-									boolean admin;
-									if	(chckbxAdmin.isSelected()) {
-										admin = true;
-									} else {
-										admin = false;
-									}
-									if (DatabaseUtils.cadastroFuncionario(fTxtCpf.getText(), txtNome.getText(), fTxtNascimento.getText(), sexo, fTxtCelular.getText(), txtEmail.getText(), admin) == true) {
+								if(util.isEmail(txtEmail.getText()) == true) {
+									cadFuncionario.setCpf(fTxtCpf.getText().replace(".", "").replace("-", ""));
+									cadFuncionario.setNome(txtNome.getText());
+									cadFuncionario.setNascimento(util.formataData(fTxtNascimento.getText()));
+									cadFuncionario.setSexo(boxSexo.getSelectedIndex() == 0 ? 'm' : 'f');
+									cadFuncionario.setCelular(fTxtCelular.getText().replace("(", "").replace(")", "").replace(" ", "").replace("-", ""));
+									cadFuncionario.setEmail(txtEmail.getText());
+									cadFuncionario.setDataCadastro(util.dataAtual());
+									cadFuncionario.setSenha("dizi@2022");
+									cadFuncionario.setAtivo(true);
+									cadFuncionario.setAdmin(chckbxAdmin.isSelected() ? true : false);
+									if (DatabaseUtils.cadastroFuncionario(cadFuncionario) == true) {
 										fTxtCpf.setText("");
 										txtNome.setText("");
 										fTxtNascimento.setText("");

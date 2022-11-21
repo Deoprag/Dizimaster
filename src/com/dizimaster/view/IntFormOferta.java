@@ -6,13 +6,14 @@ import javax.swing.JInternalFrame;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.text.MaskFormatter;
 
+import com.dizimaster.controller.DatabaseUtils;
 import com.dizimaster.model.Dizimista;
 import com.dizimaster.model.Funcionario;
-import com.dizimaster.util.DatabaseUtils;
-import com.dizimaster.util.GenericUtils;
-import com.dizimaster.util.TxtNome;
-import com.dizimaster.util.TxtObservacao;
-import com.dizimaster.util.TxtSalarioFormat;
+import com.dizimaster.model.Oferta;
+import com.dizimaster.swing.TxtNome;
+import com.dizimaster.swing.TxtObservacao;
+import com.dizimaster.swing.TxtSalarioFormat;
+import com.dizimaster.util.Util;
 
 import javax.swing.JPanel;
 import java.awt.Color;
@@ -45,9 +46,9 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JCheckBox;
 
-@SuppressWarnings("serial")
 public class IntFormOferta extends JInternalFrame {
 
+	private static final long serialVersionUID = 1L;
 	private JTextField txtCpf;
 	private Funcionario funcionario;
 	private JTextField txtNome;
@@ -55,6 +56,7 @@ public class IntFormOferta extends JInternalFrame {
 	private JLabel lblCpf;
 	private JButton btnSearch;
 	private Dizimista dizimista;
+	private Util util = new Util();
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -189,6 +191,7 @@ public class IntFormOferta extends JInternalFrame {
 		MaskFormatter mascaraCpf = null;
 		try {
 			mascaraCpf = new MaskFormatter("###.###.###-##");
+			mascaraCpf.setPlaceholderCharacter('*');
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
@@ -212,7 +215,6 @@ public class IntFormOferta extends JInternalFrame {
 			}
 		});
 		txtCpf.setForeground(new Color(192, 192, 192));
-		txtCpf.setText("00000000000");
 		txtCpf.setBorder(new MatteBorder(0, 0, 1, 0, (Color) new Color(10, 60, 70)));
 		txtCpf.setFont(new Font("Segoe UI", Font.PLAIN, 12));
 		txtCpf.setBackground(new Color(25, 120, 150));
@@ -282,7 +284,7 @@ public class IntFormOferta extends JInternalFrame {
 		lblLogo.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				GenericUtils.openWebpage("https://www.instagram.com/deopraglabs");
+				Util.openWebpage("https://www.instagram.com/deopraglabs");
 			}
 
 			@Override
@@ -305,22 +307,22 @@ public class IntFormOferta extends JInternalFrame {
 		btnEnviar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					String obs = null;
-					int id = 0;
-					boolean isDizimista = chckbxDizimista.isSelected() ? true : false;
-					if (!txtObs.getText().isBlank() && txtObs.getForeground() == Color.WHITE) {
-						obs = txtObs.getText();
-					}
 					if (Float.parseFloat(txtValor.getText()) >= 1) {
-						if (isDizimista == true) {
-							if (txtCpf.getText().trim().length() < 14) {
-								JOptionPane.showMessageDialog(null, "Preencha o CPF!");
-							}
-							id = dizimista.getId();
-						}
 						if (!txtNome.getText().isBlank() && !txtValor.getText().isBlank()) {
-							if (DatabaseUtils.registraOferta(funcionario.getId(), isDizimista, txtNome.getText(),
-									Float.parseFloat(txtValor.getText().replace(",", ".")), obs, id) == true) {
+							Oferta oferta = new Oferta();
+							oferta.setIsDizimista(chckbxDizimista.isSelected() ? true : false); 
+							if (oferta.isDizimista() == true) {
+								oferta.setDizimista(dizimista.getId());;
+							}
+							oferta.setNome(txtNome.getText());
+							oferta.setValor(Float.parseFloat(txtValor.getText()));
+							if (!txtObs.getText().isBlank() && txtObs.getForeground() == Color.WHITE) {
+								oferta.setObservacao(txtObs.getText());
+							}
+							oferta.setFuncionario(funcionario.getId());
+							oferta.setData(util.dataAtual());
+							oferta.setHora(util.horaAtual());
+							if (DatabaseUtils.registraOferta(oferta) == true) {
 								txtCpf.setText("");
 								txtNome.setText("");
 								txtValor.setText("");
@@ -380,10 +382,13 @@ public class IntFormOferta extends JInternalFrame {
 				txtNome.setText("");
 				txtValor.setText("");
 				try {
-					dizimista = DatabaseUtils.procurarDizimista(txtCpf.getText().replace("-", "").replace(".", ""));
-
-					txtNome.setForeground(Color.WHITE);
-					txtNome.setText(dizimista.getNome());
+					dizimista = DatabaseUtils.pesquisaDizimista(txtCpf.getText().replace("-", "").replace(".", ""));
+					if(dizimista.isAtivo()) {
+						txtNome.setForeground(Color.WHITE);
+						txtNome.setText(dizimista.getNome());
+					} else {
+						JOptionPane.showMessageDialog(null, "Cadastro desativado!");
+					}
 				} catch (Exception e1) {
 					e1.printStackTrace();
 				}
@@ -414,7 +419,7 @@ public class IntFormOferta extends JInternalFrame {
 					btnSearch.setEnabled(true);
 					txtCpf.requestFocus();
 					txtCpf.setForeground(new Color(192, 192, 192));
-					txtCpf.setText("000.000.000-00");
+					txtCpf.setText("");
 					txtNome.setText("");
 					chckbxDizimista.setBounds(220, 260, 75, 23);
 				} else {

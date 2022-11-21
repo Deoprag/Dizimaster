@@ -10,7 +10,7 @@ import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.swing.JOptionPane;
 
-public class GenericUtils {
+public class Util {
 
 	public static void openWebpage(String urlString) {
 		try {
@@ -20,7 +20,7 @@ public class GenericUtils {
 		}
 	}
 	
-	public static boolean isEmail(String email) {
+	public boolean isEmail(String email) {
 		   boolean result = true;
 		   try {
 		      InternetAddress emailAddr = new InternetAddress(email);
@@ -31,7 +31,7 @@ public class GenericUtils {
 		   return result;
 		}
 
-	public static boolean isCPF(String cpf) {
+	public boolean isCPF(String cpf) {
 
 		if (cpf.equals("00000000000") || cpf.equals("11111111111") || cpf.equals("22222222222")
 				|| cpf.equals("33333333333") || cpf.equals("44444444444") || cpf.equals("55555555555")
@@ -79,7 +79,12 @@ public class GenericUtils {
 		}
 	}
 
-	public static boolean reqSenha(String senha, String confSenha, String senhaAnterior) {
+	public LocalDate formataData(String stringData) {
+		LocalDate data = LocalDate.parse(stringData, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+		return data;
+	}
+	
+	public boolean reqSenha(String senha, String confSenha, String senhaAnterior) {
 		char[] letras = { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's',
 				't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N',
 				'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z' };
@@ -125,13 +130,13 @@ public class GenericUtils {
 		return false;
 	}
 
-	public static LocalDate dataAtual() {
+	public LocalDate dataAtual() {
 		String dataAtual = new SimpleDateFormat("dd/MM/yyyy").format(new java.util.Date());
 		LocalDate dataAtualFormatada = LocalDate.parse(dataAtual, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
 		return dataAtualFormatada;
 	}
 
-	public static String horaAtual() {
+	public String horaAtual() {
 		SimpleDateFormat s = new SimpleDateFormat("k:mm:ss");
 		java.util.Date d = new java.util.Date();
 		return s.format(d);
