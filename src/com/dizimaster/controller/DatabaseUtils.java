@@ -48,6 +48,7 @@ public class DatabaseUtils {
 				funcionario.setSexo(rs.getString("sexo").charAt(0));
 				funcionario.setEmail(rs.getString("email"));
 				funcionario.setDataCadastro(rs.getDate("dataCadastro").toLocalDate());
+				funcionario.setSenha(rs.getString("senha"));
 				funcionario.setAtivo(rs.getBoolean("ativo"));
 				funcionario.setAdmin(rs.getBoolean("isAdmin"));
 				if(rs.getBoolean("ativo") == true) {
