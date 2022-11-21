@@ -48,10 +48,10 @@ create table if not exists dizimista (
 create table if not exists dizimo (
 	id int primary key not null auto_increment,
     dizimista int not null,
-    valor float not null,
+    valorDizimo float not null,
 	observacao varchar(200),
     funcionario int not null,
-    data date not null,
+    dataDizimo date not null,
     hora time not null
 ) default charset = utf8;
 
@@ -60,18 +60,18 @@ create table if not exists oferta (
     dizimista int,
     isDizimista boolean not null,
     nome varchar(100),
-    valor float not null,
+    valorOferta float not null,
     observacao varchar(200),
     funcionario int not null,
-    data date not null,
+    dataOferta date not null,
     hora time not null
 ) default charset = utf8;
 
 create table if not exists despesa (
 	id int primary key not null auto_increment,
-    valor float not null,
+    valorDespesa float not null,
     descricao varchar(200) not null,
     funcionario int not null,
-    data date not null,
+    dataDespesa date not null,
     hora time not null
 ) default charset = utf8;
