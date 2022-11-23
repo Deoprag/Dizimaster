@@ -22,6 +22,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.NumberFormat;
+import java.util.Locale;
 
 import javax.swing.JSeparator;
 import javax.swing.JComboBox;
@@ -32,6 +34,9 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.ActionEvent;
 import com.dizimaster.swing.LblGrafico.PeiChartType;
+import javax.swing.SwingConstants;
+import javax.swing.border.LineBorder;
+import javax.swing.border.CompoundBorder;
 
 public class IntFormFluxo extends JInternalFrame {
 
@@ -41,6 +46,7 @@ public class IntFormFluxo extends JInternalFrame {
 	private LblGrafico pieChartTotal;
 	private JComboBox<Object> boxMes;
 	private JComboBox<Object> boxAno;
+	private JLabel lblTotal;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -55,15 +61,16 @@ public class IntFormFluxo extends JInternalFrame {
 			}
 		});
 	}
-	
+
 	private Color getColor(int index) {
-		Color[] color = new Color[] {new Color(255, 230, 0), new Color(0, 0, 170), new Color(170, 0, 0), new Color(0, 170, 0)};
+		Color[] color = new Color[] { new Color(255, 230, 0), new Color(0, 0, 170), new Color(170, 0, 0),
+				new Color(0, 170, 0) };
 		return color[index];
 	}
 
 	private void mostraAno() throws SQLException {
 		Connection con = DatabaseUtils.conecta();
-		String sql = "select DATE_FORMAT(dataOferta, '%Y') as YearNumber from oferta GROUP BY YearNumber";
+		String sql = "select DATE_FORMAT(data, '%Y') as YearNumber from oferta GROUP BY YearNumber";
 		PreparedStatement stmt = con.prepareStatement(sql);
 		ResultSet rs = stmt.executeQuery();
 
@@ -78,11 +85,11 @@ public class IntFormFluxo extends JInternalFrame {
 
 	private void mostraMes(int ano) throws SQLException {
 		Connection con = DatabaseUtils.conecta();
-		String sql = "select DATE_FORMAT(dataOferta, '%M') as MonthText, DATE_FORMAT(dataOferta, '%m') as MonthNumber from oferta where DATE_FORMAT(dataOferta, '%Y') = ? group by MonthNumber";
+		String sql = "select DATE_FORMAT(data, '%M') as MonthText, DATE_FORMAT(data, '%m') as MonthNumber from oferta where DATE_FORMAT(data, '%Y') = ? group by MonthNumber";
 		PreparedStatement stmt = con.prepareStatement(sql);
-		
+
 		stmt.setInt(1, ano);
-		
+
 		ResultSet rs = stmt.executeQuery();
 
 		while (rs.next()) {
@@ -94,53 +101,57 @@ public class IntFormFluxo extends JInternalFrame {
 		stmt.close();
 		con.close();
 	}
-	
+
 	private void mostraDados(int ano, int mes) {
 		try {
 			pieChart.clearData();
 			pieChartTotal.clearData();
 			Connection con = DatabaseUtils.conecta();
 			float oferta = 0, dizimo = 0, despesa = 0;
-			
+
 			// OFERTA
-			String sql = "SELECT SUM(valorOferta) from oferta where DATE_FORMAT(dataOferta, '%m') = ? and DATE_FORMAT(dataOferta, '%Y') = ?";
+			String sql = "SELECT SUM(valor) from oferta where DATE_FORMAT(data, '%m') = ? and DATE_FORMAT(data, '%Y') = ?";
 			PreparedStatement stmt = con.prepareStatement(sql);
 			stmt.setInt(2, ano);
 			stmt.setInt(1, mes);
 			ResultSet rs = stmt.executeQuery();
-			while(rs.next()) {
-				oferta = rs.getFloat("SUM(valorOferta)");
+			while (rs.next()) {
+				oferta = rs.getFloat("SUM(valor)");
 			}
-			
-			//DIZIMO
-			sql = "SELECT SUM(valorDizimo) from dizimo where DATE_FORMAT(dataDizimo, '%m') = ? and DATE_FORMAT(dataDizimo, '%Y') = ?";
+
+			// DIZIMO
+			sql = "SELECT SUM(valor) from dizimo where DATE_FORMAT(data, '%m') = ? and DATE_FORMAT(data, '%Y') = ?";
 			stmt = con.prepareStatement(sql);
 			stmt.setInt(2, ano);
 			stmt.setInt(1, mes);
 			rs = stmt.executeQuery();
-			while(rs.next()) {
-				dizimo = rs.getFloat("SUM(valorDizimo)");
+			while (rs.next()) {
+				dizimo = rs.getFloat("SUM(valor)");
 			}
-			
+
 			// DESPESA
-			sql = "SELECT SUM(valorDespesa) from despesa where DATE_FORMAT(dataDespesa, '%m') = ? and DATE_FORMAT(dataDespesa, '%Y') = ?";
+			sql = "SELECT SUM(valor) from despesa where DATE_FORMAT(data, '%m') = ? and DATE_FORMAT(data, '%Y') = ?";
 			stmt = con.prepareStatement(sql);
 			stmt.setInt(2, ano);
 			stmt.setInt(1, mes);
 			rs = stmt.executeQuery();
-			while(rs.next()) {
-				despesa = rs.getFloat("SUM(valorDespesa)");
+			while (rs.next()) {
+				despesa = rs.getFloat("SUM(valor)");
 			}
-			
+
 			int index = 0;
 			pieChart.addData(new Grafico("Oferta", oferta, getColor(index++)));
 			pieChart.addData(new Grafico("Dizimo", dizimo, getColor(index++)));
-			
+
 			Float totalEntrada = dizimo + oferta;
 			Float saldo = totalEntrada - despesa;
-			
+
 			pieChartTotal.addData(new Grafico("Despesas", despesa, getColor(index++)));
-			pieChartTotal.addData(new Grafico("Saldo", saldo, getColor(index++)));
+			pieChartTotal.addData(new Grafico("Saldo Restante", saldo, getColor(index++)));
+			
+			@SuppressWarnings("deprecation")
+			NumberFormat valor = NumberFormat.getCurrencyInstance(new Locale("pt","BR"));
+			lblTotal.setText("Total: " + valor.format(totalEntrada));
 			
 			rs.close();
 			stmt.close();
@@ -149,10 +160,10 @@ public class IntFormFluxo extends JInternalFrame {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 	}
-	
-	private void voltar(){
+
+	private void voltar() {
 		this.dispose();
 	}
 
@@ -168,7 +179,7 @@ public class IntFormFluxo extends JInternalFrame {
 			}
 		});
 		getContentPane().setBackground(Color.DARK_GRAY);
-		setBounds(0, 0, 1020, 665);
+		setBounds(0, 0, 1020, 700);
 		getContentPane().setLayout(null);
 		setBorder(null);
 		BasicInternalFrameUI bui = (BasicInternalFrameUI) this.getUI();
@@ -176,11 +187,11 @@ public class IntFormFluxo extends JInternalFrame {
 
 		JPanel panelMid = new JPanel();
 		panelMid.setLayout(null);
-		panelMid.setBorder(new MatteBorder(4, 0, 0, 0, (Color) new Color(0, 128, 192)));
+		panelMid.setBorder(new CompoundBorder(new LineBorder(new Color(0, 64, 128)), new MatteBorder(4, 0, 0, 0, (Color) new Color(0, 128, 192))));
 		panelMid.setBackground(new Color(255, 255, 255));
-		panelMid.setBounds(47, 31, 925, 570);
+		panelMid.setBounds(47, 51, 925, 570);
 		getContentPane().add(panelMid);
-		
+
 		JButton btnSair = new JButton("VOLTAR");
 		btnSair.addMouseListener(new MouseAdapter() {
 			@Override
@@ -201,6 +212,21 @@ public class IntFormFluxo extends JInternalFrame {
 				}
 			}
 		});
+		
+		JPanel panel = new JPanel();
+		panel.setBorder(new LineBorder(new Color(0, 0, 0)));
+		panel.setBackground(new Color(0, 128, 192));
+		panel.setBounds(347, 519, 230, 40);
+		panelMid.add(panel);
+		panel.setLayout(null);
+		
+		lblTotal = new JLabel("");
+		lblTotal.setHorizontalTextPosition(SwingConstants.CENTER);
+		lblTotal.setForeground(new Color(255, 255, 255));
+		lblTotal.setBounds(0, 0, 230, 40);
+		panel.add(lblTotal);
+		lblTotal.setHorizontalAlignment(SwingConstants.CENTER);
+		lblTotal.setFont(new Font("Segoe UI", Font.BOLD, 22));
 		btnSair.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnSair.setForeground(Color.WHITE);
 		btnSair.setFont(new Font("Segoe UI Black", Font.PLAIN, 12));
@@ -217,15 +243,15 @@ public class IntFormFluxo extends JInternalFrame {
 
 		JSeparator separator_1 = new JSeparator();
 		separator_1.setForeground(Color.LIGHT_GRAY);
-		separator_1.setBounds(0, 50, 1000, 2);
+		separator_1.setBounds(3, 50, 920, 2);
 		panelMid.add(separator_1);
 
 		boxMes = new JComboBox();
 		boxMes.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(boxMes.getSelectedIndex() >= 0) {
+				if (boxMes.getSelectedIndex() >= 0) {
 					int ano = Integer.valueOf(boxAno.getSelectedItem().toString());
-					Mes mes = (Mes)boxMes.getSelectedItem();
+					Mes mes = (Mes) boxMes.getSelectedItem();
 					mostraDados(ano, mes.getMes());
 				}
 			}
@@ -240,7 +266,7 @@ public class IntFormFluxo extends JInternalFrame {
 		boxAno = new JComboBox();
 		boxAno.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(boxAno.getSelectedIndex() >= 0) {
+				if (boxAno.getSelectedIndex() >= 0) {
 					int ano = Integer.valueOf(boxAno.getSelectedItem().toString());
 					try {
 						boxMes.removeAllItems();
@@ -254,8 +280,6 @@ public class IntFormFluxo extends JInternalFrame {
 		boxAno.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 		boxAno.setBounds(705, 64, 60, 30);
 		panelMid.add(boxAno);
-		
-		
 
 		JLabel lblMes = new JLabel("Mês");
 		lblMes.setFont(new Font("Segoe UI", Font.PLAIN, 14));
@@ -266,22 +290,22 @@ public class IntFormFluxo extends JInternalFrame {
 		lblAno.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 		lblAno.setBounds(665, 63, 40, 30);
 		panelMid.add(lblAno);
-		
+
 		pieChart = new LblGrafico();
 		pieChart.setBounds(8, 104, 450, 451);
 		panelMid.add(pieChart);
 		pieChart.setFocusable(false);
 		pieChart.setFocusTraversalKeysEnabled(false);
-		
+
 		pieChartTotal = new LblGrafico();
 		pieChartTotal.setBounds(466, 104, 450, 451);
 		panelMid.add(pieChartTotal);
 		pieChartTotal.setFocusable(false);
 		pieChartTotal.setFocusTraversalKeysEnabled(false);
-		
+
 		JLabel lblBg = new JLabel("");
 		lblBg.setIcon(new ImageIcon(IntFormFluxo.class.getResource("/com/dizimaster/img/heaven-bg.jpg")));
-		lblBg.setBounds(0, 0, 1020, 638);
+		lblBg.setBounds(0, 0, 1020, 673);
 		getContentPane().add(lblBg);
 
 	}

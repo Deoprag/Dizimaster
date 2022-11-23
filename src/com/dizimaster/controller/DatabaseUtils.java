@@ -17,7 +17,7 @@ public class DatabaseUtils {
 	private static String user = "root";
 	private static String password = "";
 	private static Funcionario funcionario;
-	
+
 	public static Connection conecta() throws SQLException {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
@@ -38,7 +38,7 @@ public class DatabaseUtils {
 			stmt.setString(2, password);
 
 			ResultSet rs = stmt.executeQuery();
-			
+
 			if (rs.next()) {
 				funcionario = new Funcionario();
 				funcionario.setId(rs.getInt("id"));
@@ -51,7 +51,7 @@ public class DatabaseUtils {
 				funcionario.setSenha(rs.getString("senha"));
 				funcionario.setAtivo(rs.getBoolean("ativo"));
 				funcionario.setAdmin(rs.getBoolean("isAdmin"));
-				if(rs.getBoolean("ativo") == true) {
+				if (rs.getBoolean("ativo") == true) {
 					if (!password.equals("dizi@2022")) {
 						FormSistema window = new FormSistema();
 						window.setFuncionario(funcionario);
@@ -62,7 +62,7 @@ public class DatabaseUtils {
 					} else {
 						FormAlterarSenha window = new FormAlterarSenha();
 						window.setFuncionario(funcionario);
-						window.setVisible(true);	
+						window.setVisible(true);
 					}
 				} else {
 					JOptionPane.showMessageDialog(null, "Cadastro desativado! Entre em contato com um administrador");
@@ -126,7 +126,7 @@ public class DatabaseUtils {
 			stmt.setFloat(6, cadDizimista.getSalario());
 			stmt.setDate(7, Date.valueOf(cadDizimista.getDataCadastro()));
 			stmt.setBoolean(8, cadDizimista.isAtivo());
-			
+
 			stmt.execute();
 			stmt.close();
 			con.close();
@@ -223,7 +223,7 @@ public class DatabaseUtils {
 			return false;
 		}
 	}
-	
+
 	public static boolean registraDespesa(Despesa despesa) {
 		try {
 			Connection con = DatabaseUtils.conecta();
@@ -248,17 +248,17 @@ public class DatabaseUtils {
 			return false;
 		}
 	}
-	
+
 	public static Funcionario pesquisaFuncionario(String cpf) {
 		Funcionario funcionarioPesquisa;
 		funcionarioPesquisa = null;
-		
+
 		try {
 			Connection con = DatabaseUtils.conecta();
 			Statement stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery("select * from funcionario where cpf = " + cpf);
-			
-			if(rs.next()) {
+
+			if (rs.next()) {
 				funcionarioPesquisa = new Funcionario();
 				funcionarioPesquisa.setId(rs.getInt("id"));
 				funcionarioPesquisa.setCpf(rs.getString("cpf"));
@@ -271,26 +271,26 @@ public class DatabaseUtils {
 				funcionarioPesquisa.setDataCadastro(rs.getDate("dataCadastro").toLocalDate());
 				funcionarioPesquisa.setAtivo(rs.getBoolean("ativo"));
 				funcionarioPesquisa.setAdmin(rs.getBoolean("isAdmin"));
-				
+
 				con.close();
 				stmt.close();
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
+
 		return funcionarioPesquisa;
 	}
-	
+
 	public static boolean alterarFuncionario(Funcionario altFuncionario, Boolean senha) {
 		try {
 			Connection con = DatabaseUtils.conecta();
 			String sql = "update funcionario set nome = ?, celular = ?, email = ?, nascimento = ?, sexo = ?, isAdmin = ?, ativo = ?, senha = ? where cpf = ?";
-			if(senha == true) {
+			if (senha == true) {
 				altFuncionario.setSenha("dizi@2022");
 			}
 			PreparedStatement stmt = con.prepareCall(sql);
-			
+
 			stmt.setString(1, altFuncionario.getNome());
 			stmt.setString(2, altFuncionario.getCelular());
 			stmt.setString(3, altFuncionario.getEmail());
@@ -300,7 +300,7 @@ public class DatabaseUtils {
 			stmt.setBoolean(7, altFuncionario.isAtivo());
 			stmt.setString(8, altFuncionario.getSenha());
 			stmt.setString(9, altFuncionario.getCpf());
-			
+
 			stmt.execute();
 			stmt.close();
 			con.close();
@@ -312,17 +312,17 @@ public class DatabaseUtils {
 		}
 		return false;
 	}
-	
+
 	public static Dizimista pesquisaDizimista(String cpf) {
 		Dizimista dizimistaPesquisa;
 		dizimistaPesquisa = null;
-		
+
 		try {
 			Connection con = DatabaseUtils.conecta();
 			Statement stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery("select * from dizimista where cpf = " + cpf);
-			
-			if(rs.next()) {
+
+			if (rs.next()) {
 				dizimistaPesquisa = new Dizimista();
 				dizimistaPesquisa.setId(rs.getInt("id"));
 				dizimistaPesquisa.setCpf(rs.getString("cpf"));
@@ -333,23 +333,23 @@ public class DatabaseUtils {
 				dizimistaPesquisa.setSalario(rs.getFloat("salario"));
 				dizimistaPesquisa.setDataCadastro(rs.getDate("dataCadastro").toLocalDate());
 				dizimistaPesquisa.setAtivo(rs.getBoolean("ativo"));
-				
+
 				con.close();
 				stmt.close();
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
+
 		return dizimistaPesquisa;
 	}
-	
+
 	public static boolean alterarDizimista(Dizimista altDizimista) {
 		try {
 			Connection con = DatabaseUtils.conecta();
 			String sql = "update dizimista set nome = ?, celular = ?, salario = ?, nascimento = ?, sexo = ?, ativo = ? where cpf = ?";
 			PreparedStatement stmt = con.prepareCall(sql);
-			
+
 			stmt.setString(1, altDizimista.getNome());
 			stmt.setString(2, altDizimista.getCelular());
 			stmt.setFloat(3, altDizimista.getSalario());
@@ -357,7 +357,7 @@ public class DatabaseUtils {
 			stmt.setString(5, String.valueOf(altDizimista.getSexo()));
 			stmt.setBoolean(6, altDizimista.isAtivo());
 			stmt.setString(7, altDizimista.getCpf());
-			
+
 			stmt.execute();
 			stmt.close();
 			con.close();
@@ -376,5 +376,49 @@ public class DatabaseUtils {
 
 	public static void setFuncionario(Funcionario funcionario) {
 		DatabaseUtils.funcionario = funcionario;
+	}
+
+	public static float valorMensal(int dizimista, int mesInicio, int mesFim, int ano) {
+		try {
+			float somaDizimo = 0, somaOferta = 0;
+			float total = 0;
+			Connection con = DatabaseUtils.conecta();
+			String sql = "SELECT SUM(valor) from oferta where dizimista = ? and DATE_FORMAT(data, '%m') >= ? and DATE_FORMAT(data, '%m') <= ? and DATE_FORMAT(data, '%Y') = ?;";
+			PreparedStatement stmt = con.prepareStatement(sql);
+
+			stmt.setInt(1, dizimista);
+			stmt.setInt(2, mesInicio);
+			stmt.setInt(3, mesFim);
+			stmt.setInt(4, ano);
+
+			ResultSet rs = stmt.executeQuery();
+			while (rs.next()) {
+				somaOferta = rs.getFloat("SUM(valor)");
+			}
+
+			sql = "SELECT SUM(valor) from dizimo where dizimista = ? and DATE_FORMAT(data, '%m') >= ? and DATE_FORMAT(data, '%m') <= ? and DATE_FORMAT(data, '%Y') = ?;";
+			stmt = con.prepareStatement(sql);
+
+			stmt.setInt(1, dizimista);
+			stmt.setInt(2, mesInicio);
+			stmt.setInt(3, mesFim);
+			stmt.setInt(4, ano);
+
+			rs = stmt.executeQuery();
+			while (rs.next()) {
+				somaDizimo = rs.getFloat("SUM(valor)");
+			}
+
+			rs.close();
+			stmt.close();
+			con.close();
+			total = somaDizimo + somaOferta;
+			System.out.println(somaDizimo);
+			System.out.println(somaOferta);
+			return total;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return 0;
+		}
 	}
 }

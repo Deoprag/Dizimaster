@@ -1,6 +1,7 @@
 package com.dizimaster.model;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public class Oferta {
 	private int id;
@@ -13,7 +14,8 @@ public class Oferta {
 	private LocalDate data;
 	private String hora;
 
-	public Oferta(int id, int dizimista, boolean isDizimista, String nome, float valor, String obs, int funcionario, LocalDate data, String hora) {
+	public Oferta(int id, int dizimista, boolean isDizimista, String nome, float valor, String obs, int funcionario,
+			LocalDate data, String hora) {
 		this.setId(id);
 		this.setDizimista(dizimista);
 		this.setIsDizimista(isDizimista);
@@ -24,9 +26,9 @@ public class Oferta {
 		this.setData(data);
 		this.setHora(hora);
 	}
-	
+
 	public Oferta() {
-		
+
 	}
 
 	public int getId() {
