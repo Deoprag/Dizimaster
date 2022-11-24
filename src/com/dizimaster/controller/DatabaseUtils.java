@@ -378,7 +378,7 @@ public class DatabaseUtils {
 		DatabaseUtils.funcionario = funcionario;
 	}
 
-	public static float valorMensal(int dizimista, int mesInicio, int mesFim, int ano) {
+	public static float gerarRelatorioMensal(int dizimista, int mesInicio, int mesFim, int ano) {
 		try {
 			float somaDizimo = 0, somaOferta = 0;
 			float total = 0;
