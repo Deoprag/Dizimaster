@@ -27,6 +27,7 @@ import javax.swing.JFormattedTextField;
 import javax.swing.JButton;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.awt.Cursor;
@@ -49,6 +50,7 @@ public class IntFormAdmDizimista extends JInternalFrame {
 	private TxtSalarioFormat txtSalario;
 	private JCheckBox chckbxAtivo;
 	private JButton btnSalvar;
+	private JLabel lblDataCadastro;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -153,11 +155,13 @@ public class IntFormAdmDizimista extends JInternalFrame {
 						fTxtCelular.setEnabled(true);
 						txtSalario.setEnabled(true);
 						chckbxAtivo.setEnabled(true);
+						
 
 						txtEditCpf.setText(txtCpf.getText());
 						txtNome.setText(dizimistaPesquisa.getNome());
 
 						DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/YYYY");
+						lblDataCadastro.setText("Cadastrado desde " + formatter.format(dizimistaPesquisa.getDataCadastro()));
 						fTxtNascimento.setText(formatter.format(dizimistaPesquisa.getNascimento()));
 						if (dizimistaPesquisa.getSexo() == 'm') {
 							boxSexo.setSelectedItem("Masculino");
@@ -404,7 +408,7 @@ public class IntFormAdmDizimista extends JInternalFrame {
 		chckbxAtivo.setRolloverEnabled(false);
 		chckbxAtivo.setRequestFocusEnabled(false);
 		chckbxAtivo.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-		chckbxAtivo.setBounds(245, 80, 100, 30);
+		chckbxAtivo.setBounds(245, 80, 65, 30);
 		panelBottom.add(chckbxAtivo);
 
 		btnSalvar = new JButton("SALVAR");
@@ -419,8 +423,7 @@ public class IntFormAdmDizimista extends JInternalFrame {
 						dizimistaEdita.setNome(txtNome.getText());
 						dizimistaEdita.setCelular(fTxtCelular.getText().replace("(", "").replace(")", "")
 								.replace("-", "").replace(" ", ""));
-						LocalDate data = LocalDate.parse(fTxtNascimento.getText(),
-								DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+						LocalDate data = LocalDate.parse(fTxtNascimento.getText(),DateTimeFormatter.ofPattern("dd/MM/yyyy"));
 						dizimistaEdita.setNascimento(data);
 						dizimistaEdita.setSalario(Float.parseFloat(txtSalario.getText().replace(",", ".")));
 						if (boxSexo.getSelectedIndex() == 0) {
@@ -471,6 +474,12 @@ public class IntFormAdmDizimista extends JInternalFrame {
 		btnSalvar.setFocusable(false);
 		btnSalvar.setBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(0, 120, 215), new Color(0, 191, 255)));
 		btnSalvar.setBackground(new Color(60, 122, 194));
+		
+		lblDataCadastro = new JLabel("");
+		lblDataCadastro.setForeground(new Color(216, 228, 241));
+		lblDataCadastro.setFont(new Font("Segoe UI", Font.BOLD, 14));
+		lblDataCadastro.setBounds(267, 280, 240, 30);
+		panelBottom.add(lblDataCadastro);
 
 		JLabel lblBackground = new JLabel("");
 		lblBackground

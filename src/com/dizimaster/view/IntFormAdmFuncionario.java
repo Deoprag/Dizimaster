@@ -50,6 +50,7 @@ public class IntFormAdmFuncionario extends JInternalFrame {
 	private JCheckBox chckbxAtivo;
 	private JToggleButton btnRedefinir;
 	private JButton btnSalvar;
+	private JLabel lblDataCadastro;
 	private Util util = new Util();
 	
 	public static void main(String[] args) {
@@ -166,6 +167,7 @@ public class IntFormAdmFuncionario extends JInternalFrame {
 							
 							DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/YYYY");
 							fTxtNascimento.setText(formatter.format(funcionarioPesquisa.getNascimento()));
+							lblDataCadastro.setText("Cadastrado desde " + formatter.format(funcionarioPesquisa.getDataCadastro()));
 							if (funcionarioPesquisa.getSexo() == 'm') {
 								boxSexo.setSelectedItem("Masculino");
 							} else if (funcionarioPesquisa.getSexo() == 'f'){
@@ -517,6 +519,12 @@ public class IntFormAdmFuncionario extends JInternalFrame {
 		btnSalvar.setFocusable(false);
 		btnSalvar.setBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(0, 120, 215), new Color(0, 191, 255)));
 		btnSalvar.setBackground(new Color(60, 122, 194));
+		
+		lblDataCadastro = new JLabel("");
+		lblDataCadastro.setForeground(new Color(216, 228, 241));
+		lblDataCadastro.setFont(new Font("Segoe UI", Font.BOLD, 14));
+		lblDataCadastro.setBounds(267, 280, 240, 30);
+		panelBottom.add(lblDataCadastro);
 		
 		JLabel lblBackground = new JLabel("");
 		lblBackground.setIcon(new ImageIcon(IntFormAdmFuncionario.class.getResource("/com/dizimaster/img/heaven-bg.jpg")));
