@@ -5,7 +5,8 @@ import java.awt.EventQueue;
 import javax.swing.JInternalFrame;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 
-import com.dizimaster.controller.DatabaseUtils;
+import com.dizimaster.dao.DBConnection;
+import com.dizimaster.dao.DespesaDAO;
 import com.dizimaster.model.Despesa;
 import com.dizimaster.model.Funcionario;
 import com.dizimaster.swing.TxtObservacao;
@@ -208,7 +209,7 @@ public class IntFormDespesa extends JInternalFrame {
 						despesa.setFuncionario(funcionario.getId());
 						despesa.setData(util.dataAtual());
 						despesa.setHora(util.horaAtual());
-						if(DatabaseUtils.registraDespesa(despesa)) {
+						if(DespesaDAO.registraDespesa(despesa)) {
 							txtValor.setText("");
 							txtDescricao.setText("");
 						} else {

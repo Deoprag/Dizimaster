@@ -6,7 +6,9 @@ import javax.swing.JInternalFrame;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.text.MaskFormatter;
 
-import com.dizimaster.controller.DatabaseUtils;
+import com.dizimaster.dao.DBConnection;
+import com.dizimaster.dao.DizimistaDAO;
+import com.dizimaster.dao.OfertaDAO;
 import com.dizimaster.model.Dizimista;
 import com.dizimaster.model.Funcionario;
 import com.dizimaster.model.Oferta;
@@ -322,7 +324,7 @@ public class IntFormOferta extends JInternalFrame {
 							oferta.setFuncionario(funcionario.getId());
 							oferta.setData(util.dataAtual());
 							oferta.setHora(util.horaAtual());
-							if (DatabaseUtils.registraOferta(oferta) == true) {
+							if (OfertaDAO.registraOferta(oferta) == true) {
 								txtCpf.setText("");
 								txtNome.setText("");
 								txtValor.setText("");
@@ -382,7 +384,7 @@ public class IntFormOferta extends JInternalFrame {
 				txtNome.setText("");
 				txtValor.setText("");
 				try {
-					dizimista = DatabaseUtils.pesquisaDizimista(txtCpf.getText().replace("-", "").replace(".", ""));
+					dizimista = DizimistaDAO.pesquisaDizimista(txtCpf.getText().replace("-", "").replace(".", ""));
 					if(dizimista.isAtivo()) {
 						txtNome.setForeground(Color.WHITE);
 						txtNome.setText(dizimista.getNome());

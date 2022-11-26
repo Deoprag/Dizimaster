@@ -35,7 +35,8 @@ import javax.swing.border.MatteBorder;
 
 import org.jdesktop.swingx.JXButton;
 
-import com.dizimaster.controller.DatabaseUtils;
+import com.dizimaster.dao.DBConnection;
+import com.dizimaster.dao.FuncionarioDAO;
 import com.dizimaster.model.Funcionario;
 import com.dizimaster.util.Util;
 
@@ -95,7 +96,7 @@ public class FormSistema {
 		getFrmDizimasterSistema().setLocation(x - xMouse, y - yMouse);
 	}
 
-	public void deslogar() {
+	private void deslogar() {
 		this.frmDizimasterSistema.dispose();
 		FormLogin window = new FormLogin();
 		window.getFrmLogin().setVisible(true);
@@ -269,7 +270,7 @@ public class FormSistema {
 		menuTop.setBorderPainted(false);
 		menuTop.setBackground(new Color(0, 106, 157));
 
-		if (DatabaseUtils.getFuncionario().isAdmin() == true) {
+		if (FuncionarioDAO.getFuncionario().isAdmin() == true) {
 			JMenu mnFuncionario = new JMenu("Funcionário");
 			mnFuncionario.setForeground(new Color(255, 255, 255));
 			mnFuncionario.setMargin(new Insets(2, 4, 2, 2));
@@ -383,12 +384,12 @@ public class FormSistema {
 		JMenu mntmRegistrarPagamento = new JMenu("Registrar Pagamento");
 		mntmRegistrarPagamento.setBorder(new MatteBorder(0, 0, 1, 0, (Color) new Color(192, 192, 192)));
 		mntmRegistrarPagamento.setFont(new Font("Segoe UI", Font.PLAIN, 12));
-		mntmRegistrarPagamento.setPreferredSize(new Dimension(150, 30));
+		mntmRegistrarPagamento.setPreferredSize(new Dimension(180, 30));
 		mntmRegistrarPagamento
 				.setIcon(new ImageIcon(FormSistema.class.getResource("/com/dizimaster/img/receipt-icon.png")));
 		mnFinanceiro.add(mntmRegistrarPagamento);
 
-		JMenuItem mntmDizimo = new JMenuItem("Dizimo");
+		JMenuItem mntmDizimo = new JMenuItem("Dízimo");
 		mntmDizimo.setIcon(new ImageIcon(FormSistema.class.getResource("/com/dizimaster/img/tithe-icon.png")));
 		mntmDizimo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -407,6 +408,7 @@ public class FormSistema {
 		mntmDizimo.setPreferredSize(new Dimension(100, 30));
 
 		JMenuItem mntmOferta = new JMenuItem("Oferta");
+		mntmOferta.setBorder(new MatteBorder(0, 0, 1, 0, (Color) new Color(192, 192, 192)));
 		mntmOferta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				largeDesktopPane.removeAll();
@@ -423,7 +425,8 @@ public class FormSistema {
 		mntmOferta.setPreferredSize(new Dimension(100, 30));
 		mntmRegistrarPagamento.add(mntmOferta);
 
-		JMenuItem mntmDespesa = new JMenuItem("Registrar Despesa");
+		JMenuItem mntmDespesa = new JMenuItem("Despesa");
+		mntmRegistrarPagamento.add(mntmDespesa);
 		mntmDespesa.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				largeDesktopPane.removeAll();
@@ -437,11 +440,10 @@ public class FormSistema {
 		});
 		mntmDespesa.setFont(new Font("Segoe UI", Font.PLAIN, 12));
 		mntmDespesa.setBorder(new MatteBorder(0, 0, 1, 0, (Color) new Color(192, 192, 192)));
-		mntmDespesa.setPreferredSize(new Dimension(150, 30));
-		mntmDespesa.setIcon(new ImageIcon(FormSistema.class.getResource("/com/dizimaster/img/spent-icon.png")));
-		mnFinanceiro.add(mntmDespesa);
+		mntmDespesa.setPreferredSize(new Dimension(100, 30));
+		mntmDespesa.setIcon(new ImageIcon(FormSistema.class.getResource("/com/dizimaster/img/spent-icon-2.png")));
 
-		JMenuItem mntmComprovantes = new JMenuItem("Gerar Comprovantes");
+		JMenu mntmComprovantes = new JMenu("Relatório");
 		mntmComprovantes.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				largeDesktopPane.removeAll();
@@ -458,6 +460,39 @@ public class FormSistema {
 		mntmComprovantes.setPreferredSize(new Dimension(180, 30));
 		mntmComprovantes.setBorder(new MatteBorder(0, 0, 1, 0, (Color) new Color(192, 192, 192)));
 		mnFinanceiro.add(mntmComprovantes);
+		
+		JMenuItem mntmRelatorioDizimo = new JMenuItem("Dízimo");
+		mntmRelatorioDizimo.setBorder(new MatteBorder(0, 0, 1, 0, (Color) new Color(192, 192, 192)));
+		mntmRelatorioDizimo.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+		mntmRelatorioDizimo.setPreferredSize(new Dimension(100, 30));
+		mntmRelatorioDizimo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		mntmRelatorioDizimo.setIcon(new ImageIcon(FormSistema.class.getResource("/com/dizimaster/img/tithe-icon.png")));
+		mntmComprovantes.add(mntmRelatorioDizimo);
+		
+		JMenuItem mntmRelatorioOferta = new JMenuItem("Oferta");
+		mntmRelatorioOferta.setBorder(new MatteBorder(0, 0, 1, 0, (Color) new Color(192, 192, 192)));
+		mntmRelatorioOferta.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+		mntmRelatorioOferta.setPreferredSize(new Dimension(100, 30));
+		mntmRelatorioOferta.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		mntmRelatorioOferta.setIcon(new ImageIcon(FormSistema.class.getResource("/com/dizimaster/img/offering-icon.png")));
+		mntmComprovantes.add(mntmRelatorioOferta);
+		
+		JMenuItem mntmRelatorioDespesa = new JMenuItem("Despesa");
+		mntmRelatorioDespesa.setBorder(new MatteBorder(0, 0, 1, 0, (Color) new Color(192, 192, 192)));
+		mntmRelatorioDespesa.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+		mntmRelatorioDespesa.setPreferredSize(new Dimension(100, 30));
+		mntmRelatorioDespesa.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		mntmRelatorioDespesa.setIcon(new ImageIcon(FormSistema.class.getResource("/com/dizimaster/img/spent-icon-2.png")));
+		mntmComprovantes.add(mntmRelatorioDespesa);
 
 		JMenuItem mntmFluxoCaixa = new JMenuItem("Fluxo de Caixa");
 		mntmFluxoCaixa.addActionListener(new ActionListener() {

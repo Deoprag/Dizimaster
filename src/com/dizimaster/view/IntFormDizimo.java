@@ -6,7 +6,9 @@ import javax.swing.JInternalFrame;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.text.MaskFormatter;
 
-import com.dizimaster.controller.DatabaseUtils;
+import com.dizimaster.dao.DBConnection;
+import com.dizimaster.dao.DizimistaDAO;
+import com.dizimaster.dao.DizimoDAO;
 import com.dizimaster.model.Dizimista;
 import com.dizimaster.model.Dizimo;
 import com.dizimaster.model.Funcionario;
@@ -298,7 +300,7 @@ public class IntFormDizimo extends JInternalFrame {
 							}
 							dizimo.setData(util.dataAtual());
 							dizimo.setHora(util.horaAtual());
-							if (DatabaseUtils.registraDizimo(dizimo) == true) {
+							if (DizimoDAO.registraDizimo(dizimo) == true) {
 								txtCpf.setText("");
 								txtNome.setText("");
 								txtValor.setText("");
@@ -360,7 +362,7 @@ public class IntFormDizimo extends JInternalFrame {
 					txtNome.setText("");
 					txtValor.setText("");
 					try {
-						dizimista = DatabaseUtils.pesquisaDizimista(txtCpf.getText().replace("-", "").replace(".", ""));
+						dizimista = DizimistaDAO.pesquisaDizimista(txtCpf.getText().replace("-", "").replace(".", ""));
 						if(dizimista.isAtivo()) {
 							txtNome.setForeground(Color.WHITE);
 							txtValor.setForeground(Color.WHITE);

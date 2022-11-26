@@ -31,7 +31,8 @@ import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import org.jdesktop.swingx.JXButton;
 
-import com.dizimaster.controller.DatabaseUtils;
+import com.dizimaster.dao.DBConnection;
+import com.dizimaster.dao.FuncionarioDAO;
 import com.dizimaster.swing.TxtUsuarioFormat;
 import com.dizimaster.util.Util;
 
@@ -290,7 +291,7 @@ public class FormLogin {
 		JButton btnEntrar = new JButton("ENTRAR");
 		btnEntrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (DatabaseUtils.login(txtUsuario.getText(), txtSenha.getText()) == true) {
+				if (FuncionarioDAO.login(txtUsuario.getText(), txtSenha.getText()) == true) {
 					getFrmLogin().dispose();
 				}
 				;

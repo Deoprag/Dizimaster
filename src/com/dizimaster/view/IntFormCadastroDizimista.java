@@ -22,7 +22,8 @@ import javax.swing.border.EtchedBorder;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.text.MaskFormatter;
 
-import com.dizimaster.controller.DatabaseUtils;
+import com.dizimaster.dao.DBConnection;
+import com.dizimaster.dao.DizimistaDAO;
 import com.dizimaster.model.Dizimista;
 import com.dizimaster.swing.TxtNome;
 import com.dizimaster.swing.TxtSalarioFormat;
@@ -267,7 +268,7 @@ public class IntFormCadastroDizimista extends JInternalFrame {
 							cadDizimista.setSalario(Float.parseFloat(txtSalario.getText()));
 							cadDizimista.setDataCadastro(util.dataAtual());
 							cadDizimista.setAtivo(true);
-							if (DatabaseUtils.cadastroDizimista(cadDizimista) == true) {
+							if (DizimistaDAO.cadastroDizimista(cadDizimista) == true) {
 								fTxtCpf.setText("");
 								txtNome.setText("");
 								fTxtNascimento.setText("");

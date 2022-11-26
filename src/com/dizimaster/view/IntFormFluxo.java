@@ -12,7 +12,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
 import com.dizimaster.swing.*;
-import com.dizimaster.controller.DatabaseUtils;
+import com.dizimaster.dao.DBConnection;
 import com.dizimaster.model.*;
 import javax.swing.JPanel;
 import javax.swing.border.EtchedBorder;
@@ -63,13 +63,13 @@ public class IntFormFluxo extends JInternalFrame {
 	}
 
 	private Color getColor(int index) {
-		Color[] color = new Color[] { new Color(255, 230, 0), new Color(0, 0, 170), new Color(170, 0, 0),
-				new Color(0, 170, 0) };
+		Color[] color = new Color[] { new Color(242, 182, 0), new Color(0, 98, 177), new Color(255, 113, 12),
+				new Color(30, 105, 39) };
 		return color[index];
 	}
 
 	private void mostraAno() throws SQLException {
-		Connection con = DatabaseUtils.conecta();
+		Connection con = DBConnection.conecta();
 		String sql = "select DATE_FORMAT(data, '%Y') as YearNumber from oferta GROUP BY YearNumber";
 		PreparedStatement stmt = con.prepareStatement(sql);
 		ResultSet rs = stmt.executeQuery();
@@ -84,7 +84,7 @@ public class IntFormFluxo extends JInternalFrame {
 	}
 
 	private void mostraMes(int ano) throws SQLException {
-		Connection con = DatabaseUtils.conecta();
+		Connection con = DBConnection.conecta();
 		String sql = "select DATE_FORMAT(data, '%M') as MonthText, DATE_FORMAT(data, '%m') as MonthNumber from oferta where DATE_FORMAT(data, '%Y') = ? group by MonthNumber";
 		PreparedStatement stmt = con.prepareStatement(sql);
 
@@ -106,7 +106,7 @@ public class IntFormFluxo extends JInternalFrame {
 		try {
 			pieChart.clearData();
 			pieChartTotal.clearData();
-			Connection con = DatabaseUtils.conecta();
+			Connection con = DBConnection.conecta();
 			float oferta = 0, dizimo = 0, despesa = 0;
 
 			// OFERTA
@@ -188,7 +188,7 @@ public class IntFormFluxo extends JInternalFrame {
 		JPanel panelMid = new JPanel();
 		panelMid.setLayout(null);
 		panelMid.setBorder(new CompoundBorder(new LineBorder(new Color(0, 64, 128)), new MatteBorder(4, 0, 0, 0, (Color) new Color(0, 128, 192))));
-		panelMid.setBackground(new Color(255, 255, 255));
+		panelMid.setBackground(new Color(235, 235, 235));
 		panelMid.setBounds(47, 51, 925, 570);
 		getContentPane().add(panelMid);
 
@@ -216,15 +216,15 @@ public class IntFormFluxo extends JInternalFrame {
 		JPanel panel = new JPanel();
 		panel.setBorder(new LineBorder(new Color(0, 0, 0)));
 		panel.setBackground(new Color(0, 128, 192));
-		panel.setBounds(347, 519, 230, 40);
+		panel.setBounds(10, 60, 230, 40);
 		panelMid.add(panel);
 		panel.setLayout(null);
 		
 		lblTotal = new JLabel("");
-		lblTotal.setHorizontalTextPosition(SwingConstants.CENTER);
-		lblTotal.setForeground(new Color(255, 255, 255));
 		lblTotal.setBounds(0, 0, 230, 40);
 		panel.add(lblTotal);
+		lblTotal.setHorizontalTextPosition(SwingConstants.CENTER);
+		lblTotal.setForeground(new Color(255, 255, 255));
 		lblTotal.setHorizontalAlignment(SwingConstants.CENTER);
 		lblTotal.setFont(new Font("Segoe UI", Font.BOLD, 22));
 		btnSair.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -247,6 +247,11 @@ public class IntFormFluxo extends JInternalFrame {
 		panelMid.add(separator_1);
 
 		boxMes = new JComboBox();
+		boxMes.setRequestFocusEnabled(false);
+		boxMes.setFocusTraversalKeysEnabled(false);
+		boxMes.setFocusable(false);
+		boxMes.setBackground(new Color(55, 182, 225));
+		boxMes.setForeground(new Color(0, 0, 0));
 		boxMes.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (boxMes.getSelectedIndex() >= 0) {
@@ -257,13 +262,16 @@ public class IntFormFluxo extends JInternalFrame {
 			}
 		});
 		boxMes.setMaximumRowCount(12);
-		boxMes.setFocusable(false);
-		boxMes.setFocusTraversalKeysEnabled(false);
 		boxMes.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 		boxMes.setBounds(815, 63, 100, 30);
 		panelMid.add(boxMes);
 
 		boxAno = new JComboBox();
+		boxAno.setRequestFocusEnabled(false);
+		boxAno.setFocusTraversalKeysEnabled(false);
+		boxAno.setFocusable(false);
+		boxAno.setBackground(new Color(55, 182, 225));
+		boxAno.setForeground(new Color(0, 0, 0));
 		boxAno.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (boxAno.getSelectedIndex() >= 0) {
@@ -292,13 +300,15 @@ public class IntFormFluxo extends JInternalFrame {
 		panelMid.add(lblAno);
 
 		pieChart = new LblGrafico();
-		pieChart.setBounds(8, 104, 450, 451);
+		pieChart.setChartType(PeiChartType.DONUT_CHART);
+		pieChart.setBounds(8, 117, 450, 451);
 		panelMid.add(pieChart);
 		pieChart.setFocusable(false);
 		pieChart.setFocusTraversalKeysEnabled(false);
 
 		pieChartTotal = new LblGrafico();
-		pieChartTotal.setBounds(466, 104, 450, 451);
+		pieChartTotal.setChartType(PeiChartType.DONUT_CHART);
+		pieChartTotal.setBounds(466, 117, 450, 451);
 		panelMid.add(pieChartTotal);
 		pieChartTotal.setFocusable(false);
 		pieChartTotal.setFocusTraversalKeysEnabled(false);

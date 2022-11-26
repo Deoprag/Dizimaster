@@ -7,7 +7,8 @@ import javax.swing.JInternalFrame;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.text.MaskFormatter;
 
-import com.dizimaster.controller.DatabaseUtils;
+import com.dizimaster.dao.DBConnection;
+import com.dizimaster.dao.FuncionarioDAO;
 import com.dizimaster.model.Funcionario;
 import com.dizimaster.util.Util;
 
@@ -115,7 +116,7 @@ public class IntFormAdmFuncionario extends JInternalFrame {
 		}
 		
 		JPanel panelTop = new JPanel();
-		panelTop.setBackground(new Color(255, 255, 255));
+		panelTop.setBackground(new Color(235, 235, 235));
 		panelTop.setBorder(new MatteBorder(4, 0, 0, 0, (Color) new Color(0, 128, 192)));
 		panelTop.setBounds(230, 40, 560, 120);
 		getContentPane().add(panelTop);
@@ -132,7 +133,7 @@ public class IntFormAdmFuncionario extends JInternalFrame {
 		panelTop.add(separator);
 		
 		JFormattedTextField txtCpf = new JFormattedTextField(mascaraCpf);
-		txtCpf.setBackground(new Color(255, 255, 255));
+		txtCpf.setBackground(new Color(235, 235, 235));
 		txtCpf.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 		txtCpf.setBorder(new MatteBorder(0, 0, 1, 0, (Color) new Color(192, 192, 192)));
 		txtCpf.setBounds(50, 72, 125, 30);
@@ -149,7 +150,7 @@ public class IntFormAdmFuncionario extends JInternalFrame {
 			public void actionPerformed(ActionEvent e) {
 				limpar();				
 				if (txtCpf.getText().replace(".", "").replace("-", "").replace("*", "").length() == 11) {
-					funcionarioPesquisa = DatabaseUtils.pesquisaFuncionario(txtCpf.getText().replace(".", "").replace("-", ""));
+					funcionarioPesquisa = FuncionarioDAO.pesquisaFuncionario(txtCpf.getText().replace(".", "").replace("-", ""));
 					if (funcionarioPesquisa != null) {
 						if(funcionario.getCpf().equals(funcionarioPesquisa.getCpf())) {
 							JOptionPane.showMessageDialog(null, "Você não pode alterar seu próprio cadastro!");
@@ -278,7 +279,7 @@ public class IntFormAdmFuncionario extends JInternalFrame {
 		JPanel panelBottom = new JPanel();
 		panelBottom.setLayout(null);
 		panelBottom.setBorder(new MatteBorder(4, 0, 0, 0, (Color) new Color(0, 128, 192)));
-		panelBottom.setBackground(Color.WHITE);
+		panelBottom.setBackground(new Color(235, 235, 235));
 		panelBottom.setBounds(230, 170, 560, 460);
 		getContentPane().add(panelBottom);
 		
@@ -287,7 +288,7 @@ public class IntFormAdmFuncionario extends JInternalFrame {
 		fTxtNascimento.setForeground(new Color(0, 0, 0));
 		fTxtNascimento.setFont(new Font("Segoe UI", Font.PLAIN, 12));
 		fTxtNascimento.setBorder(new MatteBorder(0, 0, 1, 0, (Color) new Color(192, 192, 192)));
-		fTxtNascimento.setBackground(new Color(255, 255, 255));
+		fTxtNascimento.setBackground(new Color(235, 235, 235));
 		fTxtNascimento.setBounds(107, 180, 100, 30);
 		panelBottom.add(fTxtNascimento);
 		
@@ -304,7 +305,7 @@ public class IntFormAdmFuncionario extends JInternalFrame {
 		txtNome.setEnabled(false);
 		txtNome.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 		txtNome.setBorder(new MatteBorder(0, 0, 1, 0, (Color) new Color(192, 192, 192)));
-		txtNome.setBackground(new Color(255, 255, 255));
+		txtNome.setBackground(new Color(235, 235, 235));
 		txtNome.setBounds(107, 130, 270, 30);
 		panelBottom.add(txtNome);
 		
@@ -322,7 +323,7 @@ public class IntFormAdmFuncionario extends JInternalFrame {
 		txtEditCpf.setEnabled(false);
 		txtEditCpf.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 		txtEditCpf.setBorder(new MatteBorder(0, 0, 1, 0, (Color) new Color(192, 192, 192)));
-		txtEditCpf.setBackground(new Color(255, 255, 255));
+		txtEditCpf.setBackground(new Color(235, 235, 235));
 		txtEditCpf.setBounds(107, 80, 125, 30);
 		panelBottom.add(txtEditCpf);
 		
@@ -331,18 +332,6 @@ public class IntFormAdmFuncionario extends JInternalFrame {
 		lblCpf_1.setFont(new Font("Segoe UI", Font.BOLD, 14));
 		lblCpf_1.setBounds(10, 80, 87, 30);
 		panelBottom.add(lblCpf_1);
-		
-		JButton btnSearch_1 = new JButton("");
-		btnSearch_1.setRolloverEnabled(false);
-		btnSearch_1.setRequestFocusEnabled(false);
-		btnSearch_1.setFocusable(false);
-		btnSearch_1.setFocusTraversalKeysEnabled(false);
-		btnSearch_1.setFocusPainted(false);
-		btnSearch_1.setBorderPainted(false);
-		btnSearch_1.setBorder(null);
-		btnSearch_1.setBackground(Color.WHITE);
-		btnSearch_1.setBounds(340, 124, 25, 25);
-		panelBottom.add(btnSearch_1);
 		
 		JLabel lblNome_1 = new JLabel("Nome");
 		lblNome_1.setForeground(new Color(0, 0, 0));
@@ -401,7 +390,7 @@ public class IntFormAdmFuncionario extends JInternalFrame {
 		boxSexo.setMaximumRowCount(2);
 		boxSexo.setFont(new Font("Segoe UI", Font.PLAIN, 12));
 		boxSexo.setBorder(new MatteBorder(0, 0, 1, 0, (Color) new Color(192, 192, 192)));
-		boxSexo.setBackground(new Color(255, 255, 255));
+		boxSexo.setBackground(new Color(235, 235, 235));
 		boxSexo.setBounds(107, 230, 150, 30);
 		panelBottom.add(boxSexo);
 		
@@ -415,7 +404,7 @@ public class IntFormAdmFuncionario extends JInternalFrame {
 		fTxtCelular.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 		fTxtCelular.setEnabled(false);
 		fTxtCelular.setBorder(new MatteBorder(0, 0, 1, 0, (Color) new Color(192, 192, 192)));
-		fTxtCelular.setBackground(new Color(255, 255, 255));
+		fTxtCelular.setBackground(new Color(235, 235, 235));
 		fTxtCelular.setBounds(107, 280, 150, 30);
 		panelBottom.add(fTxtCelular);
 		
@@ -429,12 +418,12 @@ public class IntFormAdmFuncionario extends JInternalFrame {
 		txtEmail.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 		txtEmail.setEnabled(false);
 		txtEmail.setBorder(new MatteBorder(0, 0, 1, 0, (Color) new Color(192, 192, 192)));
-		txtEmail.setBackground(new Color(255, 255, 255));
+		txtEmail.setBackground(new Color(235, 235, 235));
 		txtEmail.setBounds(107, 330, 270, 30);
 		panelBottom.add(txtEmail);
 		
 		chckbxAdmin = new JCheckBox("Administrador");
-		chckbxAdmin.setBackground(new Color(255, 255, 255));
+		chckbxAdmin.setBackground(new Color(235, 235, 235));
 		chckbxAdmin.setEnabled(false);
 		chckbxAdmin.setFocusPainted(false);
 		chckbxAdmin.setFocusable(false);
@@ -445,7 +434,7 @@ public class IntFormAdmFuncionario extends JInternalFrame {
 		panelBottom.add(chckbxAdmin);
 		
 		chckbxAtivo = new JCheckBox("Ativo");
-		chckbxAtivo.setBackground(new Color(255, 255, 255));
+		chckbxAtivo.setBackground(new Color(235, 235, 235));
 		chckbxAtivo.setEnabled(false);
 		chckbxAtivo.setFocusPainted(false);
 		chckbxAtivo.setFocusable(false);
@@ -485,7 +474,7 @@ public class IntFormAdmFuncionario extends JInternalFrame {
 						} else {
 							funcionarioEdita.setAtivo(false);
 						}
-						if(DatabaseUtils.alterarFuncionario(funcionarioEdita, btnRedefinir.isSelected()) == true) {
+						if(FuncionarioDAO.alterarFuncionario(funcionarioEdita, btnRedefinir.isSelected()) == true) {
 							limpar();
 						} else {
 							

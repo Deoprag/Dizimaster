@@ -21,7 +21,8 @@ import javax.swing.border.EtchedBorder;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.text.MaskFormatter;
 
-import com.dizimaster.controller.DatabaseUtils;
+import com.dizimaster.dao.DBConnection;
+import com.dizimaster.dao.FuncionarioDAO;
 import com.dizimaster.model.Funcionario;
 import com.dizimaster.swing.TxtNome;
 import com.dizimaster.util.Util;
@@ -277,7 +278,7 @@ public class IntFormCadastroFuncionario extends JInternalFrame {
 									cadFuncionario.setSenha("dizi@2022");
 									cadFuncionario.setAtivo(true);
 									cadFuncionario.setAdmin(chckbxAdmin.isSelected() ? true : false);
-									if (DatabaseUtils.cadastroFuncionario(cadFuncionario) == true) {
+									if (FuncionarioDAO.cadastroFuncionario(cadFuncionario) == true) {
 										fTxtCpf.setText("");
 										txtNome.setText("");
 										fTxtNascimento.setText("");

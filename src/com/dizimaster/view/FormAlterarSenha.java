@@ -13,7 +13,8 @@ import java.awt.Font;
 import javax.swing.JPasswordField;
 import javax.swing.border.MatteBorder;
 
-import com.dizimaster.controller.DatabaseUtils;
+import com.dizimaster.dao.DBConnection;
+import com.dizimaster.dao.FuncionarioDAO;
 import com.dizimaster.model.Funcionario;
 import com.dizimaster.util.Util;
 
@@ -137,7 +138,7 @@ public class FormAlterarSenha extends JFrame {
 			@SuppressWarnings("deprecation")
 			public void actionPerformed(ActionEvent e) {
 				if (util.reqSenha(txtSenha.getText(), txtConfSenha.getText(), funcionario.getSenha()) == true) {
-					if (DatabaseUtils.alterarSenha(funcionario.getCpf(), funcionario.getSenha(), txtSenha.getText()) == true) {
+					if (FuncionarioDAO.alterarSenha(funcionario.getCpf(), funcionario.getSenha(), txtSenha.getText()) == true) {
 						JOptionPane.showMessageDialog(null,
 								"Senha alterada com sucesso! Realize seu login com a nova senha.");
 						sair();
