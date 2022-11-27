@@ -489,6 +489,12 @@ public class FormSistema {
 		mntmRelatorioDespesa.setPreferredSize(new Dimension(100, 30));
 		mntmRelatorioDespesa.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				largeDesktopPane.removeAll();
+				IntFormRelatorioDespesa intRelDespesa = new IntFormRelatorioDespesa();
+				largeDesktopPane.add(intMural);
+				intMural.show();
+				largeDesktopPane.add(intRelDespesa);
+				intRelDespesa.show();
 			}
 		});
 		mntmRelatorioDespesa.setIcon(new ImageIcon(FormSistema.class.getResource("/com/dizimaster/img/spent-icon-2.png")));
