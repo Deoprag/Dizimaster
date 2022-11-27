@@ -3,7 +3,11 @@ package com.dizimaster.dao;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Time;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JOptionPane;
 
@@ -37,5 +41,56 @@ public class OfertaDAO {
 			e.printStackTrace();
 			return false;
 		}
+	}
+
+	public static float somaOferta(int mes, int ano) {
+		float oferta = 0;
+		try {
+			Connection con = DBConnection.conecta();
+			String sql = "SELECT SUM(valor) from oferta where DATE_FORMAT(data, '%m') = ? and DATE_FORMAT(data, '%Y') = ?";
+			PreparedStatement stmt = con.prepareStatement(sql);
+
+			stmt.setInt(1, mes);
+			stmt.setInt(2, ano);
+			ResultSet rs = stmt.executeQuery();
+
+			while (rs.next()) {
+				oferta = rs.getFloat("SUM(valor)");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return oferta;
+	}
+
+	public static List<Oferta> listaOferta(int mes, int ano) {
+		List<Oferta> ofertaLista = new ArrayList<>();
+		try {
+			Connection con = DBConnection.conecta();
+			String sql = "SELECT * from oferta where DATE_FORMAT(data, '%m') = ? and DATE_FORMAT(data, '%Y') = ?";
+			PreparedStatement stmt = con.prepareStatement(sql);
+
+			stmt.setInt(1, mes);
+			stmt.setInt(2, ano);
+			ResultSet rs = stmt.executeQuery();
+			
+			ofertaLista.clear();
+			while (rs.next()) {
+				Oferta oferta = new Oferta();
+				oferta.setId(rs.getInt("id"));
+				oferta.setDizimista(rs.getInt("dizimista"));
+				oferta.setIsDizimista(rs.getBoolean("isDizimista"));
+				oferta.setNome(rs.getString("nome"));
+				oferta.setValor(rs.getFloat("valor"));
+				oferta.setObservacao(rs.getString("observacao"));
+				oferta.setFuncionario(rs.getInt("funcionario"));
+				oferta.setData(rs.getDate("data").toLocalDate());
+				oferta.setHora(rs.getString("hora"));
+				ofertaLista.add(oferta);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return ofertaLista;
 	}
 }

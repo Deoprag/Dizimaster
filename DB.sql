@@ -9,21 +9,20 @@ select *from funcionario;
 select *from dizimista;
 select *from despesa;
 
-delete from despesa where valor > 0;
-
 select DATE_FORMAT(dataOferta, '%Y') as YearNumber from oferta join dizimo GROUP BY YearNumber;
 select DATE_FORMAT(dataOferta, '%M') as MonthText, DATE_FORMAT(dataOferta, '%m') as MonthNumber from oferta where DATE_FORMAT(dataOferta, '%Y')='2020' group by MonthNumber;
 select (SELECT SUM(valorOferta) from oferta where DATE_FORMAT(dataOferta, '%m') = '12' and DATE_FORMAT(dataOferta, '%Y')= 2011) + (SELECT SUM(valorDizimo) from dizimo where DATE_FORMAT(dataDizimo, '%m') = '12' and DATE_FORMAT(dataDizimo, '%Y')= '2011') ;
-SELECT SUM(valor) from dizimo where DATE_FORMAT(data, '%m') = '10' and DATE_FORMAT(data, '%Y')= '2022';
+SELECT SUM(valor) from dizimo where DATE_FORMAT(data, '%m') = '11' and DATE_FORMAT(data, '%Y')= '2022';
 SELECT SUM(valor) from oferta where DATE_FORMAT(data, '%m') = '10' and DATE_FORMAT(data, '%Y')= '2022';
 SELECT SUM(valorDespesa) from despesa where DATE_FORMAT(dataDespesa, '%m') = '10' and DATE_FORMAT(dataDespesa, '%Y')= '2022';
 SELECT SUM(valor) from oferta where dizimista = 1 and DATE_FORMAT(data, '%m') >= 11 and DATE_FORMAT(data, '%m') <= 11 and DATE_FORMAT(data, '%Y') = 2022;
+
 
 select SUM(valorDizimo) from dizimo;
 select SUM(valorDespesa) from despesa;
 
 alter table despesa
-change column dataCadastrp data date not null;
+change column valorDespesa valor float not null;
 
 create table if not exists funcionario (
 	id int primary key not null auto_increment,

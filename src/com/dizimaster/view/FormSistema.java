@@ -467,6 +467,12 @@ public class FormSistema {
 		mntmRelatorioDizimo.setPreferredSize(new Dimension(100, 30));
 		mntmRelatorioDizimo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				largeDesktopPane.removeAll();
+				IntFormRelatorioDizimo intRelDizimo = new IntFormRelatorioDizimo();
+				largeDesktopPane.add(intMural);
+				intMural.show();
+				largeDesktopPane.add(intRelDizimo);
+				intRelDizimo.show();
 			}
 		});
 		mntmRelatorioDizimo.setIcon(new ImageIcon(FormSistema.class.getResource("/com/dizimaster/img/tithe-icon.png")));
@@ -478,6 +484,12 @@ public class FormSistema {
 		mntmRelatorioOferta.setPreferredSize(new Dimension(100, 30));
 		mntmRelatorioOferta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				largeDesktopPane.removeAll();
+				IntFormRelatorioOferta intRelOferta = new IntFormRelatorioOferta();
+				largeDesktopPane.add(intMural);
+				intMural.show();
+				largeDesktopPane.add(intRelOferta);
+				intRelOferta.show();
 			}
 		});
 		mntmRelatorioOferta.setIcon(new ImageIcon(FormSistema.class.getResource("/com/dizimaster/img/offering-icon.png")));
