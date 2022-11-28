@@ -93,7 +93,7 @@ public class IntFormRelatorioOferta extends JInternalFrame {
 			@Override
 			public void internalFrameOpened(InternalFrameEvent e) {
 				try {
-					UtilDAO.mostraAno(boxAno);
+					UtilDAO.mostraAnoOferta(boxAno);
 				} catch (Exception e1) {
 					e1.printStackTrace();
 				}
@@ -179,7 +179,7 @@ public class IntFormRelatorioOferta extends JInternalFrame {
 		boxMes.setBackground(new Color(200, 240, 255));
 		
 		JLabel lblMes = new JLabel("Mês");
-		lblMes.setBounds(130, 63, 40, 30);
+		lblMes.setBounds(140, 63, 40, 30);
 		panelMid.add(lblMes);
 		lblMes.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 		
@@ -192,7 +192,7 @@ public class IntFormRelatorioOferta extends JInternalFrame {
 					int ano = Integer.valueOf(boxAno.getSelectedItem().toString());
 					try {
 						boxMes.removeAllItems();
-						UtilDAO.mostraMes(ano, boxMes);
+						UtilDAO.mostraMesOferta(ano, boxMes);
 					} catch (SQLException e1) {
 						e1.printStackTrace();
 					}

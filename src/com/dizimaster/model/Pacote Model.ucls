@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class-diagram version="1.2.4" icons="true" always-add-relationships="false" generalizations="true" realizations="true" 
+  associations="true" dependencies="false" nesting-relationships="true" router="FAN">  
+  <package id="1" language="java" name="com.dizimaster.model" project="Dizimaster" 
+    file="/Dizimaster/src/com/dizimaster/model" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="569" width="630" x="94" y="153"/>    
+    <display autosize="false" stereotype="true" sort-features="false" accessors="true"/>  
+  </package>  
+  <class id="2" language="java" name="com.dizimaster.model.Despesa" project="Dizimaster" 
+    file="/Dizimaster/src/com/dizimaster/model/Despesa.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="220" width="205" x="109" y="210"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="true" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="false" package="false" protected="false" private="false" static="true"/>    
+    </display>  
+  </class>  
+  <class id="3" language="java" name="com.dizimaster.model.Grafico" project="Dizimaster" 
+    file="/Dizimaster/src/com/dizimaster/model/Grafico.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="261" width="200" x="109" y="448"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="4" language="java" name="com.dizimaster.model.Oferta" project="Dizimaster" 
+    file="/Dizimaster/src/com/dizimaster/model/Oferta.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="220" width="142" x="321" y="211"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="false" package="false" protected="false" private="false" static="true"/>    
+    </display>  
+  </class>  
+  <class id="5" language="java" name="com.dizimaster.model.Dizimista" project="Dizimaster" 
+    file="/Dizimaster/src/com/dizimaster/model/Dizimista.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="259" width="145" x="322" y="450"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="false" package="false" protected="false" private="false" static="true"/>    
+    </display>  
+  </class>  
+  <class id="6" language="java" name="com.dizimaster.model.Dizimo" project="Dizimaster" 
+    file="/Dizimaster/src/com/dizimaster/model/Dizimo.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="218" width="118" x="472" y="212"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="false" package="false" protected="false" private="false" static="true"/>    
+    </display>  
+  </class>  
+  <class id="7" language="java" name="com.dizimaster.model.Funcionario" project="Dizimaster" 
+    file="/Dizimaster/src/com/dizimaster/model/Funcionario.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="258" width="225" x="481" y="452"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="false" package="false" protected="false" private="false" static="true"/>    
+    </display>  
+  </class>  
+  <class id="8" language="java" name="com.dizimaster.model.Mes" project="Dizimaster" 
+    file="/Dizimaster/src/com/dizimaster/model/Mes.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="219" width="104" x="604" y="212"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="false" package="false" protected="false" private="false" static="true"/>    
+    </display>  
+  </class>  
+  <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+    sort-features="false" accessors="true" visibility="true">    
+    <attributes public="true" package="true" protected="true" private="true" static="true"/>    
+    <operations public="false" package="false" protected="false" private="false" static="true"/>  
+  </classifier-display>  
+  <association-display labels="true" multiplicity="true"/>
+</class-diagram>

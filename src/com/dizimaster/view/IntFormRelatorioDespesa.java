@@ -24,11 +24,10 @@ import javax.swing.border.EtchedBorder;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-import com.dizimaster.dao.OfertaDAO;
+import com.dizimaster.dao.DespesaDAO;
 import com.dizimaster.dao.UtilDAO;
+import com.dizimaster.model.Despesa;
 import com.dizimaster.model.Mes;
-import com.dizimaster.model.Oferta;
-
 import javax.swing.JScrollPane;
 import javax.swing.JComboBox;
 import java.awt.event.ActionListener;
@@ -43,7 +42,7 @@ public class IntFormRelatorioDespesa extends JInternalFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JTable tableOferta;
-	private List<Oferta> ofertaLista;
+	private List<Despesa> despesaLista;
 	private DefaultTableModel model;
 	private JComboBox<Object> boxMes;
 	private JComboBox<Object> boxAno;
@@ -71,19 +70,16 @@ public class IntFormRelatorioDespesa extends JInternalFrame {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		ofertaLista = OfertaDAO.listaOferta(mes, ano);
+		despesaLista = DespesaDAO.listaDespesa(mes, ano);
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-		for(int i = 0; i < ofertaLista.size() && ofertaLista.get(i) != null; i++) {
+		for(int i = 0; i < despesaLista.size() && despesaLista.get(i) != null; i++) {
 			model.addRow(new Object[]{
-					ofertaLista.get(i).getId(),
-					ofertaLista.get(i).isDizimista() ? "Sim": "Não",
-					ofertaLista.get(i).getDizimista() == 0 ? "-" : ofertaLista.get(i).getDizimista(),
-					ofertaLista.get(i).getNome(),
-					ofertaLista.get(i).getValor(),
-					ofertaLista.get(i).getObservacao() == null ? "-" : ofertaLista.get(i).getObservacao(),
-					ofertaLista.get(i).getFuncionario(),
-					ofertaLista.get(i).getData().format(formatter),
-					ofertaLista.get(i).getHora()
+					despesaLista.get(i).getId(),
+					despesaLista.get(i).getValor(),
+					despesaLista.get(i).getDescricao(),
+					despesaLista.get(i).getFuncionario(),
+					despesaLista.get(i).getData().format(formatter),
+					despesaLista.get(i).getHora()
 			});
 		}
 	}
@@ -93,7 +89,7 @@ public class IntFormRelatorioDespesa extends JInternalFrame {
 			@Override
 			public void internalFrameOpened(InternalFrameEvent e) {
 				try {
-					UtilDAO.mostraAno(boxAno);
+					UtilDAO.mostraAnoDespesa(boxAno);
 				} catch (Exception e1) {
 					e1.printStackTrace();
 				}
@@ -119,7 +115,7 @@ public class IntFormRelatorioDespesa extends JInternalFrame {
 		panelMid.add(lblAno);
 		lblAno.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 		
-		JLabel lblTitle = new JLabel("Relatório de Ofertas");
+		JLabel lblTitle = new JLabel("Relatório de Despesas");
 		lblTitle.setBounds(10, 11, 320, 35);
 		panelMid.add(lblTitle);
 		lblTitle.setFont(new Font("Segoe UI", Font.BOLD, 22));
@@ -179,7 +175,7 @@ public class IntFormRelatorioDespesa extends JInternalFrame {
 		boxMes.setBackground(new Color(200, 240, 255));
 		
 		JLabel lblMes = new JLabel("Mês");
-		lblMes.setBounds(130, 63, 40, 30);
+		lblMes.setBounds(140, 63, 40, 30);
 		panelMid.add(lblMes);
 		lblMes.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 		
@@ -192,7 +188,7 @@ public class IntFormRelatorioDespesa extends JInternalFrame {
 					int ano = Integer.valueOf(boxAno.getSelectedItem().toString());
 					try {
 						boxMes.removeAllItems();
-						UtilDAO.mostraMes(ano, boxMes);
+						UtilDAO.mostraMesDespesa(ano, boxMes);
 					} catch (SQLException e1) {
 						e1.printStackTrace();
 					}
@@ -218,11 +214,8 @@ public class IntFormRelatorioDespesa extends JInternalFrame {
 		
 		model = new DefaultTableModel(); 
 		model.addColumn("ID");
-		model.addColumn("Dizimista?");
-		model.addColumn("ID Dizimista");
-		model.addColumn("Nome");
 		model.addColumn("Valor");
-		model.addColumn("Observacao");
+		model.addColumn("Descricao");
 		model.addColumn("ID Funcionario");
 		model.addColumn("Data");
 		model.addColumn("Hora");
@@ -241,13 +234,13 @@ public class IntFormRelatorioDespesa extends JInternalFrame {
 		
 	}
 
-	public List<Oferta> getOfertaLista() {
-		return ofertaLista;
+	public List<Despesa> getOfertaLista() {
+		return despesaLista;
 	}
 
 
 
-	public void setOfertaLista(List<Oferta> ofertaLista) {
-		this.ofertaLista = ofertaLista;
+	public void setOfertaLista(List<Despesa> ofertaLista) {
+		this.despesaLista = ofertaLista;
 	}
 }

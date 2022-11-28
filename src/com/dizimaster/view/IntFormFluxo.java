@@ -100,7 +100,7 @@ public class IntFormFluxo extends JInternalFrame {
 			@Override
 			public void internalFrameOpened(InternalFrameEvent e) {
 				try {
-					UtilDAO.mostraAno(boxAno);
+					UtilDAO.mostraAnoOferta(boxAno);
 				} catch (Exception e1) {
 					e1.printStackTrace();
 				}
@@ -206,7 +206,7 @@ public class IntFormFluxo extends JInternalFrame {
 					int ano = Integer.valueOf(boxAno.getSelectedItem().toString());
 					try {
 						boxMes.removeAllItems();
-						UtilDAO.mostraMes(ano, boxMes);
+						UtilDAO.mostraMesOferta(ano, boxMes);
 					} catch (SQLException e1) {
 						e1.printStackTrace();
 					}

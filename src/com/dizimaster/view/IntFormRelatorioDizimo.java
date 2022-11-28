@@ -24,8 +24,10 @@ import javax.swing.border.EtchedBorder;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import com.dizimaster.dao.DizimoDAO;
 import com.dizimaster.dao.OfertaDAO;
 import com.dizimaster.dao.UtilDAO;
+import com.dizimaster.model.Dizimo;
 import com.dizimaster.model.Mes;
 import com.dizimaster.model.Oferta;
 
@@ -43,7 +45,7 @@ public class IntFormRelatorioDizimo extends JInternalFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JTable tableOferta;
-	private List<Oferta> ofertaLista;
+	private List<Dizimo> dizimoLista;
 	private DefaultTableModel model;
 	private JComboBox<Object> boxMes;
 	private JComboBox<Object> boxAno;
@@ -71,19 +73,17 @@ public class IntFormRelatorioDizimo extends JInternalFrame {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		ofertaLista = OfertaDAO.listaOferta(mes, ano);
+		dizimoLista = DizimoDAO.listaDizimo(mes, ano);
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-		for(int i = 0; i < ofertaLista.size() && ofertaLista.get(i) != null; i++) {
+		for(int i = 0; i < dizimoLista.size() && dizimoLista.get(i) != null; i++) {
 			model.addRow(new Object[]{
-					ofertaLista.get(i).getId(),
-					ofertaLista.get(i).isDizimista() ? "Sim": "Não",
-					ofertaLista.get(i).getDizimista() == 0 ? "-" : ofertaLista.get(i).getDizimista(),
-					ofertaLista.get(i).getNome(),
-					ofertaLista.get(i).getValor(),
-					ofertaLista.get(i).getObservacao() == null ? "-" : ofertaLista.get(i).getObservacao(),
-					ofertaLista.get(i).getFuncionario(),
-					ofertaLista.get(i).getData().format(formatter),
-					ofertaLista.get(i).getHora()
+					dizimoLista.get(i).getId(),
+					dizimoLista.get(i).getDizimista(),
+					dizimoLista.get(i).getValor(),
+					dizimoLista.get(i).getObservacao() == null ? "-" : dizimoLista.get(i).getObservacao(),
+					dizimoLista.get(i).getFuncionario(),
+					dizimoLista.get(i).getData().format(formatter),
+					dizimoLista.get(i).getHora()
 			});
 		}
 	}
@@ -93,7 +93,7 @@ public class IntFormRelatorioDizimo extends JInternalFrame {
 			@Override
 			public void internalFrameOpened(InternalFrameEvent e) {
 				try {
-					UtilDAO.mostraAno(boxAno);
+					UtilDAO.mostraAnoDizimo(boxAno);
 				} catch (Exception e1) {
 					e1.printStackTrace();
 				}
@@ -119,7 +119,7 @@ public class IntFormRelatorioDizimo extends JInternalFrame {
 		panelMid.add(lblAno);
 		lblAno.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 		
-		JLabel lblTitle = new JLabel("Relatório de Ofertas");
+		JLabel lblTitle = new JLabel("Relatório de Dizimos");
 		lblTitle.setBounds(10, 11, 320, 35);
 		panelMid.add(lblTitle);
 		lblTitle.setFont(new Font("Segoe UI", Font.BOLD, 22));
@@ -179,7 +179,7 @@ public class IntFormRelatorioDizimo extends JInternalFrame {
 		boxMes.setBackground(new Color(200, 240, 255));
 		
 		JLabel lblMes = new JLabel("Mês");
-		lblMes.setBounds(130, 63, 40, 30);
+		lblMes.setBounds(140, 63, 40, 30);
 		panelMid.add(lblMes);
 		lblMes.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 		
@@ -192,7 +192,7 @@ public class IntFormRelatorioDizimo extends JInternalFrame {
 					int ano = Integer.valueOf(boxAno.getSelectedItem().toString());
 					try {
 						boxMes.removeAllItems();
-						UtilDAO.mostraMes(ano, boxMes);
+						UtilDAO.mostraMesDizimo(ano, boxMes);
 					} catch (SQLException e1) {
 						e1.printStackTrace();
 					}
@@ -218,9 +218,7 @@ public class IntFormRelatorioDizimo extends JInternalFrame {
 		
 		model = new DefaultTableModel(); 
 		model.addColumn("ID");
-		model.addColumn("Dizimista?");
 		model.addColumn("ID Dizimista");
-		model.addColumn("Nome");
 		model.addColumn("Valor");
 		model.addColumn("Observacao");
 		model.addColumn("ID Funcionario");
@@ -241,13 +239,13 @@ public class IntFormRelatorioDizimo extends JInternalFrame {
 		
 	}
 
-	public List<Oferta> getOfertaLista() {
-		return ofertaLista;
+	public List<Dizimo> getOfertaLista() {
+		return dizimoLista;
 	}
 
 
 
-	public void setOfertaLista(List<Oferta> ofertaLista) {
-		this.ofertaLista = ofertaLista;
+	public void setOfertaLista(List<Dizimo> ofertaLista) {
+		this.dizimoLista = ofertaLista;
 	}
 }

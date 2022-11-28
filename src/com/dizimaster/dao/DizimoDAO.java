@@ -6,10 +6,13 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Time;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JOptionPane;
 
 import com.dizimaster.model.Dizimo;
+import com.dizimaster.model.Oferta;
 
 public class DizimoDAO {
 	
@@ -60,5 +63,34 @@ public class DizimoDAO {
 			e.printStackTrace();
 		}
 		return dizimo;
+	}
+	
+	public static List<Dizimo> listaDizimo(int mes, int ano) {
+		List<Dizimo> dizimoLista = new ArrayList<>();
+		try {
+			Connection con = DBConnection.conecta();
+			String sql = "SELECT * from dizimo where DATE_FORMAT(data, '%m') = ? and DATE_FORMAT(data, '%Y') = ?";
+			PreparedStatement stmt = con.prepareStatement(sql);
+
+			stmt.setInt(1, mes);
+			stmt.setInt(2, ano);
+			ResultSet rs = stmt.executeQuery();
+			
+			dizimoLista.clear();
+			while (rs.next()) {
+				Dizimo dizimo = new Dizimo();
+				dizimo.setId(rs.getInt("id"));
+				dizimo.setDizimista(rs.getInt("dizimista"));
+				dizimo.setValor(rs.getFloat("valor"));
+				dizimo.setObservacao(rs.getString("observacao"));
+				dizimo.setFuncionario(rs.getInt("funcionario"));
+				dizimo.setData(rs.getDate("data").toLocalDate());
+				dizimo.setHora(rs.getString("hora"));
+				dizimoLista.add(dizimo);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return dizimoLista;
 	}
 }

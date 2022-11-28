@@ -6,10 +6,13 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Time;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JOptionPane;
 
 import com.dizimaster.model.Despesa;
+import com.dizimaster.model.Dizimo;
 
 public class DespesaDAO {
 	
@@ -56,5 +59,33 @@ public class DespesaDAO {
 			e.printStackTrace();
 		}
 		return despesa;
+	}
+	
+	public static List<Despesa> listaDespesa(int mes, int ano) {
+		List<Despesa> despesaLista = new ArrayList<>();
+		try {
+			Connection con = DBConnection.conecta();
+			String sql = "SELECT * from despesa where DATE_FORMAT(data, '%m') = ? and DATE_FORMAT(data, '%Y') = ?";
+			PreparedStatement stmt = con.prepareStatement(sql);
+
+			stmt.setInt(1, mes);
+			stmt.setInt(2, ano);
+			ResultSet rs = stmt.executeQuery();
+			
+			despesaLista.clear();
+			while (rs.next()) {
+				Despesa despesa = new Despesa();
+				despesa.setId(rs.getInt("id"));
+				despesa.setValor(rs.getFloat("valor"));
+				despesa.setDescricao(rs.getString("descricao"));
+				despesa.setFuncionario(rs.getInt("funcionario"));
+				despesa.setData(rs.getDate("data").toLocalDate());
+				despesa.setHora(rs.getString("hora"));
+				despesaLista.add(despesa);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return despesaLista;
 	}
 }
