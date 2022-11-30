@@ -128,9 +128,50 @@ public class FuncionarioDAO {
 
 		try {
 			Connection con = DBConnection.conecta();
-			Statement stmt = con.createStatement();
-			ResultSet rs = stmt.executeQuery("select * from funcionario where cpf = " + cpf);
+			String sql = "select * from funcionario where cpf = ?";
+			PreparedStatement stmt = con.prepareStatement(sql);
+			
+			stmt.setString(1, cpf);
+			
+			ResultSet rs = stmt.executeQuery();
 
+			if (rs.next()) {
+				funcionarioPesquisa = new Funcionario();
+				funcionarioPesquisa.setId(rs.getInt("id"));
+				funcionarioPesquisa.setCpf(rs.getString("cpf"));
+				funcionarioPesquisa.setNome(rs.getString("nome"));
+				funcionarioPesquisa.setNascimento(rs.getDate("nascimento").toLocalDate());
+				funcionarioPesquisa.setSexo(rs.getString("sexo").charAt(0));
+				funcionarioPesquisa.setEmail(rs.getString("email"));
+				funcionarioPesquisa.setCelular(rs.getString("celular"));
+				funcionarioPesquisa.setSenha(rs.getString("senha"));
+				funcionarioPesquisa.setDataCadastro(rs.getDate("dataCadastro").toLocalDate());
+				funcionarioPesquisa.setAtivo(rs.getBoolean("ativo"));
+				funcionarioPesquisa.setAdmin(rs.getBoolean("isAdmin"));
+
+				con.close();
+				stmt.close();
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return funcionarioPesquisa;
+	}
+	
+	public static Funcionario pesquisaFuncionarioId(String id) {
+		Funcionario funcionarioPesquisa;
+		funcionarioPesquisa = null;
+
+		try {
+			Connection con = DBConnection.conecta();
+			String sql = "select * from funcionario where id = ?";
+			PreparedStatement stmt = con.prepareStatement(sql);
+			
+			stmt.setString(1, id);
+			
+			ResultSet rs = stmt.executeQuery();
+			
 			if (rs.next()) {
 				funcionarioPesquisa = new Funcionario();
 				funcionarioPesquisa.setId(rs.getInt("id"));

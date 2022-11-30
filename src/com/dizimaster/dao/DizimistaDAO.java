@@ -54,8 +54,47 @@ public class DizimistaDAO {
 
 		try {
 			Connection con = DBConnection.conecta();
-			Statement stmt = con.createStatement();
-			ResultSet rs = stmt.executeQuery("select * from dizimista where cpf = " + cpf);
+			String sql = "select * from dizimista where cpf = ?";
+			PreparedStatement stmt = con.prepareStatement(sql);
+			
+			ResultSet rs = stmt.executeQuery();
+			
+			stmt.setString(1, cpf);
+
+			if (rs.next()) {
+				dizimistaPesquisa = new Dizimista();
+				dizimistaPesquisa.setId(rs.getInt("id"));
+				dizimistaPesquisa.setCpf(rs.getString("cpf"));
+				dizimistaPesquisa.setNome(rs.getString("nome"));
+				dizimistaPesquisa.setNascimento(rs.getDate("nascimento").toLocalDate());
+				dizimistaPesquisa.setSexo(rs.getString("sexo").charAt(0));
+				dizimistaPesquisa.setCelular(rs.getString("celular"));
+				dizimistaPesquisa.setSalario(rs.getFloat("salario"));
+				dizimistaPesquisa.setDataCadastro(rs.getDate("dataCadastro").toLocalDate());
+				dizimistaPesquisa.setAtivo(rs.getBoolean("ativo"));
+
+				con.close();
+				stmt.close();
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return dizimistaPesquisa;
+	}
+	
+	public static Dizimista pesquisaDizimistaId(String id) {
+		Dizimista dizimistaPesquisa;
+		dizimistaPesquisa = null;
+
+		try {
+			Connection con = DBConnection.conecta();
+			String sql = "select * from dizimista where id = ?";
+			PreparedStatement stmt = con.prepareStatement(sql);
+			
+			ResultSet rs = stmt.executeQuery();
+			
+			stmt.setString(1, id);
 
 			if (rs.next()) {
 				dizimistaPesquisa = new Dizimista();

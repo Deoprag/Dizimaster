@@ -7,10 +7,10 @@ import javax.swing.JInternalFrame;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.text.MaskFormatter;
 
-import com.dizimaster.dao.DBConnection;
 import com.dizimaster.dao.DizimistaDAO;
 import com.dizimaster.model.Dizimista;
 import com.dizimaster.model.Funcionario;
+import com.dizimaster.swing.TxtId;
 import com.dizimaster.swing.TxtSalarioFormat;
 
 import javax.swing.JLabel;
@@ -28,7 +28,6 @@ import javax.swing.JFormattedTextField;
 import javax.swing.JButton;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.awt.Cursor;
@@ -44,6 +43,8 @@ public class IntFormAdmDizimista extends JInternalFrame {
 	private Funcionario funcionario;
 	private Dizimista dizimistaPesquisa;
 	private JFormattedTextField txtEditCpf;
+	private JFormattedTextField txtCpf;
+	private TxtId txtId;
 	private JTextField txtNome;
 	private JTextField fTxtNascimento;
 	private JComboBox<?> boxSexo;
@@ -71,6 +72,8 @@ public class IntFormAdmDizimista extends JInternalFrame {
 	}
 
 	private void limpar() {
+		txtCpf.setText("");
+		txtId.setText("");
 		txtEditCpf.setText("");
 		txtEditCpf.setEnabled(false);
 		txtNome.setText("");
@@ -128,11 +131,11 @@ public class IntFormAdmDizimista extends JInternalFrame {
 		separator.setBounds(0, 50, 1000, 2);
 		panelTop.add(separator);
 
-		JFormattedTextField txtCpf = new JFormattedTextField(mascaraCpf);
+		txtCpf = new JFormattedTextField(mascaraCpf);
 		txtCpf.setBackground(new Color(235, 235, 235));
 		txtCpf.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 		txtCpf.setBorder(new MatteBorder(0, 0, 1, 0, (Color) new Color(192, 192, 192)));
-		txtCpf.setBounds(50, 72, 125, 30);
+		txtCpf.setBounds(50, 70, 125, 30);
 		panelTop.add(txtCpf);
 
 		JLabel lblCpf = new JLabel("CPF");
@@ -207,8 +210,8 @@ public class IntFormAdmDizimista extends JInternalFrame {
 		btnSearch.setFocusPainted(false);
 		btnSearch.setBorderPainted(false);
 		btnSearch.setBorder(null);
-		btnSearch.setBackground(new Color(255, 255, 255));
-		btnSearch.setBounds(185, 77, 25, 25);
+		btnSearch.setBackground(new Color(235, 235, 235));
+		btnSearch.setBounds(185, 75, 25, 25);
 		panelTop.add(btnSearch);
 
 		JButton btnLimpar = new JButton("Limpar");
@@ -266,6 +269,89 @@ public class IntFormAdmDizimista extends JInternalFrame {
 		btnSair.setBackground(new Color(184, 44, 54));
 		btnSair.setBounds(460, 12, 90, 30);
 		panelTop.add(btnSair);
+		
+		JLabel lblId = new JLabel("ID");
+		lblId.setForeground(Color.BLACK);
+		lblId.setFont(new Font("Segoe UI", Font.BOLD, 14));
+		lblId.setBounds(250, 70, 40, 30);
+		panelTop.add(lblId);
+		
+		txtId = new TxtId(5);
+		txtId.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+		txtId.setBorder(new MatteBorder(0, 0, 1, 0, (Color) new Color(192, 192, 192)));
+		txtId.setBackground(new Color(235, 235, 235));
+		txtId.setBounds(279, 70, 70, 30);
+		panelTop.add(txtId);
+		
+		JButton btnSearchId = new JButton("");
+		btnSearchId.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnSearchId.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				limpar();
+				if (!txtId.getText().isBlank()) {
+					dizimistaPesquisa = DizimistaDAO.pesquisaDizimistaId(txtId.getText());
+					if (dizimistaPesquisa != null) {
+
+						txtNome.setEnabled(true);
+						fTxtNascimento.setEnabled(true);
+						boxSexo.setEnabled(true);
+						fTxtCelular.setEnabled(true);
+						txtSalario.setEnabled(true);
+						chckbxAtivo.setEnabled(true);
+						
+
+						txtEditCpf.setText(dizimistaPesquisa.getCpf());
+						txtNome.setText(dizimistaPesquisa.getNome());
+
+						DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/YYYY");
+						lblDataCadastro.setText("Cadastrado desde " + formatter.format(dizimistaPesquisa.getDataCadastro()));
+						fTxtNascimento.setText(formatter.format(dizimistaPesquisa.getNascimento()));
+						if (dizimistaPesquisa.getSexo() == 'm') {
+							boxSexo.setSelectedItem("Masculino");
+						} else if (dizimistaPesquisa.getSexo() == 'f') {
+							boxSexo.setSelectedItem("Feminino");
+						}
+						fTxtCelular.setText(dizimistaPesquisa.getCelular());
+						txtSalario.setText(String.valueOf(dizimistaPesquisa.getSalario()));
+						if (dizimistaPesquisa.isAtivo()) {
+							chckbxAtivo.setSelected(true);
+						} else {
+							chckbxAtivo.setSelected(false);
+						}
+
+						btnSalvar.setEnabled(true);
+					} else {
+						JOptionPane.showMessageDialog(null, "ID não encontrado!");
+					}
+				} else {
+					JOptionPane.showMessageDialog(null, "Digite um ID!");
+				}
+			}
+		});
+		btnSearchId.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				btnSearch.setIcon(new ImageIcon(
+						IntFormAdmDizimista.class.getResource("/com/dizimaster/img/find-icon-2-hold.png")));
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				btnSearch.setIcon(
+						new ImageIcon(IntFormAdmDizimista.class.getResource("/com/dizimaster/img/find-icon-2.png")));
+			}
+		});
+		btnSearchId.setIcon(new ImageIcon(IntFormAdmDizimista.class.getResource("/com/dizimaster/img/find-icon-2.png")));
+		btnSearchId.setRolloverEnabled(false);
+		btnSearchId.setRequestFocusEnabled(false);
+		btnSearchId.setFocusable(false);
+		btnSearchId.setFocusTraversalKeysEnabled(false);
+		btnSearchId.setFocusPainted(false);
+		btnSearchId.setBorderPainted(false);
+		btnSearchId.setBorder(null);
+		btnSearchId.setBackground(new Color(235, 235, 235));
+		btnSearchId.setBounds(359, 75, 25, 25);
+		panelTop.add(btnSearchId);
 
 		JPanel panelBottom = new JPanel();
 		panelBottom.setLayout(null);
@@ -464,9 +550,9 @@ public class IntFormAdmDizimista extends JInternalFrame {
 		btnSalvar.setBackground(new Color(60, 122, 194));
 		
 		lblDataCadastro = new JLabel("");
-		lblDataCadastro.setForeground(new Color(216, 228, 241));
+		lblDataCadastro.setForeground(new Color(192, 192, 192));
 		lblDataCadastro.setFont(new Font("Segoe UI", Font.BOLD, 14));
-		lblDataCadastro.setBounds(267, 280, 240, 30);
+		lblDataCadastro.setBounds(245, 180, 240, 30);
 		panelBottom.add(lblDataCadastro);
 
 		JLabel lblBackground = new JLabel("");
