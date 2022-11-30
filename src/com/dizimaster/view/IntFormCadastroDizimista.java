@@ -130,6 +130,15 @@ public class IntFormCadastroDizimista extends JInternalFrame {
 				btnSair.setBackground(new Color(184, 44, 54));
 			}
 		});
+		
+		JLabel lblReal = new JLabel("R$");
+		lblReal.setForeground(Color.WHITE);
+		lblReal.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+		lblReal.setBorder(new MatteBorder(0, 0, 1, 0, (Color) new Color(10, 60, 70)));
+		lblReal.setBackground(Color.WHITE);
+		lblReal.setAlignmentX(0.5f);
+		lblReal.setBounds(182, 390, 25, 30);
+		panelCadastro.add(lblReal);
 
 		JLabel lblCamposObrigatorios = new JLabel("* Campos obrigatórios");
 		lblCamposObrigatorios.setForeground(new Color(255, 255, 255));
@@ -162,7 +171,7 @@ public class IntFormCadastroDizimista extends JInternalFrame {
 
 		TxtSalarioFormat txtSalario = new TxtSalarioFormat(8);
 		txtSalario.setForeground(new Color(255, 255, 255));
-		txtSalario.setBounds(182, 390, 150, 30);
+		txtSalario.setBounds(205, 390, 75, 30);
 		txtSalario.setFont(new Font("Segoe UI", Font.PLAIN, 12));
 		txtSalario.setBorder(new MatteBorder(0, 0, 1, 0, (Color) new Color(10, 60, 70)));
 		txtSalario.setBackground(new Color(25, 120, 150));

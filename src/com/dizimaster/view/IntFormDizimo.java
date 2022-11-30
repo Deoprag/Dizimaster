@@ -291,22 +291,26 @@ public class IntFormDizimo extends JInternalFrame {
 						JOptionPane.showMessageDialog(null, "Preencha o CPF!");
 					} else {
 						if (!txtNome.getText().isBlank() && !txtValor.getText().isBlank()) {
-							Dizimo dizimo = new Dizimo();
-							dizimo.setDizimista(dizimista.getId());
-							dizimo.setValor(Float.parseFloat(txtValor.getText()));
-							dizimo.setFuncionario(funcionario.getId());
-							if (!txtObs.getText().isBlank() && txtObs.getForeground() == Color.WHITE) {
-								dizimo.setObservacao(txtObs.getText());
-							}
-							dizimo.setData(util.dataAtual());
-							dizimo.setHora(util.horaAtual());
-							if (DizimoDAO.registraDizimo(dizimo) == true) {
-								txtCpf.setText("");
-								txtNome.setText("");
-								txtValor.setText("");
-								txtObs.setText("Insira aqui uma observação");
-								txtObs.setForeground(new Color(192,192,192));
-								txtObs.setEnabled(false);
+							if(Integer.parseInt(txtValor.getText()) > 1) {
+								Dizimo dizimo = new Dizimo();
+								dizimo.setDizimista(dizimista.getId());
+								dizimo.setValor(Float.parseFloat(txtValor.getText()));
+								dizimo.setFuncionario(funcionario.getId());
+								if (!txtObs.getText().isBlank() && txtObs.getForeground() == Color.WHITE) {
+									dizimo.setObservacao(txtObs.getText());
+								}
+								dizimo.setData(util.dataAtual());
+								dizimo.setHora(util.horaAtual());
+								if (DizimoDAO.registraDizimo(dizimo) == true) {
+									txtCpf.setText("");
+									txtNome.setText("");
+									txtValor.setText("");
+									txtObs.setText("Insira aqui uma observação");
+									txtObs.setForeground(new Color(192,192,192));
+									txtObs.setEnabled(false);
+								}
+							} else {
+								JOptionPane.showMessageDialog(null, "Valor inválido!");
 							}
 						} else {
 							JOptionPane.showMessageDialog(null, "Pesquise o CPF antes de registrar!");
@@ -317,6 +321,8 @@ public class IntFormDizimo extends JInternalFrame {
 				} catch (Exception e2) {
 					e2.printStackTrace();
 				}
+				txtNome.setText("");
+				txtValor.setText("");
 			}
 		});
 		btnEnviar.addMouseListener(new MouseAdapter() {

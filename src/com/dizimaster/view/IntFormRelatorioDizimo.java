@@ -12,8 +12,10 @@ import javax.swing.JOptionPane;
 
 import java.awt.Font;
 import java.sql.SQLException;
+import java.text.NumberFormat;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Locale;
 
 import javax.swing.border.MatteBorder;
 import javax.swing.event.InternalFrameAdapter;
@@ -73,13 +75,14 @@ public class IntFormRelatorioDizimo extends JInternalFrame {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		NumberFormat valor = NumberFormat.getCurrencyInstance(new Locale("pt","BR"));
 		dizimoLista = DizimoDAO.listaDizimo(mes, ano);
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 		for(int i = 0; i < dizimoLista.size() && dizimoLista.get(i) != null; i++) {
 			model.addRow(new Object[]{
 					dizimoLista.get(i).getId(),
 					dizimoLista.get(i).getDizimista(),
-					dizimoLista.get(i).getValor(),
+					valor.format(dizimoLista.get(i).getValor()),
 					dizimoLista.get(i).getObservacao() == null ? "-" : dizimoLista.get(i).getObservacao(),
 					dizimoLista.get(i).getFuncionario(),
 					dizimoLista.get(i).getData().format(formatter),

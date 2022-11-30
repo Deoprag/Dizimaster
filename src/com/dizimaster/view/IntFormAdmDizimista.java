@@ -88,6 +88,7 @@ public class IntFormAdmDizimista extends JInternalFrame {
 		txtSalario.setEnabled(false);
 		chckbxAtivo.setSelected(false);
 		chckbxAtivo.setEnabled(false);
+		btnSalvar.setEnabled(false);
 	}
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
@@ -147,11 +148,10 @@ public class IntFormAdmDizimista extends JInternalFrame {
 		JButton btnSearch = new JButton("");
 		btnSearch.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				limpar();
 				if (txtCpf.getText().replace(".", "").replace("-", "").replace("*", "").length() == 11) {
 					dizimistaPesquisa = DizimistaDAO.pesquisaDizimista(txtCpf.getText().replace(".", "").replace("-", ""));
 					if (dizimistaPesquisa != null) {
-
+						limpar();
 						txtNome.setEnabled(true);
 						fTxtNascimento.setEnabled(true);
 						boxSexo.setEnabled(true);
@@ -229,8 +229,7 @@ public class IntFormAdmDizimista extends JInternalFrame {
 		});
 		btnLimpar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				txtCpf.setText("");
-				btnSearch.doClick();
+				limpar();
 			}
 		});
 		btnLimpar.setForeground(new Color(0, 0, 0));
@@ -287,11 +286,10 @@ public class IntFormAdmDizimista extends JInternalFrame {
 		btnSearchId.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnSearchId.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				limpar();
 				if (!txtId.getText().isBlank()) {
 					dizimistaPesquisa = DizimistaDAO.pesquisaDizimistaId(txtId.getText());
 					if (dizimistaPesquisa != null) {
-
+						limpar();
 						txtNome.setEnabled(true);
 						fTxtNascimento.setEnabled(true);
 						boxSexo.setEnabled(true);
@@ -331,13 +329,12 @@ public class IntFormAdmDizimista extends JInternalFrame {
 		btnSearchId.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				btnSearch.setIcon(new ImageIcon(
+				btnSearchId.setIcon(new ImageIcon(
 						IntFormAdmDizimista.class.getResource("/com/dizimaster/img/find-icon-2-hold.png")));
 			}
-
 			@Override
 			public void mouseExited(MouseEvent e) {
-				btnSearch.setIcon(
+				btnSearchId.setIcon(
 						new ImageIcon(IntFormAdmDizimista.class.getResource("/com/dizimaster/img/find-icon-2.png")));
 			}
 		});
@@ -488,9 +485,7 @@ public class IntFormAdmDizimista extends JInternalFrame {
 		btnSalvar = new JButton("SALVAR");
 		btnSalvar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (txtEditCpf.getText().length() == 14 && !txtNome.getText().isBlank()
-						&& fTxtCelular.getText().length() == 15 && !txtSalario.getText().isBlank()
-						&& fTxtNascimento.getText().length() == 10) {
+				if (!txtNome.getText().isBlank() && fTxtCelular.getText().length() == 15 && !txtSalario.getText().isBlank() && fTxtNascimento.getText().length() == 10) {
 					try {
 						Dizimista dizimistaEdita = new Dizimista();
 						dizimistaEdita.setCpf(txtEditCpf.getText().replace("-", "").replace(".", ""));

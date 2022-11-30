@@ -12,8 +12,10 @@ import javax.swing.JOptionPane;
 
 import java.awt.Font;
 import java.sql.SQLException;
+import java.text.NumberFormat;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Locale;
 
 import javax.swing.border.MatteBorder;
 import javax.swing.event.InternalFrameAdapter;
@@ -70,12 +72,13 @@ public class IntFormRelatorioDespesa extends JInternalFrame {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		NumberFormat valor = NumberFormat.getCurrencyInstance(new Locale("pt","BR"));
 		despesaLista = DespesaDAO.listaDespesa(mes, ano);
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 		for(int i = 0; i < despesaLista.size() && despesaLista.get(i) != null; i++) {
 			model.addRow(new Object[]{
 					despesaLista.get(i).getId(),
-					despesaLista.get(i).getValor(),
+					valor.format(despesaLista.get(i).getValor()),
 					despesaLista.get(i).getDescricao(),
 					despesaLista.get(i).getFuncionario(),
 					despesaLista.get(i).getData().format(formatter),

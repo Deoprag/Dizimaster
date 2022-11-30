@@ -57,10 +57,9 @@ public class DizimistaDAO {
 			String sql = "select * from dizimista where cpf = ?";
 			PreparedStatement stmt = con.prepareStatement(sql);
 			
+			stmt.setString(1, cpf);
 			ResultSet rs = stmt.executeQuery();
 			
-			stmt.setString(1, cpf);
-
 			if (rs.next()) {
 				dizimistaPesquisa = new Dizimista();
 				dizimistaPesquisa.setId(rs.getInt("id"));
@@ -92,9 +91,8 @@ public class DizimistaDAO {
 			String sql = "select * from dizimista where id = ?";
 			PreparedStatement stmt = con.prepareStatement(sql);
 			
-			ResultSet rs = stmt.executeQuery();
-			
 			stmt.setString(1, id);
+			ResultSet rs = stmt.executeQuery();
 
 			if (rs.next()) {
 				dizimistaPesquisa = new Dizimista();

@@ -12,8 +12,10 @@ import javax.swing.JOptionPane;
 
 import java.awt.Font;
 import java.sql.SQLException;
+import java.text.NumberFormat;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Locale;
 
 import javax.swing.border.MatteBorder;
 import javax.swing.event.InternalFrameAdapter;
@@ -71,15 +73,16 @@ public class IntFormRelatorioOferta extends JInternalFrame {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		NumberFormat valor = NumberFormat.getCurrencyInstance(new Locale("pt","BR"));
 		ofertaLista = OfertaDAO.listaOferta(mes, ano);
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 		for(int i = 0; i < ofertaLista.size() && ofertaLista.get(i) != null; i++) {
 			model.addRow(new Object[]{
 					ofertaLista.get(i).getId(),
-					ofertaLista.get(i).isDizimista() ? "Sim": "Não",
+					ofertaLista.get(i).isDizimista() ? "Não": "Sim",
 					ofertaLista.get(i).getDizimista() == 0 ? "-" : ofertaLista.get(i).getDizimista(),
 					ofertaLista.get(i).getNome(),
-					ofertaLista.get(i).getValor(),
+					valor.format(ofertaLista.get(i).getValor()),
 					ofertaLista.get(i).getObservacao() == null ? "-" : ofertaLista.get(i).getObservacao(),
 					ofertaLista.get(i).getFuncionario(),
 					ofertaLista.get(i).getData().format(formatter),

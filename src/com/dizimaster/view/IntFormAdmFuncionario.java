@@ -95,6 +95,7 @@ public class IntFormAdmFuncionario extends JInternalFrame {
 		chckbxAtivo.setEnabled(false);
 		btnRedefinir.setSelected(false);
 		btnRedefinir.setEnabled(false);
+		btnSalvar.setEnabled(false);
 	}
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
@@ -153,15 +154,14 @@ public class IntFormAdmFuncionario extends JInternalFrame {
 		
 		JButton btnSearch = new JButton("");
 		btnSearch.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				limpar();				
-				System.out.println(txtCpf.getText().replace(".", "").replace("-", "").replace("*", "").length());
+			public void actionPerformed(ActionEvent e) {				
 				if (txtCpf.getText().replace(".", "").replace("-", "").replace("*", "").length() == 11) {
 					funcionarioPesquisa = FuncionarioDAO.pesquisaFuncionario(txtCpf.getText().replace(".", "").replace("-", ""));
 					if (funcionarioPesquisa != null) {
 						if(funcionario.getCpf().equals(funcionarioPesquisa.getCpf())) {
 							JOptionPane.showMessageDialog(null, "Você não pode alterar seu próprio cadastro!");
 						} else {
+							limpar();
 							txtNome.setEnabled(true);
 							fTxtNascimento.setEnabled(true);
 							boxSexo.setEnabled(true);
@@ -337,13 +337,13 @@ public class IntFormAdmFuncionario extends JInternalFrame {
 		btnSearchId.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnSearchId.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				limpar();				
-				if (txtId.getText().isBlank()) {
+				if (!txtId.getText().isBlank()) {
 					funcionarioPesquisa = FuncionarioDAO.pesquisaFuncionarioId(txtId.getText());
 					if (funcionarioPesquisa != null) {
 						if(funcionario.getId() == funcionarioPesquisa.getId()) {
 							JOptionPane.showMessageDialog(null, "Você não pode alterar seu próprio cadastro!");
 						} else {
+							limpar();
 							txtNome.setEnabled(true);
 							fTxtNascimento.setEnabled(true);
 							boxSexo.setEnabled(true);
@@ -390,13 +390,13 @@ public class IntFormAdmFuncionario extends JInternalFrame {
 		btnSearchId.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				btnSearch.setIcon(new ImageIcon(
+				btnSearchId.setIcon(new ImageIcon(
 						IntFormAdmDizimista.class.getResource("/com/dizimaster/img/find-icon-2-hold.png")));
 			}
 
 			@Override
 			public void mouseExited(MouseEvent e) {
-				btnSearch.setIcon(
+				btnSearchId.setIcon(
 						new ImageIcon(IntFormAdmDizimista.class.getResource("/com/dizimaster/img/find-icon-2.png")));
 			}
 		});
@@ -545,7 +545,7 @@ public class IntFormAdmFuncionario extends JInternalFrame {
 		btnSalvar = new JButton("SALVAR");
 		btnSalvar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(txtEditCpf.getText().length() == 14 && !txtNome.getText().isBlank() && fTxtCelular.getText().length() == 15 && !txtEmail.getText().isBlank() && fTxtNascimento.getText().length() == 10) {
+				if(!txtNome.getText().isBlank() && fTxtCelular.getText().length() == 15 && !txtEmail.getText().isBlank() && fTxtNascimento.getText().length() == 10) {
 					if(util.isEmail(txtEmail.getText())) {
 						Funcionario funcionarioEdita = new Funcionario();
 						funcionarioEdita.setCpf(txtEditCpf.getText().replace("-", "").replace(".", ""));
@@ -608,7 +608,7 @@ public class IntFormAdmFuncionario extends JInternalFrame {
 		btnSalvar.setBackground(new Color(60, 122, 194));
 		
 		lblDataCadastro = new JLabel("");
-		lblDataCadastro.setForeground(new Color(216, 228, 241));
+		lblDataCadastro.setForeground(new Color(192, 192, 192));
 		lblDataCadastro.setFont(new Font("Segoe UI", Font.BOLD, 14));
 		lblDataCadastro.setBounds(245, 180, 240, 30);
 		panelBottom.add(lblDataCadastro);
