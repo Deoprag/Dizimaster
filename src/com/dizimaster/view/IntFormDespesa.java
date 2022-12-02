@@ -205,16 +205,17 @@ public class IntFormDespesa extends JInternalFrame {
 					try {
 						Despesa despesa = new Despesa();
 						despesa.setValor(Float.parseFloat(txtValor.getText().replace(",",".")));
-						despesa.setDescricao(txtDescricao.getText());
+						if (!txtDescricao.getForeground().equals(new Color(192, 192, 192)) && txtDescricao.getText().length() >= 20) {
+							despesa.setDescricao(txtDescricao.getText());
+						}
 						despesa.setFuncionario(funcionario.getId());
 						despesa.setData(util.dataAtual());
 						despesa.setHora(util.horaAtual());
-						if(DespesaDAO.registraDespesa(despesa)) {
-							txtValor.setText("");
-							txtDescricao.setText("");
-						} else {
-							JOptionPane.showMessageDialog(null, "Não foi possível registrar despesa!");
-						}
+						
+						DespesaDAO.registraDespesa(despesa);
+						txtValor.setText("");
+						txtDescricao.setText("");
+						
 					} catch (NumberFormatException e1) {
 						JOptionPane.showMessageDialog(null, "O valor inserido é inválido!");
 					} catch (Exception e2) {

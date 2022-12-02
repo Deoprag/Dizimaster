@@ -5,6 +5,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
@@ -35,6 +36,10 @@ public class DespesaDAO {
 
 			JOptionPane.showMessageDialog(null, "Despesa registrada com sucesso!");
 			return true;
+		} catch (SQLIntegrityConstraintViolationException e1) {
+			JOptionPane.showMessageDialog(null, "A descrição não pode ser menor que 20 caracteres");
+			e1.printStackTrace();
+			return false;
 		} catch (Exception e) {
 			e.printStackTrace();
 			return false;

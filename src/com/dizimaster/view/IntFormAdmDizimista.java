@@ -160,7 +160,7 @@ public class IntFormAdmDizimista extends JInternalFrame {
 						chckbxAtivo.setEnabled(true);
 						
 
-						txtEditCpf.setText(txtCpf.getText());
+						txtEditCpf.setText(dizimistaPesquisa.getCpf());
 						txtNome.setText(dizimistaPesquisa.getNome());
 
 						DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/YYYY");
@@ -508,8 +508,6 @@ public class IntFormAdmDizimista extends JInternalFrame {
 						}
 						if (DizimistaDAO.alterarDizimista(dizimistaEdita) == true) {
 							limpar();
-						} else {
-
 						}
 					} catch (NumberFormatException e1) {
 						JOptionPane.showMessageDialog(null, "O salário inserido é inválido!");

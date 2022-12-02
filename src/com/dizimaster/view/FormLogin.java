@@ -214,8 +214,10 @@ public class FormLogin {
 		txtUsuario.addFocusListener(new FocusAdapter() {
 			@Override
 			public void focusGained(FocusEvent e) {
-				txtUsuario.setText("");
-				txtUsuario.setForeground(Color.WHITE);
+				if(txtUsuario.getForeground().equals(new Color(192,192,192))) {
+					txtUsuario.setText("");
+					txtUsuario.setForeground(Color.WHITE);
+				}
 			}
 		});
 		txtUsuario.setCursor(Cursor.getPredefinedCursor(Cursor.TEXT_CURSOR));
@@ -233,8 +235,10 @@ public class FormLogin {
 		txtSenha.addFocusListener(new FocusAdapter() {
 			@Override
 			public void focusGained(FocusEvent e) {
-				txtSenha.setText("");
-				txtSenha.setForeground(Color.WHITE);
+				if(txtSenha.getForeground().equals(new Color(192,192,192))) {
+					txtSenha.setText("");
+					txtSenha.setForeground(Color.WHITE);
+				}
 			}
 		});
 		txtSenha.setText("123456781234");

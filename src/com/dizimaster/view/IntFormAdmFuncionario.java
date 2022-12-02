@@ -170,7 +170,7 @@ public class IntFormAdmFuncionario extends JInternalFrame {
 							chckbxAdmin.setEnabled(true);
 							chckbxAtivo.setEnabled(true);
 							
-							txtEditCpf.setText(txtCpf.getText());
+							txtEditCpf.setText(funcionarioPesquisa.getCpf());
 							txtNome.setText(funcionarioPesquisa.getNome());
 							
 							DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/YYYY");

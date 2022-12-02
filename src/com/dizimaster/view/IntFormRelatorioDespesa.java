@@ -224,6 +224,8 @@ public class IntFormRelatorioDespesa extends JInternalFrame {
 		model.addColumn("Hora");
 		
 		tableOferta = new JTable(model);
+		tableOferta.setEnabled(false);
+		tableOferta.setAutoCreateColumnsFromModel(false);
 		tableOferta.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
 		tableOferta.setBackground(new Color(235, 235, 235));
 		tableOferta.setRowHeight(30);

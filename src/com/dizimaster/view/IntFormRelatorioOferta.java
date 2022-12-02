@@ -79,7 +79,7 @@ public class IntFormRelatorioOferta extends JInternalFrame {
 		for(int i = 0; i < ofertaLista.size() && ofertaLista.get(i) != null; i++) {
 			model.addRow(new Object[]{
 					ofertaLista.get(i).getId(),
-					ofertaLista.get(i).isDizimista() ? "Não": "Sim",
+					ofertaLista.get(i).isDizimista() ? "Sim": "Não",
 					ofertaLista.get(i).getDizimista() == 0 ? "-" : ofertaLista.get(i).getDizimista(),
 					ofertaLista.get(i).getNome(),
 					valor.format(ofertaLista.get(i).getValor()),
@@ -231,6 +231,7 @@ public class IntFormRelatorioOferta extends JInternalFrame {
 		model.addColumn("Hora");
 		
 		tableOferta = new JTable(model);
+		tableOferta.setEnabled(false);
 		tableOferta.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
 		tableOferta.setBackground(new Color(235, 235, 235));
 		tableOferta.setRowHeight(30);

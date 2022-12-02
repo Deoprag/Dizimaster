@@ -309,7 +309,7 @@ public class IntFormOferta extends JInternalFrame {
 		btnEnviar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					if (Float.parseFloat(txtValor.getText()) >= 1) {
+					if (Float.parseFloat(txtValor.getText().replace(",", ".")) >= 1) {
 						if (!txtNome.getText().isBlank() && !txtValor.getText().isBlank()) {
 							Oferta oferta = new Oferta();
 							oferta.setIsDizimista(chckbxDizimista.isSelected() ? true : false); 
@@ -317,7 +317,7 @@ public class IntFormOferta extends JInternalFrame {
 								oferta.setDizimista(dizimista.getId());;
 							}
 							oferta.setNome(txtNome.getText());
-							oferta.setValor(Float.parseFloat(txtValor.getText()));
+							oferta.setValor(Float.parseFloat(txtValor.getText().replace(",", ".")));
 							if (!txtObs.getText().isBlank() && txtObs.getForeground() == Color.WHITE) {
 								oferta.setObservacao(txtObs.getText());
 							}
@@ -392,6 +392,7 @@ public class IntFormOferta extends JInternalFrame {
 						JOptionPane.showMessageDialog(null, "Cadastro desativado!");
 					}
 				} catch (Exception e1) {
+					JOptionPane.showMessageDialog(null, "Cadastro não encontrado!");
 					e1.printStackTrace();
 				}
 			}

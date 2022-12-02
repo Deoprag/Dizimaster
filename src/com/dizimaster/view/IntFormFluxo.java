@@ -84,7 +84,9 @@ public class IntFormFluxo extends JInternalFrame {
 		Float saldo = totalEntrada - despesa;
 
 		pieChartTotal.addData(new Grafico("Despesas", despesa, getColor(index++)));
-		pieChartTotal.addData(new Grafico("Saldo Restante", saldo, getColor(index++)));
+		if (saldo > 0) {
+			pieChartTotal.addData(new Grafico("Saldo Restante", saldo, getColor(index++)));
+		}
 		
 		@SuppressWarnings("deprecation")
 		NumberFormat valor = NumberFormat.getCurrencyInstance(new Locale("pt","BR"));

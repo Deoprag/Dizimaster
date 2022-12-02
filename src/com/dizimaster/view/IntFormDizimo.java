@@ -291,7 +291,7 @@ public class IntFormDizimo extends JInternalFrame {
 						JOptionPane.showMessageDialog(null, "Preencha o CPF!");
 					} else {
 						if (!txtNome.getText().isBlank() && !txtValor.getText().isBlank()) {
-							if(Integer.parseInt(txtValor.getText()) > 1) {
+							if(Float.parseFloat(txtValor.getText()) > 1) {
 								Dizimo dizimo = new Dizimo();
 								dizimo.setDizimista(dizimista.getId());
 								dizimo.setValor(Float.parseFloat(txtValor.getText()));

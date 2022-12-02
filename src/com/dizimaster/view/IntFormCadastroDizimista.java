@@ -274,7 +274,7 @@ public class IntFormCadastroDizimista extends JInternalFrame {
 							cadDizimista.setNascimento(util.formataData(fTxtNascimento.getText()));
 							cadDizimista.setSexo(boxSexo.getSelectedIndex() == 0 ? 'm' : 'f');
 							cadDizimista.setCelular(fTxtCelular.getText().replace("(", "").replace(")", "").replace(" ", "").replace("-", ""));
-							cadDizimista.setSalario(Float.parseFloat(txtSalario.getText()));
+							cadDizimista.setSalario(Float.parseFloat(txtSalario.getText().replace(",", ".")));
 							cadDizimista.setDataCadastro(util.dataAtual());
 							cadDizimista.setAtivo(true);
 							if (DizimistaDAO.cadastroDizimista(cadDizimista) == true) {
