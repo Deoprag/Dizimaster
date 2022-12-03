@@ -14,6 +14,7 @@ import java.awt.Font;
 import java.sql.SQLException;
 import java.text.NumberFormat;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -23,13 +24,18 @@ import javax.swing.event.InternalFrameEvent;
 import javax.swing.JSeparator;
 import javax.swing.JButton;
 import javax.swing.border.EtchedBorder;
+import javax.swing.border.LineBorder;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.text.MaskFormatter;
 
+import com.dizimaster.dao.DizimistaDAO;
 import com.dizimaster.dao.FuncionarioDAO;
+import com.dizimaster.dao.HistoricoDAO;
 import com.dizimaster.dao.OfertaDAO;
 import com.dizimaster.dao.UtilDAO;
+import com.dizimaster.model.Dizimista;
+import com.dizimaster.model.Historico;
 import com.dizimaster.model.Mes;
 import com.dizimaster.model.Oferta;
 
@@ -50,7 +56,10 @@ public class IntFormHistorico extends JInternalFrame {
 	private static final long serialVersionUID = 1L;
 	private JTable tableOferta;
 	private TxtId txtId;
-	private List<Oferta> ofertaLista;
+	private JFormattedTextField txtCpf;
+	private JLabel lblNome;
+	private List<Historico> historicoLista;
+	private Dizimista dizimista;
 	private DefaultTableModel model;
 
 	public static void main(String[] args) {
@@ -65,31 +74,46 @@ public class IntFormHistorico extends JInternalFrame {
 			}
 		});
 	}
-	
+
 	public void voltar() {
 		this.dispose();
 	}
 	
-	public void mostraLista(int mes, int ano){
+	public void limpar() {
+		txtId.setText("");
+		txtCpf.setText("");
+		lblNome.setText("");
+		try {
+			for (int i = 0; i < model.getRowCount(); i++) {
+				model.removeRow(0);
+			}
+			for (int i = 0; i < model.getRowCount(); i++) {
+				model.removeRow(0);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
+
+	public void mostraLista(){
 		try {
 			model.getDataVector().removeAllElements();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		lblNome.setText("Dizimista: " + dizimista.getNome());
 		NumberFormat valor = NumberFormat.getCurrencyInstance(new Locale("pt","BR"));
-		ofertaLista = OfertaDAO.listaOferta(mes, ano);
+		historicoLista = HistoricoDAO.listarHistorico(dizimista);
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-		for(int i = 0; i < ofertaLista.size() && ofertaLista.get(i) != null; i++) {
+		for(int i = 0; i < historicoLista.size() && historicoLista.get(i) != null; i++) {
 			model.addRow(new Object[]{
-					ofertaLista.get(i).getId(),
-					ofertaLista.get(i).isDizimista() ? "Sim": "Não",
-					ofertaLista.get(i).getDizimista() == 0 ? "-" : ofertaLista.get(i).getDizimista(),
-					ofertaLista.get(i).getNome(),
-					valor.format(ofertaLista.get(i).getValor()),
-					ofertaLista.get(i).getObservacao() == null ? "-" : ofertaLista.get(i).getObservacao(),
-					ofertaLista.get(i).getFuncionario(),
-					ofertaLista.get(i).getData().format(formatter),
-					ofertaLista.get(i).getHora()
+				historicoLista.get(i).getTipo(),
+				valor.format(historicoLista.get(i).getValor() < 10 ? "0" + historicoLista.get(i).getValor() : historicoLista.get(i).getValor()),
+				historicoLista.get(i).getObservacao(),
+				historicoLista.get(i).getFuncionario(),
+				historicoLista.get(i).getData().format(formatter),
+				historicoLista.get(i).getHora()
 			});
 		}
 
@@ -103,24 +127,24 @@ public class IntFormHistorico extends JInternalFrame {
 		getContentPane().setLayout(null);
 		BasicInternalFrameUI bui = (BasicInternalFrameUI) this.getUI();
 		bui.setNorthPane(null);
-		
+
 		JPanel panelMid = new JPanel();
 		panelMid.setBorder(new MatteBorder(4, 0, 0, 0, (Color) new Color(0, 128, 192)));
 		panelMid.setBackground(new Color(235, 235, 235));
 		panelMid.setBounds(10, 11, 1000, 651);
 		getContentPane().add(panelMid);
 		panelMid.setLayout(null);
-		
+
 		JLabel lblTitle = new JLabel("Histórico de Dizimista");
 		lblTitle.setBounds(10, 11, 320, 35);
 		panelMid.add(lblTitle);
 		lblTitle.setFont(new Font("Segoe UI", Font.BOLD, 22));
-		
+
 		JSeparator separator_1 = new JSeparator();
 		separator_1.setBounds(0, 50, 1000, 2);
 		panelMid.add(separator_1);
 		separator_1.setForeground(Color.LIGHT_GRAY);
-		
+
 		JButton btnSair = new JButton("VOLTAR");
 		btnSair.addMouseListener(new MouseAdapter() {
 			@Override
@@ -149,7 +173,7 @@ public class IntFormHistorico extends JInternalFrame {
 		btnSair.setBackground(new Color(184, 44, 54));
 		btnSair.setBounds(900, 10, 90, 30);
 		panelMid.add(btnSair);
-		
+
 		MaskFormatter mascaraCpf = null;
 		try {
 			mascaraCpf = new MaskFormatter("###.###.###-##");
@@ -158,35 +182,52 @@ public class IntFormHistorico extends JInternalFrame {
 			e.printStackTrace();
 		}
 
-		JFormattedTextField txtCpf = new JFormattedTextField(mascaraCpf);
+		txtCpf = new JFormattedTextField(mascaraCpf);
 		txtCpf.setBackground(new Color(235, 235, 235));
 		txtCpf.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 		txtCpf.setBorder(new MatteBorder(0, 0, 1, 0, (Color) new Color(192, 192, 192)));
 		txtCpf.setBounds(61, 60, 125, 30);
 		panelMid.add(txtCpf);
-		
+
 		JLabel lblCpf = new JLabel("CPF");
 		lblCpf.setForeground(new Color(0, 0, 0));
 		lblCpf.setFont(new Font("Segoe UI", Font.BOLD, 14));
 		lblCpf.setBounds(20, 60, 87, 30);
 		panelMid.add(lblCpf);
-		
+
 		JLabel lblId = new JLabel("ID");
 		lblId.setForeground(Color.BLACK);
 		lblId.setFont(new Font("Segoe UI", Font.BOLD, 14));
 		lblId.setBounds(250, 60, 40, 30);
 		panelMid.add(lblId);
-		
+
 		txtId = new TxtId(5);
 		txtId.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 		txtId.setBorder(new MatteBorder(0, 0, 1, 0, (Color) new Color(192, 192, 192)));
 		txtId.setBackground(new Color(235, 235, 235));
 		txtId.setBounds(275, 60, 70, 30);
 		panelMid.add(txtId);
-		
-		
-		
+
 		JButton btnSearch = new JButton("");
+		btnSearch.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(txtCpf.getText().replace(".", "").replace("-", "").replace("_", "").length() == 11) {
+					try {
+						dizimista = DizimistaDAO.pesquisaDizimista(txtCpf.getText().replace(".","").replace("-", ""));
+						if(dizimista != null) {
+							mostraLista();
+						} else {
+							JOptionPane.showMessageDialog(null, "Dizimista não encontrado!");
+						}
+						
+					} catch (Exception e2) {
+						JOptionPane.showMessageDialog(null, "Não foi possível mostrar lista!");
+					}
+				} else {
+					JOptionPane.showMessageDialog(null, "Preencha o CPF antes de pesquisar!");
+				}	
+			}
+		});
 		btnSearch.setRolloverEnabled(false);
 		btnSearch.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnSearch.setFocusTraversalKeysEnabled(false);
@@ -209,8 +250,27 @@ public class IntFormHistorico extends JInternalFrame {
 		btnSearch.setBackground(new Color(235, 235, 235));
 		btnSearch.setBounds(196, 65, 25, 25);
 		panelMid.add(btnSearch);
-		
+
 		JButton btnSearchId = new JButton("");
+		btnSearchId.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(!txtId.getText().isBlank()) {
+					try {
+						dizimista = DizimistaDAO.pesquisaDizimistaId(txtId.getText());
+						if(dizimista != null) {
+							mostraLista();
+						} else {
+							JOptionPane.showMessageDialog(null, "Dizimista não encontrado!");
+						}
+						
+					} catch (Exception e2) {
+						JOptionPane.showMessageDialog(null, "Não foi possível mostrar lista!");
+					}
+				} else {
+					JOptionPane.showMessageDialog(null, "Preencha o ID antes de pesquisar!");
+				}
+			}
+		});
 		btnSearchId.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnSearchId.addMouseListener(new MouseAdapter() {
 			@Override
@@ -237,27 +297,50 @@ public class IntFormHistorico extends JInternalFrame {
 		btnSearchId.setBounds(355, 65, 25, 25);
 		panelMid.add(btnSearchId);
 		
+		JButton btnLimpar = new JButton("Limpar");
+		btnLimpar.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnLimpar.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				btnLimpar.setBackground(new Color(170, 170, 170));
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				btnLimpar.setBackground(new Color(192, 192, 192));
+			}
+		});
+		btnLimpar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				limpar();
+			}
+		});
+		btnLimpar.setForeground(new Color(0, 0, 0));
+		btnLimpar.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+		btnLimpar.setFocusable(false);
+		btnLimpar.setBorder(new LineBorder(new Color(60, 60, 60), 1, true));
+		btnLimpar.setBackground(new Color(200, 200, 200));
+		btnLimpar.setBounds(855, 64, 135, 30);
+		panelMid.add(btnLimpar);
+
 		TableScrollButton scrBtn = new TableScrollButton();
 		scrBtn.setBounds(10, 105, 980, 535);
 		panelMid.add(scrBtn);
-		
+
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBorder(null);
 		scrollPane.setBackground(new Color(235, 235, 235));
 		scrollPane.setBounds(5, 11, 990, 486);
 		scrBtn.add(scrollPane,java.awt.BorderLayout.CENTER);
-		
-		model = new DefaultTableModel(); 
-		model.addColumn("ID");
-		model.addColumn("Dizimista?");
-		model.addColumn("ID Dizimista");
-		model.addColumn("Nome");
+
+		model = new DefaultTableModel();
+		model.addColumn("Tipo");
 		model.addColumn("Valor");
 		model.addColumn("Observacao");
 		model.addColumn("ID Funcionario");
 		model.addColumn("Data");
 		model.addColumn("Hora");
-		
+
 		tableOferta = new JTable(model);
 		tableOferta.setEnabled(false);
 		tableOferta.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
@@ -267,20 +350,16 @@ public class IntFormHistorico extends JInternalFrame {
 		TableCustom.apply(scrollPane, TableCustom.TableType.MULTI_LINE);
 		tableOferta.setAutoCreateRowSorter(true);
 		
+		lblNome = new JLabel("");
+		lblNome.setForeground(new Color(0, 0, 64));
+		lblNome.setFont(new Font("Segoe UI", Font.BOLD, 14));
+		lblNome.setBounds(390, 63, 455, 30);
+		panelMid.add(lblNome);
+
 		JLabel lblBg = new JLabel("");
 		lblBg.setIcon(new ImageIcon(IntFormHistorico.class.getResource("/com/dizimaster/img/heaven-bg.jpg")));
 		lblBg.setBounds(0, 0, 1020, 673);
 		getContentPane().add(lblBg);
-		
-	}
 
-	public List<Oferta> getOfertaLista() {
-		return ofertaLista;
-	}
-
-
-
-	public void setOfertaLista(List<Oferta> ofertaLista) {
-		this.ofertaLista = ofertaLista;
 	}
 }

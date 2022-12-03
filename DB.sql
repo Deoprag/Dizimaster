@@ -20,8 +20,8 @@ SELECT SUM(valor) from oferta where dizimista = 1 and DATE_FORMAT(data, '%m') >=
 select SUM(valorDizimo) from dizimo;
 select SUM(valorDespesa) from despesa;
 
-alter table funcionario
-drop column salario;
+alter table dizimista
+add column salario float not null after sexo;
 
 insert into funcionario values (default, "14848328683", "Pedro Rabelo", "2004-02-27", 'm', "41992455737", "pdroesofiarabelo@gmail.com", "2022-12-2", "Pedro:9502", true, true);
 create table if not exists funcionario (
@@ -185,3 +185,56 @@ VALUES
   (34,"auctor odio a purus. Duis elementum, dui quis accumsan convallis, ante lectus convallis est, vitae",4,"2022-11-19","7:12:47"),
   (16,"risus. Donec egestas. Aliquam nec enim. Nunc ut erat. Sed nunc est, mollis non, cursus non, egestas a,",8,"2022-11-30","19:36:44"),
   (39,"a nunc. In at pede. Cras vulputate velit eu sem. Pellentesque ut ipsum ac mi eleifend egestas. Sed pharetra,",8,"2022-11-14","5:25:21");
+  
+ INSERT INTO `oferta` (`dizimista`,`isDizimista`,`nome`,`valor`,`observacao`,`funcionario`,`data`,`hora`)
+VALUES
+  (0,"0","Sebastian Duke",32,"convallis ligula. Donec luctus aliquet odio. Etiam ligula tortor, dictum eu, placerat eget, venenatis a, magna. Lorem ipsum dolor",7,"2022-11-11","19:27:58"),
+  (0,"0","Hedda Berry",27,"velit egestas lacinia. Sed congue, elit sed consequat auctor, nunc nulla vulputate dui,",6,"2022-11-20","12:30:18"),
+  (0,"0","Travis Fulton",35,"a neque. Nullam ut nisi a odio semper cursus. Integer mollis. Integer tincidunt aliquam arcu. Aliquam ultrices iaculis odio.",6,"2022-11-10","21:44:38"),
+  (0,"0","Destiny Best",23,"commodo tincidunt nibh. Phasellus nulla. Integer vulputate, risus a ultricies adipiscing,",2,"2022-11-06","17:13:07"),
+  (0,"0","Skyler Kirkland",37,"Donec feugiat metus sit amet ante. Vivamus non lorem vitae odio sagittis semper. Nam",3,"2022-11-07","7:31:43"),
+  (0,"0","Melvin Dickerson",13,"commodo hendrerit. Donec porttitor tellus non magna. Nam ligula elit, pretium et, rutrum non, hendrerit id, ante. Nunc mauris",8,"2022-11-04","2:39:12"),
+  (0,"0","Hermione Dunlap",33,"eget, volutpat ornare, facilisis eget, ipsum. Donec sollicitudin adipiscing ligula. Aenean gravida nunc",5,"2022-11-26","22:39:06"),
+  (0,"0","Sacha Harvey",24,"a mi fringilla mi lacinia mattis. Integer eu lacus. Quisque imperdiet, erat",7,"2022-11-11","17:53:29"),
+  (0,"0","Lawrence Erickson",33,"feugiat. Sed nec metus facilisis lorem tristique aliquet. Phasellus",6,"2022-11-29","14:42:01"),
+  (0,"0","Jaquelyn Aguilar",21,"orci, in consequat enim diam vel arcu. Curabitur ut odio",1,"2022-11-19","22:29:57"),
+  (0,"0","Perry Finley",14,"Nulla interdum. Curabitur dictum. Phasellus in felis. Nulla tempor augue ac ipsum. Phasellus vitae",2,"2022-11-06","20:48:19"),
+  (0,"0","Bert Nichols",29,"facilisis vitae, orci. Phasellus dapibus quam quis diam. Pellentesque habitant morbi tristique senectus et netus et malesuada fames",6,"2022-11-05","10:05:00"),
+  (0,"0","Hamilton Horn",11,"dui nec urna suscipit nonummy. Fusce fermentum",1,"2022-11-27","13:51:34"),
+  (0,"0","Linda Newman",18,"Nullam lobortis quam a felis ullamcorper viverra. Maecenas",4,"2022-11-23","14:29:07"),
+  (0,"0","Garrison Wise",15,"Proin vel nisl. Quisque fringilla euismod enim. Etiam gravida molestie",7,"2022-11-16","2:51:45"),
+  (0,"0","Hu Lane",32,"morbi tristique senectus et netus et malesuada",6,"2022-11-03","16:21:18"),
+  (0,"0","Tyler White",19,"mi lorem, vehicula et, rutrum eu, ultrices sit amet, risus. Donec nibh enim, gravida sit amet, dapibus",3,"2022-11-09","16:49:06"),
+  (0,"0","Magee Stephens",26,"Donec dignissim magna a tortor. Nunc commodo auctor",4,"2022-11-11","11:22:33"),
+  (0,"0","Jade Hopkins",11,"vestibulum nec, euismod in, dolor.",5,"2022-11-16","13:33:07"),
+  (0,"0","Catherine Giles",19,"Proin ultrices. Duis volutpat nunc sit amet metus. Aliquam erat volutpat. Nulla facilisis.",7,"2022-11-14","12:25:13"),
+  (0,"0","Aphrodite Campbell",24,"scelerisque dui. Suspendisse ac metus vitae velit egestas lacinia. Sed congue, elit",3,"2022-11-09","22:09:14"),
+  (0,"0","MacKenzie Spencer",36,"at lacus. Quisque purus sapien, gravida",2,"2022-11-20","3:53:10"),
+  (0,"0","Briar Roberson",23,"Duis a mi fringilla mi lacinia mattis. Integer eu lacus.",5,"2022-11-05","20:52:09"),
+  (0,"0","Gannon Miller",15,"Nullam velit dui, semper et, lacinia vitae, sodales at, velit. Pellentesque ultricies dignissim",6,"2022-11-16","23:21:18"),
+  (0,"0","Carl Wynn",35,"Aliquam gravida mauris ut mi. Duis risus odio, auctor vitae, aliquet nec, imperdiet nec, leo. Morbi neque",2,"2022-11-11","18:50:35"),
+  (0,"0","Hermione Huff",24,"ultricies ligula. Nullam enim. Sed nulla ante, iaculis nec, eleifend non,",6,"2022-11-22","0:03:11"),
+  (0,"0","Sydney Simmons",35,"rutrum eu, ultrices sit amet, risus. Donec nibh",4,"2022-11-15","12:00:39"),
+  (0,"0","Quinlan Cortez",17,"magna. Phasellus dolor elit, pellentesque a,",3,"2022-11-23","22:42:29"),
+  (0,"0","Reuben Garza",37,"tristique neque venenatis lacus. Etiam bibendum fermentum",6,"2022-11-20","4:34:34"),
+  (0,"0","Kyle Hood",27,"dis parturient montes, nascetur ridiculus mus. Donec dignissim magna a tortor. Nunc commodo auctor velit. Aliquam nisl. Nulla",8,"2022-11-07","1:24:29"),
+  (0,"0","Ramona House",37,"tempus non, lacinia at, iaculis quis, pede. Praesent eu",8,"2022-11-02","18:33:00"),
+  (0,"0","Harrison Garcia",23,"sed libero. Proin sed turpis",4,"2022-11-22","5:44:29"),
+  (0,"0","Steven Green",38,"pede ac urna. Ut tincidunt vehicula risus. Nulla eget metus eu erat semper rutrum. Fusce dolor quam, elementum at,",4,"2022-11-29","11:26:29"),
+  (0,"0","Shannon Pennington",29,"Pellentesque habitant morbi tristique senectus et",6,"2022-11-10","14:59:45"),
+  (0,"0","May Sloan",11,"rutrum. Fusce dolor quam, elementum at, egestas a, scelerisque sed, sapien. Nunc pulvinar",7,"2022-11-05","8:20:58"),
+  (0,"0","Sheila Osborne",29,"tempus eu, ligula. Aenean euismod mauris eu elit. Nulla facilisi. Sed neque. Sed",8,"2022-11-28","0:54:55"),
+  (0,"0","Ian Edwards",39,"odio a purus. Duis elementum, dui quis accumsan convallis, ante lectus convallis est, vitae sodales nisi magna sed",5,"2022-11-26","19:18:21"),
+  (0,"0","Gil Reese",14,"nulla magna, malesuada vel, convallis in, cursus et, eros. Proin",7,"2022-11-03","10:17:05"),
+  (0,"0","Alexa Delacruz",13,"eleifend non, dapibus rutrum, justo. Praesent luctus. Curabitur egestas nunc sed libero. Proin sed turpis nec mauris blandit",2,"2022-11-20","12:33:41"),
+  (0,"0","James Ford",31,"vel, faucibus id, libero. Donec consectetuer mauris id sapien. Cras dolor dolor, tempus non,",6,"2022-11-09","8:31:31"),
+  (0,"0","Maryam Navarro",30,"et tristique pellentesque, tellus sem mollis dui, in",3,"2022-11-25","20:50:00"),
+  (0,"0","Xavier Crane",18,"et, rutrum non, hendrerit id,",2,"2022-11-09","16:01:15"),
+  (0,"0","Derek Mason",28,"arcu. Curabitur ut odio vel est tempor bibendum. Donec felis orci, adipiscing non, luctus sit amet,",2,"2022-11-19","14:55:43"),
+  (0,"0","Hyatt Bender",25,"diam. Proin dolor. Nulla semper tellus id nunc interdum feugiat. Sed nec metus facilisis lorem tristique",2,"2022-11-11","18:13:07"),
+  (0,"0","Reagan Nieves",23,"Phasellus fermentum convallis ligula. Donec luctus aliquet odio. Etiam",8,"2022-11-07","15:24:47"),
+  (0,"0","Tyler Parsons",31,"dis parturient montes, nascetur ridiculus mus. Proin vel arcu eu odio tristique pharetra. Quisque ac",6,"2022-11-17","3:28:44"),
+  (0,"0","Gareth Barnes",32,"Morbi vehicula. Pellentesque tincidunt tempus risus. Donec",2,"2022-11-24","0:59:51"),
+  (0,"0","Christopher Richard",36,"euismod in, dolor. Fusce feugiat. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aliquam auctor,",7,"2022-11-18","19:21:11"),
+  (0,"0","Tara Holman",17,"nascetur ridiculus mus. Aenean eget magna. Suspendisse tristique neque venenatis lacus. Etiam bibendum fermentum metus. Aenean sed pede nec ante",4,"2022-11-24","9:48:59"),
+  (0,"0","Wylie Campbell",25,"enim. Etiam imperdiet dictum magna. Ut tincidunt orci quis lectus. Nullam suscipit,",1,"2022-11-14","4:07:46");
