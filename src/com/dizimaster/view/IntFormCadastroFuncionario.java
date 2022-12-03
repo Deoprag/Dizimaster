@@ -104,9 +104,9 @@ public class IntFormCadastroFuncionario extends JInternalFrame {
 			mascaraCpf = new MaskFormatter("###.###.###-##");
 			mascaraNumero = new MaskFormatter("(##) #####-####");
 			mascaraNascimento = new MaskFormatter("##/##/####");
-			mascaraCpf.setPlaceholderCharacter('*');
-			mascaraNumero.setPlaceholderCharacter('*');
-			mascaraNascimento.setPlaceholderCharacter('*');
+			mascaraCpf.setPlaceholderCharacter('_');
+			mascaraNumero.setPlaceholderCharacter('_');
+			mascaraNascimento.setPlaceholderCharacter('_');
 		} catch (ParseException e2) {
 			e2.printStackTrace();
 		}

@@ -89,6 +89,7 @@ public class IntFormAdmFuncionario extends JInternalFrame {
 		fTxtCelular.setEnabled(false);
 		txtEmail.setText("");
 		txtEmail.setEnabled(false);
+		lblDataCadastro.setText("");
 		chckbxAdmin.setSelected(false);
 		chckbxAdmin.setEnabled(false);
 		chckbxAtivo.setSelected(false);
@@ -113,11 +114,11 @@ public class IntFormAdmFuncionario extends JInternalFrame {
 		MaskFormatter mascaraCpf = null;
 		try {
 			mascaraNascimento = new MaskFormatter("##/##/####");
-			mascaraNascimento.setPlaceholderCharacter('*');
+			mascaraNascimento.setPlaceholderCharacter('_');
 			mascaraCelular = new MaskFormatter("(##) #####-####");
-			mascaraCelular.setPlaceholderCharacter('*');
+			mascaraCelular.setPlaceholderCharacter('_');
 			mascaraCpf = new MaskFormatter("###.###.###-##");
-			mascaraCpf.setPlaceholderCharacter('*');
+			mascaraCpf.setPlaceholderCharacter('_');
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -43,7 +43,7 @@ import javax.swing.ImageIcon;
 public class IntFormRelatorioDespesa extends JInternalFrame {
 
 	private static final long serialVersionUID = 1L;
-	private JTable tableOferta;
+	private JTable tableDespesa;
 	private List<Despesa> despesaLista;
 	private DefaultTableModel model;
 	private JComboBox<Object> boxMes;
@@ -77,10 +77,10 @@ public class IntFormRelatorioDespesa extends JInternalFrame {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 		for(int i = 0; i < despesaLista.size() && despesaLista.get(i) != null; i++) {
 			model.addRow(new Object[]{
-					despesaLista.get(i).getId(),
-					valor.format(despesaLista.get(i).getValor()),
+					despesaLista.get(i).getId() < 10 ? "0" + despesaLista.get(i).getId() : despesaLista.get(i).getId(),
+					valor.format(despesaLista.get(i).getValor() < 10 ? "0" + despesaLista.get(i).getValor() : despesaLista.get(i).getValor()),
 					despesaLista.get(i).getDescricao(),
-					despesaLista.get(i).getFuncionario(),
+					despesaLista.get(i).getFuncionario() < 10 ? "0" + despesaLista.get(i).getFuncionario() : despesaLista.get(i).getFuncionario(),
 					despesaLista.get(i).getData().format(formatter),
 					despesaLista.get(i).getHora()
 			});
@@ -223,14 +223,15 @@ public class IntFormRelatorioDespesa extends JInternalFrame {
 		model.addColumn("Data");
 		model.addColumn("Hora");
 		
-		tableOferta = new JTable(model);
-		tableOferta.setEnabled(false);
-		tableOferta.setAutoCreateColumnsFromModel(false);
-		tableOferta.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
-		tableOferta.setBackground(new Color(235, 235, 235));
-		tableOferta.setRowHeight(30);
-		scrollPane.setViewportView(tableOferta);
+		tableDespesa = new JTable(model);
+		tableDespesa.setEnabled(false);
+		tableDespesa.setAutoCreateColumnsFromModel(false);
+		tableDespesa.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+		tableDespesa.setBackground(new Color(235, 235, 235));
+		tableDespesa.setRowHeight(30);
+		scrollPane.setViewportView(tableDespesa);
 		TableCustom.apply(scrollPane, TableCustom.TableType.MULTI_LINE);
+		tableDespesa.setAutoCreateRowSorter(true);
 		
 		JLabel lblBg = new JLabel("");
 		lblBg.setIcon(new ImageIcon(IntFormRelatorioDespesa.class.getResource("/com/dizimaster/img/heaven-bg.jpg")));

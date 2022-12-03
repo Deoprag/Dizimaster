@@ -1,4 +1,4 @@
-create database if not exists dizimaster
+create database if not exists dizimaster_db
 default character set utf8
 default collate utf8_general_ci;
 
@@ -20,9 +20,10 @@ SELECT SUM(valor) from oferta where dizimista = 1 and DATE_FORMAT(data, '%m') >=
 select SUM(valorDizimo) from dizimo;
 select SUM(valorDespesa) from despesa;
 
-alter table despesa
-change column valorDespesa valor float not null;
+alter table funcionario
+drop column salario;
 
+insert into funcionario values (default, "14848328683", "Pedro Rabelo", "2004-02-27", 'm', "41992455737", "pdroesofiarabelo@gmail.com", "2022-12-2", "Pedro:9502", true, true);
 create table if not exists funcionario (
 	id int primary key not null auto_increment,
     cpf char(11) not null unique,
@@ -30,7 +31,6 @@ create table if not exists funcionario (
     nascimento date not null,
     sexo char not null,
     celular char(11) not null,
-    salario float,
     email varchar(100) not null,
     dataCadastro date not null,
     senha varchar(32) not null default "dizi@2022",
@@ -132,6 +132,7 @@ VALUES
   (0,15,"justo sit amet nulla. Donec non justo. Proin non massa non ante bibendum ullamcorper. Duis",12,"2022-11-27","15:32:04"),
   (0,18,"sapien molestie orci tincidunt adipiscing. Mauris molestie pharetra nibh. Aliquam ornare, libero at auctor ullamcorper, nisl arcu",11,"2022-11-21","4:54:25"),
   (0,16,"euismod enim. Etiam gravida molestie arcu. Sed eu nibh vulputate mauris sagittis placerat. Cras dictum ultricies ligula. Nullam",3,"2022-11-3","19:01:01");
+  
 INSERT INTO `despesa` (`valor`,`descricao`,`funcionario`,`data`,`hora`)
 VALUES
   (38,"blandit congue. In scelerisque scelerisque dui. Suspendisse ac metus vitae velit egestas lacinia. Sed",16,"2022-11-21","18:52:03"),
@@ -182,5 +183,5 @@ VALUES
   (29,"sed libero. Proin sed turpis nec mauris blandit mattis. Cras eget nisi",9,"2022-11-11","7:06:42"),
   (14,"volutpat ornare, facilisis eget, ipsum. Donec sollicitudin adipiscing ligula. Aenean gravida nunc sed pede. Cum",4,"2022-11-16","8:02:56"),
   (34,"auctor odio a purus. Duis elementum, dui quis accumsan convallis, ante lectus convallis est, vitae",4,"2022-11-19","7:12:47"),
-  (16,"risus. Donec egestas. Aliquam nec enim. Nunc ut erat. Sed nunc est, mollis non, cursus non, egestas a,",8,"2022-11-31","19:36:44"),
+  (16,"risus. Donec egestas. Aliquam nec enim. Nunc ut erat. Sed nunc est, mollis non, cursus non, egestas a,",8,"2022-11-30","19:36:44"),
   (39,"a nunc. In at pede. Cras vulputate velit eu sem. Pellentesque ut ipsum ac mi eleifend egestas. Sed pharetra,",8,"2022-11-14","5:25:21");

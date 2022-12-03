@@ -46,7 +46,7 @@ import javax.swing.ImageIcon;
 public class IntFormRelatorioDizimo extends JInternalFrame {
 
 	private static final long serialVersionUID = 1L;
-	private JTable tableOferta;
+	private JTable tableDizimo;
 	private List<Dizimo> dizimoLista;
 	private DefaultTableModel model;
 	private JComboBox<Object> boxMes;
@@ -80,11 +80,11 @@ public class IntFormRelatorioDizimo extends JInternalFrame {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 		for(int i = 0; i < dizimoLista.size() && dizimoLista.get(i) != null; i++) {
 			model.addRow(new Object[]{
-					dizimoLista.get(i).getId(),
-					dizimoLista.get(i).getDizimista(),
-					valor.format(dizimoLista.get(i).getValor()),
+					dizimoLista.get(i).getId() < 10 ? "0" + dizimoLista.get(i).getId() : dizimoLista.get(i).getId(),
+					dizimoLista.get(i).getDizimista() < 10 ? "0" + dizimoLista.get(i).getDizimista() : dizimoLista.get(i).getDizimista(),
+					valor.format(dizimoLista.get(i).getValor() < 10 ? "0" + dizimoLista.get(i).getValor() : dizimoLista.get(i).getValor()),
 					dizimoLista.get(i).getObservacao() == null ? "-" : dizimoLista.get(i).getObservacao(),
-					dizimoLista.get(i).getFuncionario(),
+					dizimoLista.get(i).getFuncionario() < 10 ? "0" + dizimoLista.get(i).getFuncionario() : dizimoLista.get(i).getFuncionario(),
 					dizimoLista.get(i).getData().format(formatter),
 					dizimoLista.get(i).getHora()
 			});
@@ -228,13 +228,14 @@ public class IntFormRelatorioDizimo extends JInternalFrame {
 		model.addColumn("Data");
 		model.addColumn("Hora");
 		
-		tableOferta = new JTable(model);
-		tableOferta.setEnabled(false);
-		tableOferta.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
-		tableOferta.setBackground(new Color(235, 235, 235));
-		tableOferta.setRowHeight(30);
-		scrollPane.setViewportView(tableOferta);
+		tableDizimo = new JTable(model);
+		tableDizimo.setEnabled(false);
+		tableDizimo.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+		tableDizimo.setBackground(new Color(235, 235, 235));
+		tableDizimo.setRowHeight(30);
+		scrollPane.setViewportView(tableDizimo);
 		TableCustom.apply(scrollPane, TableCustom.TableType.MULTI_LINE);
+		tableDizimo.setAutoCreateRowSorter(true);
 		
 		JLabel lblBg = new JLabel("");
 		lblBg.setIcon(new ImageIcon(IntFormRelatorioDizimo.class.getResource("/com/dizimaster/img/heaven-bg.jpg")));

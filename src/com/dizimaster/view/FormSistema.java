@@ -370,6 +370,23 @@ public class FormSistema {
 		mntmGerenciarDizimista
 				.setIcon(new ImageIcon(FormSistema.class.getResource("/com/dizimaster/img/mange-icon.png")));
 		mnDizimista.add(mntmGerenciarDizimista);
+		
+		JMenuItem mntmHistricoDizimista = new JMenuItem("Histórico Dizimista");
+		mntmHistricoDizimista.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				largeDesktopPane.removeAll();
+				IntFormHistorico formHist = new IntFormHistorico();
+				largeDesktopPane.add(intMural);
+				intMural.show();
+				largeDesktopPane.add(formHist);
+				formHist.show();
+			}
+		});
+		mntmHistricoDizimista.setIcon(new ImageIcon(FormSistema.class.getResource("/com/dizimaster/img/history-icon.png")));
+		mntmHistricoDizimista.setPreferredSize(new Dimension(150, 30));
+		mntmHistricoDizimista.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+		mntmHistricoDizimista.setBorder(new MatteBorder(0, 0, 1, 0, (Color) new Color(192, 192, 192)));
+		mnDizimista.add(mntmHistricoDizimista);
 
 		JMenu mnFinanceiro = new JMenu("Financeiro");
 		mnFinanceiro.setForeground(new Color(255, 255, 255));

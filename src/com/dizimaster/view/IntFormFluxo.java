@@ -72,9 +72,11 @@ public class IntFormFluxo extends JInternalFrame {
 		pieChart.clearData();
 		pieChartTotal.clearData();
 		
-		float oferta = OfertaDAO.somaOferta(mes, ano);
-		float dizimo = DizimoDAO.somaDizimo(mes, ano);
-		float despesa = DespesaDAO.somaDespesa(mes, ano);
+		float oferta = 0, dizimo = 0, despesa = 0;
+		
+		oferta = OfertaDAO.somaOferta(mes, ano);
+		dizimo = DizimoDAO.somaDizimo(mes, ano);
+		despesa = DespesaDAO.somaDespesa(mes, ano);
 
 		int index = 0;
 		pieChart.addData(new Grafico("Oferta", oferta, getColor(index++)));
@@ -82,7 +84,7 @@ public class IntFormFluxo extends JInternalFrame {
 
 		Float totalEntrada = dizimo + oferta;
 		Float saldo = totalEntrada - despesa;
-
+		
 		pieChartTotal.addData(new Grafico("Despesas", despesa, getColor(index++)));
 		if (saldo > 0) {
 			pieChartTotal.addData(new Grafico("Saldo Restante", saldo, getColor(index++)));

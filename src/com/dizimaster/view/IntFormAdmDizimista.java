@@ -86,6 +86,7 @@ public class IntFormAdmDizimista extends JInternalFrame {
 		fTxtCelular.setEnabled(false);
 		txtSalario.setText("");
 		txtSalario.setEnabled(false);
+		lblDataCadastro.setText("");
 		chckbxAtivo.setSelected(false);
 		chckbxAtivo.setEnabled(false);
 		btnSalvar.setEnabled(false);
@@ -106,11 +107,11 @@ public class IntFormAdmDizimista extends JInternalFrame {
 		MaskFormatter mascaraCpf = null;
 		try {
 			mascaraNascimento = new MaskFormatter("##/##/####");
-			mascaraNascimento.setPlaceholderCharacter('*');
+			mascaraNascimento.setPlaceholderCharacter('_');
 			mascaraCelular = new MaskFormatter("(##) #####-####");
-			mascaraCelular.setPlaceholderCharacter('*');
+			mascaraCelular.setPlaceholderCharacter('_');
 			mascaraCpf = new MaskFormatter("###.###.###-##");
-			mascaraCpf.setPlaceholderCharacter('*');
+			mascaraCpf.setPlaceholderCharacter('_');
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

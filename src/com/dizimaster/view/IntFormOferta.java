@@ -193,7 +193,7 @@ public class IntFormOferta extends JInternalFrame {
 		MaskFormatter mascaraCpf = null;
 		try {
 			mascaraCpf = new MaskFormatter("###.###.###-##");
-			mascaraCpf.setPlaceholderCharacter('*');
+			mascaraCpf.setPlaceholderCharacter('_');
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
