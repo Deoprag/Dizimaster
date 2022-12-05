@@ -3,7 +3,7 @@
   associations="true" dependencies="false" nesting-relationships="true" router="FAN">  
   <package id="1" language="java" name="com.dizimaster.model" project="Dizimaster" 
     file="/Dizimaster/src/com/dizimaster/model" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="569" width="630" x="94" y="153"/>    
+    <position height="569" width="790" x="94" y="153"/>    
     <display autosize="false" stereotype="true" sort-features="false" accessors="true"/>  
   </package>  
   <class id="2" language="java" name="com.dizimaster.model.Despesa" project="Dizimaster" 
@@ -53,7 +53,7 @@
   </class>  
   <class id="7" language="java" name="com.dizimaster.model.Funcionario" project="Dizimaster" 
     file="/Dizimaster/src/com/dizimaster/model/Funcionario.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="258" width="225" x="481" y="452"/>    
+    <position height="258" width="230" x="477" y="452"/>    
     <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -63,6 +63,15 @@
   <class id="8" language="java" name="com.dizimaster.model.Mes" project="Dizimaster" 
     file="/Dizimaster/src/com/dizimaster/model/Mes.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="219" width="104" x="604" y="212"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="false" package="false" protected="false" private="false" static="true"/>    
+    </display>  
+  </class>  
+  <class id="9" language="java" name="com.dizimaster.model.Historico" project="Dizimaster" 
+    file="/Dizimaster/src/com/dizimaster/model/Historico.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="495" width="149" x="725" y="215"/>    
     <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      

@@ -99,7 +99,7 @@
   </class>  
   <class id="12" language="java" name="com.dizimaster.view.IntFormCadastroFuncionario" project="Dizimaster" 
     file="/Dizimaster/src/com/dizimaster/view/IntFormCadastroFuncionario.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="204" width="226" x="65" y="779"/>    
+    <position height="204" width="226" x="253" y="784"/>    
     <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -160,13 +160,20 @@
       <operations public="false" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <nesting id="19">    
-    <bendpoint x="372" y="880"/>    
-    <bendpoint x="374" y="805"/>    
+  <class id="19" language="java" name="com.dizimaster.view.IntFormHistorico" project="Dizimaster" 
+    file="/Dizimaster/src/com/dizimaster/view/IntFormHistorico.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="146" y="885"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="false" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <nesting id="20">    
     <end type="SOURCE" refId="12"/>    
     <end type="TARGET" refId="7"/>  
   </nesting>  
-  <nesting id="20">    
+  <nesting id="21">    
     <bendpoint x="385" y="553"/>    
     <end type="SOURCE" refId="3"/>    
     <end type="TARGET" refId="4"/>  
