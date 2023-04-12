@@ -6,6 +6,8 @@
  
  24/08/22 - Atualização no levantamento de requisitos. Os principai RF's foram adicionados.
  
+ 03/12/22 - Finalização do Projeto
+ 
  # Requisitos
  
  ## Controle de funcionários
